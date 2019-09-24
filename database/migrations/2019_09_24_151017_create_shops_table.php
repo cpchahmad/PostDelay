@@ -15,10 +15,10 @@ class CreateShopsTable extends Migration
     {
         Schema::create('shops', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->timestamps();
             $table->text('shop_name');
             $table->text('access_token');
             $table->integer('status')->default(1);
-            $table->timestamps();
         });
     }
 
