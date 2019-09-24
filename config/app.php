@@ -162,6 +162,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Oseintow\Shopify\ShopifyServiceProvider::class,
+        RocketCode\Shopify\ShopifyServiceProvider::class,
         /*
          * Package Service Providers...
          */
