@@ -31,6 +31,6 @@ class ShopsController extends Controller
     }
 
     public function Dashboard(){
-        print_r(session('access_token'));
+        dd(session('access_token'));
     }
 }
