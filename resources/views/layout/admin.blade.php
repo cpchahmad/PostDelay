@@ -23,7 +23,7 @@
             <div class="container-fluid">
                 <div>
 
-                    <a href="index.html" class="logo">
+                    <a href="{{ route('shop.dashboard') }}" class="logo">
                         <img src="assets/images/logo.png" alt="" height="26">
                     </a>
 
@@ -47,25 +47,25 @@
                             </div>
                         </li>
                         <li class="list-inline-item notification-list">
-                            <a href="#" class="nav-link waves-effect">
+                            <a href="{{ route('shop.dashboard') }}" class="nav-link waves-effect">
                                 Dashboard
                             </a>
                         </li>
 
                         <li class="list-inline-item notification-list">
-                            <a href="#" class="nav-link waves-effect">
+                            <a href="{{ route('shop.orders') }}" class="nav-link waves-effect">
                                 Orders
                             </a>
                         </li>
 
                         <li class="list-inline-item notification-list">
-                            <a href="#" class="nav-link waves-effect">
+                            <a href="{{ route('shop.customers') }}" class="nav-link waves-effect">
                                 Customers
                             </a>
                         </li>
 
                         <li class="list-inline-item notification-list">
-                            <a href="#" class="nav-link waves-effect">
+                            <a href="{{ route('shop.settings') }}" class="nav-link waves-effect">
                                 Settings
                             </a>
                         </li>

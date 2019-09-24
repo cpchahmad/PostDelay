@@ -21,4 +21,8 @@ Route::get("install", function () {
 
 Route::get("auth", "ShopsController@index");
 Route::get('dashboard', 'ShopsController@Dashboard')->name('shop.dashboard');
+Route::get('orders', 'OrdersController@index')->name('shop.orders');
+Route::get('customers', 'CustomersController@index')->name('shop.customers');
+Route::get('settings', 'SettingsController@index')->name('shop.settings');
+
 
