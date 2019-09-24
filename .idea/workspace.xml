@@ -2,554 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f26eb013-bd43-48c2-af0f-8eb667c83630" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/css/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/icons.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/icons.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/style.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/typicons.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/typicons.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/dripicons-v2.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/dripicons-v2.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/dripicons-v2.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/dripicons-v2.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/fa-brands-400.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/fa-brands-400.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/fa-brands-400.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/fa-brands-400.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/fa-brands-400.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/fa-regular-400.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/fa-regular-400.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/fa-regular-400.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/fa-regular-400.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/fa-regular-400.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/fa-solid-900.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/fa-solid-900.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/fa-solid-900.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/fa-solid-900.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/fa-solid-900.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/ionicons.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/ionicons.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/ionicons.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/ionicons.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/ionicons.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/materialdesignicons-webfont.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/materialdesignicons-webfont.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/materialdesignicons-webfont.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/materialdesignicons-webfont.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/materialdesignicons-webfont.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/themify.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/themify.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/themify.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/themify.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/typicons.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/typicons.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/typicons.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/typicons.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/fonts/typicons.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/css/dripicons.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/css/dripicons.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/css/materialdesignicons.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/css/materialdesignicons.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/css/themify-icons.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/css/themify-icons.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/css/typicons.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/css/typicons.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/dripicons/dripicons.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/dripicons/fonts/dripicons-v2.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/dripicons/fonts/dripicons-v2.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/dripicons/fonts/dripicons-v2.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/dripicons/fonts/dripicons-v2.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/font-awesome/css/fontawesome.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/font-awesome/css/fontawesome.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/font-awesome/scss/fontawesome.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/ionicons/css/ionicons.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/ionicons/css/ionicons.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/ionicons/scss/ionicons.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/ionicons/scss/ionicons.min.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/material-design/css/materialdesignicons.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/material-design/css/materialdesignicons.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/material-design/css/materialdesignicons.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/material-design/css/materialdesignicons.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/material-design/fonts/materialdesignicons-webfont.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/material-design/fonts/materialdesignicons-webfont.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/material-design/fonts/materialdesignicons-webfont.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/material-design/fonts/materialdesignicons-webfont.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/material-design/fonts/materialdesignicons-webfont.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/material-design/materialdesignicons.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/themify-icons/fonts/themify.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/themify-icons/fonts/themify.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/themify-icons/fonts/themify.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/themify-icons/fonts/themify.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/themify-icons/ie7/ie7.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/themify-icons/ie7/ie7.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/themify-icons/themify-icons.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/themify-icons/themify-icons.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/typicons/typicons.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/typicons/typicons.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/typicons/typicons.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/typicons/typicons.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/typicons/typicons.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/typicons/typicons.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/images/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/images/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/images/logo_dark.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/images/small/img-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/images/small/img-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/images/small/img-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/images/small/img-4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/images/small/img-5.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/images/small/img-6.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/images/small/img-7.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/images/users/avatar-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/images/users/avatar-10.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/images/users/avatar-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/images/users/avatar-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/images/users/avatar-4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/images/users/avatar-5.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/images/users/avatar-6.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/images/users/avatar-7.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/images/users/avatar-8.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/images/users/avatar-9.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/app.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/bootstrap.bundle.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/detect.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/fastclick.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/jquery.blockUI.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/jquery.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/jquery.nicescroll.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/jquery.scrollTo.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/jquery.slimscroll.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/modernizr.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/waves.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/pages/alertify-init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/pages/c3-chart-init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/pages/calendar-init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/pages/chartist.init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/pages/chartjs.init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/pages/countdown.int.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/pages/dashboard.int.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/pages/datatables.init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/pages/flot.init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/pages/form-advanced.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/pages/gmaps.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/pages/jvectormap.init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/pages/lightbox.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/pages/morris.init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/pages/nestable-init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/pages/rangeslider-init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/pages/rating-init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/pages/sweet-alert.init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/pages/xeditable.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_account-pages.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_alertify.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_alerts.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_bootstrap-custom.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_buttons.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_calendar.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_card.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_charts.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_demo-only.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_footer.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_form-advanced.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_form-editor.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_form-elements.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_form-upload.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_form-validation.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_general.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_helper.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_loader.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_maps.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_menu.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_nestable.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_page-head.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_pagination.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_popover-tooltips.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_progressbar.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_range-slider.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_summernote.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_sweet-alert.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_tables.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_timeline.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_topbar.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_typeahead.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_variables.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_waves.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/_widgets.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/icons.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/scss/style.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/RWD-Table-Patterns/dist/css/rwd-table.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/RWD-Table-Patterns/dist/css/rwd-table.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/RWD-Table-Patterns/dist/js/rwd-table.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/RWD-Table-Patterns/src/js/rwd-table.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/RWD-Table-Patterns/src/less/rwd-table.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/alertify/css/alertify.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/alertify/js/alertify.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/alertify/js/ngAlertify.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/bootstrap-colorpicker/img/bootstrap-colorpicker/alpha-horizontal.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/bootstrap-colorpicker/img/bootstrap-colorpicker/alpha.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/bootstrap-colorpicker/img/bootstrap-colorpicker/hue-horizontal.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/bootstrap-colorpicker/img/bootstrap-colorpicker/hue.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/bootstrap-colorpicker/img/bootstrap-colorpicker/saturation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/bootstrap-inputmask/bootstrap-inputmask.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/bootstrap-maxlength/bootstrap-maxlength.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/bootstrap-maxlength/src/bootstrap-maxlength.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/bootstrap-rating/bootstrap-rating.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/bootstrap-rating/bootstrap-rating.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/c3/c3.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/c3/c3.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/c3/c3.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/c3/c3.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/chartist/css/chartist.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/chartist/css/chartist.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/chartist/js/chartist-plugin-tooltip.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/chartist/js/chartist.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/chartjs/chart.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/countdown/jquery.countdown.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/d3/d3.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/d3/d3.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/datatables/buttons.bootstrap4.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/datatables/buttons.bootstrap4.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/datatables/buttons.colVis.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/datatables/buttons.html5.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/datatables/buttons.print.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/datatables/dataTables.bootstrap4.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/datatables/dataTables.bootstrap4.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/datatables/dataTables.buttons.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/datatables/dataTables.responsive.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/datatables/jquery.dataTables.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/datatables/json/scroller-demo.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/datatables/jszip.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/datatables/pdfmake.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/datatables/responsive.bootstrap4.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/datatables/responsive.bootstrap4.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/datatables/vfs_fonts.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/dropzone/dist/basic.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/dropzone/dist/dropzone-amd-module.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/dropzone/dist/dropzone.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/dropzone/dist/dropzone.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/dropzone/dist/min/basic.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/dropzone/dist/min/dropzone-amd-module.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/dropzone/dist/min/dropzone.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/dropzone/dist/min/dropzone.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/dropzone/dist/readme.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/flot-chart/curvedLines.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/flot-chart/jquery.flot.crosshair.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/flot-chart/jquery.flot.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/flot-chart/jquery.flot.orderBars.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/flot-chart/jquery.flot.pie.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/flot-chart/jquery.flot.resize.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/flot-chart/jquery.flot.selection.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/flot-chart/jquery.flot.stack.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/flot-chart/jquery.flot.time.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/flot-chart/jquery.flot.tooltip.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/fullcalendar/css/fullcalendar.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/fullcalendar/js/fullcalendar.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/gmaps/gmaps.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/gmaps/gmaps.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/gmaps/gmaps.min.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/gmaps/lib/gmaps.controls.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/gmaps/lib/gmaps.core.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/gmaps/lib/gmaps.events.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/gmaps/lib/gmaps.geofences.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/gmaps/lib/gmaps.geometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/gmaps/lib/gmaps.layers.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/gmaps/lib/gmaps.map_types.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/gmaps/lib/gmaps.markers.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/gmaps/lib/gmaps.native_extensions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/gmaps/lib/gmaps.overlays.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/gmaps/lib/gmaps.routes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/gmaps/lib/gmaps.static.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/gmaps/lib/gmaps.streetview.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/gmaps/lib/gmaps.styles.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/gmaps/lib/gmaps.utils.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/ion-rangeslider/css/ion.rangeSlider.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/ion-rangeslider/css/ion.rangeSlider.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/ion-rangeslider/js/ion.rangeSlider.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/ion-rangeslider/js/ion.rangeSlider.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/jquery-knob/excanvas.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/jquery-knob/jquery.knob.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/jquery-ui/jquery-ui.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/jquery-ui/jquery-ui.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/jvectormap/gdp-data.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/jvectormap/jquery-jvectormap-2.0.2.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/jvectormap/jquery-jvectormap-europe-mill-en.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/jvectormap/jquery-jvectormap-uk-mill-en.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/jvectormap/jquery-jvectormap-us-aea-en.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/jvectormap/jquery-jvectormap-us-il-chicago-mill-en.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/jvectormap/jquery-jvectormap-world-mill-en.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/magnific-popup/jquery.magnific-popup.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/magnific-popup/jquery.magnific-popup.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/magnific-popup/magnific-popup.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/moment/moment.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/morris/morris.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/morris/morris.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/morris/morris.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/nestable/jquery.nestable.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/nestable/jquery.nestable.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/parsleyjs/parsley.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/raphael/raphael.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/font/summernote.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/font/summernote.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/font/summernote.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-ar-AR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-ar-AR.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-bg-BG.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-bg-BG.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-ca-ES.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-ca-ES.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-cs-CZ.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-cs-CZ.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-da-DK.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-da-DK.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-de-DE.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-de-DE.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-el-GR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-el-GR.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-es-ES.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-es-ES.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-es-EU.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-es-EU.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-fa-IR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-fa-IR.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-fi-FI.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-fi-FI.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-fr-FR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-fr-FR.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-gl-ES.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-gl-ES.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-he-IL.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-he-IL.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-hr-HR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-hr-HR.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-hu-HU.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-hu-HU.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-id-ID.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-id-ID.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-it-IT.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-it-IT.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-ja-JP.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-ja-JP.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-ko-KR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-ko-KR.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-lt-LT.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-lt-LT.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-lt-LV.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-lt-LV.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-mn-MN.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-mn-MN.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-nb-NO.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-nb-NO.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-nl-NL.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-nl-NL.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-pl-PL.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-pl-PL.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-pt-BR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-pt-BR.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-pt-PT.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-pt-PT.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-ro-RO.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-ro-RO.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-ru-RU.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-ru-RU.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-sk-SK.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-sk-SK.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-sl-SI.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-sl-SI.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-sr-RS-Latin.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-sr-RS-Latin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-sr-RS.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-sr-RS.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-sv-SE.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-sv-SE.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-ta-IN.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-ta-IN.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-th-TH.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-th-TH.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-tr-TR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-tr-TR.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-uk-UA.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-uk-UA.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-vi-VN.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-vi-VN.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-zh-CN.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-zh-CN.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-zh-TW.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/lang/summernote-zh-TW.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/summernote-bs4.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/summernote/summernote-bs4.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/sweet-alert2/sweetalert2.all.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/sweet-alert2/sweetalert2.all.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/sweet-alert2/sweetalert2.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/sweet-alert2/sweetalert2.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/sweet-alert2/sweetalert2.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/sweet-alert2/sweetalert2.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tiny-editable/mindmup-editabletable.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tiny-editable/numeric-input-example.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/jquery.tinymce.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/langs/readme.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/license.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/advlist/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/anchor/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/autolink/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/autoresize/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/autosave/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/bbcode/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/charmap/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/code/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/codesample/css/prism.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/codesample/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/colorpicker/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/contextmenu/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/directionality/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/emoticons/img/smiley-cool.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/emoticons/img/smiley-cry.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/emoticons/img/smiley-embarassed.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/emoticons/img/smiley-foot-in-mouth.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/emoticons/img/smiley-frown.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/emoticons/img/smiley-innocent.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/emoticons/img/smiley-kiss.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/emoticons/img/smiley-laughing.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/emoticons/img/smiley-money-mouth.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/emoticons/img/smiley-sealed.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/emoticons/img/smiley-smile.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/emoticons/img/smiley-surprised.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/emoticons/img/smiley-tongue-out.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/emoticons/img/smiley-undecided.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/emoticons/img/smiley-wink.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/emoticons/img/smiley-yell.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/emoticons/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/example/dialog.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/example/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/example_dependency/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/fullpage/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/fullscreen/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/hr/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/image/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/imagetools/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/importcss/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/insertdatetime/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/layer/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/legacyoutput/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/link/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/lists/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/media/moxieplayer.swf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/media/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/nonbreaking/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/noneditable/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/pagebreak/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/paste/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/preview/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/print/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/save/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/searchreplace/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/spellchecker/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/tabfocus/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/table/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/template/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/textcolor/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/textpattern/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/visualblocks/css/visualblocks.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/visualblocks/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/visualchars/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/plugins/wordcount/plugin.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/skins/lightgray/content.inline.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/skins/lightgray/content.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/skins/lightgray/fonts/tinymce-small.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/skins/lightgray/fonts/tinymce-small.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/skins/lightgray/fonts/tinymce-small.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/skins/lightgray/fonts/tinymce-small.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/skins/lightgray/fonts/tinymce.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/skins/lightgray/fonts/tinymce.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/skins/lightgray/fonts/tinymce.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/skins/lightgray/fonts/tinymce.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/skins/lightgray/img/anchor.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/skins/lightgray/img/loader.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/skins/lightgray/img/object.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/skins/lightgray/img/trans.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/skins/lightgray/skin.ie7.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/skins/lightgray/skin.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/config/bolt/atomic.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/config/bolt/bootstrap-atomic.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/config/bolt/bootstrap-browser.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/config/bolt/bootstrap-demo.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/config/bolt/bootstrap-prod.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/config/bolt/browser.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/config/bolt/demo.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/config/bolt/prod.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/config/dent/depend.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/scratch/compile/bootstrap.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/scratch/compile/theme.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/scratch/inline/theme.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/scratch/inline/theme.raw.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/demo/css/demo.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/demo/html/demo.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/demo/js/tinymce/inlite/Demo.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/main/js/tinymce/inlite/Theme.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/main/js/tinymce/inlite/alien/Arr.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/main/js/tinymce/inlite/alien/Bookmark.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/main/js/tinymce/inlite/alien/Unlink.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/main/js/tinymce/inlite/alien/Uuid.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/main/js/tinymce/inlite/core/Actions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/main/js/tinymce/inlite/core/Convert.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/main/js/tinymce/inlite/core/ElementMatcher.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/main/js/tinymce/inlite/core/Layout.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/main/js/tinymce/inlite/core/Matcher.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/main/js/tinymce/inlite/core/Measure.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/main/js/tinymce/inlite/core/PredicateId.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/main/js/tinymce/inlite/core/SelectionMatcher.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/main/js/tinymce/inlite/core/SkinLoader.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/main/js/tinymce/inlite/core/UrlType.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/main/js/tinymce/inlite/file/Conversions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/main/js/tinymce/inlite/file/Picker.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/main/js/tinymce/inlite/ui/Buttons.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/main/js/tinymce/inlite/ui/Forms.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/main/js/tinymce/inlite/ui/Panel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/main/js/tinymce/inlite/ui/Toolbar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/test/.eslintrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/test/js/atomic/alien/ArrTest.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/test/js/atomic/alien/UuidTest.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/test/js/atomic/core/ConvertTest.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/test/js/atomic/core/MatcherTest.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/test/js/atomic/core/UrlTypeTest.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/test/js/browser/ThemeTest.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/test/js/browser/alien/BookmarkTest.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/test/js/browser/alien/UnlinkTest.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/test/js/browser/core/ActionsTest.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/test/js/browser/core/ElementMatcher.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/test/js/browser/core/LayoutTest.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/test/js/browser/core/MeasureTest.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/test/js/browser/core/PredicateIdTest.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/test/js/browser/core/SelectionMatcherTest.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/test/js/browser/file/ConversionsTest.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/src/test/js/browser/file/SelectionMatcher.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/inlite/theme.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/themes/modern/theme.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/tinymce/tinymce.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/x-editable/css/bootstrap-editable.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/x-editable/img/clear.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/x-editable/img/loading.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/x-editable/js/bootstrap-editable.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/plugins/x-editable/js/bootstrap-editable.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/inc/footer.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/inc/header.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ShopsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ShopsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/email.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/email.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -571,11 +24,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/dashboard.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="20" lean-forward="true" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
+            <state relative-caret-position="245">
+              <caret line="64" column="37" selection-start-line="64" selection-start-column="37" selection-end-line="64" selection-end-column="37" />
               <folding>
                 <element signature="n#div#2;n#!!top" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#!!top" expanded="true" />
@@ -597,10 +50,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/layout/admin.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
+            <state relative-caret-position="500">
               <caret line="140" column="34" lean-forward="true" selection-start-line="140" selection-start-column="34" selection-end-line="140" selection-end-column="34" />
               <folding>
                 <element signature="n#style#0;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -639,8 +92,8 @@
         <option value="$PROJECT_DIR$/resources/views/inc/footer.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/inc/header.blade.php" />
         <option value="$PROJECT_DIR$/resources/layout/admin.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/dashboard.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/layout/admin.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/dashboard.blade.php" />
       </list>
     </option>
   </component>
@@ -834,18 +287,18 @@
       <workItem from="1558830848981" duration="267000" />
       <workItem from="1558831135833" duration="2847000" />
       <workItem from="1558911232329" duration="6244000" />
-      <workItem from="1569334878301" duration="7354000" />
+      <workItem from="1569334878301" duration="7613000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16712000" />
+    <option name="totallyTimeSpent" value="16971000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="752" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26096824" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26096824" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -860,7 +313,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.32956383" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.32956383" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -1025,10 +478,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layout/admin.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="140" column="34" lean-forward="true" selection-start-line="140" selection-start-column="34" selection-end-line="140" selection-end-column="34" />
+          <folding>
+            <element signature="n#style#0;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#style#0;n#div#1;n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/dashboard.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="20" lean-forward="true" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
+        <state relative-caret-position="245">
+          <caret line="64" column="37" selection-start-line="64" selection-start-column="37" selection-end-line="64" selection-end-column="37" />
           <folding>
             <element signature="n#div#2;n#!!top" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#!!top" expanded="true" />
@@ -1045,18 +510,6 @@
             <element signature="n#style#0;n#div#0;n#div#0;n#td#4;n#tr#3;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#4;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#td#4;n#tr#4;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#4;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#td#4;n#tr#4;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#4;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layout/admin.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="140" column="34" lean-forward="true" selection-start-line="140" selection-start-column="34" selection-end-line="140" selection-end-column="34" />
-          <folding>
-            <element signature="n#style#0;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#style#0;n#div#1;n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

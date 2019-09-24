@@ -2,7 +2,7 @@
 @section('content')
 
     <div class="row">
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-3 col-md-3">
             <div class="card bg-primary mini-stat text-white">
                 <div class="p-3 mini-stat-desc">
                     <div class="clearfix">
@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-3 col-md-3">
             <div class="card bg-info mini-stat text-white">
                 <div class="p-3 mini-stat-desc">
                     <div class="clearfix">
@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-3 col-md-3">
             <div class="card bg-pink mini-stat text-white">
                 <div class="p-3 mini-stat-desc">
                     <div class="clearfix">
@@ -62,7 +62,7 @@
             </div>
         </div>
 
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-3 col-md-3">
             <div class="card bg-success mini-stat text-white">
                 <div class="p-3 mini-stat-desc">
                     <div class="clearfix">
