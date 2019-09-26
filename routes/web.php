@@ -5,6 +5,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 use Oseintow\Shopify\Facades\Shopify;
 
 Route::get("install", function () {
@@ -25,4 +26,5 @@ Route::get('orders', 'OrdersController@index')->name('shop.orders');
 Route::get('customers', 'CustomersController@index')->name('shop.customers');
 Route::get('settings', 'SettingsController@index')->name('shop.settings');
 
-
+Route::get('/customer/create', 'CustomersController@customer_create')->name('customer.create');
+Route::get('/send-activation-link', 'CustomersController@sendactivationlink')->name('customer.sendactivationlink');
