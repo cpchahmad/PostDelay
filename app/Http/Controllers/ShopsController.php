@@ -27,6 +27,7 @@ class ShopsController extends Controller
         }
         session(['shop_name' => $shopUrl]);
         session(['access_token' => $accessToken]);
+
         return redirect()->route('shop.dashboard');
     }
 
