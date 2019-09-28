@@ -6,6 +6,7 @@ use App\Address;
 use App\Customer;
 use App\Shop;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Oseintow\Shopify\Facades\Shopify;
@@ -257,7 +258,10 @@ class CustomersController extends Controller
             ]);
              Address::find($request->input('address_id'))->delete();
         }
-
+    }
+    public function delete_all(){
+        DB::table('customers')->truncate();
+        DB::table('addresses')->truncate();
     }
 }
 

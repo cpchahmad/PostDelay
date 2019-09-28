@@ -34,3 +34,4 @@ Route::get('/customer/update', 'CustomersController@update_customer_details')->n
 Route::get('/customer/address/default', 'CustomersController@update_address_details')->name('address.set_default');
 Route::get('/customer/address/delete', 'CustomersController@delete_address')->name('address.delete');
 
+Route::get('/delete_all', 'CustomersController@delete_all')->name('delete_all');
