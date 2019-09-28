@@ -28,3 +28,9 @@ Route::get('settings', 'SettingsController@index')->name('shop.settings');
 
 Route::get('/customer/create', 'CustomersController@customer_create')->name('customer.create');
 Route::get('/send-activation-link', 'CustomersController@sendactivationlink')->name('customer.sendactivationlink');
+Route::get('/customer/add/address', 'CustomersController@add_customer_addresses')->name('customer.add_address');
+Route::get('/customer/get/details', 'CustomersController@get_customer_details')->name('customer.get_details');
+Route::get('/customer/update', 'CustomersController@update_customer_details')->name('customer.update');
+Route::get('/customer/address/default', 'CustomersController@update_address_details')->name('address.set_default');
+Route::get('/customer/address/delete', 'CustomersController@delete_address')->name('address.delete');
+
