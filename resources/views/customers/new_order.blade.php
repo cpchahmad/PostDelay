@@ -1,3 +1,6 @@
+<form id="place_order_form" action="/place/order" method="GET">
+
+    <input type="hidden" value="{{$addresses[0]->shopify_customer_id}}" name="customer_id">
 <div class="page-double-left equ">
     <div class="Form-wraper">
         <div class="Form-contaner">
@@ -68,7 +71,7 @@
                         <div class="custom_fields_half">
                             <div class="custom_Request_fields_half">
                                 <label for="PosteCode">Poste Code</label>
-                                <input type="text" required="" name="sender_postecode" id="PosteCode" @if($sender_address != null) value="{{$sender_address->postecode}}" @endif placeholder="">
+                                <input type="text" required="" name="sender_postecode" id="PosteCode" @if($sender_address != null) value="{{$sender_address->postcode}}" @endif placeholder="">
                             </div>
                         </div>
 
@@ -156,7 +159,7 @@
                         <div class="custom_fields_half">
                             <div class="custom_Request_fields_half">
                                 <label for="PosteCode">Poste Code</label>
-                                <input type="text" required="" name="receipent_postecode" id="PosteCode" @if($recipient_address != null) value="{{$recipient_address->postecode}}" @endif placeholder="">
+                                <input type="text" required="" name="receipent_postecode" id="PosteCode" @if($recipient_address != null) value="{{$recipient_address->postcode}}" @endif placeholder="">
                             </div>
                         </div>
 
@@ -170,8 +173,8 @@
 
                     <div class="custom_fields_half">
                         <div class="custom_Request_fields_half Get-contect-right">
-                            <label for="Phone">Email</label>
-                            <input type="text" required="" name="receipent_email" id="email" @if($recipient_address != null) value="{{$recipient_address->email}}" @endif placeholder="">
+                            <label for="Phone">Phone</label>
+                            <input type="text" required="" name="receipent_phone" id="phone" @if($recipient_address != null) value="{{$recipient_address->phone}}" @endif placeholder="">
                         </div>
                     </div>
 
@@ -179,8 +182,8 @@
                 </div>
 
             </div>
-            <div class="Form-field-contaner">
-                <div class="Form-content-name">
+            <div class="Form-field-contaner" style="display:none">
+                <div class="Form-content-name" >
                     <p>Shipping Quotes</p>
                 </div>
 
@@ -319,7 +322,7 @@
                     <div class="custom_fields_half">
                         <div class="custom_Request_fields_half">
                             <label for="PosteCode">Poste Code</label>
-                            <input type="text" required="" name="billing_postecode" id="PosteCode" @if($billing_address != null) value="{{$billing_address->postecode}}" @endif placeholder="">
+                            <input type="text" required="" name="billing_postecode" id="PosteCode" @if($billing_address != null) value="{{$billing_address->postcode}}" @endif placeholder="">
                         </div>
                     </div>
 
@@ -353,7 +356,7 @@
                     <div class="custom_fields_half">
                         <div class="custom_Request_fields_half  ">
                             <label for="Type">Type</label>
-                            <select name="post_type" form="Type">
+                            <select name="post_type">
                                 <option value="postcard">Postcard</option>
                                 <option value="letter">Letter</option>
                                 <option value="large_envelope">Large Envelope</option>
@@ -372,7 +375,7 @@
                     <div class="custom_fields_half">
                         <div class="custom_Request_fields_half  ">
                             <label for="Shape">Shape</label>
-                            <select name="shape" form="Type">
+                            <select name="shape" >
                                 <option value="box">Box</option>
                                 <option value="light_box">Light Box</option>
                             </select>
@@ -382,7 +385,7 @@
                     <div class="custom_fields_half">
                         <div class="custom_Request_fields_half  ">
                             <label for="Shape">Unit of Measure</label>
-                            <select name="unit_of_measures" form="Type">
+                            <select name="unit_of_measures">
                                 <option value="mm">milimetres</option>
                                 <option value="cm">centimetres</option>
                                 <option value="in">inches</option>
@@ -433,34 +436,33 @@
                     <div class="custom_fields_half">
                         <div class="custom_Request_fields_half  ">
                             <label for="Shape">Ship Out Date</label>
-                            <input type="date" required="" name="ship-out-date" id="Country" value="" placeholder="">
+                            <input type="date" required="" name="ship_out_date" id="Country" value="" placeholder="">
                         </div>
                     </div>
 
-                    <input type="submit" class="Same-button" value="Get Quote">
+                    <input type="submit" class="Same-button" value="Place Order">
                 </div>
 
-
             </div>
-            <div class="Form-field-contaner">
+            <div class="Form-field-contaner" style="display: none">
                 <div class="Form-content-detail">
                     <div class="three-field-Row" >
                         <div class="custom_fields_half">
                             <div class="custom_Request_fields_half tow-field-Row-left ">
                                 <label for="Order ID">Card Number</label>
-                                <input type="text" required="" name="card_no" id="FirstName" value="" placeholder="">
+                                <input type="text"  name="card_no" id="FirstName" value="" placeholder="">
                             </div>
                         </div>
                         <div class="custom_fields_half">
                             <div class="custom_Request_fields_half tow-field-Row-right">
                                 <label for="Order ID">Card Expiry</label>
-                                <input type="text" required="" name="card_expires" id="FirstName" value="" placeholder="">
+                                <input type="text"  name="card_expires" id="FirstName" value="" placeholder="">
                             </div>
                         </div>
                         <div class="custom_fields_half">
                             <div class="custom_Request_fields_half tow-field-Row-right">
                                 <label for="Order ID">Card CVV</label>
-                                <input type="text" required="" name="card_cvv" id="FirstName" value="" placeholder="">
+                                <input type="text"  name="card_cvv" id="FirstName" value="" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -470,4 +472,4 @@
         </div>
     </div>
 </div>
-
+</form>

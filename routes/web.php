@@ -23,10 +23,13 @@ Route::get("install", function () {
 });
 
 Route::get("auth", "ShopsController@index");
+Route::prefix('admin')->group(function () {
+    Route::get('orders', 'OrdersController@index')->name('shop.orders');
+    Route::get('customers', 'CustomersController@index')->name('shop.customers');
+    Route::get('settings', 'SettingsController@index')->name('shop.settings');
+});
+
 Route::get('dashboard', 'ShopsController@Dashboard')->name('shop.dashboard');
-Route::get('orders', 'OrdersController@index')->name('shop.orders');
-Route::get('customers', 'CustomersController@index')->name('shop.customers');
-Route::get('settings', 'SettingsController@index')->name('shop.settings');
 
 Route::get('/customer/create', 'CustomersController@customer_create')->name('customer.create');
 Route::get('/send-activation-link', 'CustomersController@sendactivationlink')->name('customer.sendactivationlink');
@@ -38,7 +41,11 @@ Route::get('/customer/address/delete', 'CustomersController@delete_address')->na
 
 Route::get('/delete_all', 'CustomersController@delete_all')->name('delete_all');
 Route::get('/draft', 'CustomersController@draft_orders')->name('draft_orders');
-Route::get('/customer/get/new_order', 'CustomersController@show_new_order')->name('show_new_order');
-Route::get('/customer/put/addresses', 'CustomersController@put_addresses')->name('put_addresses');
+Route::get('/customer/get/new_order', 'OrdersController@show_new_order')->name('show_new_order');
+Route::get('/customer/put/addresses', 'OrdersController@put_addresses')->name('put_addresses');
 
 Route::get('/rates', 'CustomersController@get_rates')->name('get_rates');
+Route::GET('/place/order', 'OrdersController@place_order')->name('place_order');
+Route::GET('/sync-orders', 'OrdersController@get_order')->name('get_order');
+
+Route::GET('/orders', 'OrdersController@show_existing_orders')->name('show_existing_orders');

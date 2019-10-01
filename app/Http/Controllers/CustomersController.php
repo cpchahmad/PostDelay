@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Address;
+use App\BillingAddress;
 use App\Customer;
+use App\Order;
+use App\PackageDetail;
+use App\RecipientAddress;
+use App\SenderAddress;
 use App\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -325,36 +330,6 @@ class CustomersController extends Controller
         dd($draft_orders);
     }
 
-    public function show_new_order(Request $request)
-    {
-        $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
-        $customer_addresses = Address::where('shopify_customer_id', $request->input('customer_id'))
-            ->where('shop_id', $shop)->get();
-        $returnHTML = view('customers.new_order', ['addresses' => $customer_addresses, 'billing_address' => null, 'sender_address' => null, 'recipient_address' => null])->render();
-        return response()->json([
-            "html" => $returnHTML,
-        ]);
-    }
-
-    public function put_addresses(Request $request)
-    {
-        $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
-        $customer_addresses = Address::where('shopify_customer_id', $request->input('customer_id'))
-            ->where('shop_id', $shop)->get();
-        $billing_address = Address::find($request->input('billing_address'));
-        $sender_address = Address::find($request->input('sender_address'));
-        $recipient_address = Address::find($request->input('recipient_address'));
-        $returnHTML = view('customers.new_order', [
-            'addresses' => $customer_addresses,
-            'billing_address' => $billing_address,
-            'sender_address' => $sender_address,
-            'recipient_address' => $recipient_address
-        ])->render();
-        return response()->json([
-            "html" => $returnHTML,
-        ]);
-    }
-
 
     public function get_rates(Request $request)
     {
@@ -372,61 +347,68 @@ class CustomersController extends Controller
 //
 ///*24627413073*/
 //        dd($provider);
-       $rates =  $this->helper->getShop('postdelay.myshopify.com')->call([
-            'METHOD' => 'POST',
-            'URL' => 'https://postdelay.shopifyapplications.com/',
-            'DATA' =>
-                [
-                    "rate"=> [
-                        "origin"=> [
-                            "country"=> "CA",
-                            "postal_code"=> "K2P1L4",
-                            "province"=> "ON",
-                            "city"=> "Ottawa",
-                            "name"=> null,
-                            "address1"=> "150 Elgin St.",
-                            "address2"=> "",
-                            "address3"=> null,
-                            "phone"=> "16135551212",
-                            "fax"=> null,
-                            "email"=> null,
-                            "address_type"=> null,
-                            "company_name"=> "Jamie D's Emporium"
-                        ],
-                        "destination"=> [
-                            "country"=> "CA",
-                            "postal_code"=> "K1M1M4",
-                            "province"=> "ON",
-                            "city"=> "Ottawa",
-                            "name"=> "Bob Norman",
-                            "address1"=> "24 Sussex Dr.",
-                            "address2"=> "",
-                            "address3"=> null,
-                            "phone"=> null,
-                            "fax"=> null,
-                            "email"=> null,
-                            "address_type"=> null,
-                            "company_name"=> null
-                        ],
-                        "items"=> [[
-                            "name"=> "Short Sleeve T-Shirt",
-                            "sku"=> "",
-                            "quantity"=> 1,
-                            "grams"=> 1000,
-                            "price"=> 1999,
-                            "vendor"=> "Jamie D's Emporium",
-                            "requires_shipping"=> true,
-                            "taxable"=> true,
-                            "fulfillment_service"=> "manual",
-                            "properties"=> null,
-                            "variant_id"=> 30341585371217
-                        ]],
-                        "currency"=> "USD",
-                        "locale"=> "en"
-                    ]
-                ]
+//       $rates =  $this->helper->getShop('postdelay.myshopify.com')->call([
+//            'METHOD' => 'POST',
+//            'URL' => 'https://postdelay.shopifyapplications.com/',
+//            'DATA' =>
+//                [
+//                    "rate"=> [
+//                        "origin"=> [
+//                            "country"=> "CA",
+//                            "postal_code"=> "K2P1L4",
+//                            "province"=> "ON",
+//                            "city"=> "Ottawa",
+//                            "name"=> null,
+//                            "address1"=> "150 Elgin St.",
+//                            "address2"=> "",
+//                            "address3"=> null,
+//                            "phone"=> "16135551212",
+//                            "fax"=> null,
+//                            "email"=> null,
+//                            "address_type"=> null,
+//                            "company_name"=> "Jamie D's Emporium"
+//                        ],
+//                        "destination"=> [
+//                            "country"=> "CA",
+//                            "postal_code"=> "K1M1M4",
+//                            "province"=> "ON",
+//                            "city"=> "Ottawa",
+//                            "name"=> "Bob Norman",
+//                            "address1"=> "24 Sussex Dr.",
+//                            "address2"=> "",
+//                            "address3"=> null,
+//                            "phone"=> null,
+//                            "fax"=> null,
+//                            "email"=> null,
+//                            "address_type"=> null,
+//                            "company_name"=> null
+//                        ],
+//                        "items"=> [[
+//                            "name"=> "Short Sleeve T-Shirt",
+//                            "sku"=> "",
+//                            "quantity"=> 1,
+//                            "grams"=> 1000,
+//                            "price"=> 1999,
+//                            "vendor"=> "Jamie D's Emporium",
+//                            "requires_shipping"=> true,
+//                            "taxable"=> true,
+//                            "fulfillment_service"=> "manual",
+//                            "properties"=> null,
+//                            "variant_id"=> 30341585371217
+//                        ]],
+//                        "currency"=> "USD",
+//                        "locale"=> "en"
+//                    ]
+//                ]
+//        ]);
+//       dd($rates);
+
+        $rates =  $this->helper->getShop('postdelay.myshopify.com')->call([
+            'METHOD' => 'GET',
+            'URL' => 'admin/carrier_services.json',
         ]);
-       dd($rates);
+        dd($rates);
     }
+
 }
 

@@ -1,0 +1,19 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Order extends Model
+{
+   protected $fillable = [
+       'draft_order_id','checkout_token','ship_out_date','checkout_completed','shopify_order_id',
+       'shopify_customer_id','order_name','order_total','payment_gateway','shipping_method_title','shipping_method_id',
+       'shipping_method_price','shipping_method_source','status_id','customer_id','package_detail_id','billing_address_id',
+       'sender_address_id','recipient_address_id','token'
+   ];
+
+   public function has_status(){
+       return $this->belongsTo('App\Status','status_id');
+   }
+}
