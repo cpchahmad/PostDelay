@@ -11,7 +11,9 @@ use Oseintow\Shopify\Facades\Shopify;
 Route::get("install", function () {
     if ($_GET["shop"]) {
         $shopUrl = $_GET["shop"];
-        $scope = ["read_orders", "read_products", "read_product_listings", "write_orders", "read_customers", "write_customers","read_script_tags", "write_script_tags"];
+        $scope = ["read_orders", "read_products", "read_product_listings", "write_orders",
+            "read_customers", "write_customers","read_script_tags", "write_script_tags","read_draft_orders",'write_draft_orders',
+            "read_shipping","write_shipping"];
         $redirectUrl = env('APP_URL')."/auth";
         $shopify = Shopify::setShopUrl($shopUrl);
         return redirect()->to($shopify->getAuthorizeUrl($scope, $redirectUrl));
@@ -35,3 +37,8 @@ Route::get('/customer/address/default', 'CustomersController@update_address_deta
 Route::get('/customer/address/delete', 'CustomersController@delete_address')->name('address.delete');
 
 Route::get('/delete_all', 'CustomersController@delete_all')->name('delete_all');
+Route::get('/draft', 'CustomersController@draft_orders')->name('draft_orders');
+Route::get('/customer/get/new_order', 'CustomersController@show_new_order')->name('show_new_order');
+Route::get('/customer/put/addresses', 'CustomersController@put_addresses')->name('put_addresses');
+
+Route::get('/rates', 'CustomersController@get_rates')->name('get_rates');
