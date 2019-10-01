@@ -4,6 +4,9 @@
     <list default="true" id="f26eb013-bd43-48c2-af0f-8eb667c83630" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CustomersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CustomersController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OrdersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OrdersController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/customers/new_order.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/customers/new_order.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -184,7 +187,7 @@
       <workItem from="1569655295710" duration="10186000" />
       <workItem from="1569828470738" duration="229000" />
       <workItem from="1569841956231" duration="7103000" />
-      <workItem from="1569913905695" duration="8553000" />
+      <workItem from="1569913905695" duration="26178000" />
     </task>
     <task id="LOCAL-00001" summary="Commit: 28Sept2019(Fazal)">
       <created>1569664246894</created>
