@@ -49,3 +49,4 @@ Route::GET('/place/order', 'OrdersController@place_order')->name('place_order');
 Route::GET('/sync-orders', 'OrdersController@get_order')->name('get_order');
 
 Route::GET('/orders', 'OrdersController@show_existing_orders')->name('show_existing_orders');
+Route::GET('/getdata', 'OrdersController@getData')->name('getData');

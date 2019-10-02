@@ -16,4 +16,20 @@ class Order extends Model
    public function has_status(){
        return $this->belongsTo('App\Status','status_id');
    }
+
+    public function has_sender(){
+        return $this->belongsTo('App\SenderAddress','sender_address_id');
+    }
+    public function has_package_detail(){
+        return $this->belongsTo('App\PackageDetail','package_detail_id');
+    }
+
+    public function has_billing(){
+        return $this->belongsTo('App\BillingAddress','billing_address_id');
+    }
+
+public function has_recepient(){
+    return $this->belongsTo('App\RecipientAddress','recipient_address_id');
+
+}
 }
