@@ -219,4 +219,26 @@ class OrdersController extends Controller
             "html" => $returnHTML,
         ]);
     }
+
+    public function getData(Request $request){
+
+        if($request->input('customer_url') != null){
+            $token = explode('/',$request->input('customer_url'))[5];
+            $order = Order::where('token',$token)->first();
+            if($order !=  null){
+                $sender_form = view('customers.inc.sender_detail_form', ['order' => $order])->render();
+                $order_status = view('customers.inc.order_status', ['order' => $order])->render();
+                $shipment_details = view('customers.inc.package_detail', ['order' => $order])->render();
+                $billing_email = view('customers.inc.billing_email', ['order' => $order])->render();
+                $recepient_email = view('customers.inc.recepient_email', ['order' => $order])->render();
+                return response()->json([
+                    "sender_form_html" => $sender_form,
+                    "order_status" => $order_status,
+                    "shipment_details" => $shipment_details,
+                    "billing_email" => $billing_email,
+                    "recepient_email" => $recepient_email,
+                ]);
+            }
+        }
+    }
 }
