@@ -13,14 +13,16 @@ use App\Scale;
 use App\SenderAddress;
 use App\Shape;
 use App\Shop;
+use App\Status;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
 {
 
     public function index(){
-//        dd(session('shop_name'));
-        return view('orders.index');
+        $orders=Order::all();
+        $status=Status::all();
+        return view('orders.index',compact('orders','status'));
     }
     public function place_order(Request $request){
 

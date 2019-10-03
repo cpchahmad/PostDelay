@@ -26,6 +26,50 @@
                 </div>
 
             </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table_custom">
+                            <thead>
+                            <tr>
+                                <th scope="col">Order Name</th>
+                                <th scope="col">Customer Email</th>
+                                <th scope="col">Order Placement Date</th>
+                                <th scope="col">Price</th>
+                                <th scope="col"> Current Status</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($orders as $order)
+                            <tr>
+                                <th scope="row"> <a href="{{route('order_update',$order->customer_id)}}">{{$order->order_name}}</a></th>
+                                <td>{{$order->has_customer->email}}</td>
+                                <td> {{\Carbon\Carbon::parse($order->created_at)->format('F j ,Y')}}</td>
+                                <td> ${{$order->order_total}}</td>
+                                <td>
+                                    {{$order->has_status->name}}
+                                    {{--<select class="form-control">--}}
+                                        {{--@foreach($status as $sta)--}}
+                                        {{--<option>{{$sta->name}}</option>--}}
+                                            {{--@endforeach--}}
+                                    {{--</select>--}}
+
+                                </td>
+                               <td>
+                                   <a href="{{route('order_update',$order->customer_id)}}">
+                                   <button type="submit" class="btn btn-warning waves-effect waves-light btn-sm">View</button>
+                                   </a>
+                                   <button type="button" class="btn btn-danger waves-effect waves-light btn-sm">Delete</button>
+                               </td>
+                            </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
 @endsection
