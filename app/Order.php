@@ -32,4 +32,7 @@ public function has_recepient(){
     return $this->belongsTo('App\RecipientAddress','recipient_address_id');
 
 }
+public function has_customer(){
+       return $this->belongsTo('App\Customer','customer_id');
+}
 }

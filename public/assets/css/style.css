@@ -3128,4 +3128,52 @@ table.focus-on tbody tr.focused td {
   padding-top: 14px;
   font-size: 0.9em;
 }
+.table_custom tr > th:last-child {
+  text-align: right;
+}
+.table_custom tbody > tr>td:last-child {
+  text-align: right;
+
+}
+.table_custom button {
+  padding: 3px;
+  margin-top: 5px;
+}
+.custom_card .card {
+  width: 100% !important;
+}
+.form_custom_elemnt p {
+  line-height: 0.5;
+}
+/*.custom_line_height .card {*/
+  /*line-height: 0.4;*/
+/*}*/
+p.Shipping_details {
+  line-height: 1.5;
+}
+.vertical_adjustment {
+
+}
+
+.vertical_adjustment h4 {
+  display: inline-block;
+  width: 40%;
+  padding: 0px;
+}
+.vertical_adjustment_status h4 {
+ text-align: right;
+}
+.vertical_adjustment select{
+  display: inline-block;
+  width: 50%;
+  float:right;
+}
+.horizental_separator::after {content: "";width: 600px;height: 2px;background: #eee;display: block;}
+
+.horizental_separator {
+  margin-bottom: 20px;
+}
+.row.custom_line_height {
+  margin-top: 1.0rem;
+}
 /*# sourceMappingURL=style.css.map */
