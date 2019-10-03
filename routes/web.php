@@ -56,3 +56,32 @@ Route::GET('/sync-orders', 'OrdersController@get_order')->name('get_order');
 
 Route::GET('/orders', 'OrdersController@show_existing_orders')->name('show_existing_orders');
 Route::GET('/getdata', 'OrdersController@getData')->name('getData');
+
+
+Route::GET('/get/addresses', 'AddressController@get_address')->name('get_address');
+Route::GET('/get/addresses/type', 'AddressController@get_address_form')->name('get_address_form');
+Route::GET('/update/address', 'AddressController@update_address')->name('update_address');
+
+Route::POST('/webhook/create/customer', 'WebhookController@webhook_customer_create')->name('webhook.customer.create');
+Route::POST('/webhook/update/customer', 'WebhookController@webhook_customer_update')->name('webhook.customer.update');
+Route::POST('/webhook/delete/customer', 'WebhookController@webhook_customer_delete')->name('webhook.customer.delete');
+
+Route::POST('/webhook/create/order', 'WebhookController@webhook_order_create')->name('webhook.order.create');
+Route::POST('/webhook/update/order', 'WebhookController@webhook_order_update')->name('webhook.order.update');
+Route::POST('/webhook/delete/order', 'WebhookController@webhook_order_delete')->name('webhook.order.delete');
+
+Route::GET('/webhook/insert', 'WebhookController@webhook')->name('webhook.insert');
+Route::GET('/webhook/get', 'WebhookController@getWebhooks')->name('webhook.getWebhooks');
+
+
+Route::get('/order_update/{id}','AdminController@order_update')->name('order_update');
+Route::get('/single_customer/{id}','AdminController@single_customer')->name('single_customer');
+
+
+
+
+
+
+
+
+
