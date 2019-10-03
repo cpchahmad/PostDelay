@@ -42,8 +42,8 @@ Route::get('/send-activation-link', 'CustomersController@sendactivationlink')->n
 Route::get('/customer/add/address', 'CustomersController@add_customer_addresses')->name('customer.add_address');
 Route::get('/customer/get/details', 'CustomersController@get_customer_details')->name('customer.get_details');
 Route::get('/customer/update', 'CustomersController@update_customer_details')->name('customer.update');
-Route::get('/customer/address/default', 'CustomersController@update_address_details')->name('address.set_default');
-Route::get('/customer/address/delete', 'CustomersController@delete_address')->name('address.delete');
+Route::get('/customer/address/default', 'AddressController@set_default_address')->name('address.set_default');
+Route::get('/customer/address/delete', 'AddressController@delete_address')->name('address.delete');
 
 Route::get('/delete_all', 'CustomersController@delete_all')->name('delete_all');
 Route::get('/draft', 'CustomersController@draft_orders')->name('draft_orders');
@@ -56,5 +56,3 @@ Route::GET('/sync-orders', 'OrdersController@get_order')->name('get_order');
 
 Route::GET('/orders', 'OrdersController@show_existing_orders')->name('show_existing_orders');
 Route::GET('/getdata', 'OrdersController@getData')->name('getData');
-Route::get('/order_update/{id}','AdminController@order_update')->name('order_update');
-Route::get('/single_customer/{id}','AdminController@single_customer')->name('single_customer');

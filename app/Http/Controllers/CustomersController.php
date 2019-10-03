@@ -236,44 +236,6 @@ class CustomersController extends Controller
 
         }
     }
-
-    public function update_address_details(Request $request)
-    {
-
-        $new_default_address = Address::find($request->input('address_id'));
-//        $default_address = $this->helper->getShop($request->input('shop'))->call([
-//            'METHOD' => 'PUT',
-//            'URL' => '/admin/customers/'.$new_default_address->shopify_customer_id.'/addresses/'.$new_default_address->shopify_address_id.'json',
-//        ]);
-
-//        if($default_address){
-        Address::where('address_type', $new_default_address->address_type)
-            ->where('customer_id', $new_default_address->customer_id)->update(['default' => 0]);
-
-        Address::find($request->input('address_id'))->update(['default' => 1]);
-//        }
-    }
-
-    public function delete_address(Request $request)
-    {
-        $address = Address::find($request->input('address_id'));
-
-        $address_json = $this->helper->getShop($address->has_Shop->shop_name)->call([
-
-            'METHOD' => 'GET',
-            'URL' => '/admin/customers/' . $address->shopify_customer_id . '/addresses/' . $address->shopify_address_id . 'json',
-        ]);
-
-        if ($address_json->customer_address->default == false) {
-            $this->helper->getShop($address->has_Shop->shop_name)->call([
-
-                'METHOD' => 'DELETE',
-                'URL' => '/admin/customers/' . $address->shopify_customer_id . '/addresses/' . $address->shopify_address_id . 'json',
-            ]);
-            Address::find($request->input('address_id'))->delete();
-        }
-    }
-
     public function delete_all()
     {
         DB::table('customers')->truncate();
@@ -412,6 +374,8 @@ class CustomersController extends Controller
         ]);
         dd($rates);
     }
+
+
 
 }
 

@@ -357,9 +357,9 @@
                         <div class="custom_Request_fields_half  ">
                             <label for="Type">Type</label>
                             <select name="post_type">
-                                <option value="postcard">Postcard</option>
-                                <option value="letter">Letter</option>
-                                <option value="large_envelope">Large Envelope</option>
+                                @foreach($types as $type)
+                                    <option value="{{$type->name}}">{{$type->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -376,8 +376,9 @@
                         <div class="custom_Request_fields_half  ">
                             <label for="Shape">Shape</label>
                             <select name="shape" >
-                                <option value="box">Box</option>
-                                <option value="light_box">Light Box</option>
+                                @foreach($shapes as $shape)
+                                    <option value="{{$shape->name}}">{{$shape->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -386,12 +387,9 @@
                         <div class="custom_Request_fields_half  ">
                             <label for="Shape">Unit of Measure</label>
                             <select name="unit_of_measures">
-                                <option value="mm">milimetres</option>
-                                <option value="cm">centimetres</option>
-                                <option value="in">inches</option>
-                                <option value="ft">feet</option>
-                                <option value="m">metres </option>
-
+                               @foreach($scales as $scale)
+                                    <option value="{{$scale->name}}">{{$scale->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
