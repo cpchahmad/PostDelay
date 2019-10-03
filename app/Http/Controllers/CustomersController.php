@@ -104,7 +104,10 @@ class CustomersController extends Controller
 
     public function index()
     {
-        return view('customers.index');
+
+        $customers=Customer::orderBy('id', 'DESC')->get();
+        $t_order=Order::all();
+        return view('customers.index',compact('customers','t_order'));
     }
 
     public function add_customer_addresses(Request $request)
