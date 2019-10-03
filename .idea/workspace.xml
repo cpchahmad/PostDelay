@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f26eb013-bd43-48c2-af0f-8eb667c83630" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CustomersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CustomersController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OrdersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OrdersController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/customers/new_order.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/customers/new_order.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -145,10 +142,15 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/customers/inc" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\PostDelay\PostDelay\resources\views\customers\inc" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -187,7 +189,15 @@
       <workItem from="1569655295710" duration="10186000" />
       <workItem from="1569828470738" duration="229000" />
       <workItem from="1569841956231" duration="7103000" />
-      <workItem from="1569913905695" duration="26178000" />
+      <workItem from="1569913905695" duration="26901000" />
+      <workItem from="1570000404168" duration="6105000" />
+      <workItem from="1570007933895" duration="33000" />
+      <workItem from="1570008663870" duration="56000" />
+      <workItem from="1570033481510" duration="173000" />
+      <workItem from="1570086712114" duration="39000" />
+      <workItem from="1570099471290" duration="3880000" />
+      <workItem from="1570104638836" duration="304000" />
+      <workItem from="1570108753478" duration="11689000" />
     </task>
     <task id="LOCAL-00001" summary="Commit: 28Sept2019(Fazal)">
       <created>1569664246894</created>
@@ -210,7 +220,28 @@
       <option name="project" value="LOCAL" />
       <updated>1569922471593</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="StatusTableSeeder">
+      <created>1570001145020</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1570001145020</updated>
+    </task>
+    <task id="LOCAL-00005" summary="StatusTableSeeder">
+      <created>1570007295937</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1570007295938</updated>
+    </task>
+    <task id="LOCAL-00006" summary="fazzal">
+      <created>1570120201448</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1570120201450</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -235,6 +266,8 @@
     <MESSAGE value="Commit: 28Sept2019(Fazal)" />
     <MESSAGE value="Commit: 28Sept2019(FazalII)" />
     <MESSAGE value="test" />
-    <option name="LAST_COMMIT_MESSAGE" value="test" />
+    <MESSAGE value="StatusTableSeeder" />
+    <MESSAGE value="fazzal" />
+    <option name="LAST_COMMIT_MESSAGE" value="fazzal" />
   </component>
 </project>
