@@ -7,20 +7,16 @@ use App\BillingAddress;
 use App\Customer;
 use App\Order;
 use App\PackageDetail;
+use App\PostType;
 use App\RecipientAddress;
+use App\Scale;
 use App\SenderAddress;
+use App\Shape;
 use App\Shop;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
 {
-
-    protected $helper;
-
-    public function __construct()
-    {
-        $this->helper = new HelperController();
-    }
 
     public function index(){
 //        dd(session('shop_name'));
@@ -37,8 +33,11 @@ class OrdersController extends Controller
                     "draft_order" => [
                         'line_items' => [
                             [
-                                "variant_id" => 30341585371217,
-                                "quantity" => 1,
+                                "title"=> "PostDelay Fee",
+                                "price"=> "100.00",
+                                "quantity"=> 1,
+                                "requires_shipping" => true,
+
                             ]
                         ],
                         "customer" => [
@@ -159,33 +158,44 @@ class OrdersController extends Controller
             'METHOD' => 'GET',
             'URL' => '/admin/orders.json',
         ]);
-       $orders = $orders->orders;
+        $orders = $orders->orders;
 
-       foreach ($orders as $index => $order){
-           $checkout_token =  explode('/',$order->landing_site)[3];
-           $draft_order = Order::where('checkout_token',$checkout_token)->first();
-           if($draft_order != NULL){
-               $draft_order->checkout_completed = 1;
-               $draft_order->shopify_order_id = $order->id;
-               $draft_order->order_name = $order->name;
-               $draft_order->order_total = $order->total_price;
-               $draft_order->payment_gateway = $order->gateway;
-               $draft_order->shipping_method_title = $order->shipping_lines[0]->title;
-               $draft_order->shipping_method_id = $order->shipping_lines[0]->id;
-               $draft_order->shipping_method_price = $order->shipping_lines[0]->price;
-               $draft_order->shipping_method_source = $order->shipping_lines[0]->source;
-               $draft_order->status_id =1;
-               $draft_order->token = $order->token;
-               $draft_order->save();
-           }
-       }
+        foreach ($orders as $index => $order){
+            $checkout_token =  explode('/',$order->landing_site)[3];
+            $draft_order = Order::where('checkout_token',$checkout_token)->first();
+            if($draft_order != NULL){
+                $draft_order->checkout_completed = 1;
+                $draft_order->shopify_order_id = $order->id;
+                $draft_order->order_name = $order->name;
+                $draft_order->order_total = $order->total_price;
+                $draft_order->payment_gateway = $order->gateway;
+                $draft_order->shipping_method_title = $order->shipping_lines[0]->title;
+                $draft_order->shipping_method_id = $order->shipping_lines[0]->id;
+                $draft_order->shipping_method_price = $order->shipping_lines[0]->price;
+                $draft_order->shipping_method_source = $order->shipping_lines[0]->source;
+                $draft_order->status_id =1;
+                $draft_order->token = $order->token;
+                $draft_order->save();
+            }
+        }
     }
     public function show_new_order(Request $request)
     {
         $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
         $customer_addresses = Address::where('shopify_customer_id', $request->input('customer_id'))
             ->where('shop_id', $shop)->get();
-        $returnHTML = view('customers.new_order', ['addresses' => $customer_addresses, 'billing_address' => null, 'sender_address' => null, 'recipient_address' => null])->render();
+        $shapes = Shape::all();
+        $types = PostType::all();
+        $scales = Scale::all();
+        $returnHTML = view('customers.new_order', [
+            'addresses' => $customer_addresses,
+            'billing_address' => null,
+            'sender_address' => null,
+            'recipient_address' => null,
+            'shapes'=>$shapes,
+            'types' => $types,
+            'scales'=>$scales
+        ])->render();
         return response()->json([
             "html" => $returnHTML,
         ]);
@@ -199,11 +209,17 @@ class OrdersController extends Controller
         $billing_address = Address::find($request->input('billing_address'));
         $sender_address = Address::find($request->input('sender_address'));
         $recipient_address = Address::find($request->input('recipient_address'));
+        $shapes = Shape::all();
+        $types = PostType::all();
+        $scales = Scale::all();
         $returnHTML = view('customers.new_order', [
             'addresses' => $customer_addresses,
             'billing_address' => $billing_address,
             'sender_address' => $sender_address,
-            'recipient_address' => $recipient_address
+            'recipient_address' => $recipient_address,
+            'shapes'=>$shapes,
+            'types' => $types,
+            'scales'=>$scales
         ])->render();
         return response()->json([
             "html" => $returnHTML,
@@ -213,7 +229,7 @@ class OrdersController extends Controller
     public function show_existing_orders(Request $request){
         $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
         $customer = Customer::where('shopify_customer_id', $request->input('customer_id'))->first();
-        $orders = Order::where('shopify_customer_id',$customer->shopify_customer_id)->get();
+        $orders = Order::where('shopify_customer_id',$customer->shopify_customer_id)->where('checkout_completed',1)->get();
         $returnHTML = view('customers.existing_orders', ['orders' => $orders])->render();
         return response()->json([
             "html" => $returnHTML,

@@ -11,7 +11,14 @@ use App\Shop;
 
 class ShopsController extends Controller
 {
+    protected $helper;
+
+    public function __construct()
+    {
+        $this->helper = new HelperController();
+    }
     public function index(Request $request){
+
         $shopUrl = $request->input('shop');
         $accessToken = Shopify::setShopUrl($shopUrl)->getAccessToken($request->code);
         if (Shop::where('shop_name', '=', $shopUrl)->exists()) {
@@ -34,4 +41,8 @@ class ShopsController extends Controller
     public function Dashboard(){
         return view('dashboard');
     }
+
+
+
+
 }
