@@ -18,6 +18,12 @@ use Illuminate\Http\Request;
 
 class OrdersController extends Controller
 {
+    protected $helper;
+
+    public function __construct()
+    {
+        $this->helper = new HelperController();
+    }
 
     public function index(){
         $orders=Order::all();
