@@ -41,15 +41,16 @@
                     <div class="col-md-6">
                         <div class="vertical_adjustment vertical_adjustment_status">
                             <h4>Order Status</h4>
-                            <select class="form-control">
+                            <select id="change_order_status" data-order-id="{{$order->id}}" class="form-control">
                                 @foreach($status as $stats)
-                                    <option>{{$stats->name}}</option>
+                                    <option @if($order->status_id == $stats->id) selected @endif value="{{$stats->id}}" >{{$stats->name}}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="row custom_line_height">
+
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-body">
@@ -238,31 +239,31 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                     <p>Shipping Details</p>
+                                     <p>{{$order->shipping_method_title}}</p>
                                     </div>
                                     <div class="col-md-4">
                                         <p></p>
                                     </div>
                                     <div class="col-md-4 text-right">
-                                        <p>$100</p>
+                                        <p>${{$order->shipping_method_price}} USD</p>
                                     </div>
                                     <div class="col-md-4">
-                                        <p>Shipping Details</p>
+                                        <p>Post Delay Fee</p>
                                     </div>
                                     <div class="col-md-4">
                                         <p></p>
                                     </div>
                                     <div class="col-md-4 text-right">
-                                        <p>$100</p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <p></p>
+                                        <p>${{$order->order_total - $order->shipping_method_price}}.00 USD</p>
                                     </div>
                                     <div class="col-md-4">
                                         <p>Tax</p>
                                     </div>
+                                    <div class="col-md-4">
+                                        <p></p>
+                                    </div>
                                     <div class="col-md-4 text-right">
-                                        <p>$100</p>
+                                        <p>$0.00</p>
                                     </div>
 
                                     <div class="horizental_separator"></div>
@@ -273,7 +274,7 @@
                                         <p>Total</p>
                                     </div>
                                     <div class="col-md-4 text-right">
-                                        <p>$100</p>
+                                        <p>${{number_format($order->order_total,2)}} USD</p>
                                     </div>
                                 </div>
                             </div>
@@ -322,6 +323,49 @@
                         </div>
                     </div>
                     <div class="col-md-6">
+                        <div id="accordion">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0 mt-0 font-14">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="text-dark collapsed">
+                                           Order Status History
+                                        </a>
+                                    </h5>
+                                </div>
+
+                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" style="">
+                                    <div class="card-body">
+                                        <h6>Status History</h6>
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table_custom">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Status</th>
+                                                    <th scope="col">Updated At</th>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($logs as $index => $log)
+                                                    <tr>
+                                                        <th>{{$index+1}}</th>
+                                                        <td>
+                                                            {{$log->has_status->name}}
+                                                        </td>
+                                                        <td>
+                                                            {{$log->change_at}}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="card">
                             <div class="card-body">
                                 <h6>Billing Details</h6>
@@ -504,9 +548,10 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="card">
                             <div class="card-body">
-                                <h6>Addational Fee Details</h6>
+                                <h6>Additional Fee Details</h6>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">

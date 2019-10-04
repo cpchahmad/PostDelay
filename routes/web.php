@@ -32,7 +32,7 @@ Route::get("auth", "ShopsController@index");
 Route::prefix('admin')->group(function () {
     Route::get('orders', 'OrdersController@index')->name('shop.orders');
     Route::get('customers', 'CustomersController@index')->name('shop.customers');
-    Route::get('settings', 'SettingsController@index')->name('shop.settings');
+    Route::get('settings', 'SettingsController@show_shape')->name('shop.settings');
 });
 
 Route::get('dashboard', 'ShopsController@Dashboard')->name('shop.dashboard');
@@ -77,11 +77,28 @@ Route::GET('/webhook/get', 'WebhookController@getWebhooks')->name('webhook.getWe
 Route::get('/order_update/{id}','AdminController@order_update')->name('order_update');
 Route::get('/single_customer/{id}','AdminController@single_customer')->name('single_customer');
 
+Route::get('/setting/shape', 'SettingsController@show_shape')->name('shape.index');
+Route::GET('/shape/update','SettingsController@update_shape')->name('update_shape');
+Route::GET('/shape/delete','SettingsController@delete_shape')->name('delete_shape');
+Route::POST('/shape/add','SettingsController@add_shape')->name('add_shape');
+
+Route::get('/setting/type', 'SettingsController@show_type')->name('types.index');
+Route::GET('/type/update','SettingsController@update_type')->name('update_type');
+Route::GET('/type/delete','SettingsController@delete_type')->name('delete_type');
+Route::POST('/type/add','SettingsController@add_type')->name('add_type');
+
+Route::get('/setting/scales', 'SettingsController@show_scales')->name('scales.index');
+Route::GET('/scale/update','SettingsController@update_scale')->name('update_scale');
+Route::GET('/scale/delete','SettingsController@delete_scale')->name('delete_scale');
+Route::POST('/scale/add','SettingsController@add_scale')->name('add_scale');
 
 
+Route::get('/setting/locations', 'LocationController@show_locations')->name('locations.index');
+Route::POST('/location/add', 'LocationController@add_location')->name('add_location');
+Route::GET('/location/delete', 'LocationController@delete_location')->name('delete_location');
+Route::GET('/location/edit/{id}', 'LocationController@show_edit_form')->name('show_edit_form');\
+Route::POST('/location/update/', 'LocationController@update_location')->name('update_location');
 
 
-
-
-
-
+Route::GET('/order/status/update', 'OrdersController@update_order_status')->name('update_order_status');
+Route::GET('/order/log/{id}', 'OrdersController@order_history')->name('order_history');

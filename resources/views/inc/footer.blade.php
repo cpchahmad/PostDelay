@@ -15,3 +15,7 @@
 
 <!-- App js -->
 <script src="{{asset('assets/js/app.js')}}"></script>
+<script src="{{asset('plugins/alertify/js/alertify.js')}}"></script>
+<script src="{{asset('assets/pages/alertify-init.js')}}"></script>
+<script src="{{asset('js/postdelay.js')}}"></script>
+
