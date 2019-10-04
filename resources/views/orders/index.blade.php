@@ -52,9 +52,9 @@
 
                                 </td>
                                <td>
-                                   <a href="{{route('order_history',$order->id)}}">
-                                       <button type="submit" class="btn btn-info waves-effect waves-light btn-sm">View Status Log</button>
-                                   </a>
+{{--                                   <a href="{{route('order_history',$order->id)}}">--}}
+{{--                                       <button type="submit" class="btn btn-info waves-effect waves-light btn-sm">View Status Log</button>--}}
+{{--                                   </a>--}}
                                    <a href="{{route('order_update',$order->id)}}">
                                    <button type="submit" class="btn btn-warning waves-effect waves-light btn-sm">View</button>
                                    </a>
