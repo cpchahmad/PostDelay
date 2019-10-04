@@ -18,4 +18,6 @@
     <link href="{{ asset('assets/css/icons.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css" />
 
+    <link href="{{asset('plugins/alertify/css/alertify.css')}}" rel="stylesheet" type="text/css">
+
 </head>

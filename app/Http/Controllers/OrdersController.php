@@ -6,6 +6,7 @@ use App\Address;
 use App\BillingAddress;
 use App\Customer;
 use App\Order;
+use App\OrderStatusHistory;
 use App\PackageDetail;
 use App\PostType;
 use App\RecipientAddress;
@@ -26,7 +27,7 @@ class OrdersController extends Controller
     }
 
     public function index(){
-        $orders=Order::all();
+        $orders=Order::where('checkout_completed',1)->get();
         $status=Status::all();
         return view('orders.index',compact('orders','status'));
     }
@@ -170,7 +171,8 @@ class OrdersController extends Controller
 
         foreach ($orders as $index => $order){
             $checkout_token =  explode('/',$order->landing_site)[3];
-            $draft_order = Order::where('checkout_token',$checkout_token)->first();
+            $draft_order = Order::where('checkout_token',$checkout_token)
+                ->where('checkout_completed',0)->first();
             if($draft_order != NULL){
                 $draft_order->checkout_completed = 1;
                 $draft_order->shopify_order_id = $order->id;
@@ -184,6 +186,18 @@ class OrdersController extends Controller
                 $draft_order->status_id =1;
                 $draft_order->token = $order->token;
                 $draft_order->save();
+
+                $old_history = OrderStatusHistory::where('order_id',$draft_order->id)->first();
+                if($old_history ==  null){
+                    $history = new OrderStatusHistory();
+                    $history->order_id = $draft_order->id;
+                    $history->order_status_id =  $draft_order->status_id;
+                    $history->change_at = now();
+                    $history->setCreatedAt(now());
+                    $history->setUpdatedAt(now());
+                    $history->save();
+                }
+
             }
         }
     }
@@ -265,4 +279,31 @@ class OrdersController extends Controller
             }
         }
     }
+
+    public function update_order_status(Request $request){
+        Order::find($request->input('order'))->update([
+            'status_id' => $request->input('status')
+        ]);
+
+       $order = Order::find($request->input('order'));
+        $history = new OrderStatusHistory();
+        $history->order_id = $order->id;
+        $history->order_status_id =  $order->status_id;
+        $history->change_at = now();
+        $history->setCreatedAt(now());
+        $history->setUpdatedAt(now());
+        $history->save();
+
+        return response()->json([
+            'status' => 'changed'
+        ]);
+    }
+
+    public function order_history(Request $request){
+       $logs =  OrderStatusHistory::where('order_id',$request->id)->get();
+       return view('orders.order_history')->with([
+           'logs' => $logs
+       ]);
+    }
 }
+
