@@ -323,48 +323,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div id="accordion">
-                            <div class="card">
-                                <div class="card-header" id="headingOne">
-                                    <h5 class="mb-0 mt-0 font-14">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="text-dark collapsed">
-                                           Order Status History
-                                        </a>
-                                    </h5>
-                                </div>
 
-                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" style="">
-                                    <div class="card-body">
-                                        <h6>Status History</h6>
-                                        <div class="table-responsive">
-                                            <table class="table table-hover table_custom">
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Status</th>
-                                                    <th scope="col">Updated At</th>
-
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($logs as $index => $log)
-                                                    <tr>
-                                                        <th>{{$index+1}}</th>
-                                                        <td>
-                                                            {{$log->has_status->name}}
-                                                        </td>
-                                                        <td>
-                                                            {{$log->change_at}}
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="card">
                             <div class="card-body">
@@ -668,6 +627,51 @@
 
                 </div>
 
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0 mt-0 font-14">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="text-dark collapsed">
+                            Order Status History
+                        </a>
+                    </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" style="">
+                    <div class="card-body">
+                        <h6>Status History</h6>
+                        <div class="table-responsive">
+                            <table class="table table-hover table_custom">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Updated At</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($logs as $index => $log)
+                                    <tr>
+                                        <th>{{$index+1}}</th>
+                                        <td>
+                                            {{$log->has_status->name}}
+                                        </td>
+                                        <td>
+                                            {{$log->change_at}}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
