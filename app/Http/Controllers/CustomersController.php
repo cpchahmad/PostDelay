@@ -42,8 +42,6 @@ class CustomersController extends Controller
         } else {
             $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
             if ($shop != null) {
-
-//dd($request);
                 $customer = $this->helper->getShop($request->input('shop'))->call([
                     'METHOD' => 'POST',
                     'URL' => '/admin/customers.json',
@@ -52,7 +50,7 @@ class CustomersController extends Controller
                             "first_name" => $request->input("first_name"),
                             "last_name" => $request->input("last_name"),
                             "email" => $request->input("email"),
-                            "phone" => $request->input('phone'),
+//                            "phone" => $request->input('phone'),
                             "send_email_welcome" => false,
                             "verified_email" => false,
                             "send_email_invite" => true,
@@ -62,8 +60,6 @@ class CustomersController extends Controller
                 ]);
 
                 if ($customer != null) {
-
-
                     Customer::create([
                         'first_name' => $request->input("first_name"),
                         'last_name' => $request->input("last_name"),
@@ -80,12 +76,10 @@ class CustomersController extends Controller
                         'shopify_customer_id' => $customer->customer->id,
                     ]);
                 }
-
                 return response()->json(['msg' => 'created', 'customer_id' => $customer->customer->id], 200);
             } else {
                 return response()->json('Shop Not Registered', 200);
             }
-
         }
 
 
