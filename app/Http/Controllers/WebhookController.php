@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
 use Illuminate\Http\Request;
 
 class WebhookController extends Controller
@@ -18,7 +19,8 @@ class WebhookController extends Controller
             'METHOD' => 'get',
             'URL' => 'admin/webhooks.json',
             ]);
-      dd($webhooks);
+        dd($webhooks);
+
 //        foreach ($webhooks->webhooks as $webhook){
 //
 //            $this->helper->getShop(session('shop_name'))->call([
@@ -30,7 +32,7 @@ class WebhookController extends Controller
 
     public function webhook(Request $request){
 
-        $customer_create_webhook = $this->helper->getShop(session('shop_name'))->call([
+         $this->helper->getShop(session('shop_name'))->call([
             'METHOD' => 'POST',
             'URL' => 'admin/webhooks.json',
             "DATA" => [
@@ -42,7 +44,7 @@ class WebhookController extends Controller
                 ]
             ]
         ]);
-        $customer_update_webhook = $this->helper->getShop(session('shop_name'))->call([
+          $this->helper->getShop(session('shop_name'))->call([
             'METHOD' => 'POST',
             'URL' => 'admin/webhooks.json',
             "DATA" => [
@@ -53,7 +55,7 @@ class WebhookController extends Controller
                 ]
             ]
         ]);
-        $customer_delete_webhook = $this->helper->getShop(session('shop_name'))->call([
+          $this->helper->getShop(session('shop_name'))->call([
             'METHOD' => 'POST',
             'URL' => 'admin/webhooks.json',
             "DATA" => [
@@ -64,7 +66,7 @@ class WebhookController extends Controller
                 ]
             ]
         ]);
-        $customer_delete_webhook = $this->helper->getShop(session('shop_name'))->call([
+          $this->helper->getShop(session('shop_name'))->call([
             'METHOD' => 'POST',
             'URL' => 'admin/webhooks.json',
             "DATA" => [
@@ -75,7 +77,7 @@ class WebhookController extends Controller
                 ]
             ]
         ]);
-        $customer_delete_webhook = $this->helper->getShop(session('shop_name'))->call([
+          $this->helper->getShop(session('shop_name'))->call([
             'METHOD' => 'POST',
             'URL' => 'admin/webhooks.json',
             "DATA" => [
@@ -86,7 +88,7 @@ class WebhookController extends Controller
                 ]
             ]
         ]);
-        $customer_delete_webhook = $this->helper->getShop(session('shop_name'))->call([
+          $this->helper->getShop(session('shop_name'))->call([
             'METHOD' => 'POST',
             'URL' => 'admin/webhooks.json',
             "DATA" => [
@@ -101,7 +103,19 @@ class WebhookController extends Controller
     }
 
     public function webhook_customer_create(Request $request){
-     dd($request);
+        $shop = $_SERVER['X-Shopify-Shop-Domain'];
+        if($shop != null){
+            $shopify_customer_id =  $request['id'];
+            $customer = Customer::where('shopify_customer_id',$shopify_customer_id)->first();
+            if($customer != null){
+
+                dd($customer);
+            }
+            else{
+
+            }
+
+        }
     }
     public function webhook_customer_update(Request $request){
         dd($request);
