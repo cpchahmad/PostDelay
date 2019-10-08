@@ -32,7 +32,7 @@
     <div class="custom_fields_half">
         <div class="custom_Request_fields_half">
             <label for="Address2">Address2</label>
-            <input type="text" required="" name="address2" id="Address2" value="{{$customer->address2}}" placeholder="">
+            <input type="text"  name="address2" id="Address2" value="{{$customer->address2}}" placeholder="">
         </div>
     </div>
 
@@ -53,7 +53,7 @@
         <div class="custom_fields_half">
             <div class="custom_Request_fields_half adj">
                 <label for="State">State</label>
-                <input type="text" required="" name="state" id="State" value="{{$customer->state}}" placeholder="">
+                <input type="text"  name="state" id="State" value="{{$customer->state}}" placeholder="">
             </div>
         </div>
         <div class="custom_fields_half">
@@ -70,7 +70,7 @@
         <div class="custom_fields_half">
             <div class="custom_Request_fields_half  Get-contect-left">
                 <label for="Email">Email</label>
-                <input disabled type="email" required="" name="email" id="Email" value="{{$customer->email}}" placeholder="">
+                <input readonly type="email"  name="email" id="Email" value="{{$customer->email}}" placeholder="">
             </div>
         </div>
         <div class="custom_fields_half">

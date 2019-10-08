@@ -179,13 +179,13 @@ class CustomersController extends Controller
     public function update_customer_details(Request $request)
     {
         $customer = Customer::where('shopify_customer_id', $request->input('customer_id'))->first();
-        $validate_data = Validator::make($request->toArray(), [
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:customers,email,' . $customer->id],
-        ]);
+//        $validate_data = Validator::make($request->toArray(), [
+//            'email' => ['required', 'string', 'email', 'max:255', 'unique:customers,email,' . $customer->id],
+//        ]);
 
-        if ($validate_data->fails()) {
-            return response()->json($validate_data->messages(), 200);
-        } else {
+//        if ($validate_data->fails()) {
+//            return response()->json($validate_data->messages(), 200);
+//        } else {
             $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
 
             if ($shop != null) {
@@ -227,7 +227,7 @@ class CustomersController extends Controller
 
                 return response()->json(['msg' => 'Updated'], 200);
 
-            }
+//            }
 
         }
 
