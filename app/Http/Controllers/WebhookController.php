@@ -107,7 +107,7 @@ class WebhookController extends Controller
             'METHOD' => 'get',
             'URL' => 'admin/script_tags.json',
         ]);
-        dd($scripts);
+//        dd($scripts);
 
         foreach ($scripts->script_tags as $script){
 
