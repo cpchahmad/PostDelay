@@ -43,7 +43,7 @@
                             <tbody>
                             @foreach($orders as $order)
                             <tr>
-                                <th scope="row"> <a href="{{route('order_update',$order->customer_id)}}">{{$order->order_name}}</a></th>
+                                <th scope="row"> <a href="{{route('order_update',$order->id)}}">{{$order->order_name}}</a></th>
                                 <td>{{$order->has_customer->email}}</td>
                                 <td> {{\Carbon\Carbon::parse($order->created_at)->format('F j ,Y')}}</td>
                                 <td> ${{$order->order_total}}</td>

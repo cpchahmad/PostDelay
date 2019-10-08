@@ -15,4 +15,11 @@ class Customer extends Model
         return $this->belongsTo('App\Shop','shop_id');
     }
 
+    public function has_addresses(){
+        return $this->hasMany('App\Address','customer_id');
+    }
+
+    public function has_orders(){
+        return $this->hasMany('App\Order','customer_id');
+    }
 }

@@ -15,17 +15,23 @@
                             <div class="card-body">
                                 <form id="location_update_form" action="{{route('update_location')}}" method="post">
                                     @csrf
+{{--                                    <div class="form-group row">--}}
+{{--                                        <label class="col-sm-1 col-form-label">Shop</label>--}}
+{{--                                        <div class="col-sm-11">--}}
+{{--                                            <select name="shop_id" class="form-control">--}}
+{{--                                                @foreach($shops as $shop)--}}
+{{--                                                    <option @if($location->shop_id == $shop->id) selected @endif value="{{$shop->id}}">{{strtoupper(explode('.',$shop->shop_name)[0]) }}</option>--}}
+{{--                                                @endforeach--}}
+{{--                                            </select>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+                                    <input type="hidden" name="location_id" value="{{$location->id}}">
                                     <div class="form-group row">
-                                        <label class="col-sm-1 col-form-label">Shop</label>
-                                        <div class="col-sm-11">
-                                            <select name="shop_id" class="form-control">
-                                                @foreach($shops as $shop)
-                                                    <option @if($location->shop_id == $shop->id) selected @endif value="{{$shop->id}}">{{strtoupper(explode('.',$shop->shop_name)[0]) }}</option>
-                                                @endforeach
-                                            </select>
+                                        <div class="col-md-12">
+                                            <label for="shop_name">Shop</label>
+                                            <input id="shop_name" class="form-control" name="shop_name" type="text" value="{{$location->shop_name}}">
                                         </div>
                                     </div>
-                                    <input type="hidden" name="location_id" value="{{$location->id}}">
                                     <div class="form-group row">
                                         <div class="col-md-12">
                                             <label for="address1">Address1</label>

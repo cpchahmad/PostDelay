@@ -81,4 +81,101 @@
             </div>
         </div>
     </div>
+    {{--                <div class="row ">--}}
+    {{--                    <div class="col-md-12">--}}
+    {{--                        <h6>Basic Information</h6>--}}
+    {{--                        <div class="row">--}}
+    {{--                            <div class="col-md-6">--}}
+    {{--                                <div class="form-group row">--}}
+    {{--                                    <label for="example-text-input" class="col-sm-12 col-form-label">First Name</label>--}}
+    {{--                                    <div class="col-sm-12">--}}
+    {{--                                       {{$customer->first_name}}--}}
+    {{--                                    </div>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                            <div class="col-md-6">--}}
+    {{--                                <div class="form-group row">--}}
+    {{--                                    <label for="example-text-input" class="col-sm-12 col-form-label">Last Name</label>--}}
+    {{--                                    <div class="col-sm-12">--}}
+    {{--                                        <input class="form-control" type="text" value="{{$customer->last_name}}"id="example-text-input" disabled>--}}
+    {{--                                    </div>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                            <div class="col-md-12">--}}
+    {{--                                <div class="form-group row">--}}
+    {{--                                    <label for="example-text-input" class="col-sm-12 col-form-label">Business</label>--}}
+    {{--                                    <div class="col-sm-12">--}}
+    {{--                                        <input class="form-control" type="text" value="{{$customer-> business}}"id="example-text-input" disabled>--}}
+    {{--                                    </div>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                            <div class="col-md-12">--}}
+    {{--                                <div class="form-group row">--}}
+    {{--                                    <label for="example-text-input" class="col-sm-12 col-form-label">Address 1</label>--}}
+    {{--                                    <div class="col-sm-12">--}}
+    {{--                                        <input class="form-control" type="text" value="{{$customer->address1}}"id="example-text-input" disabled>--}}
+    {{--                                    </div>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                            <div class="col-md-12">--}}
+    {{--                                <div class="form-group row">--}}
+    {{--                                    <label for="example-text-input" class="col-sm-12 col-form-label">Address 2</label>--}}
+    {{--                                    <div class="col-sm-12">--}}
+    {{--                                        <input class="form-control" type="text" value="{{$customer->address2}}"id="example-text-input" disabled>--}}
+    {{--                                    </div>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                            <div class="col-md-4">--}}
+    {{--                                <div class="form-group row">--}}
+    {{--                                    <label for="example-text-input" class="col-sm-12 col-form-label">City</label>--}}
+    {{--                                    <div class="col-sm-12">--}}
+    {{--                                        <input class="form-control" type="text" value="{{$customer->city}}"id="example-text-input" disabled>--}}
+    {{--                                    </div>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                            <div class="col-md-4">--}}
+    {{--                                <div class="form-group row">--}}
+    {{--                                    <label for="example-text-input" class="col-sm-12 col-form-label">State</label>--}}
+    {{--                                    <div class="col-sm-12">--}}
+    {{--                                        <input class="form-control" type="text" value="{{$customer->state}}"id="example-text-input" disabled>--}}
+    {{--                                    </div>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                            <div class="col-md-4">--}}
+    {{--                                <div class="form-group row">--}}
+    {{--                                    <label for="example-text-input" class="col-sm-12 col-form-label">Post code</label>--}}
+    {{--                                    <div class="col-sm-12">--}}
+    {{--                                        <input class="form-control" type="text" value="{{$customer->postcode}}"id="example-text-input" disabled>--}}
+    {{--                                    </div>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                            <div class="col-md-12">--}}
+    {{--                                <div class="form-group row">--}}
+    {{--                                    <label for="example-text-input" class="col-sm-12 col-form-label">Country</label>--}}
+    {{--                                    <div class="col-sm-12">--}}
+    {{--                                        <input class="form-control" type="text" value="{{$customer->country}}"id="example-text-input" disabled>--}}
+    {{--                                    </div>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                            <div class="col-md-12">--}}
+    {{--                                <div class="form-group row">--}}
+    {{--                                    <label for="example-text-input" class="col-sm-12 col-form-label">Phone</label>--}}
+    {{--                                    <div class="col-sm-12">--}}
+    {{--                                        <input class="form-control" type="text" value="{{$customer->phone}}"id="example-text-input" disabled>--}}
+    {{--                                    </div>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                            <div class="col-md-12">--}}
+    {{--                                <div class="form-group row">--}}
+    {{--                                    <label for="example-text-input" class="col-sm-12 col-form-label">Email</label>--}}
+    {{--                                    <div class="col-sm-12">--}}
+    {{--                                        <input class="form-control" type="text" value="{{$customer->email}}"id="example-text-input" disabled>--}}
+    {{--                                    </div>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                        </div>--}}
+
+    {{--                    </div>--}}
+    {{--                </div>--}}
+
 @endsection

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
+use App\Order;
+use App\OrderStatusHistory;
+use App\Shop;
 use Illuminate\Http\Request;
 
 class WebhookController extends Controller
@@ -14,122 +17,108 @@ class WebhookController extends Controller
         $this->helper = new HelperController();
     }
 
-    public function getWebhooks(){
+    public function getWebhooks()
+    {
         $webhooks = $this->helper->getShop(session('shop_name'))->call([
             'METHOD' => 'get',
             'URL' => 'admin/webhooks.json',
-            ]);
+        ]);
         dd($webhooks);
 
-//        foreach ($webhooks->webhooks as $webhook){
-//
-//            $this->helper->getShop(session('shop_name'))->call([
-//                'METHOD' => 'delete',
-//                'URL' => 'admin/webhooks/'.$webhook->id.'.json',
-//            ]);
-//        }
+        foreach ($webhooks->webhooks as $webhook){
+
+            $this->helper->getShop(session('shop_name'))->call([
+                'METHOD' => 'delete',
+                'URL' => 'admin/webhooks/'.$webhook->id.'.json',
+            ]);
+        }
     }
 
-    public function webhook(Request $request){
+    public function webhook(Request $request)
+    {
 
-         $this->helper->getShop(session('shop_name'))->call([
+        $this->helper->getShop(session('shop_name'))->call([
             'METHOD' => 'POST',
             'URL' => 'admin/webhooks.json',
             "DATA" => [
                 "webhook" => [
-                    "topic" =>"customers/create",
-//                    "address" =>env('APP_URL').'/webhook/create/customer',
-                    "address" =>' https://a1922723.ngrok.io/webhook/create/customer',
+                    "topic" => "customers/create",
+                    "address" => 'https://postdelay.shopifyapplications.com/webhook/create/customer',
                     "format" => "json"
                 ]
             ]
         ]);
-          $this->helper->getShop(session('shop_name'))->call([
+
+        $this->helper->getShop(session('shop_name'))->call([
             'METHOD' => 'POST',
             'URL' => 'admin/webhooks.json',
             "DATA" => [
                 "webhook" => [
-                    "topic" =>"customers/update",
-                    "address" =>/*env('APP_URL').*/'https://a1922723.ngrok.io/webhook/update/customer',
+                    "topic" => "orders/create",
+                    "address" => /*env('APP_URL').*/ 'https://postdelay.shopifyapplications.com/webhook/create/order',
                     "format" => "json"
                 ]
             ]
         ]);
-          $this->helper->getShop(session('shop_name'))->call([
-            'METHOD' => 'POST',
-            'URL' => 'admin/webhooks.json',
-            "DATA" => [
-                "webhook" => [
-                    "topic" =>"customers/delete",
-                    "address" => /*env('APP_URL').*/'https://a1922723.ngrok.io/webhook/delete/customer',
-                    "format" => "json"
-                ]
-            ]
-        ]);
-          $this->helper->getShop(session('shop_name'))->call([
-            'METHOD' => 'POST',
-            'URL' => 'admin/webhooks.json',
-            "DATA" => [
-                "webhook" => [
-                    "topic" =>"orders/create",
-                    "address" => /*env('APP_URL').*/'https://a1922723.ngrok.io/webhook/create/order',
-                    "format" => "json"
-                ]
-            ]
-        ]);
-          $this->helper->getShop(session('shop_name'))->call([
-            'METHOD' => 'POST',
-            'URL' => 'admin/webhooks.json',
-            "DATA" => [
-                "webhook" => [
-                    "topic" =>"orders/updated",
-                    "address" => /*env('APP_URL').*/'https://a1922723.ngrok.io/webhook/update/order',
-                    "format" => "json"
-                ]
-            ]
-        ]);
-          $this->helper->getShop(session('shop_name'))->call([
-            'METHOD' => 'POST',
-            'URL' => 'admin/webhooks.json',
-            "DATA" => [
-                "webhook" => [
-                    "topic" =>"orders/delete",
-                    "address" => /*env('APP_URL').*/'https://a1922723.ngrok.io/webhook/delete/order',
-                    "format" => "json"
-                ]
-            ]
-        ]);
+
 
     }
 
-    public function webhook_customer_create(Request $request){
+    public function webhook_customer_create(Request $request)
+    {
         $shop = $_SERVER['X-Shopify-Shop-Domain'];
-        if($shop != null){
-            $shopify_customer_id =  $request['id'];
-            $customer = Customer::where('shopify_customer_id',$shopify_customer_id)->first();
-            if($customer != null){
+        if ($shop != null) {
+            $shopify_customer_id = $request['id'];
+            $customer = Customer::where('shopify_customer_id', $shopify_customer_id)->first();
+            if ($customer != null) {
 
                 dd($customer);
-            }
-            else{
+            } else {
 
             }
 
         }
     }
-    public function webhook_customer_update(Request $request){
-        dd($request);
+
+    public function webhook_order_create(Request $request)
+    {
+
+        $orders = new OrdersController();
+        $orders->get_order();
+
     }
-    public function webhook_customer_delete(Request $request){
-        dd($request);
+
+
+    public function script_tag(Request $request){
+        $this->helper->getShop(session('shop_name'))->call([
+            'METHOD' => 'POST',
+            'URL' => 'admin/script_tags.json',
+            "DATA" => [
+                "script_tag" => [
+                    "event" => "onload",
+                    "src" => 'https://postdelay.shopifyapplications.com/js/script_tag.js',
+                ]
+            ]
+        ]);
     }
-    public function webhook_order_create(Request $request){
-        dd($request);
+
+    public function getScriptTags(Request $request){
+        $scripts = $this->helper->getShop(session('shop_name'))->call([
+            'METHOD' => 'get',
+            'URL' => 'admin/script_tags.json',
+        ]);
+        dd($scripts);
+
+        foreach ($scripts->script_tags as $script){
+
+            $this->helper->getShop(session('shop_name'))->call([
+                'METHOD' => 'delete',
+                'URL' => 'admin/script_tags/'.$script->id.'.json',
+            ]);
+        }
     }
-    public function webhook_order_update(Request $request){
-        dd($request);
-    }
-    public function webhook_order_delete(Request $request){
-        dd($request);
-    }
+
+
+
 }
+
