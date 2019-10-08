@@ -92,6 +92,26 @@ class AddressController extends Controller
                 'URL' => '/admin/customers/' . $address->shopify_customer_id . '/addresses/' . $address->shopify_address_id . 'json',
             ]);
             Address::find($request->input('address_id'))->delete();
+
+
         }
+        return redirect()->back();
     }
+    public function get_billing_addresses (Request $request){
+        $billing_addresses = Address::where('address_type','Billing')->where('shopify_customer_id',$request->input('customer_id'))->get();
+        $returnHTML = view('customers.inc.request_form_billing', ['addresses' => $billing_addresses])->render();
+        return response()->json([
+            "html" => $returnHTML,
+        ]);
+    }
+
+    public function get_billing_form(Request $request)
+    {
+        $address = Address::find($request->input('address'));
+        $returnHTML = view('customers.request_form_billing_address', ['address' => $address])->render();
+        return response()->json([
+            "html" => $returnHTML,
+        ]);
+    }
+
 }

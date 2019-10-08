@@ -1,11 +1,11 @@
 @extends('layout.admin')
 @section('content')
     <div class="row" style="margin-top:-60px;">
-        <div class="col-sm-12">
+        <div class="col-md-12">
             <div class="page-title-box">
                 <div class="row align-items-center">
                     <div class="col-md-8">
-
+                        <h4 class="page-title m-0">Customer Details</h4>
                     </div>
                     <div class="col-md-4">
                         <div class="float-right d-none d-md-block">
@@ -28,592 +28,248 @@
             </div>
         </div>
     </div>
-    <div class="row custom_card">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="vertical_adjustment">
-                            <h4>Customer Details</h4>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs nav-justified" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#basic" role="tab">
+                                <span class="d-none d-md-block">Basic Information</span><span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " data-toggle="tab" href="#home" role="tab">
+                                <span class="d-none d-md-block">Recipients Addresses</span><span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#profile" role="tab">
+                                <span class="d-none d-md-block">Sender Addresses</span><span class="d-block d-md-none"><i class="mdi mdi-account h5"></i></span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#messages" role="tab">
+                                <span class="d-none d-md-block">Billing Addresses</span><span class="d-block d-md-none"><i class="mdi mdi-email h5"></i></span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#settings" role="tab">
+                                <span class="d-none d-md-block">Orders</span><span class="d-block d-md-none"><i class="mdi mdi-settings h5"></i></span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active p-3" id="basic" role="tabpanel">
+                            <div class="table-responsive">
+                                <table class="table table-hover table_custom">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">First Name</th>
+                                        <th scope="col">Last Name</th>
+                                        <th scope="col">Business</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Phone</th>
+                                        <th scope="col">Address1</th>
+                                        <th scope="col">Address2</th>
+                                        <th scope="col">City</th>
+                                        <th scope="col">State</th>
+                                        <th scope="col">Country</th>
+                                        <th scope="col">ZipCode</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>{{$customer->first_name}} </td>
+                                        <td>{{$customer->last_name}}</td>
+                                        <td>{{$customer->business}}</td>
+                                        <td>{{$customer->email}} </td>
+                                        <td>{{$customer->phone}} </td>
+                                        <td>{{$customer->address1}}</td>
+                                        <td>{{$customer->address2}}</td>
+                                        <td>{{$customer->city}}</td>
+                                        <td>{{$customer->state}}</td>
+                                        <td>{{$customer->country}}</td>
+                                        <td>{{$customer->postcode}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
+                        <div class="tab-pane p-3" id="home" role="tabpanel">
+                            <div class="table-responsive">
+                                <table class="table table-hover table_custom">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col">Phone</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @php
+                                        $count =1;
+                                    @endphp
+                                    @foreach($customer->has_addresses as $index => $address )
+                                        @if($address->address_type == 'Recipients')
+                                            <tr>
+                                                <td>{{$count}}</td>
+                                                <td>{{$address->address_type}} </td>
+                                                <td>
+                                                    {{$address->address1.' '.$address->address2.' , '.$address->city.' , '.$address->state.' , '.$address->country.','.$address->postcode}}
+                                                </td>
+                                                <td>{{$address->phone}} </td>
+                                                <td>{{$address->email}} </td>
+                                                <td>
+                                                    <form action="{{route('address.delete')}}" method="get">
+                                                        <input type="hidden" value="{{$address->id}}" name="address_id">
+                                                        <button type="submit" class="btn btn-danger waves-effect waves-light btn-sm">Delete</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            @php
+                                                $count ++;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane p-3" id="profile" role="tabpanel">
+                            <div class="table-responsive">
+                                <table class="table table-hover table_custom">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col">Phone</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @php
+                                        $count =1;
+                                    @endphp
+                                    @foreach($customer->has_addresses as $index => $address )
+                                        @if($address->address_type == 'Sender')
+                                            <tr>
+                                                <td>{{$count}}</td>
+                                                <td>{{$address->address_type}} </td>
+                                                <td>
+                                                    {{$address->address1.' '.$address->address2.' , '.$address->city.' , '.$address->state.' , '.$address->country.','.$address->postcode}}
+                                                </td>
+                                                <td>{{$address->phone}} </td>
+                                                <td>{{$address->email}} </td>
+                                                <td>
+                                                    <form action="{{route('address.delete')}}" method="get">
+                                                        <input type="hidden" value="{{$address->id}}" name="address_id">
+                                                        <button type="submit" class="btn btn-danger waves-effect waves-light btn-sm">Delete</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            @php
+                                                $count ++;
+                                            @endphp
+                                        @endif
 
-                    </div>
-                </div>
-                <div class="row custom_line_height">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h6>Sender Details</h6>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">First Name</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_sender->first_name}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Last Name</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_sender->last_name}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Business</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_sender-> business}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Address 1</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_sender->address1}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Address 2</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_sender->address2}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">City</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_sender->city}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">State</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_sender->state}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Post code</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_sender->postcode}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Country</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_sender->country}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Phone</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_sender->phone}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                    @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <h6>Receipt Details</h6>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">First Name</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_recepient->first_name}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Last Name</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_recepient->last_name}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Business</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_recepient->business}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Address 1</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_recepient->address1}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Address 2</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_recepient->address2}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">City</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_recepient->city}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">State</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_recepient->state}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Post Code</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_recepient->postcode}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Country</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_recepient->country}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Phone</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_recepient->phone}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="tab-pane p-3" id="messages" role="tabpanel">
+                            <div class="table-responsive">
+                                <table class="table table-hover table_custom">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col">Phone</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($customer->has_addresses as $index => $address )
+                                        @if($address->address_type == 'Billing')
+                                            <tr>
+                                                <td>{{$index+1}}</td>
+                                                <td>{{$address->address_type}} </td>
+                                                <td>
+                                                    {{$address->address1.' '.$address->address2.' , '.$address->city.' , '.$address->state.' , '.$address->country.','.$address->postcode}}
+                                                </td>
+                                                <td>{{$address->phone}} </td>
+                                                <td>{{$address->email}} </td>
+                                                <td>
+                                                    <form action="{{route('address.delete')}}" method="get">
+                                                        <input type="hidden" value="{{$address->id}}" name="address_id">
+                                                        <button type="submit" class="btn btn-danger waves-effect waves-light btn-sm">Delete</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <h6>Invoice Details</h6>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Order ID</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->shopify_order_id}}"id="example-text-input" disabled="true">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <p>Shipping Details</p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <p></p>
-                                    </div>
-                                    <div class="col-md-4 text-right">
-                                        <p>$100</p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <p>Shipping Details</p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <p></p>
-                                    </div>
-                                    <div class="col-md-4 text-right">
-                                        <p>$100</p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <p></p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <p>Tax</p>
-                                    </div>
-                                    <div class="col-md-4 text-right">
-                                        <p>$100</p>
-                                    </div>
+                        <div class="tab-pane p-3" id="settings" role="tabpanel">
+                            <div class="table-responsive">
+                                <table class="table table-hover table_custom">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Order Name</th>
+                                        <th scope="col">Order Placement Date</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Current Status</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @php
+                                        $count =1;
+                                    @endphp
+                                    @foreach($customer->has_orders as $index => $order)
+                                        @if($order->checkout_completed == '1' && $order->additional_payment == '0')
+                                            <tr>
+                                                <td>{{$count}}</td>
+                                                <th scope="row"> <a href="{{route('order_update',$order->id)}}">{{$order->order_name}}</a></th>
+                                                <td> {{\Carbon\Carbon::parse($order->created_at)->format('F j ,Y')}}</td>
+                                                <td> ${{$order->order_total}}</td>
+                                                <td>
+                                                    {{$order->has_status->name}}
+                                                </td>
+                                                <td>
+                                                    <a href="{{route('order_update',$order->id)}}">
+                                                        <button type="submit" class="btn btn-warning waves-effect waves-light btn-sm">View</button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            @php
+                                                $count ++;
+                                            @endphp
+                                        @endif
 
-                                    <div class="horizental_separator"></div>
-                                    <div class="col-md-4">
-                                        <p><button type="button" class="btn btn-secondary waves-effect">Cancel Order</button></p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <p>Total</p>
-                                    </div>
-                                    <div class="col-md-4 text-right">
-                                        <p>$100</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <h6>Key Date</h6>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Order Date</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{\Carbon\Carbon::parse($order->created_at)->format('F j ,Y')}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-datetime-local-input" class="col-sm-12 col-form-label">Recieved Post by Post Delay</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{\Carbon\Carbon::parse($order->ship_out_date)->format('F j ,Y')}}"id="example-datetime-local-input" >
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Ship out Date</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{\Carbon\Carbon::parse($order->ship_out_date)->format('F j ,Y')}}"id="example-text-input" >
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Completion Date</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{\Carbon\Carbon::parse($order->ship_out_date)->format('F j ,Y')}}"id="example-text-input">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <button type="button" class="btn btn-secondary waves-effect">Save</button>
-                                    </div>
-                                </div>
+                                    @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h6>Billing Details</h6>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">First Name</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_billing->first_name}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Last Name</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_billing->last_name}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Business</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_billing->business}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Address 1</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_billing->address1}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Address 2</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_billing->address2}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">City</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_billing->city}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">State</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_billing->state}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Post Code</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_billing->postcode}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Country</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_billing->country}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Phone</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_billing->phone}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <h6>Shipment Details</h6>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Type</label>
-                                            <div class="col-sm-12">
-                                                <select class="form-control" disabled="true">
-                                                    <option>{{$order->has_package_detail->type}}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Special Holding</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_package_detail->special_holding}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Shape</label>
-                                            <div class="col-sm-12">
-                                                <select class="form-control" disabled="true">
-                                                    <option>{{$order->has_package_detail->shape}}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Unit of Measure</label>
-                                            <div class="col-sm-12">
-                                                <select class="form-control" disabled="true">
-                                                    <option>{{$order->has_package_detail->scale}}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Weight</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_package_detail->weight}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Height</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_package_detail->height}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Length</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_package_detail->length}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Width</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_package_detail->width}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Girth</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_package_detail->girth}}"id="example-text-input" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Payement Method</label>
-                                            <div class="col-sm-12">
-                                                <select class="form-control" disabled="true">
-                                                    <option>{{$order->payment_gateway}}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <h6>Addational Fee Details</h6>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Addational Fee details</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="Further Details"id="example-text-input">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Request Amount</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="Amount"id="example-text-input">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Request Date</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="Date"id="example-text-input">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Payment Link</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="Payment Link"id="example-text-input">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Payment Receipt</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="Payment Receipt"id="example-text-input">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <button type="button" class="btn btn-secondary waves-effect">Save</button>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <h6>Your Shipment to Post delay</h6>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Ship Date</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="example-datetime-local-input">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Ship Method</label>
-                                            <div class="col-sm-12">
-                                                <select class="form-control">
-                                                    <option>Select</option>
-                                                    <option>Large select</option>
-                                                    <option>Small select</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Track ID</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="Trackin" id="example-datetime-local-input">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <button type="button" class="btn btn-secondary waves-effect">Save</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Future Ship Date</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="example-datetime-local-input">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Modify Future Ship Date</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="example-datetime-local-input">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <button type="button" class="btn btn-secondary waves-effect">Save</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
-
             </div>
         </div>
     </div>
-    @endsection
+@endsection

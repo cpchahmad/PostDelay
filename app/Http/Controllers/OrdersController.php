@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Address;
 use App\BillingAddress;
 use App\Customer;
+use App\KeyDate;
 use App\Order;
 use App\OrderStatusHistory;
 use App\PackageDetail;
@@ -27,7 +28,8 @@ class OrdersController extends Controller
     }
 
     public function index(){
-        $orders=Order::where('checkout_completed',1)->get();
+        $orders=Order::where('checkout_completed',1)
+            ->where('additional_payment',0)->get();
         $status=Status::all();
         return view('orders.index',compact('orders','status'));
     }
@@ -46,6 +48,7 @@ class OrdersController extends Controller
                                 "price"=> "100.00",
                                 "quantity"=> 1,
                                 "requires_shipping" => true,
+                                "grams" =>$request->input('weight'),
 
                             ]
                         ],
@@ -168,23 +171,54 @@ class OrdersController extends Controller
             'URL' => '/admin/orders.json',
         ]);
         $orders = $orders->orders;
-
+//        dd($orders);
         foreach ($orders as $index => $order){
             $checkout_token =  explode('/',$order->landing_site)[3];
             $draft_order = Order::where('checkout_token',$checkout_token)
-                ->where('checkout_completed',0)->first();
+              ->where('checkout_completed',0)->first();
             if($draft_order != NULL){
+
                 $draft_order->checkout_completed = 1;
                 $draft_order->shopify_order_id = $order->id;
                 $draft_order->order_name = $order->name;
                 $draft_order->order_total = $order->total_price;
                 $draft_order->payment_gateway = $order->gateway;
-                $draft_order->shipping_method_title = $order->shipping_lines[0]->title;
-                $draft_order->shipping_method_id = $order->shipping_lines[0]->id;
-                $draft_order->shipping_method_price = $order->shipping_lines[0]->price;
-                $draft_order->shipping_method_source = $order->shipping_lines[0]->source;
+
+                if(count($order->shipping_lines) > 0){
+                    $draft_order->shipping_method_title = $order->shipping_lines[0]->title;
+                    $draft_order->shipping_method_id = $order->shipping_lines[0]->id;
+                    $draft_order->shipping_method_price = $order->shipping_lines[0]->price;
+                    $draft_order->shipping_method_source = $order->shipping_lines[0]->source;
+
+                }
                 $draft_order->status_id =1;
                 $draft_order->token = $order->token;
+
+                if($order->billing_address != null){
+                    $draft_order->has_billing->first_name = $order->billing_address->first_name;
+                    $draft_order->has_billing->last_name = $order->billing_address->last_name;
+                    $draft_order->has_billing->address1 = $order->billing_address->address1;
+                    $draft_order->has_billing->address2 = $order->billing_address->address2;
+                    $draft_order->has_billing->city = $order->billing_address->city;
+                    $draft_order->has_billing->state = $order->billing_address->province;
+                    $draft_order->has_billing->country = $order->billing_address->country;
+                    $draft_order->has_billing->business = $order->billing_address->company;
+                    $draft_order->has_billing->postcode = $order->billing_address->zip;
+                    $draft_order->has_billing->save();
+                }
+                if(isset($order->shipping_address)){
+                    $draft_order->has_recepient->first_name = $order->shipping_address->first_name;
+                    $draft_order->has_recepient->last_name = $order->billing_address->last_name;
+                    $draft_order->has_recepient->address1 = $order->shipping_address->address1;
+                    $draft_order->has_recepient->address2 = $order->shipping_address->address2;
+                    $draft_order->has_recepient->city = $order->shipping_address->city;
+                    $draft_order->has_recepient->state = $order->shipping_address->province;
+                    $draft_order->has_recepient->country = $order->shipping_address->country;
+                    $draft_order->has_recepient->business = $order->shipping_address->company;
+                    $draft_order->has_recepient->postcode = $order->shipping_address->zip;
+                    $draft_order->has_recepient->save();
+                }
+
                 $draft_order->save();
 
                 $old_history = OrderStatusHistory::where('order_id',$draft_order->id)->first();
@@ -251,7 +285,8 @@ class OrdersController extends Controller
     public function show_existing_orders(Request $request){
         $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
         $customer = Customer::where('shopify_customer_id', $request->input('customer_id'))->first();
-        $orders = Order::where('shopify_customer_id',$customer->shopify_customer_id)->where('checkout_completed',1)->get();
+        $orders = Order::where('shopify_customer_id',$customer->shopify_customer_id)->where('checkout_completed',1)
+            ->where('additional_payment',0)->get();
         $returnHTML = view('customers.existing_orders', ['orders' => $orders])->render();
         return response()->json([
             "html" => $returnHTML,
@@ -269,12 +304,18 @@ class OrdersController extends Controller
                 $shipment_details = view('customers.inc.package_detail', ['order' => $order])->render();
                 $billing_email = view('customers.inc.billing_email', ['order' => $order])->render();
                 $recepient_email = view('customers.inc.recepient_email', ['order' => $order])->render();
+                $additional_fee = view('customers.inc.additional_fee', ['order' => $order])->render();
+                $keydate = view('customers.inc.keydate', ['order' => $order])->render();
+                $shipment_to_postdelay = view('customers.inc.shipment_to_postdelay', ['order' => $order])->render();
                 return response()->json([
                     "sender_form_html" => $sender_form,
                     "order_status" => $order_status,
                     "shipment_details" => $shipment_details,
                     "billing_email" => $billing_email,
                     "recepient_email" => $recepient_email,
+                    "additional_fee" => $additional_fee,
+                    "keydate" => $keydate,
+                    "shipment_to_postdelay" =>$shipment_to_postdelay,
                 ]);
             }
         }
@@ -286,13 +327,7 @@ class OrdersController extends Controller
         ]);
 
        $order = Order::find($request->input('order'));
-        $history = new OrderStatusHistory();
-        $history->order_id = $order->id;
-        $history->order_status_id =  $order->status_id;
-        $history->change_at = now();
-        $history->setCreatedAt(now());
-        $history->setUpdatedAt(now());
-        $history->save();
+        $this->status_log($order);
 
         return response()->json([
             'status' => 'changed'
@@ -304,6 +339,174 @@ class OrdersController extends Controller
        return view('orders.order_history')->with([
            'logs' => $logs
        ]);
+    }
+
+    public function place_additional_payments(Request $request){
+
+        $shop = Shop::where('shop_name',$request->input('shop'))->first();
+        if($request->input('type') == 'additional-fee'){
+            $draft_orders = $this->helper->getShop($shop->shop_name)->call([
+                'METHOD' => 'POST',
+                'URL' => '/admin/draft_orders.json',
+                'DATA' =>
+                    [
+                        "draft_order" => [
+                            'line_items' => [
+                                [
+                                    "title"=> "Additional PostDelay Charges",
+                                    "price"=> "10.00",
+                                    "quantity"=> 1,
+                                ]
+                            ],
+                            "customer" => [
+                                "id" => $request->input('customer-id'),
+                            ],
+                            "billing_address" => [
+                                "address1" => $request->input('address1'),
+                                "address2" =>  $request->input('address2'),
+                                "city" =>  $request->input('city'),
+                                "company" =>  $request->input('business'),
+                                "first_name" =>  $request->input('first_name'),
+                                "last_name" =>  $request->input('blast_name'),
+                                "province" =>  $request->input('state'),
+                                "country" =>  $request->input('country'),
+                                "zip" =>  $request->input('postecode'),
+                                "name" =>  $request->input('first_name').' '.$request->input('last_name'),
+                            ]
+
+                        ]
+
+                    ]
+            ]);
+        }
+        else{
+            $draft_orders = $this->helper->getShop($shop->shop_name)->call([
+                'METHOD' => 'POST',
+                'URL' => '/admin/draft_orders.json',
+                'DATA' =>
+                    [
+                        "draft_order" => [
+                            'line_items' => [
+                                [
+                                    "title"=> "Request Form Charges",
+                                    "price"=> "1.00",
+                                    "quantity"=> 1,
+                                ]
+                            ],
+                            "customer" => [
+                                "id" => $request->input('customer-id'),
+                            ],
+                            "billing_address" => [
+                                "address1" => $request->input('address1'),
+                                "address2" =>  $request->input('address2'),
+                                "city" =>  $request->input('city'),
+                                "company" =>  $request->input('business'),
+                                "first_name" =>  $request->input('first_name'),
+                                "last_name" =>  $request->input('blast_name'),
+                                "province" =>  $request->input('state'),
+                                "country" =>  $request->input('country'),
+                                "zip" =>  $request->input('postecode'),
+                                "name" =>  $request->input('first_name').' '.$request->input('last_name'),
+                            ]
+
+                        ]
+
+                    ]
+            ]);
+        }
+
+
+        $invoiceURL = $draft_orders->draft_order->invoice_url;
+        $token = explode('/',$invoiceURL)[5];
+        $order =  new Order();
+        $order->draft_order_id =  $draft_orders->draft_order->id;
+        $order->checkout_token = $token;
+        $order->ship_out_date = $request->input('ship_out_date');
+        $order->checkout_completed = 0;
+
+        $associate_order = Order::where('shopify_order_id',$request->input('order-id'))->first();
+        $order->order_id = $associate_order->id;
+        $order->additional_payment = 1;
+        if($request->input('type') == 'additional-fee'){
+            $order->additional_payment_name = 'Additional PostDelay Charges Payment';
+        }
+        else{
+            $order->additional_payment_name = 'Request Form Payment';
+        }
+
+
+        $customer = Customer::where('shopify_customer_id',$request->input('customer-id'))->first();
+        $order->customer_id = $customer->id;
+        $order->shopify_customer_id = $request->input('customer-id');
+
+        $billing_address = new BillingAddress();
+        $billing_address->address1 = $request->input('address1');
+        $billing_address->  address2 =  $request->input('address2');
+        $billing_address ->city =  $request->input('city');
+        $billing_address->business =  $request->input('business');
+        $billing_address->first_name =  $request->input('first_name');
+        $billing_address -> last_name =  $request->input('last_name');
+        $billing_address->state =  $request->input('state');
+        $billing_address->country =  $request->input('country');
+        $billing_address->postcode =  $request->input('postecode');
+        $billing_address->save();
+
+        $order->billing_address_id = $billing_address->id;
+
+        $order->save();
+
+        return response()->json([
+            "invoiceURL" => $invoiceURL,
+        ]);
+    }
+
+    public function get_order_type(Request $request){
+        $type = Order::where('shopify_order_id',$request->input('shopify_order_id'))->value('additional_payment');
+        return response()->json([
+            "type" => $type,
+        ]);
+    }
+
+    public function set_key_dates(Request $request){
+//        dd($request);
+        KeyDate::UpdateOrcreate([
+           "order_id" => $request->input('order_id'),
+        ],[
+            "received_post_date" => $request->input('received_post_date'),
+            "completion_date" => $request->input('completion_date'),
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function shipment_to_postdelay(Request $request){
+        Order::where('order_name',$request->input('order_name'))->update([
+           'ship_to_postdelay_date' => $request->input('ship-date'),
+            'ship_method' => $request->input('ship-method'),
+            'tracking_id' => $request->input('tracking_id'),
+            'status_id' => 2
+        ]);
+
+        $order =   Order::where('order_name',$request->input('order_name'))->first();
+        $this->status_log($order);
+
+        return response()->json([
+            'status' => 'changed'
+        ]);
+    }
+
+    /**
+     * @param $order
+     */
+    public function status_log($order): void
+    {
+        $history = new OrderStatusHistory();
+        $history->order_id = $order->id;
+        $history->order_status_id = $order->status_id;
+        $history->change_at = now();
+        $history->setCreatedAt(now());
+        $history->setUpdatedAt(now());
+        $history->save();
     }
 }
 

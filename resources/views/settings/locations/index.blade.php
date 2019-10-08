@@ -45,7 +45,7 @@
                                         {{$location->phone}}
                                     </td>
                                     <td>
-                                        {{$location->has_shop->shop_name}}
+                                        {{$location->shop_name}}
                                     </td>
 
                                     <td>
@@ -76,16 +76,24 @@
                     <div class="modal-body">
                         <form action="{{route('add_location')}}" method="post">
                             @csrf
+{{--                            <div class="form-group row">--}}
+{{--                                <label class="col-sm-2 col-form-label">Shop</label>--}}
+{{--                                <div class="col-sm-10">--}}
+{{--                                    <select name="shop_id" class="form-control">--}}
+{{--                                        @foreach($shops as $shop)--}}
+{{--                                            <option value="{{$shop->id}}">{{strtoupper(explode('.',$shop->shop_name)[0]) }}</option>--}}
+{{--                                        @endforeach--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Shop</label>
-                                <div class="col-sm-10">
-                                    <select name="shop_id" class="form-control">
-                                        @foreach($shops as $shop)
-                                            <option value="{{$shop->id}}">{{strtoupper(explode('.',$shop->shop_name)[0]) }}</option>
-                                        @endforeach
-                                    </select>
+                                <div class="col-md-12">
+                                    <label for="shop_name">Shop</label>
+                                    <input id="shop_name" class="form-control" name="shop_name" type="text" value="">
                                 </div>
                             </div>
+
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <label for="address1">Address1</label>

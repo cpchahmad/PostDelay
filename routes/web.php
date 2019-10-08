@@ -20,7 +20,8 @@ Route::get("install", function () {
         $shopUrl = "https://postdelay.myshopify.com/";
         $scope = ["read_orders", "read_products", "read_product_listings", "write_orders",
             "read_customers", "write_customers","read_script_tags", "write_script_tags","read_draft_orders",'write_draft_orders',
-            "read_shipping","write_shipping"];
+            "read_shipping","write_shipping",
+            ];
         $redirectUrl = env('APP_URL')."/auth";
 
         $shopify = Shopify::setShopUrl($shopUrl);
@@ -52,6 +53,7 @@ Route::get('/customer/put/addresses', 'OrdersController@put_addresses')->name('p
 
 Route::get('/rates', 'CustomersController@get_rates')->name('get_rates');
 Route::GET('/place/order', 'OrdersController@place_order')->name('place_order');
+Route::GET('/place/additional-payment', 'OrdersController@place_additional_payments')->name('place_additional_payments');
 Route::GET('/sync-orders', 'OrdersController@get_order')->name('get_order');
 
 Route::GET('/orders', 'OrdersController@show_existing_orders')->name('show_existing_orders');
@@ -62,13 +64,13 @@ Route::GET('/get/addresses', 'AddressController@get_address')->name('get_address
 Route::GET('/get/addresses/type', 'AddressController@get_address_form')->name('get_address_form');
 Route::GET('/update/address', 'AddressController@update_address')->name('update_address');
 
-Route::POST('/webhook/create/customer', 'WebhookController@webhook_customer_create')->name('webhook.customer.create');
-Route::POST('/webhook/update/customer', 'WebhookController@webhook_customer_update')->name('webhook.customer.update');
-Route::POST('/webhook/delete/customer', 'WebhookController@webhook_customer_delete')->name('webhook.customer.delete');
+//Route::POST('/webhook/create/customer', 'WebhookController@webhook_customer_create')->name('webhook.customer.create');
+//Route::POST('/webhook/update/customer', 'WebhookController@webhook_customer_update')->name('webhook.customer.update');
+//Route::POST('/webhook/delete/customer', 'WebhookController@webhook_customer_delete')->name('webhook.customer.delete');
 
 Route::POST('/webhook/create/order', 'WebhookController@webhook_order_create')->name('webhook.order.create');
-Route::POST('/webhook/update/order', 'WebhookController@webhook_order_update')->name('webhook.order.update');
-Route::POST('/webhook/delete/order', 'WebhookController@webhook_order_delete')->name('webhook.order.delete');
+//Route::POST('/webhook/update/order', 'WebhookController@webhook_order_update')->name('webhook.order.update');
+//Route::POST('/webhook/delete/order', 'WebhookController@webhook_order_delete')->name('webhook.order.delete');
 
 Route::GET('/webhook/insert', 'WebhookController@webhook')->name('webhook.insert');
 Route::GET('/webhook/get', 'WebhookController@getWebhooks')->name('webhook.getWebhooks');
@@ -96,9 +98,19 @@ Route::POST('/scale/add','SettingsController@add_scale')->name('add_scale');
 Route::get('/setting/locations', 'LocationController@show_locations')->name('locations.index');
 Route::POST('/location/add', 'LocationController@add_location')->name('add_location');
 Route::GET('/location/delete', 'LocationController@delete_location')->name('delete_location');
-Route::GET('/location/edit/{id}', 'LocationController@show_edit_form')->name('show_edit_form');\
+Route::GET('/location/edit/{id}', 'LocationController@show_edit_form')->name('show_edit_form');
 Route::POST('/location/update/', 'LocationController@update_location')->name('update_location');
 
 
 Route::GET('/order/status/update', 'OrdersController@update_order_status')->name('update_order_status');
 Route::GET('/order/log/{id}', 'OrdersController@order_history')->name('order_history');
+
+Route::GET('/script_tag/insert', 'WebhookController@script_tag')->name('script.insert');
+Route::GET('/script_tag/get', 'WebhookController@getScriptTags')->name('script.get');
+
+Route::GET('/request-form', 'AddressController@get_billing_addresses')->name('get_billing_addresses');
+Route::GET('/request-form/billing-address', 'AddressController@get_billing_form')->name('get_billing_form');
+
+Route::GET('/get-order', 'OrdersController@get_order_type')->name('get_order');
+Route::GET('/order/key-dates', 'OrdersController@set_key_dates')->name('set_key_dates');
+Route::GET('/shipment-to-postdelay', 'OrdersController@shipment_to_postdelay')->name('shipment_to_postdelay');

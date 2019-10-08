@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
 use App\Order;
 use App\OrderStatusHistory;
 use App\Status;
@@ -21,8 +22,7 @@ class AdminController extends Controller
         ]);
     }
     public function single_customer($id){
-        $order=Order::where('customer_id',$id)->first();
-
-        return view('customers.single_customer',compact('order'));
+        $customer =Customer::find($id);
+        return view('customers.single_customer',compact('customer'));
     }
 }
