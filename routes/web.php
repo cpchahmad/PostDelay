@@ -114,4 +114,4 @@ Route::GET('/request-form/billing-address', 'AddressController@get_billing_form'
 Route::GET('/get-order', 'OrdersController@get_order_type')->name('get_order');
 Route::GET('/order/key-dates', 'OrdersController@set_key_dates')->name('set_key_dates');
 Route::GET('/shipment-to-postdelay', 'OrdersController@shipment_to_postdelay')->name('shipment_to_postdelay');
-Route::GET('/sync-customers', 'OrdersController@get_customers')->name('get_customers');
+Route::GET('/sync-customers', 'CustomersController@get_customers')->name('get_customers');

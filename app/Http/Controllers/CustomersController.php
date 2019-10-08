@@ -189,25 +189,25 @@ class CustomersController extends Controller
             $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
 
             if ($shop != null) {
-                $updated_customer = $this->helper->getShop($request->input('shop'))->call([
-                    'METHOD' => 'PUT',
-                    'URL' => '/admin/customers/' . $request->input('customer_id') . '.json',
-                    'DATA' => [
-                        "customer" => [
-                            "first_name" => $request->input("first_name"),
-                            "last_name" => $request->input("last_name"),
-                            "email" => $request->input("email"),
-                            "phone" => $request->input('phone'),
-                            "send_email_welcome" => false,
-                            "verified_email" => false,
-                            "send_email_invite" => true,
+//                $updated_customer = $this->helper->getShop($request->input('shop'))->call([
+//                    'METHOD' => 'PUT',
+//                    'URL' => '/admin/customers/' . $request->input('customer_id') . '.json',
+//                    'DATA' => [
+//                        "customer" => [
+//                            "first_name" => $request->input("first_name"),
+//                            "last_name" => $request->input("last_name"),
+//                            "email" => $request->input("email"),
+//                            "phone" => $request->input('phone'),
+//                            "send_email_welcome" => false,
+//                            "verified_email" => false,
+//                            "send_email_invite" => true,
+//
+//                        ]
+//                    ]
+//                ]);
 
-                        ]
-                    ]
-                ]);
 
-                if ($updated_customer != null) {
-                    Customer::where('shopify_customer_id', $updated_customer->customer->id)->update([
+                    Customer::where('shopify_customer_id', $request->input('customer_id'))->update([
                         'first_name' => $request->input("first_name"),
                         'last_name' => $request->input("last_name"),
                         'email' => $request->input("email"),
@@ -220,18 +220,17 @@ class CustomersController extends Controller
                         'country' => $request->input('country'),
                         'postcode' => $request->input('postecode'),
                         'shop_id' => $shop,
-                        'shopify_customer_id' => $updated_customer->customer->id,
+                        'shopify_customer_id' => $request->input('customer_id'),
                     ]);
                 }
 
 
                 return response()->json(['msg' => 'Updated'], 200);
-            } else {
-                return response()->json(['msg' => 'Shop Not Registered'], 200);
+
             }
 
         }
-    }
+
     public function delete_all()
     {
         DB::table('customers')->truncate();

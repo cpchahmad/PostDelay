@@ -70,7 +70,7 @@
         <div class="custom_fields_half">
             <div class="custom_Request_fields_half  Get-contect-left">
                 <label for="Email">Email</label>
-                <input type="email" required="" name="email" id="Email" value="{{$customer->email}}" placeholder="">
+                <input disabled type="email" required="" name="email" id="Email" value="{{$customer->email}}" placeholder="">
             </div>
         </div>
         <div class="custom_fields_half">
