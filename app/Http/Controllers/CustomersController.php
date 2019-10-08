@@ -6,6 +6,7 @@ use App\Address;
 use App\BillingAddress;
 use App\Customer;
 use App\Order;
+use App\OrderStatusHistory;
 use App\PackageDetail;
 use App\RecipientAddress;
 use App\SenderAddress;
@@ -41,6 +42,7 @@ class CustomersController extends Controller
             return response()->json($validate_data->messages(), 200);
         } else {
             $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
+          dd($this->helper->getShop($request->input('shop')));
             if ($shop != null) {
                 $customer = $this->helper->getShop($request->input('shop'))->call([
                     'METHOD' => 'POST',
@@ -234,6 +236,7 @@ class CustomersController extends Controller
     {
         DB::table('customers')->truncate();
         DB::table('addresses')->truncate();
+        DB::table('orders')->truncate();
     }
 
     public function draft_orders()
@@ -368,6 +371,25 @@ class CustomersController extends Controller
         ]);
         dd($rates);
     }
+
+
+    public function get_customers(){
+        $customers = $this->helper->getShop('postdelay.myshopify.com')->call([
+            'METHOD' => 'GET',
+            'URL' => '/admin/customers.json',
+        ]);
+        $customers = $customers->customers;
+//        dd($orders);
+        foreach ($customers as $index => $customer){
+            Customer::UpdateorCreate([
+                'shopify_customer_id' => $customer->id
+            ],[
+                'first_name' => $customer->first_name,
+                'last_name' => $customer->last_name,
+                'email' => $customer->email,
+            ]);
+            }
+        }
 
 
 
