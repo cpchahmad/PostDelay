@@ -234,6 +234,7 @@ class CustomersController extends Controller
     {
         DB::table('customers')->truncate();
         DB::table('addresses')->truncate();
+        DB::table('orders')->truncate();
     }
 
     public function draft_orders()
