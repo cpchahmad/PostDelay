@@ -29,7 +29,7 @@ class OrdersController extends Controller
 
     public function index(){
         $orders=Order::where('checkout_completed',1)
-            ->where('additional_payment',0)->get();
+            ->where('additional_payment',0)->orderBy('order_name', 'DESC')->get();
         $status=Status::all();
         return view('orders.index',compact('orders','status'));
     }
@@ -286,7 +286,7 @@ class OrdersController extends Controller
         $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
         $customer = Customer::where('shopify_customer_id', $request->input('customer_id'))->first();
         $orders = Order::where('shopify_customer_id',$customer->shopify_customer_id)->where('checkout_completed',1)
-            ->where('additional_payment',0)->get();
+            ->where('additional_payment',0)->orderBy('order_name', 'DESC')->get();
         $returnHTML = view('customers.existing_orders', ['orders' => $orders])->render();
         return response()->json([
             "html" => $returnHTML,
