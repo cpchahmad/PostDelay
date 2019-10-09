@@ -42,7 +42,7 @@ class CustomersController extends Controller
             return response()->json($validate_data->messages(), 200);
         } else {
             $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
-          dd($this->helper->getShop($request->input('shop')));
+
             if ($shop != null) {
                 $customer = $this->helper->getShop($request->input('shop'))->call([
                     'METHOD' => 'POST',
@@ -259,7 +259,6 @@ class CustomersController extends Controller
                ]);
            }
 
-
         }
 
         DB::table('customers')->truncate();
@@ -333,6 +332,7 @@ class CustomersController extends Controller
         ]);
         $customers = $customers->customers;
         $shop = Shop::where('shop_name','postdelay.myshopify.com')->value('id');
+        dd($shop);
         foreach ($customers as $index => $customer){
             Customer::UpdateorCreate([
                 'shopify_customer_id' => $customer->id
