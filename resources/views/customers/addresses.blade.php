@@ -29,7 +29,7 @@
     <div class="custom_fields_half">
         <div class="custom_Request_fields_half">
             <label for="Business">Business</label>
-            <input type="text" required="" name="business" id="Business" value="{{$address->business}}" placeholder="">
+            <input type="text"  name="business" id="Business" value="{{$address->business}}" placeholder="">
         </div>
     </div>
 
@@ -43,7 +43,7 @@
     <div class="custom_fields_half">
         <div class="custom_Request_fields_half">
             <label for="Address2">Address2</label>
-            <input type="text" required="" name="address2" id="Address2" value="{{$address->address2}}" placeholder="">
+            <input type="text"  name="address2" id="Address2" value="{{$address->address2}}" placeholder="">
         </div>
     </div>
 
@@ -66,7 +66,7 @@
         <div id="province_div" class="custom_fields_third ">
             <div class="custom_Request_fields_half adj">
                 <label for="AddressProvinceNew">State</label>
-                <input type="text" required="" name="state" id="State" value="{{$address->state}}" placeholder="">
+                <input type="text"  name="state" id="State" value="{{$address->state}}" placeholder="">
             </div>
         </div>
 

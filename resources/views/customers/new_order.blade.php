@@ -39,7 +39,7 @@
                     <div class="custom_fields_half">
                         <div class="custom_Request_fields_half">
                             <label for="Business">Business</label>
-                            <input type="text" required="" name="sender_business" id="Business" @if($sender_address != null) value="{{$sender_address->business}}" @endif placeholder="">
+                            <input type="text"  name="sender_business" id="Business" @if($sender_address != null) value="{{$sender_address->business}}" @endif placeholder="">
                         </div>
                     </div>
                     <div class="custom_fields_half">
@@ -51,7 +51,7 @@
                     <div class="custom_fields_half">
                         <div class="custom_Request_fields_half">
                             <label for="Address2">Address2</label>
-                            <input type="text" required="" name="sender_address2" id="Address2" @if($sender_address != null) value="{{$sender_address->address2}}" @endif placeholder="">
+                            <input type="text"  name="sender_address2" id="Address2" @if($sender_address != null) value="{{$sender_address->address2}}" @endif placeholder="">
                         </div>
                     </div>
 
@@ -65,7 +65,7 @@
                         <div class="custom_fields_half">
                             <div class="custom_Request_fields_half adj">
                                 <label for="State">State</label>
-                                <input type="text" required="" name="sender_state" id="State" @if($sender_address != null) value="{{$sender_address->state}}" @endif placeholder="">
+                                <input type="text"  name="sender_state" id="State" @if($sender_address != null) value="{{$sender_address->state}}" @endif placeholder="">
                             </div>
                         </div>
                         <div class="custom_fields_half">
@@ -139,7 +139,7 @@
                     <div class="custom_fields_half">
                         <div class="custom_Request_fields_half">
                             <label for="Address2">Address2</label>
-                            <input type="text" required="" name="receipent_address2" id="Address2" @if($recipient_address != null) value="{{$recipient_address->address2}}" @endif placeholder="">
+                            <input type="text"  name="receipent_address2" id="Address2" @if($recipient_address != null) value="{{$recipient_address->address2}}" @endif placeholder="">
                         </div>
                     </div>
 
@@ -290,7 +290,7 @@
                 <div class="custom_fields_half">
                     <div class="custom_Request_fields_half">
                         <label for="Business">Business</label>
-                        <input type="text" required="" name="billing_business" id="Business" @if($billing_address != null) value="{{$billing_address->business}}" @endif placeholder="">
+                        <input type="text"  name="billing_business" id="Business" @if($billing_address != null) value="{{$billing_address->business}}" @endif placeholder="">
                     </div>
                 </div>
                 <div class="custom_fields_half">
@@ -302,7 +302,7 @@
                 <div class="custom_fields_half">
                     <div class="custom_Request_fields_half">
                         <label for="Address2">Address2</label>
-                        <input type="text" required="" name="billing_address2" id="Address2" @if($billing_address != null) value="{{$billing_address->address2}}" @endif placeholder="">
+                        <input type="text"  name="billing_address2" id="Address2" @if($billing_address != null) value="{{$billing_address->address2}}" @endif placeholder="">
                     </div>
                 </div>
 
@@ -316,7 +316,7 @@
                     <div class="custom_fields_half">
                         <div class="custom_Request_fields_half adj">
                             <label for="State">State</label>
-                            <input type="text" required="" name="billing_state" id="State" @if($billing_address != null) value="{{$billing_address->state}}" @endif placeholder="">
+                            <input type="text"  name="billing_state" id="State" @if($billing_address != null) value="{{$billing_address->state}}" @endif placeholder="">
                         </div>
                     </div>
                     <div class="custom_fields_half">

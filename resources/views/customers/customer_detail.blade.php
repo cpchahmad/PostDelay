@@ -20,7 +20,7 @@
     <div class="custom_fields_half">
         <div class="custom_Request_fields_half">
             <label for="Business">Business</label>
-            <input type="text" required="" name="business" id="Business" value="{{$customer->business}}" placeholder="">
+            <input type="text"  name="business" id="Business" value="{{$customer->business}}" placeholder="">
         </div>
     </div>
     <div class="custom_fields_half">
@@ -32,7 +32,7 @@
     <div class="custom_fields_half">
         <div class="custom_Request_fields_half">
             <label for="Address2">Address2</label>
-            <input type="text"  name="address2" id="Address2" value="{{$customer->address2}}" placeholder="">
+            <input type="text"   id="Address2" value="{{$customer->address2}}" placeholder="">
         </div>
     </div>
 

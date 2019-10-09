@@ -8,14 +8,14 @@
     <div class="custom_fields_half">
         <div class="custom_Request_fields_half tow-field-Row-right">
             <label for="Order ID">Ship Method</label>
-            <input type="text" required="" name="ship-method" = value="{{$order->ship_method}}" placeholder="">
+            <input type="text" required="" name="ship-method" value="{{$order->ship_method}}" placeholder="">
         </div>
     </div>
 </div>
 <div class="custom_fields_half">
     <div class="custom_Request_fields_half ">
         <label for="Order ID">Tracking Id</label>
-        <input type="text" required="" name="tracking_id" = value="{{$order->tracking_id}}" placeholder="">
+        <input type="text" required="" name="tracking_id"  value="{{$order->tracking_id}}" placeholder="">
     </div>
 </div>
 <input type="submit" class="Same-button" value="Save">
