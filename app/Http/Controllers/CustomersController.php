@@ -248,10 +248,17 @@ class CustomersController extends Controller
                    ]);
                }
            }
-            $this->helper->getShop('postdelay.myshopify.com')->call([
-                'METHOD' => 'DELETE',
+           $customer =  $this->helper->getShop('postdelay.myshopify.com')->call([
+                'METHOD' => 'GET',
                 'URL' => 'admin/customers/' .$customer->shopify_customer_id. '.json',
             ]);
+           if($customer->customer != null){
+               $this->helper->getShop('postdelay.myshopify.com')->call([
+                   'METHOD' => 'DELETE',
+                   'URL' => 'admin/customers/' .$customer->shopify_customer_id. '.json',
+               ]);
+           }
+
 
         }
 
