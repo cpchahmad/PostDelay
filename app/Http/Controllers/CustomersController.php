@@ -233,8 +233,36 @@ class CustomersController extends Controller
 
     public function delete_all()
     {
+        $customers = Customer::all();
+
+        foreach ($customers as $customer){
+           $orders =  $this->helper->getShop('postdelay.myshopify.com')->call([
+                'METHOD' => 'GET',
+                'URL' => 'admin/customers/' .$customer->shopify_customer_id. '/orders.json',
+                ]);
+           if(count($orders->orders) > 0){
+               foreach ($orders->orders as $order){
+                   $this->helper->getShop('postdelay.myshopify.com')->call([
+                       'METHOD' => 'DELETE',
+                       'URL' => 'admin/orders/' .$order->id. '.json',
+                   ]);
+               }
+           }
+            $this->helper->getShop('postdelay.myshopify.com')->call([
+                'METHOD' => 'DELETE',
+                'URL' => 'admin/customers/' .$customer->shopify_customer_id. '.json',
+            ]);
+
+        }
+
         DB::table('customers')->truncate();
         DB::table('addresses')->truncate();
+        DB::table('billing_addresses')->truncate();
+        DB::table('sender_addresses')->truncate();
+        DB::table('recipient_addresses')->truncate();
+        DB::table('key_dates')->truncate();
+        DB::table('order_status_histories')->truncate();
+        DB::table('package_details')->truncate();
         DB::table('orders')->truncate();
     }
 
@@ -291,94 +319,13 @@ class CustomersController extends Controller
         dd($draft_orders);
     }
 
-
-    public function get_rates(Request $request)
-    {
-//        $provider = $this->helper->getShop('postdelay.myshopify.com')->call([
-//            'METHOD' => 'POST',
-//            'URL' => 'admin/carrier_services.json',
-//            'DATA' => [
-//                "carrier_service" => [
-//                    "name" => "Shipping Rate Provider",
-//                    "callback_url" => "https://postdelay.shopifyapplications.com/",
-//                    "service_discovery" => true
-//                ]
-//            ]
-//        ]);
-//
-///*24627413073*/
-//        dd($provider);
-//       $rates =  $this->helper->getShop('postdelay.myshopify.com')->call([
-//            'METHOD' => 'POST',
-//            'URL' => 'https://postdelay.shopifyapplications.com/',
-//            'DATA' =>
-//                [
-//                    "rate"=> [
-//                        "origin"=> [
-//                            "country"=> "CA",
-//                            "postal_code"=> "K2P1L4",
-//                            "province"=> "ON",
-//                            "city"=> "Ottawa",
-//                            "name"=> null,
-//                            "address1"=> "150 Elgin St.",
-//                            "address2"=> "",
-//                            "address3"=> null,
-//                            "phone"=> "16135551212",
-//                            "fax"=> null,
-//                            "email"=> null,
-//                            "address_type"=> null,
-//                            "company_name"=> "Jamie D's Emporium"
-//                        ],
-//                        "destination"=> [
-//                            "country"=> "CA",
-//                            "postal_code"=> "K1M1M4",
-//                            "province"=> "ON",
-//                            "city"=> "Ottawa",
-//                            "name"=> "Bob Norman",
-//                            "address1"=> "24 Sussex Dr.",
-//                            "address2"=> "",
-//                            "address3"=> null,
-//                            "phone"=> null,
-//                            "fax"=> null,
-//                            "email"=> null,
-//                            "address_type"=> null,
-//                            "company_name"=> null
-//                        ],
-//                        "items"=> [[
-//                            "name"=> "Short Sleeve T-Shirt",
-//                            "sku"=> "",
-//                            "quantity"=> 1,
-//                            "grams"=> 1000,
-//                            "price"=> 1999,
-//                            "vendor"=> "Jamie D's Emporium",
-//                            "requires_shipping"=> true,
-//                            "taxable"=> true,
-//                            "fulfillment_service"=> "manual",
-//                            "properties"=> null,
-//                            "variant_id"=> 30341585371217
-//                        ]],
-//                        "currency"=> "USD",
-//                        "locale"=> "en"
-//                    ]
-//                ]
-//        ]);
-//       dd($rates);
-
-        $rates =  $this->helper->getShop('postdelay.myshopify.com')->call([
-            'METHOD' => 'GET',
-            'URL' => 'admin/carrier_services.json',
-        ]);
-        dd($rates);
-    }
-
-
     public function get_customers(){
         $customers = $this->helper->getShop('postdelay.myshopify.com')->call([
             'METHOD' => 'GET',
             'URL' => '/admin/customers.json',
         ]);
         $customers = $customers->customers;
-//        dd($orders);
+        $shop = Shop::where('shop_name','postdelay.myshopify.com')->value('id');
         foreach ($customers as $index => $customer){
             Customer::UpdateorCreate([
                 'shopify_customer_id' => $customer->id
@@ -386,6 +333,7 @@ class CustomersController extends Controller
                 'first_name' => $customer->first_name,
                 'last_name' => $customer->last_name,
                 'email' => $customer->email,
+                'shop_id' => $shop
             ]);
             }
         }

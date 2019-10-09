@@ -51,7 +51,6 @@ Route::get('/draft', 'CustomersController@draft_orders')->name('draft_orders');
 Route::get('/customer/get/new_order', 'OrdersController@show_new_order')->name('show_new_order');
 Route::get('/customer/put/addresses', 'OrdersController@put_addresses')->name('put_addresses');
 
-Route::get('/rates', 'CustomersController@get_rates')->name('get_rates');
 Route::GET('/place/order', 'OrdersController@place_order')->name('place_order');
 Route::GET('/place/additional-payment', 'OrdersController@place_additional_payments')->name('place_additional_payments');
 Route::GET('/sync-orders', 'OrdersController@get_order')->name('get_order');
