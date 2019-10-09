@@ -85,7 +85,7 @@
             <input type="submit" class="Same-button" value="SAVE">
         </div>
 
-        <div class="custom_Button-contaner w">
+        <div class="custom_Button-contaner ">
             <a  id="change-password" style="cursor: pointer" class="Same-button" >CHANGE PASSWORD</a>
         </div>
 
@@ -93,6 +93,9 @@
         <div class="custom_Button-contaner cng-btn">
             <a style="cursor: pointer" class="Same-button" >DELETE ACCOUNT</a>
         </div>
+
+    </div>
+    <div class="form-message form-message--success hide" id="RecoverPasswordStatus" tabindex="-1">
 
     </div>
 
