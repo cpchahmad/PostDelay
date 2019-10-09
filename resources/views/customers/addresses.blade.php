@@ -47,35 +47,36 @@
         </div>
     </div>
 
-    <div class="custom_fields_half">
+    <div class="custom_fields_half associate">
         <div class="custom_Request_fields_half">
-
             <label for="AddressCountryNew">Country</label>
-            <input type="text" required="" name="country" id="City" value="{{$address->country}}" placeholder="">
+            <select required class="AddressCountryNew" name="country" @if($address != null) data-country-select="{{ $address->country }}"  data-province-select="{{$address->state}}" @endif>
+                @include('customers.inc.countries')
+            </select>
         </div>
-        <div id="country-status"></div>
     </div>
+
     <div class="Complete-address">
-        <div id="city_div" class="custom_fields_third">
+        <div id="city_div" class="custom_fields_half">
             <div class="custom_Request_fields_half">
                 <label for="City">City</label>
                 <input type="text" required="" name="city" id="City" value="{{$address->city}}" placeholder="">
             </div>
         </div>
-
-        <div id="province_div" class="custom_fields_third ">
+        <div id="province_div" class="custom_fields_half hide associate">
             <div class="custom_Request_fields_half adj">
                 <label for="AddressProvinceNew">State</label>
-                <input type="text"  name="state" id="State" value="{{$address->state}}" placeholder="">
+                <select class="AddressProvinceNew" name="state" autocomplete="address-level1"></select>
             </div>
         </div>
 
-        <div id="postal_div" class="custom_fields_third">
+        <div id="postal_div" class="custom_fields_half">
             <div class="custom_Request_fields_half">
                 <label for="PosteCode">Postal Code</label>
-                <input type="text" required="" name="postcode" id="PosteCode" value="{{$address->postcode}}" placeholder="">
+                <input type="text" required="" name="postecode" id="PosteCode" value="{{$address->postcode}}" placeholder="">
             </div>
         </div>
+
     </div>
 
     <div class="custom_fields_half">

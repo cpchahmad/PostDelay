@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Address;
 use App\BillingAddress;
+use App\Country;
 use App\Customer;
 use App\Order;
 use App\OrderStatusHistory;
@@ -169,7 +170,12 @@ class CustomersController extends Controller
             ->where('shop_id', $shop)->first();
         $customer_addresses = Address::where('shopify_customer_id', $request->input('customer_id'))
             ->where('shop_id', $shop)->get();
-        $returnHTML = view('customers.customer_detail', ['customer' => $customer, 'addresses' => $customer_addresses])->render();
+        $countries = Country::all();
+        $returnHTML = view('customers.customer_detail', [
+            'customer' => $customer,
+            'addresses' => $customer_addresses,
+            'countries' => $countries
+        ])->render();
         return response()->json([
             "html" => $returnHTML,
         ]);
