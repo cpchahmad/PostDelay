@@ -332,7 +332,6 @@ class CustomersController extends Controller
         ]);
         $customers = $customers->customers;
         $shop = Shop::where('shop_name','postdelay.myshopify.com')->value('id');
-        dd($shop);
         foreach ($customers as $index => $customer){
             Customer::UpdateorCreate([
                 'shopify_customer_id' => $customer->id
