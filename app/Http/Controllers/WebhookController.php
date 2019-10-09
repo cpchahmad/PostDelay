@@ -25,13 +25,13 @@ class WebhookController extends Controller
         ]);
         dd($webhooks);
 
-        foreach ($webhooks->webhooks as $webhook){
-
-            $this->helper->getShop(session('shop_name'))->call([
-                'METHOD' => 'delete',
-                'URL' => 'admin/webhooks/'.$webhook->id.'.json',
-            ]);
-        }
+//        foreach ($webhooks->webhooks as $webhook){
+//
+//            $this->helper->getShop(session('shop_name'))->call([
+//                'METHOD' => 'delete',
+//                'URL' => 'admin/webhooks/'.$webhook->id.'.json',
+//            ]);
+//        }
     }
 
     public function webhook(Request $request)
@@ -43,7 +43,7 @@ class WebhookController extends Controller
             "DATA" => [
                 "webhook" => [
                     "topic" => "customers/create",
-                    "address" => 'https://postdelay.shopifyapplications.com/webhook/create/customer',
+                    "address" => 'https://b232beca.ngrok.io/webhook/create/customer',
                     "format" => "json"
                 ]
             ]
@@ -55,7 +55,7 @@ class WebhookController extends Controller
             "DATA" => [
                 "webhook" => [
                     "topic" => "orders/create",
-                    "address" => /*env('APP_URL').*/ 'https://postdelay.shopifyapplications.com/webhook/create/order',
+                    "address" => /*env('APP_URL').*/ 'https://b232beca.ngrok.io/webhook/create/order',
                     "format" => "json"
                 ]
             ]
@@ -66,18 +66,8 @@ class WebhookController extends Controller
 
     public function webhook_customer_create(Request $request)
     {
-        $shop = $_SERVER['X-Shopify-Shop-Domain'];
-        if ($shop != null) {
-            $shopify_customer_id = $request['id'];
-            $customer = Customer::where('shopify_customer_id', $shopify_customer_id)->first();
-            if ($customer != null) {
-
-                dd($customer);
-            } else {
-
-            }
-
-        }
+        $customer = new CustomersController();
+        $customer->get_customers();
     }
 
     public function webhook_order_create(Request $request)
