@@ -36,36 +36,35 @@
         </div>
     </div>
 
-    <div class="custom_fields_half">
+    <div class="custom_fields_half associate">
         <div class="custom_Request_fields_half">
-            <label for="Country">Country</label>
-            <input type="text" required="" name="country" id="Country" value="{{$customer->country}}" placeholder="">
-        </div>
+        <label for="AddressCountryNew" >Country</label>
+        <select required class="AddressCountryNew" name="country" @if($customer != null) data-country-select="{{ $customer->country }}"  data-province-select="{{$customer->state}}" @endif>
+            @include('customers.inc.countries')
+        </select>
     </div>
-
+    </div>
     <div class="Complete-address">
-        <div class="custom_fields_half">
+        <div id="city_div" class="custom_fields_half">
             <div class="custom_Request_fields_half">
                 <label for="City">City</label>
                 <input type="text" required="" name="city" id="City" value="{{$customer->city}}" placeholder="">
             </div>
         </div>
-        <div class="custom_fields_half">
+        <div id="province_div" class="custom_fields_half hide associate">
             <div class="custom_Request_fields_half adj">
-                <label for="State">State</label>
-                <input type="text"  name="state" id="State" value="{{$customer->state}}" placeholder="">
+                <label for="AddressProvinceNew">State</label>
+                <select class="AddressProvinceNew" name="state" autocomplete="address-level1"></select>
             </div>
         </div>
-        <div class="custom_fields_half">
+        <div id="postal_div" class="custom_fields_half">
             <div class="custom_Request_fields_half">
-                <label for="PosteCode">Poste Code</label>
+                <label for="PosteCode">Postal Code</label>
                 <input type="text" required="" name="postecode" id="PosteCode" value="{{$customer->postcode}}" placeholder="">
             </div>
         </div>
 
     </div>
-
-
     <div class="tow-field-Row">
         <div class="custom_fields_half">
             <div class="custom_Request_fields_half  Get-contect-left">
@@ -86,8 +85,8 @@
             <input type="submit" class="Same-button" value="SAVE">
         </div>
 
-        <div class="custom_Button-contaner cng-btn">
-            <a style="cursor: pointer" class="Same-button" >CHANGE PASSWORD</a>
+        <div class="custom_Button-contaner w">
+            <a  id="change-password" style="cursor: pointer" class="Same-button" >CHANGE PASSWORD</a>
         </div>
 
 

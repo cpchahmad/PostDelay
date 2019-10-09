@@ -537,8 +537,8 @@
                                                     <div class="form-group row">
                                                         <label class="col-sm-12 col-form-label">Recieved Post by Post Delay</label>
                                                         <div class="col-sm-12">
-                                                            <input  class="form-control" name="received_post_date" type="datetime-local"
-                                                                    @if($order->has_key_dates != null) value="{{\Carbon\Carbon::parse($order->has_key_dates->received_post_date)->format('Y-m-d\TH:i:s')}}" @else value='' @endif>
+                                                            <input  class="form-control" name="received_post_date" type="date"
+                                                                    @if($order->has_key_dates != null) value="{{\Carbon\Carbon::parse($order->has_key_dates->received_post_date)->format('Y-m-d')}}" @else value='' @endif>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -546,7 +546,7 @@
                                                     <div class="form-group row">
                                                         <label for="example-text-input" class="col-sm-12 col-form-label">Ship out Date</label>
                                                         <div class="col-sm-12">
-                                                            <input disabled class="form-control" type="text" value="{{\Carbon\Carbon::parse($order->ship_out_date)->format('F j ,Y')}}"id="example-text-input" >
+                                                            <input disabled class="form-control" type="text" value="{{\Carbon\Carbon::parse($order->ship_out_date)->format('F j ,Y')}}" id="example-text-input" >
                                                         </div>
                                                     </div>
                                                 </div>
@@ -554,8 +554,8 @@
                                                     <div class="form-group row">
                                                         <label for="example-text-input" class="col-sm-12 col-form-label">Completion Date</label>
                                                         <div class="col-sm-12">
-                                                            <input name="completion_date" class="form-control" type="datetime-local"
-                                                                   @if($order->has_key_dates != null) value="{{\Carbon\Carbon::parse($order->has_key_dates->completion_date)->format('Y-m-d\TH:i:s')}}" @else value='' @endif >
+                                                            <input name="completion_date" class="form-control" type="date"
+                                                                   @if($order->has_key_dates != null) value="{{\Carbon\Carbon::parse($order->has_key_dates->completion_date)->format('Y-m-d')}}" @else value='' @endif >
                                                         </div>
                                                     </div>
                                                 </div>

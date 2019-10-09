@@ -9,6 +9,7 @@
             </div>
             <div class="Form-field-contaner">
                 <div class="Form-content-name">
+                    <p> Sender Details </p>
                     <select class="addresses_select" id="sender_address_select"  name="sender-addresses" >
                         <option value="---">Select Sender Address</option>
                         @foreach($addresses as $address)
@@ -55,32 +56,36 @@
                         </div>
                     </div>
 
+                    <div class="custom_fields_half associate">
+                        <div class="custom_Request_fields_half">
+                            <label for="AddressCountryNew">Country</label>
+                            <select required class="AddressCountryNew" name="sender_country" @if($sender_address != null) data-country-select="{{ $sender_address->country }}"  data-province-select="{{$sender_address->state}}" @endif >
+                                @include('customers.inc.countries')
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="Complete-address">
-                        <div class="custom_fields_half">
+                        <div id="city_div" class="custom_fields_half">
                             <div class="custom_Request_fields_half">
                                 <label for="City">City</label>
                                 <input type="text" required="" name="sender_city" id="City" @if($sender_address != null) value="{{$sender_address->city}}" @endif placeholder="">
                             </div>
                         </div>
-                        <div class="custom_fields_half">
+                        <div id="province_div" class="custom_fields_half hide associate">
                             <div class="custom_Request_fields_half adj">
-                                <label for="State">State</label>
-                                <input type="text"  name="sender_state" id="State" @if($sender_address != null) value="{{$sender_address->state}}" @endif placeholder="">
+                                <label for="AddressProvinceNew">State</label>
+                                <select class="AddressProvinceNew" name="sender_state" autocomplete="address-level1"></select>
                             </div>
                         </div>
-                        <div class="custom_fields_half">
+
+                        <div id="postal_div" class="custom_fields_half">
                             <div class="custom_Request_fields_half">
-                                <label for="PosteCode">Poste Code</label>
+                                <label for="PosteCode">Postal Code</label>
                                 <input type="text" required="" name="sender_postecode" id="PosteCode" @if($sender_address != null) value="{{$sender_address->postcode}}" @endif placeholder="">
                             </div>
                         </div>
 
-                    </div>
-                    <div class="custom_fields_half">
-                        <div class="custom_Request_fields_half">
-                            <label for="Country">Country</label>
-                            <input type="text" required="" name="sender_country" id="Country" @if($sender_address != null) value="{{$sender_address->country}}"  @endif placeholder="">
-                        </div>
                     </div>
 
                     <div class="custom_fields_half">
@@ -97,6 +102,7 @@
             </div>
             <div class="Form-field-contaner">
                 <div class="Form-content-name">
+                    <p>Receipent Details</p>
                     <select class="addresses_select" id="receipent_address_select" name="receipent-addresses" >
                         <option value="---">Select Receipent Address</option>
                         @foreach($addresses as $address)
@@ -143,32 +149,37 @@
                         </div>
                     </div>
 
+                    <div class="custom_fields_half associate">
+                        <div class="custom_Request_fields_half">
+                            <label for="AddressCountryNew">Country</label>
+                            <select required class="AddressCountryNew" name="receipent_country" @if($recipient_address != null) data-country-select="{{ $recipient_address->country }}"  data-province-select="{{$recipient_address->state}}" @endif >
+                                @include('customers.inc.countries')
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="Complete-address">
-                        <div class="custom_fields_half">
+                        <div id="city_div" class="custom_fields_half">
                             <div class="custom_Request_fields_half">
                                 <label for="City">City</label>
                                 <input type="text" required="" name="receipent_city" id="City" @if($recipient_address != null) value="{{$recipient_address->city}}" @endif placeholder="">
                             </div>
                         </div>
-                        <div class="custom_fields_half">
+                        <div id="province_div" class="custom_fields_half hide associate">
                             <div class="custom_Request_fields_half adj">
-                                <label for="State">State</label>
-                                <input type="text" required="" name="receipent_state" id="State" @if($recipient_address != null) value="{{$recipient_address->state}}" @endif placeholder="">
+                                <label for="AddressProvinceNew">State</label>
+                                <select class="AddressProvinceNew" name="receipent_state" autocomplete="address-level1"></select>
                             </div>
                         </div>
-                        <div class="custom_fields_half">
+
+
+                        <div id="postal_div" class="custom_fields_half">
                             <div class="custom_Request_fields_half">
-                                <label for="PosteCode">Poste Code</label>
+                                <label for="PosteCode">Postal Code</label>
                                 <input type="text" required="" name="receipent_postecode" id="PosteCode" @if($recipient_address != null) value="{{$recipient_address->postcode}}" @endif placeholder="">
                             </div>
                         </div>
 
-                    </div>
-                    <div class="custom_fields_half">
-                        <div class="custom_Request_fields_half">
-                            <label for="Country">Country</label>
-                            <input type="text" required="" name="receipent_country" id="Country" @if($recipient_address != null) value="{{$recipient_address->country}}"  @endif placeholder="">
-                        </div>
                     </div>
 
                     <div class="custom_fields_half">
@@ -253,13 +264,14 @@
 
 
 <div class="page-double-right equ">
-    <div class="Form-wraper">
+    <div class="Form-wraper" style="margin-top: 45px">
         <div class="Form-contaner">
-            <div class="Form-content-header">
-                <h1 class="Form-content-header-Head">  <a class="Same-button" >Request Paper Form</a> </h1>
-            </div>
+
             <div class="Form-field-contaner">
+
                 <div class="Form-content-name">
+                    <p>Billing Details</p>
+
                     <select class="addresses_select" id="billing_address_select" name="billing-addresses" >
                         <option value="---">Select Billing Address</option>
                         @foreach($addresses as $address)
@@ -306,33 +318,40 @@
                     </div>
                 </div>
 
-                <div class="Complete-address">
-                    <div class="custom_fields_half">
+                    <div class="custom_fields_half associate">
                         <div class="custom_Request_fields_half">
-                            <label for="City">City</label>
-                            <input type="text" required="" name="billing_city" id="City" @if($billing_address != null) value="{{$billing_address->city}}" @endif placeholder="">
-                        </div>
-                    </div>
-                    <div class="custom_fields_half">
-                        <div class="custom_Request_fields_half adj">
-                            <label for="State">State</label>
-                            <input type="text"  name="billing_state" id="State" @if($billing_address != null) value="{{$billing_address->state}}" @endif placeholder="">
-                        </div>
-                    </div>
-                    <div class="custom_fields_half">
-                        <div class="custom_Request_fields_half">
-                            <label for="PosteCode">Poste Code</label>
-                            <input type="text" required="" name="billing_postecode" id="PosteCode" @if($billing_address != null) value="{{$billing_address->postcode}}" @endif placeholder="">
+                            <label for="AddressCountryNew">Country</label>
+                            <select required class="AddressCountryNew" name="billing_country" @if($billing_address != null) data-country-select="{{ $billing_address->country }}"  data-province-select="{{$billing_address->state}}" @endif >
+                                @include('customers.inc.countries')
+                            </select>
                         </div>
                     </div>
 
-                </div>
-                <div class="custom_fields_half">
-                    <div class="custom_Request_fields_half">
-                        <label for="Country">Country</label>
-                        <input type="text" required="" name="billing_country" id="Country" @if($billing_address != null) value="{{$billing_address->country}}"  @endif placeholder="">
+
+                    <div class="Complete-address">
+                        <div id="city_div" class="custom_fields_half">
+                            <div class="custom_Request_fields_half">
+                                <label for="City">City</label>
+                                <input type="text" required="" name="billing_city" id="City" @if($billing_address != null) value="{{$billing_address->city}}" @endif placeholder="">
+                            </div>
+                        </div>
+                        <div id="province_div" class="custom_fields_half hide associate ">
+                            <div class="custom_Request_fields_half adj">
+                                <label for="AddressProvinceNew">State</label>
+                                <select class="AddressProvinceNew" name="billing_state" autocomplete="address-level1"></select>
+                            </div>
+                        </div>
+
+                        <div id="postal_div" class="custom_fields_half">
+                            <div class="custom_Request_fields_half">
+                                <label for="PosteCode">Postal Code</label>
+                                <input type="text" required="" name="billing_postecode" id="PosteCode" @if($billing_address != null) value="{{$billing_address->postcode}}" @endif placeholder="">
+                            </div>
+                        </div>
+
                     </div>
-                </div>
+
+
 
                 <div class="custom_fields_half">
                     <div class="custom_Request_fields_half Get-contect-right">
@@ -340,7 +359,6 @@
                         <input type="text" required="" name="billing_email" id="Phone" @if($billing_address != null) value="{{$billing_address->email}}" @endif placeholder="">
                     </div>
                 </div>
-
 
             </div>
 

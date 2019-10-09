@@ -43,7 +43,7 @@ class WebhookController extends Controller
             "DATA" => [
                 "webhook" => [
                     "topic" => "customers/create",
-                    "address" => 'https://b232beca.ngrok.io/webhook/create/customer',
+                    "address" => 'https://postdelay.shopifyapplications.com/webhook/create/customer',
                     "format" => "json"
                 ]
             ]
@@ -55,7 +55,7 @@ class WebhookController extends Controller
             "DATA" => [
                 "webhook" => [
                     "topic" => "orders/create",
-                    "address" => /*env('APP_URL').*/ 'https://b232beca.ngrok.io/webhook/create/order',
+                    "address" => /*env('APP_URL').*/ 'https://postdelay.shopifyapplications.com/webhook/create/order',
                     "format" => "json"
                 ]
             ]

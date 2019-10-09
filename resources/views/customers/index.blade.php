@@ -46,7 +46,7 @@
                                 <tr>
                                     <th scope="row">{{$customer->first_name}}  {{$customer->last_name}} </th>
                                     <td>{{$customer->email}} </td>
-                                    <td>1</td>
+                                    <td>{{count($customer->has_orders)}}</td>
                                     <td>{{$customer->city}} </td>
                                     <td>{{$customer->country}} </td>
                                     <td>{{$customer->phone}} </td>
