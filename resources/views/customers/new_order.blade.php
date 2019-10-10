@@ -437,8 +437,8 @@
                         </div>
                     </div>
 
-                    <div class="tow-field-Row" id="width_input">
-                        <div class="custom_fields_half">
+                    <div class="tow-field-Row" >
+                        <div class="custom_fields_half" id="width_input">
                             <div class="custom_Request_fields_half tow-field-Row-left">
                                 <label for="width">Width</label>
                                 <input type="text" required="" name="width" id="Country" value="" placeholder="">
