@@ -2,8 +2,6 @@
 <html>
 <head>
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css" />
-
     <title>PostDelay</title>
 </head>
 
@@ -12,175 +10,39 @@
 <h5>THANKS FOR USING POSTDELAY</h5>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <h6>Sender Details</h6>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-sm-12 col-form-label">First Name</label>
-                    <div class="col-sm-12">
-                        <input class="form-control" type="text" value="{{$order->has_sender->first_name}}"id="example-text-input" disabled>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-sm-12 col-form-label">Last Name</label>
-                    <div class="col-sm-12">
-                        <input class="form-control" type="text" value="{{$order->has_sender->last_name}}"id="example-text-input" disabled>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-sm-12 col-form-label">Business</label>
-                    <div class="col-sm-12">
-                        <input class="form-control" type="text" value="{{$order->has_sender-> business}}"id="example-text-input" disabled>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-sm-12 col-form-label">Address 1</label>
-                    <div class="col-sm-12">
-                        <input class="form-control" type="text" value="{{$order->has_sender->address1}}"id="example-text-input" disabled>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-sm-12 col-form-label">Address 2</label>
-                    <div class="col-sm-12">
-                        <input class="form-control" type="text" value="{{$order->has_sender->address2}}"id="example-text-input" disabled>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-sm-12 col-form-label">City</label>
-                    <div class="col-sm-12">
-                        <input class="form-control" type="text" value="{{$order->has_sender->city}}"id="example-text-input" disabled>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-sm-12 col-form-label">State</label>
-                    <div class="col-sm-12">
-                        <input class="form-control" type="text" value="{{$order->has_sender->state}}"id="example-text-input" disabled>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-sm-12 col-form-label">Post code</label>
-                    <div class="col-sm-12">
-                        <input class="form-control" type="text" value="{{$order->has_sender->postcode}}"id="example-text-input" disabled>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-sm-12 col-form-label">Country</label>
-                    <div class="col-sm-12">
-                        <input class="form-control" type="text" value="{{$order->has_sender->country}}"id="example-text-input" disabled>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-sm-12 col-form-label">Phone</label>
-                    <div class="col-sm-12">
-                        <input class="form-control" type="text" value="{{$order->has_sender->phone}}"id="example-text-input" disabled>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <h6>Sender Details</h6>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-sm-12 col-form-label">First Name</label>
-                    <div class="col-sm-12">
-                        <input class="form-control" type="text" value="{{$order->has_sender->first_name}}"id="example-text-input" disabled>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-sm-12 col-form-label">Last Name</label>
-                    <div class="col-sm-12">
-                        <input class="form-control" type="text" value="{{$order->has_sender->last_name}}"id="example-text-input" disabled>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-sm-12 col-form-label">Business</label>
-                    <div class="col-sm-12">
-                        <input class="form-control" type="text" value="{{$order->has_sender-> business}}"id="example-text-input" disabled>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-sm-12 col-form-label">Address 1</label>
-                    <div class="col-sm-12">
-                        <input class="form-control" type="text" value="{{$order->has_sender->address1}}"id="example-text-input" disabled>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-sm-12 col-form-label">Address 2</label>
-                    <div class="col-sm-12">
-                        <input class="form-control" type="text" value="{{$order->has_sender->address2}}"id="example-text-input" disabled>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-sm-12 col-form-label">City</label>
-                    <div class="col-sm-12">
-                        <input class="form-control" type="text" value="{{$order->has_sender->city}}"id="example-text-input" disabled>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-sm-12 col-form-label">State</label>
-                    <div class="col-sm-12">
-                        <input class="form-control" type="text" value="{{$order->has_sender->state}}"id="example-text-input" disabled>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-sm-12 col-form-label">Post code</label>
-                    <div class="col-sm-12">
-                        <input class="form-control" type="text" value="{{$order->has_sender->postcode}}"id="example-text-input" disabled>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-sm-12 col-form-label">Country</label>
-                    <div class="col-sm-12">
-                        <input class="form-control" type="text" value="{{$order->has_sender->country}}"id="example-text-input" disabled>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group row">
-                    <label for="example-text-input" class="col-sm-12 col-form-label">Phone</label>
-                    <div class="col-sm-12">
-                        <input class="form-control" type="text" value="{{$order->has_sender->phone}}"id="example-text-input" disabled>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <table>
+                <thead><tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Business</th>
+                    <th>Address1</th>
+                    <th>Address2</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zip Code</th>
+                    <th>Country</th>
+                    <th>Phone</th>
+                </tr></thead>
+                <tbody>
+                <tr>
+                    <td>{{$order->has_sender->first_name}}</td>
+                    <td>{{$order->has_sender->last_name}}</td>
+                    <td>{{$order->has_sender->email}}</td>
+                    <td>{{$order->has_sender->business}}</td>
+                    <td>{{$order->has_sender->address1}}</td>
+                    <td>{{$order->has_sender->address2}}</td>
+                    <td>{{$order->has_sender->city}}</td>
+                    <td>{{$order->has_sender->state}}</td>
+                    <td>{{$order->has_sender->postcode}}</td>
+                    <td>{{$order->has_sender->country}}</td>
+                    <td>{{$order->has_sender->phone}}</td>
+
+                </tr>
+                </tbody>
+            </table>
     </div>
 </div>
 
