@@ -420,7 +420,7 @@
                         <div class="custom_fields_half" id="weight_input" >
                             <div class="custom_Request_fields_half">
                                 <label for="Weight">Weight (grams)</label>
-                                <input type="text"  name="weight" id="City" value="" placeholder="">
+                                <input type="text" name="weight" id="City" value="" placeholder="">
                             </div>
                         </div>
                         <div class="custom_fields_half">
