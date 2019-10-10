@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
-
-@include('inc.header')
+<head>
+    <title>PostDelay</title>
+</head>
 
 <body>
 <h2>Hi - {{$order->has_customer->first_name}}</h2>
