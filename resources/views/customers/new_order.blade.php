@@ -101,6 +101,178 @@
 
             </div>
             <div class="Form-field-contaner">
+
+                <div class="Form-content-name">
+                    <p>Billing Details</p>
+
+                    <select class="addresses_select" id="billing_address_select" name="billing-addresses" >
+                        <option value="---">Select Billing Address</option>
+                        @foreach($addresses as $address)
+                            @if($address->address_type == "Billing")
+                                <option @if($billing_address != null) @if($billing_address->id  == $address->id) selected @endif @endif  value="{{$address->id}}">{{$address->address1.' , '.$address->country}}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="Form-content-detail">
+
+                    <div class="Get-name">
+                        <div class="custom_fields_half">
+                            <div class="custom_Request_fields_half  Get-name-left">
+                                <label for="FirstName">First Name</label>
+                                <input type="text" required="" name="billing_first_name" id="FirstName" @if($billing_address != null) value="{{$billing_address->first_name}}" @endif placeholder="">
+                            </div>
+                        </div>
+                        <div class="custom_fields_half">
+                            <div class="custom_Request_fields_half Get-name-right">
+                                <label for="LastName">Last Name</label>
+                                <input type="text" required="" name="billing_last_name" id="LastName" @if($billing_address != null) value="{{$billing_address->last_name}}" @endif placeholder="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="custom_fields_half">
+                        <div class="custom_Request_fields_half">
+                            <label for="Business">Business</label>
+                            <input type="text"  name="billing_business" id="Business" @if($billing_address != null) value="{{$billing_address->business}}" @endif placeholder="">
+                        </div>
+                    </div>
+                    <div class="custom_fields_half">
+                        <div class="custom_Request_fields_half">
+                            <label for="Address1">Address1</label>
+                            <input type="text" required="" name="billing_address1" id="Address1" @if($billing_address != null) value="{{$billing_address->address1}}" @endif placeholder="">
+                        </div>
+                    </div>
+                    <div class="custom_fields_half">
+                        <div class="custom_Request_fields_half">
+                            <label for="Address2">Address2</label>
+                            <input type="text"  name="billing_address2" id="Address2" @if($billing_address != null) value="{{$billing_address->address2}}" @endif placeholder="">
+                        </div>
+                    </div>
+
+                    <div class="custom_fields_half associate">
+                        <div class="custom_Request_fields_half">
+                            <label for="AddressCountryNew">Country</label>
+                            <select required class="AddressCountryNew" name="billing_country" @if($billing_address != null) data-country-select="{{ $billing_address->country }}"  data-province-select="{{$billing_address->state}}" @endif >
+                                @include('customers.inc.countries')
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="Complete-address">
+                        <div id="city_div" class="custom_fields_half">
+                            <div class="custom_Request_fields_half">
+                                <label for="City">City</label>
+                                <input type="text" required="" name="billing_city" id="City" @if($billing_address != null) value="{{$billing_address->city}}" @endif placeholder="">
+                            </div>
+                        </div>
+                        <div id="province_div" class="custom_fields_half hide associate ">
+                            <div class="custom_Request_fields_half adj">
+                                <label for="AddressProvinceNew">State</label>
+                                <select class="AddressProvinceNew" name="billing_state" autocomplete="address-level1"></select>
+                            </div>
+                        </div>
+
+                        <div id="postal_div" class="custom_fields_half">
+                            <div class="custom_Request_fields_half">
+                                <label for="PosteCode">Postal Code</label>
+                                <input type="text" required="" name="billing_postecode" id="PosteCode" @if($billing_address != null) value="{{$billing_address->postcode}}" @endif placeholder="">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="custom_fields_half">
+                        <div class="custom_Request_fields_half Get-contect-right">
+                            <label for="Phone">Email</label>
+                            <input type="text" required="" name="billing_email" id="Phone" @if($billing_address != null) value="{{$billing_address->email}}" @endif placeholder="">
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <div class="Form-field-contaner" style="display:none">
+                <div class="Form-content-name" >
+                    <p>Shipping Quotes</p>
+                </div>
+
+                <div class="Form-content-detail">
+
+                    <div class="order-Invoice">
+
+                        <div class="order-id-field" >
+                            <div class="custom_fields_half">
+                                <div class="custom_Request_fields_half ">
+                                    <label for="Type">Shipping Methods</label>
+                                    <select id="shipping_method_select" name="shipping_method" form="Type">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="order-invoice-detail" >
+                            <div class="order-invoice-product">
+                                <p class="invoice-text "> Shipment Cost</p>
+                            </div>
+                            <div class="order-invoice-price">
+                                <p class="invoice-Money ">$150</p>
+                            </div>
+                        </div>
+
+                        <div class="order-invoice-detail" >
+                            <div class="order-invoice-product">
+                                <p class="invoice-text " >PostDelay Cost</p>
+                            </div>
+                            <div class="order-invoice-price">
+                                <p class="invoice-Money ">$50</p>
+                            </div>
+                        </div>
+
+                        <div class="order-invoice-detail" >
+                            <div class="order-invoice-tex">
+                                <p class="invoice-text"  >Tax</p>
+                            </div>
+                            <div class="order-invoice-Tax-money">
+                                <p class="invoice-Money" style="text-align:right">$50</p>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="order-Invoice-total">
+
+                        <div class="order-invoice-detail total" >
+                            <div class="order-total-text">
+                                <p class="invoice-text" style="text-align: left">Total</p>
+                            </div>
+                            <div class="order-total-money">
+                                <p class="invoice-Money total" style="text-align: right">$210</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="page-double-right equ">
+    <div class="Form-wraper" style="margin-top: 45px">
+        <div class="Form-contaner">
+
+            <div class="Form-field-contaner">
                 <div class="Form-content-name">
                     <p>Receipent Details</p>
                     <select class="addresses_select" id="receipent_address_select" name="receipent-addresses" >
@@ -191,177 +363,6 @@
 
 
                 </div>
-
-            </div>
-            <div class="Form-field-contaner" style="display:none">
-                <div class="Form-content-name" >
-                    <p>Shipping Quotes</p>
-                </div>
-
-                <div class="Form-content-detail">
-
-                    <div class="order-Invoice">
-
-                        <div class="order-id-field" >
-                            <div class="custom_fields_half">
-                                <div class="custom_Request_fields_half ">
-                                    <label for="Type">Shipping Methods</label>
-                                    <select id="shipping_method_select" name="shipping_method" form="Type">
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="order-invoice-detail" >
-                            <div class="order-invoice-product">
-                                <p class="invoice-text "> Shipment Cost</p>
-                            </div>
-                            <div class="order-invoice-price">
-                                <p class="invoice-Money ">$150</p>
-                            </div>
-                        </div>
-
-                        <div class="order-invoice-detail" >
-                            <div class="order-invoice-product">
-                                <p class="invoice-text " >PostDelay Cost</p>
-                            </div>
-                            <div class="order-invoice-price">
-                                <p class="invoice-Money ">$50</p>
-                            </div>
-                        </div>
-
-                        <div class="order-invoice-detail" >
-                            <div class="order-invoice-tex">
-                                <p class="invoice-text"  >Tax</p>
-                            </div>
-                            <div class="order-invoice-Tax-money">
-                                <p class="invoice-Money" style="text-align:right">$50</p>
-                            </div>
-                        </div>
-
-
-
-                    </div>
-
-                    <div class="order-Invoice-total">
-
-                        <div class="order-invoice-detail total" >
-                            <div class="order-total-text">
-                                <p class="invoice-text" style="text-align: left">Total</p>
-                            </div>
-                            <div class="order-total-money">
-                                <p class="invoice-Money total" style="text-align: right">$210</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="page-double-right equ">
-    <div class="Form-wraper" style="margin-top: 45px">
-        <div class="Form-contaner">
-
-            <div class="Form-field-contaner">
-
-                <div class="Form-content-name">
-                    <p>Billing Details</p>
-
-                    <select class="addresses_select" id="billing_address_select" name="billing-addresses" >
-                        <option value="---">Select Billing Address</option>
-                        @foreach($addresses as $address)
-                            @if($address->address_type == "Billing")
-                                <option @if($billing_address != null) @if($billing_address->id  == $address->id) selected @endif @endif  value="{{$address->id}}">{{$address->address1.' , '.$address->country}}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="Form-content-detail">
-
-                <div class="Get-name">
-                    <div class="custom_fields_half">
-                        <div class="custom_Request_fields_half  Get-name-left">
-                            <label for="FirstName">First Name</label>
-                            <input type="text" required="" name="billing_first_name" id="FirstName" @if($billing_address != null) value="{{$billing_address->first_name}}" @endif placeholder="">
-                        </div>
-                    </div>
-                    <div class="custom_fields_half">
-                        <div class="custom_Request_fields_half Get-name-right">
-                            <label for="LastName">Last Name</label>
-                            <input type="text" required="" name="billing_last_name" id="LastName" @if($billing_address != null) value="{{$billing_address->last_name}}" @endif placeholder="">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="custom_fields_half">
-                    <div class="custom_Request_fields_half">
-                        <label for="Business">Business</label>
-                        <input type="text"  name="billing_business" id="Business" @if($billing_address != null) value="{{$billing_address->business}}" @endif placeholder="">
-                    </div>
-                </div>
-                <div class="custom_fields_half">
-                    <div class="custom_Request_fields_half">
-                        <label for="Address1">Address1</label>
-                        <input type="text" required="" name="billing_address1" id="Address1" @if($billing_address != null) value="{{$billing_address->address1}}" @endif placeholder="">
-                    </div>
-                </div>
-                <div class="custom_fields_half">
-                    <div class="custom_Request_fields_half">
-                        <label for="Address2">Address2</label>
-                        <input type="text"  name="billing_address2" id="Address2" @if($billing_address != null) value="{{$billing_address->address2}}" @endif placeholder="">
-                    </div>
-                </div>
-
-                    <div class="custom_fields_half associate">
-                        <div class="custom_Request_fields_half">
-                            <label for="AddressCountryNew">Country</label>
-                            <select required class="AddressCountryNew" name="billing_country" @if($billing_address != null) data-country-select="{{ $billing_address->country }}"  data-province-select="{{$billing_address->state}}" @endif >
-                                @include('customers.inc.countries')
-                            </select>
-                        </div>
-                    </div>
-
-
-                    <div class="Complete-address">
-                        <div id="city_div" class="custom_fields_half">
-                            <div class="custom_Request_fields_half">
-                                <label for="City">City</label>
-                                <input type="text" required="" name="billing_city" id="City" @if($billing_address != null) value="{{$billing_address->city}}" @endif placeholder="">
-                            </div>
-                        </div>
-                        <div id="province_div" class="custom_fields_half hide associate ">
-                            <div class="custom_Request_fields_half adj">
-                                <label for="AddressProvinceNew">State</label>
-                                <select class="AddressProvinceNew" name="billing_state" autocomplete="address-level1"></select>
-                            </div>
-                        </div>
-
-                        <div id="postal_div" class="custom_fields_half">
-                            <div class="custom_Request_fields_half">
-                                <label for="PosteCode">Postal Code</label>
-                                <input type="text" required="" name="billing_postecode" id="PosteCode" @if($billing_address != null) value="{{$billing_address->postcode}}" @endif placeholder="">
-                            </div>
-                        </div>
-
-                    </div>
-
-
-
-                <div class="custom_fields_half">
-                    <div class="custom_Request_fields_half Get-contect-right">
-                        <label for="Phone">Email</label>
-                        <input type="text" required="" name="billing_email" id="Phone" @if($billing_address != null) value="{{$billing_address->email}}" @endif placeholder="">
-                    </div>
-                </div>
-
-            </div>
-
 
             </div>
             <div class="Form-field-contaner">
