@@ -5,11 +5,9 @@
     <input type="hidden" name="address_id" value="{{$address->id}}">
 
     <div class="custom_fields_half">
-        <div class="custom_Request_fields_half " style="display: inline-block;width: 100%">
+        <div class="custom_Request_fields_half ">
             <label for="FirstName">Address Type</label>
-            <input style="display: inline-block;width: 50%" type="text" disabled required="" name="address_type" id="FirstName" value="{{$address->address_type}}" placeholder="">
-            <span id="set_all_addresses_button" data-address-id="{{$address->id}}" style="cursor:pointer;display: inline-block;width: 49.2%"  class="Same-button" >Set all addresses to this</span>
-
+            <input  type="text" disabled required="" name="address_type" id="FirstName" value="{{$address->address_type}}" placeholder="">
         </div>
     </div>
     <div class="Get-name">

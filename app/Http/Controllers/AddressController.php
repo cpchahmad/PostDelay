@@ -113,4 +113,40 @@ class AddressController extends Controller
         ]);
     }
 
+    public function set_all(Request $request){
+
+       $address =  Address::find($request->input('address_id'));
+       $types = array();
+       if($address->address_type == "Billing"){
+           array_push($types,'Recipients','Sender');
+       }
+        if($address->address_type == "Sender"){
+            array_push($types,'Recipients','Billing');
+        }
+        if($address->address_type == "Recipients"){
+            array_push($types,'Billing','Sender');
+        }
+        foreach ($types as $type){
+            Address::create([
+                "address_type" =>$type,
+                "address1" => $address->address1,
+                "address2" => $address->address2,
+                "city" => $address->city,
+                "company" => $address->company,
+                "first_name" => $address->first_name,
+                "last_name" => $address->last_name,
+                "state" => $address->state,
+                "country" => $address->country,
+                "phone" => $address->phone,
+                "postcode" => $address->postcode,
+                "email" => $address->email,
+                "shopify_customer_id" => $address->shopify_customer_id,
+                "shop_id" => $address->shop_id,
+                "customer_id" => $address->customer_id,
+                "shopify_address_id"=> $address->shopify_address_id,
+            ]);
+        }
+
+    }
+
 }
