@@ -99,6 +99,8 @@
     <div class="custom_Button-contaner">
         <input type="submit" class="Same-button" value="Update">
         <input id="remove_address_button" data-address-id="{{$address->id}}" style="cursor:pointer" type="button" class="Same-button" value="Delete">
+        <input id="set_all_addresses_button" data-address-id="{{$address->id}}" style="cursor:pointer" type="button" class="Same-button" value="Set all addresses to this">
+
     </div>
 
 
