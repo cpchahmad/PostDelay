@@ -1,6 +1,6 @@
 <form id="place_order_form" action="/place/order" method="GET">
 
-    <input type="hidden" value="{{$addresses[0]->shopify_customer_id}}" name="customer_id">
+    <input type="hidden" value="{{$customer_id}}" name="customer_id">
 <div class="page-double-left equ">
     <div class="Form-wraper">
         <div class="Form-contaner">
