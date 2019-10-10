@@ -18,6 +18,7 @@ use App\Shop;
 use App\Status;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class OrdersController extends Controller
 {
@@ -521,8 +522,12 @@ class OrdersController extends Controller
 
     public function download_pdf(Request $request){
 
-        $pdf = (new \Barryvdh\DomPDF\PDF)->loadView('customers.pdf');
-        return $pdf->download('PostDelay_OrderDetails');
+        $pdf = App::make('dompdf.wrapper');
+        $order = Order::where('shopify_order_id',$request->input('order'))->first();
+        $pdf = $pdf->loadView('customers.pdf',[
+            "order" => $order
+        ]);
+        return $pdf->download('PostDelay_OrderDetails.pdf');
     }
 }
 
