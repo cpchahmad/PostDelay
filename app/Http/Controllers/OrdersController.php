@@ -251,6 +251,7 @@ class OrdersController extends Controller
         $types = PostType::all();
         $scales = Scale::all();
         $returnHTML = view('customers.new_order', [
+            'customer_id' =>$request->input('customer_id'),
             'addresses' => $customer_addresses,
             'billing_address' => null,
             'sender_address' => null,
@@ -276,6 +277,7 @@ class OrdersController extends Controller
         $types = PostType::all();
         $scales = Scale::all();
         $returnHTML = view('customers.new_order', [
+            'customer_id' =>$request->input('customer_id'),
             'addresses' => $customer_addresses,
             'billing_address' => $billing_address,
             'sender_address' => $sender_address,
