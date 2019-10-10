@@ -373,8 +373,8 @@
 
                     <div class="custom_fields_half">
                         <div class="custom_Request_fields_half  ">
-                            <label for="Type">Type</label>
-                            <select name="post_type">
+                            <label for="TypeSelect">Type</label>
+                            <select id="TypeSelect" name="post_type">
                                 @foreach($types as $type)
                                     <option value="{{$type->name}}">{{$type->name}}</option>
                                 @endforeach
@@ -385,15 +385,19 @@
 
                     <div class="custom_fields_half">
                         <div class="custom_Request_fields_half">
-                            <label for="Special-Holding">Special Holding</label>
-                            <input type="text" required="" name="special_holding" id="Business" value="" placeholder="">
+                            <label for="Special-Holding">Special Handling</label>
+                            <select id="Special-Holding" name="special_holding" >
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+
                         </div>
                     </div>
 
-                    <div class="custom_fields_half">
+                    <div class="custom_fields_half" id="shape_input">
                         <div class="custom_Request_fields_half  ">
                             <label for="Shape">Shape</label>
-                            <select name="shape" >
+                            <select  name="shape" >
                                 @foreach($shapes as $shape)
                                     <option value="{{$shape->name}}">{{$shape->name}}</option>
                                 @endforeach
@@ -413,7 +417,7 @@
                     </div>
 
                     <div class="three-field-Row">
-                        <div class="custom_fields_half">
+                        <div class="custom_fields_half" >
                             <div class="custom_Request_fields_half">
                                 <label for="Weight">Weight</label>
                                 <input type="text" required="" name="weight" id="City" value="" placeholder="">
@@ -440,7 +444,7 @@
                                 <input type="text" required="" name="width" id="Country" value="" placeholder="">
                             </div>
                         </div>
-                        <div class="custom_fields_half">
+                        <div class="custom_fields_half" id="girth_input">
                             <div class="custom_Request_fields_half tow-field-Row-right">
                                 <label for="Girth">Girth</label>
                                 <input type="text" required="" name="girth" id="Country" value="" placeholder="">
