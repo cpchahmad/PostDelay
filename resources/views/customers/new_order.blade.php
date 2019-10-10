@@ -374,7 +374,7 @@
                     <div class="custom_fields_half">
                         <div class="custom_Request_fields_half  ">
                             <label for="TypeSelect">Type</label>
-                            <select id="TypeSelect" name="post_type">
+                            <select required id="TypeSelect" name="post_type">
                                 @foreach($types as $type)
                                     <option value="{{$type->name}}">{{$type->name}}</option>
                                 @endforeach
@@ -426,7 +426,7 @@
                         <div class="custom_fields_half">
                             <div class="custom_Request_fields_half adj">
                                 <label for="Height">Height</label>
-                                <input type="text" required="" name="height" id="State" value="" placeholder="">
+                                <input type="text" name="height" id="State" value="" placeholder="">
                             </div>
                         </div>
                         <div class="custom_fields_half">
@@ -447,7 +447,7 @@
                         <div class="custom_fields_half" id="girth_input">
                             <div class="custom_Request_fields_half tow-field-Row-right">
                                 <label for="Girth">Girth</label>
-                                <input type="text" required="" name="girth" id="Country" value="" placeholder="">
+                                <input type="text"  name="girth" id="Country" value="" placeholder="">
                             </div>
                         </div>
                     </div>

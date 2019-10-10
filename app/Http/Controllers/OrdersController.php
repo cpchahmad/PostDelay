@@ -36,6 +36,13 @@ class OrdersController extends Controller
     public function place_order(Request $request){
 
 
+        if($request->input('weight') == null){
+            $weight = 1000;
+        }
+        else{
+            $weight = $request->input('weight');
+        }
+
         $draft_orders = $this->helper->getShop('postdelay.myshopify.com')->call([
             'METHOD' => 'POST',
             'URL' => '/admin/draft_orders.json',
@@ -48,7 +55,7 @@ class OrdersController extends Controller
                                 "price"=> "100.00",
                                 "quantity"=> 1,
                                 "requires_shipping" => true,
-                                "grams" =>$request->input('weight'),
+                                "grams" =>$weight,
 
                             ]
                         ],
@@ -103,7 +110,7 @@ class OrdersController extends Controller
         $package_detail->special_holding = $request->input('special_holding');
         $package_detail->shape = $request->input('shape');
         $package_detail->scale = $request->input('unit_of_measures');
-        $package_detail->weight = $request->input('weight');
+        $package_detail->weight = $weight;
         $package_detail->length = $request->input('length');
         $package_detail->girth = $request->input('girth');
         $package_detail->width = $request->input('width');
