@@ -85,6 +85,7 @@ class AddressController extends Controller
             'URL' => '/admin/customers/' . $address->shopify_customer_id . '/addresses/' . $address->shopify_address_id . 'json',
         ]);
 
+        dd($address_json);
         if ($address_json->customer_address->default == false) {
             $this->helper->getShop($address->has_Shop->shop_name)->call([
 
@@ -92,8 +93,6 @@ class AddressController extends Controller
                 'URL' => '/admin/customers/' . $address->shopify_customer_id . '/addresses/' . $address->shopify_address_id . 'json',
             ]);
             Address::find($request->input('address_id'))->delete();
-
-
         }
 //        return redirect()->back();
     }
