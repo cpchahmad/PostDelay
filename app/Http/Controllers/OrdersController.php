@@ -528,7 +528,7 @@ class OrdersController extends Controller
         $pdf = $pdf->loadView('customers.pdf',[
             "order" => $order
         ]);
-        return response()->download($pdf->download('PostDelay_OrderDetails.pdf'));
+        return $pdf->download('PostDelay_OrderDetails.pdf');
     }
 }
 
