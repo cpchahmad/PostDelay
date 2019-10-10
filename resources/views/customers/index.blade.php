@@ -8,7 +8,7 @@
                     <div class="col-md-8">
                         <h4 class="page-title m-0">Customers</h4>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4" style="display: none">
                         <div class="float-right d-none d-md-block">
                             <div class="dropdown">
                                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

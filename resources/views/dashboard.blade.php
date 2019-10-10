@@ -1,7 +1,7 @@
 @extends('layout.admin')
 @section('content')
 
-    <div class="row">
+    <div class="row" style="display: none">
         <div class="col-xl-3 col-md-3">
             <div class="card bg-primary mini-stat text-white">
                 <div class="p-3 mini-stat-desc">
@@ -81,8 +81,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
+    </div  >
+    <div class="row" style="display: none">
         <div class="col-xl-9 col-md-9">
             <div class="card">
                 <div class="card-body">
