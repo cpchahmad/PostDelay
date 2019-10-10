@@ -6,43 +6,41 @@
 </head>
 
 <body>
-<h2>Hi - {{$order->has_customer->first_name}}</h2>
+<h3>Hi - {{$order->has_customer->first_name}}</h3>
 <h5>THANKS FOR USING POSTDELAY</h5>
-
+<br>
+<p> Order-ID : {{$order->shopify_order_id}} </p>
+<p> Ship-Out-Date : {{$order->ship_out_date}}</p>
+<br>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
         <h6>Sender Details</h6>
-            <table>
-                <thead><tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Business</th>
-                    <th>Address1</th>
-                    <th>Address2</th>
-                    <th>City</th>
-                    <th>State</th>
-                    <th>Zip Code</th>
-                    <th>Country</th>
-                    <th>Phone</th>
-                </tr></thead>
-                <tbody>
-                <tr>
-                    <td>{{$order->has_sender->first_name}}</td>
-                    <td>{{$order->has_sender->last_name}}</td>
-                    <td>{{$order->has_sender->email}}</td>
-                    <td>{{$order->has_sender->business}}</td>
-                    <td>{{$order->has_sender->address1}}</td>
-                    <td>{{$order->has_sender->address2}}</td>
-                    <td>{{$order->has_sender->city}}</td>
-                    <td>{{$order->has_sender->state}}</td>
-                    <td>{{$order->has_sender->postcode}}</td>
-                    <td>{{$order->has_sender->country}}</td>
-                    <td>{{$order->has_sender->phone}}</td>
+        <br>
+        <p> First Name : {{$order->has_sender->first_name}}</p>
+        <p> Last Name : {{$order->has_sender->last_name}}</p>
+        <p> Email  : {{$order->has_sender->email}}</p>
+        <p> Business  : {{$order->has_sender->business}}</p>
+        <p> Address1  : {{$order->has_sender->address1}}</p>
+        <p> Address2  : {{$order->has_sender->address2}}</p>
+        <p> City  : {{$order->has_sender->city}}</p>
+        <p> State  : {{$order->has_sender->state}}</p>
+        <p> Country  : {{$order->has_sender->country}}</p>
+        <p> Phone  : {{$order->has_sender->phone}}</p>
 
-                </tr>
-                </tbody>
-            </table>
+    </div>
+    <div class="col-md-6">
+        <h6>Recipient Details</h6>
+        <br>
+        <p> First Name : {{$order->has_recepient->first_name}}</p>
+        <p> Last Name : {{$order->has_recepient->last_name}}</p>
+        <p> Email  : {{$order->has_recepient->email}}</p>
+        <p> Business  : {{$order->has_recepient->business}}</p>
+        <p> Address1  : {{$order->has_recepient->address1}}</p>
+        <p> Address2  : {{$order->has_recepient->address2}}</p>
+        <p> City  : {{$order->has_recepient->city}}</p>
+        <p> State  : {{$order->has_recepient->state}}</p>
+        <p> Country  : {{$order->has_recepient->country}}</p>
+        <p> Phone  : {{$order->has_recepient->phone}}</p>
     </div>
 </div>
 
