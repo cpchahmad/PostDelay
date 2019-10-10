@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <title>PostDelay</title>
 </head>
@@ -28,6 +29,8 @@
         <p> Phone  : {{$order->has_sender->phone}}</p>
 
     </div>
+</div>
+<div class="row">
     <div class="col-md-6">
         <h6>Recipient Details</h6>
         <br>
