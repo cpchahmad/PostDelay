@@ -95,7 +95,7 @@ class AddressController extends Controller
 
 
         }
-        return redirect()->back();
+//        return redirect()->back();
     }
     public function get_billing_addresses (Request $request){
         $billing_addresses = Address::where('address_type','Billing')->where('shopify_customer_id',$request->input('customer_id'))->get();
