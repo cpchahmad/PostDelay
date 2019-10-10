@@ -406,7 +406,7 @@
                     </div>
 
                     <div class="custom_fields_half">
-                        <div class="custom_Request_fields_half  ">
+                        <div class="custom_Request_fields_half">
                             <label for="Shape">Unit of Measure</label>
                             <select name="unit_of_measures">
                                @foreach($scales as $scale)
@@ -417,9 +417,9 @@
                     </div>
 
                     <div class="three-field-Row">
-                        <div class="custom_fields_half" >
+                        <div class="custom_fields_half" id="weight_input" >
                             <div class="custom_Request_fields_half">
-                                <label for="Weight">Weight</label>
+                                <label for="Weight">Weight (grams)</label>
                                 <input type="text" required="" name="weight" id="City" value="" placeholder="">
                             </div>
                         </div>
