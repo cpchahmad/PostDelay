@@ -114,3 +114,5 @@ Route::GET('/get-order', 'OrdersController@get_order_type')->name('get_order');
 Route::GET('/order/key-dates', 'OrdersController@set_key_dates')->name('set_key_dates');
 Route::GET('/shipment-to-postdelay', 'OrdersController@shipment_to_postdelay')->name('shipment_to_postdelay');
 Route::GET('/sync-customers', 'CustomersController@get_customers')->name('get_customers');
+Route::GET('/download/pdf', 'OrdersController@download_pdf')->name('download_pdf');
+

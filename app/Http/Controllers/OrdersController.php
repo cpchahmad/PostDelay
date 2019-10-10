@@ -16,6 +16,7 @@ use App\SenderAddress;
 use App\Shape;
 use App\Shop;
 use App\Status;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
@@ -516,6 +517,12 @@ class OrdersController extends Controller
         $history->setCreatedAt(now());
         $history->setUpdatedAt(now());
         $history->save();
+    }
+
+    public function download_pdf(Request $request){
+
+        $pdf = PDF::loadView('customers.pdf');
+        return $pdf->download('PostDelay_OrderDetails');
     }
 }
 
