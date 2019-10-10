@@ -86,14 +86,11 @@
 
                    type:'GET',
                    url:$(this).data('url'),
-                   cache:false,
-                   contentType: false,
-                   processData: false,
-                   data: {
-                       order:$(this).data('order'),
-                   },
                    xhrFields: {
                        responseType: 'blob'
+                   },
+                   data: {
+                       order:$(this).data('order'),
                    },
                    success: function (response, status, xhr) {
 
