@@ -10,7 +10,7 @@
             <input type="text" disabled required="" name="address_type" id="FirstName" value="{{$address->address_type}}" placeholder="">
         </div>
     </div>
-
+    <div class="Get-name">
     <div class="custom_fields_half">
         <div class="custom_Request_fields_half  ">
             <label for="FirstName">First Name</label>
@@ -18,13 +18,30 @@
         </div>
     </div>
 
+
     <div class="custom_fields_half">
         <div class="custom_Request_fields_half ">
             <label for="LastName">Last Name</label>
             <input type="text" required="" name="last_name" id="LastName" value="{{$address->last_name}}" placeholder="">
         </div>
     </div>
+    </div>
 
+    <div class="Get-name">
+        <div class="custom_fields_half">
+            <div class="custom_Request_fields_half  ">
+                <label for="Email">Email Address</label>
+                <input type="email" required="" name="email" id="Email" value="{{$address->email}}" placeholder="">
+            </div>
+        </div>
+
+        <div class="custom_fields_half">
+            <div class="custom_Request_fields_half ">
+                <label for="Phone">Phone Number</label>
+                <input type="text" required="" name="phone" id="Phone" value="{{$address->phone}}" placeholder="">
+            </div>
+        </div>
+    </div>
 
     <div class="custom_fields_half">
         <div class="custom_Request_fields_half">
@@ -77,20 +94,6 @@
             </div>
         </div>
 
-    </div>
-
-    <div class="custom_fields_half">
-        <div class="custom_Request_fields_half  ">
-            <label for="Email">Email Address</label>
-            <input type="email" required="" name="email" id="Email" value="{{$address->email}}" placeholder="">
-        </div>
-    </div>
-
-    <div class="custom_fields_half">
-        <div class="custom_Request_fields_half ">
-            <label for="Phone">Phone Number</label>
-            <input type="text" required="" name="phone" id="Phone" value="{{$address->phone}}" placeholder="">
-        </div>
     </div>
 
     <div class="custom_Button-contaner">
