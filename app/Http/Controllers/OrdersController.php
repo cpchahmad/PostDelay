@@ -521,7 +521,7 @@ class OrdersController extends Controller
 
     public function download_pdf(Request $request){
 
-        $pdf = PDF::loadView('customers.pdf');
+        $pdf = (new \Barryvdh\DomPDF\PDF)->loadView('customers.pdf');
         return $pdf->download('PostDelay_OrderDetails');
     }
 }
