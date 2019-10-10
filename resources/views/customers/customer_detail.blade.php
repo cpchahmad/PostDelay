@@ -17,6 +17,21 @@
         </div>
     </div>
 
+    <div class="tow-field-Row">
+        <div class="custom_fields_half">
+            <div class="custom_Request_fields_half  Get-contect-left">
+                <label for="Email">Email</label>
+                <input readonly type="email"  name="email" id="Email" value="{{$customer->email}}" placeholder="">
+            </div>
+        </div>
+        <div class="custom_fields_half">
+            <div class="custom_Request_fields_half Get-contect-right">
+                <label for="Phone">Phone</label>
+                <input type="text" required="" name="phone" id="Phone" value="{{ $customer->phone }}" placeholder="">
+            </div>
+        </div>
+    </div>
+
     <div class="custom_fields_half">
         <div class="custom_Request_fields_half">
             <label for="Business">Business</label>
@@ -65,20 +80,7 @@
         </div>
 
     </div>
-    <div class="tow-field-Row">
-        <div class="custom_fields_half">
-            <div class="custom_Request_fields_half  Get-contect-left">
-                <label for="Email">Email</label>
-                <input readonly type="email"  name="email" id="Email" value="{{$customer->email}}" placeholder="">
-            </div>
-        </div>
-        <div class="custom_fields_half">
-            <div class="custom_Request_fields_half Get-contect-right">
-                <label for="Phone">Phone</label>
-                <input type="text" required="" name="phone" id="Phone" value="{{ $customer->phone }}" placeholder="">
-            </div>
-        </div>
-    </div>
+
 
     <div class="tow-field-Row">
         <div class="custom_Button-contaner">
