@@ -17,6 +17,7 @@ use App\Shape;
 use App\Shop;
 use App\Status;
 use Barryvdh\DomPDF\PDF;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -527,7 +528,7 @@ class OrdersController extends Controller
         $pdf = $pdf->loadView('customers.pdf',[
             "order" => $order
         ]);
-        return $pdf->download('PostDelay_OrderDetails.pdf');
+        return response()->download($pdf->download('PostDelay_OrderDetails.pdf'));
     }
 }
 
