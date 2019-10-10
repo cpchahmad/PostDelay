@@ -5,9 +5,11 @@
     <input type="hidden" name="address_id" value="{{$address->id}}">
 
     <div class="custom_fields_half">
-        <div class="custom_Request_fields_half  ">
+        <div class="custom_Request_fields_half " style="display: inline-block">
             <label for="FirstName">Address Type</label>
-            <input type="text" disabled required="" name="address_type" id="FirstName" value="{{$address->address_type}}" placeholder="">
+            <input style="display: inline-block;width: 50%" type="text" disabled required="" name="address_type" id="FirstName" value="{{$address->address_type}}" placeholder="">
+            <span id="set_all_addresses_button" data-address-id="{{$address->id}}" style="cursor:pointer;display: inline-block;width: 49.2%"  class="Same-button" >Set all addresses to this</span>
+
         </div>
     </div>
     <div class="Get-name">
@@ -29,7 +31,7 @@
 
     <div class="Get-name">
         <div class="custom_fields_half">
-            <div class="custom_Request_fields_half  ">
+            <div class="custom_Request_fields_half">
                 <label for="Email">Email Address</label>
                 <input type="email" required="" name="email" id="Email" value="{{$address->email}}" placeholder="">
             </div>
@@ -99,8 +101,6 @@
     <div class="custom_Button-contaner">
         <input type="submit" class="Same-button" value="Update">
         <input id="remove_address_button" data-address-id="{{$address->id}}" style="cursor:pointer" type="button" class="Same-button" value="Delete">
-        <input id="set_all_addresses_button" data-address-id="{{$address->id}}" style="cursor:pointer" type="button" class="Same-button" value="Set all addresses to this">
-
     </div>
 
 
