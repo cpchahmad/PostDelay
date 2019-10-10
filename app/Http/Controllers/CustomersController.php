@@ -32,10 +32,10 @@ class CustomersController extends Controller
         $validate_data = Validator::make($request->toArray(), [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'business' => ['required', 'string', 'max:255'],
+//            'business' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:customers'],
 //           'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'phone' => ['required', 'string', 'max:255'],
+//            'phone' => ['required', 'string', 'max:255'],
             'shop' => ['required', 'string', 'max:255'],
         ]);
 
