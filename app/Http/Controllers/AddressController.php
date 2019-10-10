@@ -132,7 +132,7 @@ class AddressController extends Controller
                 "address1" => $address->address1,
                 "address2" => $address->address2,
                 "city" => $address->city,
-                "company" => $address->company,
+                "business" => $address->business,
                 "first_name" => $address->first_name,
                 "last_name" => $address->last_name,
                 "state" => $address->state,
