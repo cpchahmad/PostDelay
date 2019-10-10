@@ -42,7 +42,11 @@
                                   "                <p class='Custom-message-desp'>Your order has been received and payment was successful</p>\n" +
                                   "                <p class='Custom-message-desp'>The order ID is "+ shopifyorderid+"</p>\n" +
                                   "                <p class='Custom-message-desp'>In the order for us to link your package with this order,</p>\n" +
-                                  "                <p class='Custom-message-desp'><span id='pdf_button' style='border-bottom: #0056b3 1px solid;cursor: pointer;color: #0056b3' data-order='"+ shopifyorderid +"' data-url='https://postdelay.shopifyapplications.com/download/pdf'>  Print out this form</span> and include it in your shipment to us </p>\n" +
+                                  // "                <p class='Custom-message-desp'><span id='pdf_button' style='border-bottom: #0056b3 1px solid;cursor: pointer;color: #0056b3' data-order='"+ shopifyorderid +"' data-url='https://postdelay.shopifyapplications.com/download/pdf'>  Print out this form</span> and include it in your shipment to us </p>\n" +
+
+                                  "                <p class='Custom-message-desp'><a href='https://postdelay.shopifyapplications.com/download/pdf?order="+ shopifyorderid +"'>  Print out this form</a> and include it in your shipment to us </p>\n" +
+
+
                                   "                <p class='Custom-message-desp'>if you don't have a printer and would like the form mailed to you </p>\n" +
                                   "                <p class='Custom-message-desp'>Instead this service is available for $1.00</p>\n" +
                                   "                <p class='Custom-message-desp'><a href='https://postdelay.myshopify.com/account?view=request-form&&order-id="+shopifyorderid+"'>Click here</a> to request a paper & copy of the form </p>\n" +
@@ -81,63 +85,63 @@
                     },
                 });
 
-            $('body').on('click','#pdf_button',function () {
-               $.ajax({
-
-                   type:'GET',
-                   url:$(this).data('url'),
-                   xhrFields: {
-                       responseType: 'blob'
-                   },
-                   data: {
-                       order:$(this).data('order'),
-                   },
-                   success: function (response, status, xhr) {
-
-                       var filename = "";
-                       var disposition = xhr.getResponseHeader('Content-Disposition');
-
-                       if (disposition) {
-                           var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-                           var matches = filenameRegex.exec(disposition);
-                           if (matches !== null && matches[1]) filename = matches[1].replace(/['"]/g, '');
-                       }
-                       var linkelem = document.createElement('a');
-                       try {
-                           var blob = new Blob([response], { type: 'application/octet-stream' });
-
-                           if (typeof window.navigator.msSaveBlob !== 'undefined') {
-                               //   IE workaround for "HTML7007: One or more blob URLs were revoked by closing the blob for which they were created. These URLs will no longer resolve as the data backing the URL has been freed."
-                               window.navigator.msSaveBlob(blob, filename);
-                           } else {
-                               var URL = window.URL || window.webkitURL;
-                               var downloadUrl = URL.createObjectURL(blob);
-
-                               if (filename) {
-                                   // use HTML5 a[download] attribute to specify filename
-                                   var a = document.createElement("a");
-
-                                   // safari doesn't support this yet
-                                   if (typeof a.download === 'undefined') {
-                                       window.location = downloadUrl;
-                                   } else {
-                                       a.href = downloadUrl;
-                                       a.download = filename;
-                                       document.body.appendChild(a);
-                                       a.target = "_blank";
-                                       a.click();
-                                   }
-                               } else {
-                                   window.location = downloadUrl;
-                               }
-                           }
-
-                       } catch (ex) {
-                           console.log(ex);
-                       }
-                   }
-               });
-            });
+            // $('body').on('click','#pdf_button',function () {
+            //    $.ajax({
+            //
+            //        type:'GET',
+            //        url:$(this).data('url'),
+            //        xhrFields: {
+            //            responseType: 'blob'
+            //        },
+            //        data: {
+            //            order:$(this).data('order'),
+            //        },
+            //        success: function (response, status, xhr) {
+            //
+            //            var filename = "";
+            //            var disposition = xhr.getResponseHeader('Content-Disposition');
+            //
+            //            if (disposition) {
+            //                var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+            //                var matches = filenameRegex.exec(disposition);
+            //                if (matches !== null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+            //            }
+            //            var linkelem = document.createElement('a');
+            //            try {
+            //                var blob = new Blob([response], { type: 'application/octet-stream' });
+            //
+            //                if (typeof window.navigator.msSaveBlob !== 'undefined') {
+            //                    //   IE workaround for "HTML7007: One or more blob URLs were revoked by closing the blob for which they were created. These URLs will no longer resolve as the data backing the URL has been freed."
+            //                    window.navigator.msSaveBlob(blob, filename);
+            //                } else {
+            //                    var URL = window.URL || window.webkitURL;
+            //                    var downloadUrl = URL.createObjectURL(blob);
+            //
+            //                    if (filename) {
+            //                        // use HTML5 a[download] attribute to specify filename
+            //                        var a = document.createElement("a");
+            //
+            //                        // safari doesn't support this yet
+            //                        if (typeof a.download === 'undefined') {
+            //                            window.location = downloadUrl;
+            //                        } else {
+            //                            a.href = downloadUrl;
+            //                            a.download = filename;
+            //                            document.body.appendChild(a);
+            //                            a.target = "_blank";
+            //                            a.click();
+            //                        }
+            //                    } else {
+            //                        window.location = downloadUrl;
+            //                    }
+            //                }
+            //
+            //            } catch (ex) {
+            //                console.log(ex);
+            //            }
+            //        }
+            //    });
+            // });
 
         });
     };
