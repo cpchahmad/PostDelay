@@ -423,13 +423,13 @@
                                 <input type="text" name="weight" id="City" value="" placeholder="">
                             </div>
                         </div>
-                        <div class="custom_fields_half">
+                        <div class="custom_fields_half" id="height_input">
                             <div class="custom_Request_fields_half adj">
                                 <label for="Height">Height</label>
                                 <input type="text" name="height" id="State" value="" placeholder="">
                             </div>
                         </div>
-                        <div class="custom_fields_half">
+                        <div class="custom_fields_half" id="length_input">
                             <div class="custom_Request_fields_half">
                                 <label for="length">Length</label>
                                 <input type="text" required="" name="length" id="PosteCode" value="" placeholder="">
@@ -437,7 +437,7 @@
                         </div>
                     </div>
 
-                    <div class="tow-field-Row">
+                    <div class="tow-field-Row" id="width_input">
                         <div class="custom_fields_half">
                             <div class="custom_Request_fields_half tow-field-Row-left">
                                 <label for="width">Width</label>
