@@ -1,20 +1,20 @@
 @extends('layout.admin')
 @section('content')
 
-    <div class="row" >
+    <div class="row" style="margin-top: -20px " >
         <div class="col-xl-3 col-md-3">
             <div class="card bg-primary mini-stat text-white">
                 <div class="p-3 mini-stat-desc">
                     <div class="clearfix">
                         <h6 class="text-uppercase mt-0 float-left text-white-50">Orders</h6>
-                        <h4 class="mb-3 mt-0 float-right">1,587</h4>
+                        <h4 class="mb-3 mt-0 float-right">{{$orders}}</h4>
                     </div>
-                    <div>
+                    <div style="display: none">
                         <span class="badge badge-light text-info"> +11% </span> <span class="ml-2">From previous period</span>
                     </div>
 
                 </div>
-                <div class="p-3">
+                <div {{--class="p-3"--}} style="display: none">
                     <div class="float-right">
                         <a href="#" class="text-white-50"><i class="mdi mdi-cube-outline h5"></i></a>
                     </div>
@@ -28,13 +28,13 @@
                 <div class="p-3 mini-stat-desc">
                     <div class="clearfix">
                         <h6 class="text-uppercase mt-0 float-left text-white-50">Revenue</h6>
-                        <h4 class="mb-3 mt-0 float-right">$46,785</h4>
+                        <h4 class="mb-3 mt-0 float-right">${{number_format($revenue,2)}} USD</h4>
                     </div>
-                    <div>
+                    <div style="display: none">
                         <span class="badge badge-light text-danger"> -29% </span> <span class="ml-2">From previous period</span>
                     </div>
                 </div>
-                <div class="p-3">
+                <div {{--class="p-3"--}} style="display: none">
                     <div class="float-right">
                         <a href="#" class="text-white-50"><i class="mdi mdi-buffer h5"></i></a>
                     </div>
@@ -46,14 +46,14 @@
             <div class="card bg-pink mini-stat text-white">
                 <div class="p-3 mini-stat-desc">
                     <div class="clearfix">
-                        <h6 class="text-uppercase mt-0 float-left text-white-50">Average Price</h6>
-                        <h4 class="mb-3 mt-0 float-right">15.9</h4>
+                        <h6 class="text-uppercase mt-0 float-left text-white-50">Average</h6>
+                        <h4 class="mb-3 mt-0 float-right">${{number_format($average,2)}} USD</h4>
                     </div>
-                    <div>
+                    <div style="display: none">
                         <span class="badge badge-light text-primary"> 0% </span> <span class="ml-2">From previous period</span>
                     </div>
                 </div>
-                <div class="p-3">
+                <div {{--class="p-3"--}} style="display: none">
                     <div class="float-right">
                         <a href="#" class="text-white-50"><i class="mdi mdi-tag-text-outline h5"></i></a>
                     </div>
@@ -66,14 +66,14 @@
             <div class="card bg-success mini-stat text-white">
                 <div class="p-3 mini-stat-desc">
                     <div class="clearfix">
-                        <h6 class="text-uppercase mt-0 float-left text-white-50">Product Sold</h6>
-                        <h4 class="mb-3 mt-0 float-right">1890</h4>
+                        <h6 class="text-uppercase mt-0 float-left text-white-50">Customers</h6>
+                        <h4 class="mb-3 mt-0 float-right">{{$customers}}</h4>
                     </div>
-                    <div>
+                    <div style="display: none">
                         <span class="badge badge-light text-info"> +89% </span> <span class="ml-2">From previous period</span>
                     </div>
                 </div>
-                <div class="p-3">
+                <div {{--class="p-3"--}} style="display: none">
                     <div class="float-right">
                         <a href="#" class="text-white-50"><i class="mdi mdi-briefcase-check h5"></i></a>
                     </div>
