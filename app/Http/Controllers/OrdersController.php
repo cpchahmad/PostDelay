@@ -6,6 +6,7 @@ use App\Address;
 use App\BillingAddress;
 use App\Customer;
 use App\KeyDate;
+use App\Mail\NotificationEmail;
 use App\Order;
 use App\OrderStatusHistory;
 use App\PackageDetail;
@@ -20,6 +21,7 @@ use Barryvdh\DomPDF\PDF;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Mail;
 
 class OrdersController extends Controller
 {
@@ -242,6 +244,8 @@ class OrdersController extends Controller
                     $history->save();
                 }
 
+                $customer = Customer::find($draft_order->customer_id);
+                Mail::to($customer->email)->send(new NotificationEmail($customer,$draft_order));
             }
         }
     }
@@ -340,6 +344,9 @@ class OrdersController extends Controller
 
        $order = Order::find($request->input('order'));
         $this->status_log($order);
+
+        $customer = Customer::find($order->customer_id);
+        Mail::to($customer->email)->send(new NotificationEmail($customer,$order));
 
         return response()->json([
             'status' => 'changed'
@@ -501,6 +508,9 @@ class OrdersController extends Controller
 
         $order =   Order::where('order_name',$request->input('order_name'))->first();
         $this->status_log($order);
+
+        $customer = Customer::find($order->customer_id);
+        Mail::to($customer->email)->send(new NotificationEmail($customer,$order));
 
         return response()->json([
             'status' => 'changed'
