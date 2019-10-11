@@ -39,7 +39,17 @@ class ShopsController extends Controller
     }
 
     public function Dashboard(){
-        return view('dashboard');
+        $orders_count = count(App\Order::where('checkout_completed',1)->get());
+        $orders = App\Order::all();
+        $revenue = $orders->sum('order_total');
+        $average = $revenue / $orders_count;
+        $customers_count = count(App\Customer::all());
+        return view('dashboard')->with([
+            'orders' => $orders_count,
+            'revenue' => $revenue,
+            'average' => $average,
+            'customers' => $customers_count
+        ]);
     }
 
 
