@@ -240,12 +240,12 @@ class CustomersController extends Controller
     public function delete_all()
     {
         $customers = Customer::all();
-
         foreach ($customers as $customer){
            $orders =  $this->helper->getShop('postdelay.myshopify.com')->call([
                 'METHOD' => 'GET',
                 'URL' => 'admin/customers/' .$customer->shopify_customer_id. '/orders.json',
                 ]);
+           dd($orders);
            if(count($orders->orders) > 0){
                foreach ($orders->orders as $order){
                    $this->helper->getShop('postdelay.myshopify.com')->call([
