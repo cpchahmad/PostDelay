@@ -259,6 +259,7 @@ class CustomersController extends Controller
                 'URL' => 'admin/customers.json',
             ]);
 
+           dd($shopify_customer);
         if(count($shopify_customer->customers) > 0) {
             foreach ($shopify_customer->customers as $customer) {
                 $this->helper->getShop('postdelay.myshopify.com')->call([
