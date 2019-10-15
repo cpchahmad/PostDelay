@@ -240,12 +240,11 @@ class CustomersController extends Controller
     public function delete_all()
     {
         $customers = Customer::all();
-        foreach ($customers as $customer){
+
            $orders =  $this->helper->getShop('postdelay.myshopify.com')->call([
                 'METHOD' => 'GET',
-                'URL' => 'admin/customers/' .$customer->shopify_customer_id. '/orders.json',
+                'URL' => 'admin/orders.json',
                 ]);
-           dd($orders);
            if(count($orders->orders) > 0){
                foreach ($orders->orders as $order){
                    $this->helper->getShop('postdelay.myshopify.com')->call([
@@ -254,17 +253,19 @@ class CustomersController extends Controller
                    ]);
                }
            }
+
            $shopify_customer =  $this->helper->getShop('postdelay.myshopify.com')->call([
                 'METHOD' => 'GET',
-                'URL' => 'admin/customers/' .$customer->shopify_customer_id. '.json',
+                'URL' => 'admin/customers.json',
             ]);
-           if($shopify_customer->customer != null){
-               $this->helper->getShop('postdelay.myshopify.com')->call([
-                   'METHOD' => 'DELETE',
-                   'URL' => 'admin/customers/' .$customer->shopify_customer_id. '.json',
-               ]);
-           }
 
+        if(count($shopify_customer->customers) > 0) {
+            foreach ($shopify_customer->customers as $customer) {
+                $this->helper->getShop('postdelay.myshopify.com')->call([
+                    'METHOD' => 'DELETE',
+                    'URL' => 'admin/customers/' . $customer->id . '.json',
+                ]);
+            }
         }
 
         DB::table('customers')->truncate();
