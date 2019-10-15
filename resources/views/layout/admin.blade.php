@@ -74,7 +74,7 @@
                     </ul>
 
 
-                    <ul class="list-inline ml-auto mb-0">
+                    <ul class="list-inline ml-auto mb-0" style="display: none;">
 
                         <li class="list-inline-item dropdown notification-list">
                             <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button"
