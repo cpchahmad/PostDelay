@@ -24,7 +24,7 @@
                 <div>
 
                     <a href="{{ route('shop.dashboard') }}" class="logo">
-                        <img src="assets/images/logo.png" alt="" height="26">
+                        <img src="{{ asset('assets/images/logo.png') }}" alt="" height="26">
                     </a>
 
                 </div>

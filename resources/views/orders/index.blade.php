@@ -28,6 +28,7 @@
             </div>
             <div class="card">
                 <div class="card-body">
+                    @if(count($orders) > 0)
                     <div class="table-responsive">
                         <table class="table table-hover table_custom">
                             <thead>
@@ -65,7 +66,12 @@
                             </tbody>
                         </table>
                     </div>
-
+                    @else
+                        <div class="text-center">
+                            <i class="fas fa-user-alt-slash" style="font-size:25px; marin:15px 0;"></i>
+                            <h6>No Record Found.</h6>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
