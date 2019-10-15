@@ -176,7 +176,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group row">
-                                                        <label for="example-text-input" class="col-sm-12 col-form-label">Post code</label>
+                                                        <label for="example-text-input" class="col-sm-12 col-form-label">Zip Code</label>
                                                         <div class="col-sm-12">
                                                             <input class="form-control" type="text" value="{{$order->has_sender->postcode}}"id="example-text-input" disabled>
                                                         </div>
@@ -261,7 +261,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group row">
-                                                    <label for="example-text-input" class="col-sm-12 col-form-label">Post Code</label>
+                                                    <label for="example-text-input" class="col-sm-12 col-form-label">Zip Code</label>
                                                     <div class="col-sm-12">
                                                         <input class="form-control" type="text" value="{{$order->has_recepient->postcode}}"id="example-text-input" disabled>
                                                     </div>
@@ -346,7 +346,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group row">
-                                                    <label for="example-text-input" class="col-sm-12 col-form-label">Post Code</label>
+                                                    <label for="example-text-input" class="col-sm-12 col-form-label">Zip Code</label>
                                                     <div class="col-sm-12">
                                                         <input class="form-control" type="text" value="{{$order->has_billing->postcode}}"id="example-text-input" disabled>
                                                     </div>
