@@ -81,7 +81,7 @@
 
                         <div id="postal_div" class="custom_fields_half">
                             <div class="custom_Request_fields_half">
-                                <label for="PosteCode">Postal Code</label>
+                                <label for="PosteCode">Zip Code</label>
                                 <input type="text" required="" name="sender_postecode" id="PosteCode" @if($sender_address != null) value="{{$sender_address->postcode}}" @endif placeholder="">
                             </div>
                         </div>

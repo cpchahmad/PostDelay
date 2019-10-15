@@ -74,7 +74,7 @@
         </div>
         <div id="postal_div" class="custom_fields_half">
             <div class="custom_Request_fields_half">
-                <label for="PosteCode">Postal Code</label>
+                <label for="PosteCode">Zip Code</label>
                 <input type="text" required="" name="postecode" id="PosteCode" value="{{$customer->postcode}}" placeholder="">
             </div>
         </div>
