@@ -42,7 +42,7 @@ class ShopsController extends Controller
         $orders_count = count(App\Order::where('checkout_completed',1)->where('additional_payment',0)->get());
         $orders = App\Order::all();
         $revenue = $orders->sum('order_total');
-        if($revenue){
+        if($revenue >= 1 && $orders_count >= 1){
             $average = $revenue / $orders_count;
         }else{
             $average = 0;
