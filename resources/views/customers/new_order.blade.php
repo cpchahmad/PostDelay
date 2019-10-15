@@ -177,7 +177,7 @@
 
                         <div id="postal_div" class="custom_fields_half">
                             <div class="custom_Request_fields_half">
-                                <label for="PosteCode">Postal Code</label>
+                                <label for="PosteCode">Zip Code</label>
                                 <input type="text" required="" name="billing_postecode" id="PosteCode" @if($billing_address != null) value="{{$billing_address->postcode}}" @endif placeholder="">
                             </div>
                         </div>
@@ -347,7 +347,7 @@
 
                         <div id="postal_div" class="custom_fields_half">
                             <div class="custom_Request_fields_half">
-                                <label for="PosteCode">Postal Code</label>
+                                <label for="PosteCode">Zip Code</label>
                                 <input type="text" required="" name="receipent_postecode" id="PosteCode" @if($recipient_address != null) value="{{$recipient_address->postcode}}" @endif placeholder="">
                             </div>
                         </div>
@@ -461,7 +461,7 @@
                         </div>
                     </div>
 
-                    <input type="submit" class="Same-button" value="Place Order">
+                    <input type="submit" class="Same-button" value="PLACE ORDER">
                 </div>
 
             </div>
