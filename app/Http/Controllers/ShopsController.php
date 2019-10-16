@@ -51,8 +51,4 @@ class ShopsController extends Controller
             'customers' => $customers_count
         ]);
     }
-
-
-
-
 }
