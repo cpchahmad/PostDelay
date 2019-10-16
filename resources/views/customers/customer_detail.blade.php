@@ -118,7 +118,7 @@
     </div>
     <div class="tow-field-Row">
         <div class="custom_Button-contaner">
-            <a {{--id="billing_address_button"--}} style="cursor: pointer" class="Same-button" >ADD</a>
+            <a {{--id="billing_address_button"--}} href="/account/addresses?view=new&&type=Billing" style="cursor: pointer" class="Same-button" >ADD</a>
         </div>
 
         <div class="custom_Button-contaner cng-btn">
@@ -141,7 +141,7 @@
     </div>
     <div class="tow-field-Row">
         <div class="custom_Button-contaner">
-            <a {{--id="recipients_address_button"--}}  style="cursor: pointer" class="Same-button" >ADD</a>
+            <a {{--id="recipients_address_button"--}} href="/account/addresses?view=new&&type=Recipients"  style="cursor: pointer" class="Same-button" >ADD</a>
         </div>
 
         <div class="custom_Button-contaner cng-btn">
@@ -164,7 +164,8 @@
     </div>
     <div class="tow-field-Row">
         <div class="custom_Button-contaner">
-            <a {{--id="sender_address_button"--}}  style="cursor: pointer" class="Same-button" >ADD</a>
+
+            <a {{--id="sender_address_button"--}} href="/account/addresses?view=new&&type=Sender" style="cursor: pointer" class="Same-button" >ADD</a>
         </div>
 
         <div class="custom_Button-contaner cng-btn">
