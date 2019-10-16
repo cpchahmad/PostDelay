@@ -28,6 +28,7 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Type </th>
+                                <th scope="col">Weight (grams)</th>
                                 <th scope="col">Action</th>
                             </tr>
                             </thead>
@@ -40,6 +41,14 @@
                                         <div class="form-group row">
                                             <div class="col-md-10">
                                                 <input class="form-control type-input" data-id="{{$type->id}}" type="text" value="{{$type->name}}">
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="form-group row">
+                                            <div class="col-md-10">
+                                                <input class="form-control weight-input" data-id="{{$type->id}}" type="number" value="{{$type->weight}}">
                                             </div>
                                         </div>
                                     </td>
@@ -78,6 +87,12 @@
                                 <div class="col-md-12">
                                     <label for="type_name">Name</label>
                                     <input id="type_name" class="form-control" name="name" type="text" value="">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label for="weight">Default Weight</label>
+                                    <input id="weight" class="form-control" name="weight" type="number" value="">
                                 </div>
                             </div>
 

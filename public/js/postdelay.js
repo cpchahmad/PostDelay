@@ -42,6 +42,7 @@ $('body').on('change','.type-input',function () {
             type:'GET',
             url:'/type/update',
             data: {
+                update_weight : 'no',
                 type : $(this).val(),
                 type_id:$(this).data('id'),
 
@@ -53,6 +54,27 @@ $('body').on('change','.type-input',function () {
         });
 
 });
+
+$('body').on('change','.weight-input',function () {
+
+    $.ajax(
+        {
+            type:'GET',
+            url:'/type/update',
+            data: {
+                update_weight : 'yes',
+                weight : $(this).val(),
+                type_id:$(this).data('id'),
+
+            },
+            success:function(data){
+                alertify.success('Post-Type Updated');
+                $(this).val(data.weight);
+            }
+        });
+
+});
+
 
 
 $('body').on('click','.type_delete_button',function () {
