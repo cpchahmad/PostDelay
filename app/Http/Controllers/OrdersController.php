@@ -42,7 +42,13 @@ class OrdersController extends Controller
 
 
         if($request->input('weight') == null){
-            $weight = 1000;
+            $post_type = PostType::where('name',$request->input('post_type'))->first();
+            if($post_type != null){
+                $weight = $post_type->weight;
+            }
+            else{
+                $weight = 1000;
+            }
         }
         else{
             $weight = $request->input('weight');
@@ -249,6 +255,7 @@ class OrdersController extends Controller
             }
         }
     }
+
     public function show_new_order(Request $request)
     {
         $shop = Shop::where('shop_name', $request->input('shop'))->value('id');

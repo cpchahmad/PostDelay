@@ -47,7 +47,7 @@
     </div>
     <div class="custom_fields_half">
         <div class="custom_Request_fields_half">
-            <label for="PosteCode">Poste Code</label>
+            <label for="PosteCode">Zip Code</label>
             <input disabled type="text"  name="account[postecode]" id="PosteCode" value="{{$order->has_sender->postcode}}" placeholder="">
         </div>
     </div>

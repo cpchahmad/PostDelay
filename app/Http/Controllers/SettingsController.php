@@ -59,13 +59,25 @@ class SettingsController extends Controller
 
     public function update_type(Request $request){
 
-        PostType::find($request->input('type_id'))->update([
-            'name' => $request->input('type')
-        ]);
+        if($request->input('update_weight') == 'no'){
+            PostType::find($request->input('type_id'))->update([
+                'name' => $request->input('type')
+            ]);
 
-        return response()->json([
-            'type' => $request->input('type')
-        ]);
+            return response()->json([
+                'type' => $request->input('type')
+            ]);
+        }
+        else{
+            PostType::find($request->input('type_id'))->update([
+                'weight' => $request->input('weight')
+            ]);
+
+            return response()->json([
+                'weight' => $request->input('weight')
+            ]);
+        }
+
 
     }
 
