@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 
+use App\PostDelayFee;
 use App\PostType;
 use App\Scale;
 use App\Shape;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SettingsController extends Controller
 {
@@ -131,6 +133,69 @@ class SettingsController extends Controller
     public function add_scale(Request $request){
         Scale::create($request->all());
         return redirect()->back();
+
+    }
+
+    public function show_post_delay_fee(Request $request){
+        $fees  = PostDelayFee::orderBy('default','desc')->get();
+        return view('settings.postdelayfee.index')->with([
+            'fees' => $fees
+        ]);
+    }
+
+
+    public function add_fee(Request $request){
+        DB::table('post_delay_fees')->where('type',$request->input('type'))->update(array('default' => 0));
+        PostDelayFee::create($request->all());
+        return redirect()->back();
+
+    }
+
+    public function make_default_fee(Request $request){
+          DB::table('post_delay_fees')->where('type',$request->input('type'))->update(array('default' => 0));
+          PostDelayFee::find($request->input('fee'))->update([
+             'default' => 1
+          ]);
+    }
+
+    public function update_fee(Request $request){
+        if($request->input('type') == 'name'){
+            PostDelayFee::find($request->input('id'))->update([
+                'name' => $request->input('name')
+            ]);
+
+            return response()->json([
+                'name' => $request->input('name')
+            ]);
+        }
+        if($request->input('type') == 'price'){
+            PostDelayFee::find($request->input('id'))->update([
+                'price' => $request->input('price')
+            ]);
+
+            return response()->json([
+                'price' => $request->input('price')
+            ]);
+        }
+
+        if($request->input('type') == 'type'){
+            PostDelayFee::find($request->input('id'))->update([
+                'type' => $request->input('fee_type')
+            ]);
+
+            return response()->json([
+                'fee_type' => $request->input('type')
+            ]);
+        }
+    }
+
+    public function delete_fee(Request $request){
+
+        PostDelayFee::find($request->input('id'))->delete();
+
+        return response()->json([
+            'fee_id' => 'deleted'
+        ]);
 
     }
 }

@@ -181,6 +181,10 @@
 
                         </li>
 
+                        <li>
+                            <a href="{{route('postdelayfee.index')}}"><i class="dripicons-duplicate"></i> Post Delay Fee </a>
+                        </li>
+
                     </ul>
                     <!-- End navigation menu -->
                 </div> <!-- end #navigation -->

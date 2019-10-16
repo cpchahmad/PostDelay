@@ -10,6 +10,7 @@ use App\Mail\NotificationEmail;
 use App\Order;
 use App\OrderStatusHistory;
 use App\PackageDetail;
+use App\PostDelayFee;
 use App\PostType;
 use App\RecipientAddress;
 use App\Scale;
@@ -58,6 +59,7 @@ class OrdersController extends Controller
         else{
             $weight = $request->input('weight');
         }
+        $default =  PostDelayFee::where('default',1)->where('type','primary')->first();
 
         $draft_orders = $this->helper->getShop('postdelay.myshopify.com')->call([
             'METHOD' => 'POST',
@@ -67,8 +69,8 @@ class OrdersController extends Controller
                     "draft_order" => [
                         'line_items' => [
                             [
-                                "title"=> "PostDelay Fee",
-                                "price"=> "100.00",
+                                "title"=> $default->name,
+                                "price"=> $default->price,
                                 "quantity"=> 1,
                                 "requires_shipping" => true,
                                 "grams" =>$weight,
@@ -376,6 +378,7 @@ class OrdersController extends Controller
 
         $shop = Shop::where('shop_name',$request->input('shop'))->first();
         if($request->input('type') == 'additional-fee'){
+            $default =  PostDelayFee::where('default',1)->where('type','additional')->first();
             $draft_orders = $this->helper->getShop($shop->shop_name)->call([
                 'METHOD' => 'POST',
                 'URL' => '/admin/draft_orders.json',
@@ -384,8 +387,8 @@ class OrdersController extends Controller
                         "draft_order" => [
                             'line_items' => [
                                 [
-                                    "title"=> "Additional PostDelay Charges",
-                                    "price"=> "10.00",
+                                    "title"=> $default->name,
+                                    "price"=> $default->price,
                                     "quantity"=> 1,
                                 ]
                             ],
@@ -411,6 +414,8 @@ class OrdersController extends Controller
             ]);
         }
         else{
+            $default =  PostDelayFee::where('default',1)->where('type','request_form')->first();
+
             $draft_orders = $this->helper->getShop($shop->shop_name)->call([
                 'METHOD' => 'POST',
                 'URL' => '/admin/draft_orders.json',
@@ -419,8 +424,8 @@ class OrdersController extends Controller
                         "draft_order" => [
                             'line_items' => [
                                 [
-                                    "title"=> "Request Form Charges",
-                                    "price"=> "1.00",
+                                    "title"=> $default->name,
+                                    "price"=> $default->price,
                                     "quantity"=> 1,
                                 ]
                             ],
