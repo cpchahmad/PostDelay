@@ -67,6 +67,7 @@ $('body').on('change','.weight-input',function () {
                 type_id:$(this).data('id'),
 
             },
+
             success:function(data){
                 alertify.success('Post-Type Updated');
                 $(this).val(data.weight);
