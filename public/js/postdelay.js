@@ -186,4 +186,104 @@ $('body').on('change','#change_order_status',function (e) {
             },
         });
 
-})
+});
+
+$('body').on('click','.make_default_fee_button',function () {
+    $.ajax(
+        {
+            type:'GET',
+            url:'/post-delay-fee/default',
+            data: {
+                fee:$(this).data('id'),
+                type:$(this).data('type'),
+            },
+            success:function(data){
+                alertify.success('Default Fee Updated');
+                setTimeout(function () {
+                    location.reload();
+                },300);
+
+            },
+        });
+});
+
+$('body').on('change','.fee_name-input',function () {
+
+
+    $.ajax(
+        {
+            type:'GET',
+            url:'/post-delay-fee/update',
+            data: {
+                type: 'name',
+                name : $(this).val(),
+                id:$(this).data('id'),
+
+            },
+            success:function(data){
+                alertify.success('Fee Updated');
+                $(this).val(data.name);
+            }
+        });
+
+});
+
+$('body').on('change','.fee_price-input',function () {
+
+
+    $.ajax(
+        {
+            type:'GET',
+            url:'/post-delay-fee/update',
+            data: {
+                type: 'price',
+                price : $(this).val(),
+                id:$(this).data('id'),
+
+            },
+            success:function(data){
+                alertify.success('Fee Updated');
+                $(this).val(data.price);
+            }
+        });
+
+});
+
+$('body').on('click','.fee_delete_button',function () {
+    var id = $(this).data('id');
+    $.ajax(
+        {
+            type:'GET',
+            url:'/post-delay-fee/delete',
+            data: {
+                id:$(this).data('id'),
+            },
+            success:function(data){
+                var row = '#fee_row_'+id;
+                $(row).remove();
+                alertify.error('Fee Deleted');
+            }
+        });
+
+});
+
+$('body').on('change','.fee_type-select',function () {
+
+
+    $.ajax(
+        {
+            type:'GET',
+            url:'/post-delay-fee/update',
+            data: {
+                type: 'type',
+                fee_type : $(this).val(),
+                id:$(this).data('id'),
+
+            },
+            success:function(data){
+                alertify.success('Fee Updated');
+                $(this).val(data.fee_type).change();
+            }
+        });
+
+});

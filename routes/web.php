@@ -100,6 +100,14 @@ Route::GET('/location/delete', 'LocationController@delete_location')->name('dele
 Route::GET('/location/edit/{id}', 'LocationController@show_edit_form')->name('show_edit_form');
 Route::POST('/location/update/', 'LocationController@update_location')->name('update_location');
 
+Route::get('/setting/post-delay-fee', 'SettingsController@show_post_delay_fee')->name('postdelayfee.index');
+
+
+Route::POST('/post-delay-fee/add', 'SettingsController@add_fee')->name('add_fee');
+Route::GET('/post-delay-fee/default', 'SettingsController@make_default_fee')->name('default_fee');
+Route::GET('/post-delay-fee/update', 'SettingsController@update_fee')->name('update_fee');
+Route::GET('/post-delay-fee/delete', 'SettingsController@delete_fee')->name('delete_fee');
+
 
 Route::GET('/order/status/update', 'OrdersController@update_order_status')->name('update_order_status');
 Route::GET('/order/log/{id}', 'OrdersController@order_history')->name('order_history');
