@@ -567,6 +567,10 @@ class OrdersController extends Controller
         RecipientAddress::find($request->input('id'))->update($request->all());
         return redirect()->back();
     }
+    public function order_update_billing_details(Request $request){
+        BillingAddress::find($request->input('id'))->update($request->all());
+        return redirect()->back();
+    }
 
 }
 
