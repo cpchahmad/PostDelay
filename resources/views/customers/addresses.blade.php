@@ -31,7 +31,7 @@
         <div class="custom_fields_half">
             <div class="custom_Request_fields_half">
                 <label for="Email">Email Address</label>
-                <input type="email" required="" name="email" id="Email" value="{{$address->email}}" placeholder="">
+                <input type="email"  name="email" id="Email" value="{{$address->email}}" placeholder="">
             </div>
         </div>
 
@@ -64,15 +64,6 @@
         </div>
     </div>
 
-    <div class="custom_fields_half associate">
-        <div class="custom_Request_fields_half">
-            <label for="AddressCountryNew">Country</label>
-            <select required class="AddressCountryNew" name="country" @if($address != null) data-country-select="{{ $address->country }}"  data-province-select="{{$address->state}}" @endif>
-                @include('customers.inc.countries')
-            </select>
-        </div>
-    </div>
-
     <div class="Complete-address">
         <div id="city_div" class="custom_fields_half">
             <div class="custom_Request_fields_half">
@@ -95,6 +86,17 @@
         </div>
 
     </div>
+
+    <div class="custom_fields_half associate">
+        <div class="custom_Request_fields_half">
+            <label for="AddressCountryNew">Country</label>
+            <select required class="AddressCountryNew" name="country" @if($address != null) data-country-select="{{ $address->country }}"  data-province-select="{{$address->state}}" @endif>
+                @include('customers.inc.countries')
+            </select>
+        </div>
+    </div>
+
+
 
     <div class="custom_Button-contaner">
         <input type="submit" class="Same-button" value="Update">

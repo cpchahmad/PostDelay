@@ -51,14 +51,6 @@
         </div>
     </div>
 
-    <div class="custom_fields_half associate">
-        <div class="custom_Request_fields_half">
-        <label for="AddressCountryNew" >Country</label>
-        <select required class="AddressCountryNew" name="country" @if($customer != null) data-country-select="{{ $customer->country }}"  data-province-select="{{$customer->state}}" @endif>
-            @include('customers.inc.countries')
-        </select>
-    </div>
-    </div>
     <div class="Complete-address">
         <div id="city_div" class="custom_fields_half">
             <div class="custom_Request_fields_half">
@@ -80,6 +72,16 @@
         </div>
 
     </div>
+
+    <div class="custom_fields_half associate">
+        <div class="custom_Request_fields_half">
+        <label for="AddressCountryNew" >Country</label>
+        <select required class="AddressCountryNew" name="country" @if($customer != null) data-country-select="{{ $customer->country }}"  data-province-select="{{$customer->state}}" @endif>
+            @include('customers.inc.countries')
+        </select>
+    </div>
+    </div>
+
 
 
     <div class="tow-field-Row">
