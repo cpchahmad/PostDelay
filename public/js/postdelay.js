@@ -316,7 +316,7 @@ function multipleAddress(){
 }
 
 function changeCountry($this){
-    var $parent = $this.parent().parent().parent();
+    var $parent = $this.parents();
     $parent.find('.AddressProvinceNew').empty();
     var data_provinces = $('option:selected', $this).attr('data-provinces');
     var provinces = JSON.parse(data_provinces);
