@@ -394,7 +394,6 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group row">
-                                                <label for="example-text-input" class="col-sm-12 col-form-label">Phone</label>
                                                 <div class="col-sm-2">
                                                     <input class="form-control btn btn-primary" type="submit" value="Save">
                                                 </div>
