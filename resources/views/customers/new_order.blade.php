@@ -56,15 +56,6 @@
                         </div>
                     </div>
 
-                    <div class="custom_fields_half associate">
-                        <div class="custom_Request_fields_half">
-                            <label for="AddressCountryNew">Country</label>
-                            <select required class="AddressCountryNew" name="sender_country" @if($sender_address != null) data-country-select="{{ $sender_address->country }}"  data-province-select="{{$sender_address->state}}" @endif >
-                                @include('customers.inc.countries')
-                            </select>
-                        </div>
-                    </div>
-
                     <div class="Complete-address">
                         <div id="city_div" class="custom_fields_half">
                             <div class="custom_Request_fields_half">
@@ -86,6 +77,15 @@
                             </div>
                         </div>
 
+                    </div>
+
+                    <div class="custom_fields_half associate">
+                        <div class="custom_Request_fields_half">
+                            <label for="AddressCountryNew">Country</label>
+                            <select required class="AddressCountryNew" name="sender_country" @if($sender_address != null) data-country-select="{{ $sender_address->country }}"  data-province-select="{{$sender_address->state}}" @endif >
+                                @include('customers.inc.countries')
+                            </select>
+                        </div>
                     </div>
 
                     <div class="custom_fields_half">
@@ -188,8 +188,8 @@
 
                     <div class="custom_fields_half">
                         <div class="custom_Request_fields_half Get-contect-right">
-                            <label for="Phone">Email</label>
-                            <input type="text" required="" name="billing_email" id="Phone" @if($billing_address != null) value="{{$billing_address->email}}" @endif placeholder="">
+                            <label for="Phone">Phone</label>
+                            <input type="text" required="" name="billing_phone" id="Phone" @if($billing_address != null) value="{{$billing_address->email}}" @endif placeholder="">
                         </div>
                     </div>
 
@@ -305,7 +305,7 @@
                     <div class="custom_fields_half">
                         <div class="custom_Request_fields_half">
                             <label for="Business">Business</label>
-                            <input type="text" required="" name="receipent_business" id="Business" @if($recipient_address != null) value="{{$recipient_address->business}}" @endif placeholder="">
+                            <input type="text" name="receipent_business" id="Business" @if($recipient_address != null) value="{{$recipient_address->business}}" @endif placeholder="">
                         </div>
                     </div>
                     <div class="custom_fields_half">
@@ -318,15 +318,6 @@
                         <div class="custom_Request_fields_half">
                             <label for="Address2">Address2</label>
                             <input type="text"  name="receipent_address2" id="Address2" @if($recipient_address != null) value="{{$recipient_address->address2}}" @endif placeholder="">
-                        </div>
-                    </div>
-
-                    <div class="custom_fields_half associate">
-                        <div class="custom_Request_fields_half">
-                            <label for="AddressCountryNew">Country</label>
-                            <select required class="AddressCountryNew" name="receipent_country" @if($recipient_address != null) data-country-select="{{ $recipient_address->country }}"  data-province-select="{{$recipient_address->state}}" @endif >
-                                @include('customers.inc.countries')
-                            </select>
                         </div>
                     </div>
 
@@ -353,6 +344,17 @@
                         </div>
 
                     </div>
+
+                    <div class="custom_fields_half associate">
+                        <div class="custom_Request_fields_half">
+                            <label for="AddressCountryNew">Country</label>
+                            <select required class="AddressCountryNew" name="receipent_country" @if($recipient_address != null) data-country-select="{{ $recipient_address->country }}"  data-province-select="{{$recipient_address->state}}" @endif >
+                                @include('customers.inc.countries')
+                            </select>
+                        </div>
+                    </div>
+
+
 
                     <div class="custom_fields_half">
                         <div class="custom_Request_fields_half Get-contect-right">
@@ -457,7 +459,7 @@
                     <div class="custom_fields_half">
                         <div class="custom_Request_fields_half  ">
                             <label for="Shape">Ship Out Date</label>
-                            <input type="date" required="" name="ship_out_date" id="Country" value="" placeholder="">
+                            <input type="date" required="" name="ship_out_date" id="Country" value="" placeholder="" min="{{now()->format('Y-m-d')}}">
                         </div>
                     </div>
 
