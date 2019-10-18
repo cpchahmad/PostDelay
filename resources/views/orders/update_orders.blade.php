@@ -220,88 +220,100 @@
                             </div>
                             <div class="tab-pane  p-3" id="recipients" role="tabpanel">
                                 <h6>Receipt Details</h6>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">First Name</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_recepient->first_name}}" disabled>
+                                <form action="{{route('update_order_recipient_details')}}" method="get">
+                                    <input type="hidden" value="{{$order->has_recepient->id}}" name="id">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">First Name</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" name="first_name" type="text" value="{{$order->has_recepient->first_name}}" >
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Last Name</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_recepient->last_name}}" disabled>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Last Name</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_recepient->last_name}}" name="last_name">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Business</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_recepient->business}}" disabled>
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Business</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_recepient->business}}" name="business">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Address 1</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_recepient->address1}}" disabled>
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Address 1</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_recepient->address1}}" name="address1">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Address 2</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_recepient->address2}}" disabled>
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Address 2</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_recepient->address2}}" name="address2">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">City</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_recepient->city}}" disabled>
+                                        <div class="col-md-4">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">City</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_recepient->city}}" name="city">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">State</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_recepient->state}}" disabled>
+                                        <div class="col-md-4">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">State</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_recepient->state}}" name="state">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Zip Code</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_recepient->postcode}}" disabled>
+                                        <div class="col-md-4">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Zip Code</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_recepient->postcode}}" name="postcode">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Country</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_recepient->country}}" disabled>
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Country</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_recepient->country}}" name="country">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Phone</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_recepient->phone}}" disabled>
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Phone</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_recepient->phone}}" name="phone">
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Phone</label>
+                                                <div class="col-sm-2">
+                                                    <input class="form-control btn btn-primary" type="submit" value="Save" >
+                                                </div>
+                                            </div>
+                                        </div
                                     </div>
-                                </div>
+                                </form>
+
                             </div>
                             <div class="tab-pane  p-3" id="billing" role="tabpanel">
                                 <h6>Billing Details</h6>

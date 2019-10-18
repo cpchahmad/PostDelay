@@ -563,6 +563,10 @@ class OrdersController extends Controller
         return redirect()->back();
     }
 
+    public function update_order_recipient_details(Request $request){
+        RecipientAddress::find($request->input('id'))->update($request->all());
+        return redirect()->back();
+    }
 
 }
 

@@ -128,4 +128,4 @@ Route::GET('/set_all_addresses', 'AddressController@set_all')->name('set_all');
 
 
 Route::GET('/update/order/sender-details', 'OrdersController@update_order_sender_details')->name('update_order_sender_details');
-
+Route::GET('/update/order/recipient-details', 'OrdersController@update_order_recipient_details')->name('update_order_recipient_details');
