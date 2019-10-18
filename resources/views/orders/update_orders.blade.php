@@ -1,6 +1,6 @@
 @extends('layout.admin')
 @section('content')
-    <div class="row" style="margin-top:-60px;">
+    <div class="row single_order" style="margin-top:-60px;" >
         <div class="col-sm-12">
             <div class="page-title-box">
                 <div class="row align-items-center">
@@ -172,7 +172,10 @@
                                             <div class="form-group row">
                                                 <label for="example-text-input" class="col-sm-12 col-form-label">State</label>
                                                 <div class="col-sm-12">
-                                                    <input class="form-control" name="state" type="text" value="{{$order->has_sender->state}}" >
+                                                    <select class="form-control AddressProvinceNew" name="state" >
+
+                                                    </select>
+{{--                                                    <input class="form-control" name="state" type="text" value="{{$order->has_sender->state}}" >--}}
                                                 </div>
                                             </div>
                                         </div>
@@ -188,7 +191,11 @@
                                             <div class="form-group row">
                                                 <label for="example-text-input" class="col-sm-12 col-form-label">Country</label>
                                                 <div class="col-sm-12">
-                                                    <input class="form-control" name="country"  type="text" value="{{$order->has_sender->country}}">
+                                                    <select class="form-control AddressCountryNew" name="country"
+                                                            data-country-select="{{$order->has_sender->country}}" data-province-select="{{$order->has_sender->state}}">
+                                                        @include('customers.inc.countries')
+                                                    </select>
+{{--                                                    <input  name="country"  type="text" value="{{$order->has_sender->country}}">--}}
                                                 </div>
                                             </div>
                                         </div>
