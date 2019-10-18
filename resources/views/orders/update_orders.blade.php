@@ -317,88 +317,100 @@
                             </div>
                             <div class="tab-pane  p-3" id="billing" role="tabpanel">
                                 <h6>Billing Details</h6>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">First Name</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_billing->first_name}}" disabled>
+                                <form action="{{route('order_update_billing_details')}}" method="get">
+                                    <input type="hidden" name="id" value="{{$order->has_billing->id}}">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">First Name</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_billing->first_name}}" name="first_name">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Last Name</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_billing->last_name}}" name="last_name">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Business</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_billing->business}}" name="business">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Address 1</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_billing->address1}}" name="address1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Address 2</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_billing->address2}}" name="address2">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">City</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_billing->city}}" name="city">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">State</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_billing->state}}" name="state">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Zip Code</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_billing->postcode}}" name="postcode">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Country</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_billing->country}}" name="country">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Phone</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_billing->phone}}" name="phone">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Phone</label>
+                                                <div class="col-sm-2">
+                                                    <input class="form-control btn btn-primary" type="submit" value="Save">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Last Name</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_billing->last_name}}" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Business</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_billing->business}}" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Address 1</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_billing->address1}}" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Address 2</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_billing->address2}}" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">City</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_billing->city}}" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">State</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_billing->state}}" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Zip Code</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_billing->postcode}}" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Country</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_billing->country}}" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Phone</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_billing->phone}}" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </form>
+
                             </div>
                             <div class="tab-pane  p-3" id="shipment" role="tabpanel">
                                 <h6>Shipment Details</h6>
