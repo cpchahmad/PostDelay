@@ -202,8 +202,8 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group row">
-                                                <div class="col-sm-12">
-                                                    <input class="form-control" name="phone" type="submit" value="Save">
+                                                <div class="col-sm-2">
+                                                    <input class="form-control btn btn-primary " type="submit" value="Save">
                                                 </div>
                                             </div>
                                         </div>
