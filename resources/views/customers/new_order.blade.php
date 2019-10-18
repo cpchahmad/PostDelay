@@ -82,7 +82,7 @@
                     <div class="custom_fields_half associate">
                         <div class="custom_Request_fields_half">
                             <label for="AddressCountryNew">Country</label>
-                            <select required class="AddressCountryNew" name="sender_country" @if($sender_address != null) data-country-select="{{ $sender_address->country }}"  data-province-select="{{$sender_address->state}}" @endif >
+                            <select required class="AddressCountryNew" name="sender_country" @if($sender_address != null) data-country-select="{{ $sender_address->country }}"  data-province-select="{{$sender_address->state}}" @else data-country-select="United States" @endif >
                                 @include('customers.inc.countries')
                             </select>
                         </div>
@@ -154,7 +154,7 @@
                     <div class="custom_fields_half associate">
                         <div class="custom_Request_fields_half">
                             <label for="AddressCountryNew">Country</label>
-                            <select required class="AddressCountryNew" name="billing_country" @if($billing_address != null) data-country-select="{{ $billing_address->country }}"  data-province-select="{{$billing_address->state}}" @endif >
+                            <select required class="AddressCountryNew" name="billing_country" @if($billing_address != null) data-country-select="{{ $billing_address->country }}"  data-province-select="{{$billing_address->state}}" @else data-country-select="United States" @endif >
                                 @include('customers.inc.countries')
                             </select>
                         </div>
@@ -348,7 +348,7 @@
                     <div class="custom_fields_half associate">
                         <div class="custom_Request_fields_half">
                             <label for="AddressCountryNew">Country</label>
-                            <select required class="AddressCountryNew" name="receipent_country" @if($recipient_address != null) data-country-select="{{ $recipient_address->country }}"  data-province-select="{{$recipient_address->state}}" @endif >
+                            <select required class="AddressCountryNew" name="receipent_country" @if($recipient_address != null) data-country-select="{{ $recipient_address->country }}"  data-province-select="{{$recipient_address->state}}" @else data-country-select="United States" @endif >
                                 @include('customers.inc.countries')
                             </select>
                         </div>
