@@ -287,3 +287,48 @@ $('body').on('change','.fee_type-select',function () {
         });
 
 });
+
+$('.single_order').ready(function(){
+
+    if ($('body .single_order').length > 0)
+    {
+        multipleAddress()
+    }
+
+});
+
+function multipleAddress(){
+
+    setTimeout(function() {
+        $('.AddressCountryNew').each(function(){
+            var country = $(this).attr('data-country-select');
+            var province = $(this).attr('data-province-select');
+            console.log(country, province);
+            if(country){
+                $(this).val(country).change();
+                changeCountry($(this));
+            }
+            if(province){
+                $(this).parents('.row').find('.AddressProvinceNew').val(province).change();
+            }
+        });
+    }, 500);
+}
+
+function changeCountry($this){
+    var $parent = $this.parent().parent().parent();
+    $parent.find('.AddressProvinceNew').empty();
+    var data_provinces = $('option:selected', $this).attr('data-provinces');
+    var provinces = JSON.parse(data_provinces);
+    var length = provinces.length;
+    if(length === 0){
+
+    }
+    else{
+        $parent.find('.AddressProvinceNew').empty();
+        for(var i=0; i<length; i++){
+            $parent.find('.AddressProvinceNew').append(new Option(provinces[i][0],provinces[i][1]));
+        }
+    }
+    return true;
+}
