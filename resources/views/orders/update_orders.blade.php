@@ -172,10 +172,7 @@
                                             <div class="form-group row">
                                                 <label for="example-text-input" class="col-sm-12 col-form-label">State</label>
                                                 <div class="col-sm-12">
-                                                    <select class="form-control AddressProvinceNew" name="state" >
-
-                                                    </select>
-{{--                                                    <input class="form-control" name="state" type="text" value="{{$order->has_sender->state}}" >--}}
+                                                    <input class="form-control" name="state" type="text" value="{{$order->has_sender->state}}" >
                                                 </div>
                                             </div>
                                         </div>
@@ -191,11 +188,7 @@
                                             <div class="form-group row">
                                                 <label for="example-text-input" class="col-sm-12 col-form-label">Country</label>
                                                 <div class="col-sm-12">
-                                                    <select class="form-control AddressCountryNew" name="country"
-                                                            data-country-select="{{$order->has_sender->country}}" data-province-select="{{$order->has_sender->state}}">
-                                                        @include('customers.inc.countries')
-                                                    </select>
-{{--                                                    <input  name="country"  type="text" value="{{$order->has_sender->country}}">--}}
+                                                    <input  name="country"  type="text" value="{{$order->has_sender->country}}">
                                                 </div>
                                             </div>
                                         </div>
