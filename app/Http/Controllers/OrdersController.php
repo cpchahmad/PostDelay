@@ -557,5 +557,12 @@ class OrdersController extends Controller
         ]);
         return $pdf->download('PostDelay_OrderDetails.pdf');
     }
+
+    public function update_order_sender_details(Request $request){
+        SenderAddress::find($request->input('id'))->update($request->all());
+        return redirect()->back();
+    }
+
+
 }
 
