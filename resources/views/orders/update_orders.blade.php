@@ -310,7 +310,7 @@
                                                     <input class="form-control btn btn-primary" type="submit" value="Save" >
                                                 </div>
                                             </div>
-                                        </div
+                                        </div>
                                     </div>
                                 </form>
 
