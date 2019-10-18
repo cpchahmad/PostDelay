@@ -149,7 +149,7 @@ class OrdersController extends Controller
         $billing_address->state =  $request->input('billing_state');
         $billing_address->country =  $request->input('billing_country');
         $billing_address->postcode =  $request->input('billing_postecode');
-        $billing_address->email =   $request->input('billing_email');
+        $billing_address->email =   $request->input('billing_phone');
         $billing_address->save();
 
         $order->billing_address_id = $billing_address->id;
