@@ -37,13 +37,15 @@ class WebhookController extends Controller
     public function webhook(Request $request)
     {
 
+        $APP_URL = 'https://postdelay.shopifyapplications.com';
+//        $APP_URL = 'https://4587c175.ngrok.io';
         $this->helper->getShop(session('shop_name'))->call([
             'METHOD' => 'POST',
             'URL' => 'admin/webhooks.json',
             "DATA" => [
                 "webhook" => [
                     "topic" => "customers/create",
-                    "address" => 'https://postdelay.shopifyapplications.com/webhook/create/customer',
+                    "address" => $APP_URL.'/webhook/create/customer',
                     "format" => "json"
                 ]
             ]
@@ -55,7 +57,7 @@ class WebhookController extends Controller
             "DATA" => [
                 "webhook" => [
                     "topic" => "orders/create",
-                    "address" => /*env('APP_URL').*/ 'https://postdelay.shopifyapplications.com/webhook/create/order',
+                    "address" => $APP_URL.'/webhook/create/order',
                     "format" => "json"
                 ]
             ]
