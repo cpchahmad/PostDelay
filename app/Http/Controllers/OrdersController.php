@@ -754,40 +754,40 @@ class OrdersController extends Controller
     public function cancel_order(Request $request){
         $order = Order::where('token', $request->input('order_token'))->first();
 
-//        $cancelledd_refund = $this->helper->getShop('postdelay.myshopify.com')->call([
-//            'METHOD' => 'POST',
-//            'URL' => '/admin/api/2019-10/orders/'.$order->shopify_order_id.'/cancel.json',
-////            'DATA' => [
-////                "refund" => [
-////                    "notify"=> true,
-////                    "note" => "Customer Cancelled",
-////                    "shipping" => [
-////                        "full_refund"=> true
-////                    ]
-////                ],
-////
-////            ]
-//        ]);
+        $cancelledd_refund = $this->helper->getShop('postdelay.myshopify.com')->call([
+            'METHOD' => 'POST',
+            'URL' => '/admin/api/2019-10/orders/'.$order->shopify_order_id.'/cancel.json',
+//            'DATA' => [
+//                "refund" => [
+//                    "notify"=> true,
+//                    "note" => "Customer Cancelled",
+//                    "shipping" => [
+//                        "full_refund"=> true
+//                    ]
+//                ],
+//
+//            ]
+        ]);
 
-//        if($cancelledd_refund != null){
-            $refund = $this->helper->getShop('postdelay.myshopify.com')->call([
-                'METHOD' => 'POST',
-                'URL' => '/admin/api/2019-10/orders/'.$order->shopify_order_id.'/refunds.json',
-
-                'DATA' => [
-                    "refund" => [
-                    "currency"=> "USD",
-                    "notify"=> true,
-                    "note" => "Customer Cancelled",
-                    "shipping" => [
-                        "full_refund"=> true
-                    ]
-                ],
-
-            ]
-                ]);
-//        }
-        dd($refund);
+////        if($cancelledd_refund != null){
+//            $refund = $this->helper->getShop('postdelay.myshopify.com')->call([
+//                'METHOD' => 'POST',
+//                'URL' => '/admin/api/2019-10/orders/'.$order->shopify_order_id.'/refunds.json',
+//
+//                'DATA' => [
+//                    "refund" => [
+//                    "currency"=> "USD",
+//                    "notify"=> true,
+//                    "note" => "Customer Cancelled",
+//                    "shipping" => [
+//                        "full_refund"=> true
+//                    ]
+//                ],
+//
+//            ]
+//                ]);
+////        }
+//        dd($refund);
 
     }
 

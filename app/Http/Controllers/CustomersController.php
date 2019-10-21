@@ -373,6 +373,7 @@ class CustomersController extends Controller
         public function delete_account(Request $request){
 
         $customer = Customer::where('shopify_customer_id',$request->input('customer'))->first();
+
             $orders = $this->helper->getShop('postdelay.myshopify.com')->call([
                 'METHOD' => 'GET',
                 'URL' => '/admin/customers/'.$customer->shopify_customer_id.'/orders.json',
@@ -392,6 +393,8 @@ class CustomersController extends Controller
                 'URL' => 'admin/customers/' . $customer->shopify_customer_id . '.json',
             ]);
 
+            $customer_orders = Order::where('customer_id',$customer->id)->delete();
+            $customer->delete();
 
         }
 
