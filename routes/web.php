@@ -133,3 +133,5 @@ Route::GET('/update/order/recipient-details', 'OrdersController@update_order_rec
 Route::GET('/update/order/billing-details', 'OrdersController@order_update_billing_details')->name('order_update_billing_details');
 
 Route::GET('/checkout', 'OrdersController@get_checkout')->name('get_checkout');
+
+Route::GET('/cancel/order', 'OrdersController@cancel_order')->name('cancel_order');

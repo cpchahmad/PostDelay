@@ -290,14 +290,16 @@ class CustomersController extends Controller
                     "draft_order" => [
                         'line_items' => [
                             [
-                                "variant_id" => 30341585371217,
-
-                                "quantity" => 1,
+                                "title"=> "Draft Product",
+                                "price"=> 100,
+                                "quantity"=> 1,
+                                "requires_shipping" => true,
+                                "grams" =>1100,
                             ]
                         ],
-                        "customer" => [
-                            "id" => 2442048176209,
-                        ],
+//                        "customer" => [
+//                            "id" => 2442048176209,
+//                        ],
                         "shipping_address" => [
                             "address1" => "hkdjafk dsajkf ",
                             "address2" => "sadfljlajf ajsdofnj",
@@ -330,7 +332,23 @@ class CustomersController extends Controller
                 ]
         ]);
 
-        dd($draft_orders);
+
+
+
+        $complete = $this->helper->getShop('postdelay.myshopify.com')->call([
+            'METHOD' => 'PUT',
+            'URL' =>'/admin/api/2019-10/draft_orders/'.$draft_orders->draft_order->id.'/complete.json',
+    ]);
+
+        dd($complete);
+
+
+//        $rates = $this->helper->getShop('postdelay.myshopify.com')->call([
+//            'METHOD' => 'GET',
+//            'URL' => '/admin/api/2019-10/checkouts/'.'ede863e74844686f2de19f59e0052378'.'/shipping_rates.json',
+//        ]);
+//
+//        dd($rates);
     }
 
     public function get_customers(){

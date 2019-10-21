@@ -750,5 +750,12 @@ class OrdersController extends Controller
         dd($checkout);
     }
 
+
+    public function cancel_order(Request $request){
+       $order = Order::where('token', $request->input('order_token'))->first();
+       dd($order);
+    }
+
+
 }
 
