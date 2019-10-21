@@ -94,7 +94,7 @@
         </div>
 
 
-        <div class="custom_Button-contaner cng-btn">
+        <div class="custom_Button-contaner ">
             <a style="cursor: pointer" id="customer_delete_account" data-id="{{$customer->shopify_customer_id}}" class="Same-button" >DELETE ACCOUNT</a>
         </div>
 

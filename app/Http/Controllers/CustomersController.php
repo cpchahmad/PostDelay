@@ -370,6 +370,31 @@ class CustomersController extends Controller
             }
         }
 
+        public function delete_account(Request $request){
+
+        $customer = Customer::where('shopify_customer_id',$request->input('customer'))->first();
+            $orders = $this->helper->getShop('postdelay.myshopify.com')->call([
+                'METHOD' => 'GET',
+                'URL' => '/admin/customers/'.$customer->shopify_customer_id.'/orders.json',
+            ]);
+
+            $orders = $orders->orders;
+
+            foreach ($orders as $order){
+                $this->helper->getShop('postdelay.myshopify.com')->call([
+                    'METHOD' => 'DELETE',
+                    'URL' => 'admin/orders/' .$order->id. '.json',
+                ]);
+            }
+
+            $this->helper->getShop('postdelay.myshopify.com')->call([
+                'METHOD' => 'DELETE',
+                'URL' => 'admin/customers/' . $customer->shopify_customer_id . '.json',
+            ]);
+
+
+        }
+
 
 
 }
