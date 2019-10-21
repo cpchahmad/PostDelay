@@ -758,9 +758,14 @@ class OrdersController extends Controller
             'METHOD' => 'POST',
             'URL' => '/admin/api/2019-10/orders/'.$order->shopify_order_id.'/cancel.json',
             'DATA' => [
-                "note" => "Customer Cancelled",
-                "amount"=>$order->order_total ,
-//                "currency"=> "USD"
+                "refund" => [
+                    "notify"=> true,
+                    "note" => "Customer Cancelled",
+                    "shipping" => [
+                        "full_refund"=> true
+                    ]
+                ],
+
             ]
         ]);
 
