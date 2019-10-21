@@ -611,9 +611,7 @@ class OrdersController extends Controller
 
                             ]
                         ],
-                        "customer" => [
-                            "id" => $request->input('customer_id'),
-                        ],
+                        "customer_id" => $request->input('customer_id'),
 //                        "shipping_address" => [
 //                            "address1" => $request->input('receipent_address1'),
 //                            "address2" =>  $request->input('receipent_address2'),
