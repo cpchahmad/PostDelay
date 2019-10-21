@@ -760,7 +760,7 @@ class OrdersController extends Controller
             'DATA' => [
                 "note" => "Customer Cancelled",
                 "amount"=>$order->order_total ,
-                "currency"=> "USD"
+//                "currency"=> "USD"
             ]
         ]);
 
