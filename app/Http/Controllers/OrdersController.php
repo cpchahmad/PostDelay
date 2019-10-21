@@ -627,18 +627,18 @@ class OrdersController extends Controller
                             "zip" =>  $request->input('receipent_postecode'),
                             "name" =>  $request->input('receipent_first_name').' '.$request->input('receipent_last_name'),
                         ],
-                        "billing_address" => [
-                            "address1" => $request->input('billing_address1'),
-                            "address2" =>  $request->input('billing_address2'),
-                            "city" =>  $request->input('billing_city'),
-                            "company" =>  $request->input('billing_business'),
-                            "first_name" =>  $request->input('billing_first_name'),
-                            "last_name" =>  $request->input('billing_last_name'),
-                            "province" =>  $request->input('billing_state'),
-                            "country" =>  $request->input('billing_country'),
-//                            "zip" =>  $request->input('billing_postecode'),
-//                            "name" =>  $request->input('billing_first_name').' '.$request->input('billing_last_name'),
-                        ]
+//                        "billing_address" => [
+//                            "address1" => $request->input('billing_address1'),
+//                            "address2" =>  $request->input('billing_address2'),
+//                            "city" =>  $request->input('billing_city'),
+//                            "company" =>  $request->input('billing_business'),
+//                            "first_name" =>  $request->input('billing_first_name'),
+//                            "last_name" =>  $request->input('billing_last_name'),
+//                            "province" =>  $request->input('billing_state'),
+//                            "country" =>  $request->input('billing_country'),
+////                            "zip" =>  $request->input('billing_postecode'),
+////                            "name" =>  $request->input('billing_first_name').' '.$request->input('billing_last_name'),
+//                        ]
 
                     ]
 
