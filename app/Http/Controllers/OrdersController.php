@@ -726,5 +726,32 @@ class OrdersController extends Controller
         ]);
     }
 
+
+
+    public function get_checkout(){
+        $checkout = $this->helper->getShop('postdelay.myshopify.com')->call([
+            'METHOD' => 'POST',
+            'URL' => '/admin/api/2019-10/checkouts.json',
+//            'DATA' =>
+//                [
+//                    "checkout" => [
+////                        'line_items' => [
+////                            [
+////
+////                                "variant_id" => 30931674529873,
+////                                "quantity"=> 1,
+////
+////
+////                            ]
+//                        ],
+//
+//                    ]
+//
+//                ]
+        ]);
+
+        dd($checkout);
+    }
+
 }
 

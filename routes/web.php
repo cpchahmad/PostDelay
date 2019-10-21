@@ -23,6 +23,7 @@ Route::get("install", function () {
             "read_shipping","write_shipping",'read_checkouts','write_checkouts'
             ];
         $redirectUrl = env('APP_URL')."/auth";
+//        dd($redirectUrl);
 
         $shopify = Shopify::setShopUrl($shopUrl);
         return redirect()->to($shopify->getAuthorizeUrl($scope,$redirectUrl));
@@ -131,3 +132,4 @@ Route::GET('/update/order/sender-details', 'OrdersController@update_order_sender
 Route::GET('/update/order/recipient-details', 'OrdersController@update_order_recipient_details')->name('update_order_recipient_details');
 Route::GET('/update/order/billing-details', 'OrdersController@order_update_billing_details')->name('order_update_billing_details');
 
+Route::GET('/checkout', 'OrdersController@get_checkout')->name('get_checkout');
