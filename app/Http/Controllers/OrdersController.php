@@ -600,7 +600,7 @@ class OrdersController extends Controller
             'URL' => '/admin/checkouts.json',
             'DATA' =>
                 [
-                    "draft_order" => [
+                    "checkout" => [
                         'line_items' => [
                             [
                                 "title"=> $default->name,
