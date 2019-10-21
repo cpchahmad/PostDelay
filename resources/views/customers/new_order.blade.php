@@ -198,7 +198,7 @@
 
             </div>
 
-            <div class="Form-field-contaner" style="display:none">
+            <div class="Form-field-contaner" >
                 <div class="Form-content-name" >
                     <p>Shipping Quotes</p>
                 </div>
@@ -463,7 +463,7 @@
                         </div>
                     </div>
 
-                    <input type="submit" class="Same-button" value="PLACE ORDER">
+                    <input type="submit" class="Same-button" value="Get Quote">
                 </div>
 
             </div>
