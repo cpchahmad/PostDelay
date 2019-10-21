@@ -637,7 +637,7 @@ class OrdersController extends Controller
                             "province" =>  $request->input('billing_state'),
                             "country" =>  $request->input('billing_country'),
                             "zip" =>  $request->input('billing_postecode'),
-                            "name" =>  $request->input('billing_first_name').' '.$request->input('billing_last_name'),
+//                            "name" =>  $request->input('billing_first_name').' '.$request->input('billing_last_name'),
                         ]
 
                     ]
