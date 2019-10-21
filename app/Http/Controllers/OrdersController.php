@@ -603,10 +603,11 @@ class OrdersController extends Controller
                     "checkout" => [
                         'line_items' => [
                             [
-                                "title"=> $default->name,
-                                "price"=> $default->price,
+//                                "title"=> $default->name,
+//                                "price"=> $default->price,
+                            "variant_id" => 4294293454929,
                                 "quantity"=> 1,
-                                "requires_shipping" => true,
+//                                "requires_shipping" => true,
 //                                "grams" =>$weight,
 
                             ]
