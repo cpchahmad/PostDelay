@@ -757,7 +757,24 @@ class OrdersController extends Controller
         $cancelledd_refund = $this->helper->getShop('postdelay.myshopify.com')->call([
             'METHOD' => 'POST',
             'URL' => '/admin/api/2019-10/orders/'.$order->shopify_order_id.'/cancel.json',
-            'DATA' => [
+//            'DATA' => [
+//                "refund" => [
+//                    "notify"=> true,
+//                    "note" => "Customer Cancelled",
+//                    "shipping" => [
+//                        "full_refund"=> true
+//                    ]
+//                ],
+//
+//            ]
+        ]);
+
+        if($cancelledd_refund != null){
+            $refund = $this->helper->getShop('postdelay.myshopify.com')->call([
+                'METHOD' => 'POST',
+                'URL' => '/admin/api/2019-10/orders/'.$order->shopify_order_id.'/refunds.json',
+
+                'DATA' => [
                 "refund" => [
                     "notify"=> true,
                     "note" => "Customer Cancelled",
@@ -767,9 +784,9 @@ class OrdersController extends Controller
                 ],
 
             ]
-        ]);
-
-        dd($cancelledd_refund);
+                ]);
+        }
+        dd($refund);
 
     }
 
