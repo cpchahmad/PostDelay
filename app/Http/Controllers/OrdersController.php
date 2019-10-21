@@ -39,156 +39,156 @@ class OrdersController extends Controller
         $status=Status::all();
         return view('orders.index',compact('orders','status'));
     }
-//    public function place_order(Request $request){
-//
-//
-//        if($request->input('weight') == null){
-//            $post_type = PostType::where('name',$request->input('post_type'))->first();
-//            if($post_type != null){
-//                if($post_type->weight == null){
-//                    $weight = 1000;
-//                }else{
-//                    $weight = $post_type->weight;
-//                }
-//
-//            }
-//            else{
-//                $weight = 1000;
-//            }
-//        }
-//        else{
-//            $weight = $request->input('weight');
-//        }
-//        $default =  PostDelayFee::where('default',1)->where('type','primary')->first();
-//
-//        $draft_orders = $this->helper->getShop('postdelay.myshopify.com')->call([
-//            'METHOD' => 'POST',
-//            'URL' => '/admin/draft_orders.json',
-//            'DATA' =>
-//                [
-//                    "draft_order" => [
-//                        'line_items' => [
-//                            [
-//                                "title"=> $default->name,
-//                                "price"=> $default->price,
-//                                "quantity"=> 1,
-//                                "requires_shipping" => true,
-//                                "grams" =>$weight,
-//
-//                            ]
-//                        ],
-//                        "customer" => [
-//                            "id" => $request->input('customer_id'),
-//                        ],
-//                        "shipping_address" => [
-//                            "address1" => $request->input('receipent_address1'),
-//                            "address2" =>  $request->input('receipent_address2'),
-//                            "city" =>  $request->input('receipent_city'),
-//                            "company" =>  $request->input('receipent_business'),
-//                            "first_name" =>  $request->input('receipent_first_name'),
-//                            "last_name" =>  $request->input('receipent_last_name'),
-//                            "province" =>  $request->input('receipent_state'),
-//                            "country" =>  $request->input('receipent_country'),
-//                            "phone" =>  $request->input('receipent_phone'),
-//                            "zip" =>  $request->input('receipent_postecode'),
-//                            "name" =>  $request->input('receipent_first_name').' '.$request->input('receipent_last_name'),
-//                        ],
-//                        "billing_address" => [
-//                            "address1" => $request->input('billing_address1'),
-//                            "address2" =>  $request->input('billing_address2'),
-//                            "city" =>  $request->input('billing_city'),
-//                            "company" =>  $request->input('billing_business'),
-//                            "first_name" =>  $request->input('billing_first_name'),
-//                            "last_name" =>  $request->input('billing_last_name'),
-//                            "province" =>  $request->input('billing_state'),
-//                            "country" =>  $request->input('billing_country'),
-//                            "zip" =>  $request->input('billing_postecode'),
-//                            "name" =>  $request->input('billing_first_name').' '.$request->input('billing_last_name'),
-//                        ]
-//
-//                    ]
-//
-//                ]
-//        ]);
-//        $invoiceURL = $draft_orders->draft_order->invoice_url;
-//        $token = explode('/',$invoiceURL)[5];
-//        $order =  new Order();
-//        $order->draft_order_id =  $draft_orders->draft_order->id;
-//        $order->checkout_token = $token;
-//        $order->ship_out_date = $request->input('ship_out_date');
-//        $order->checkout_completed = 0;
-//
-//        $customer = Customer::where('shopify_customer_id',$request->input('customer_id'))->first();
-//
-//        $order->customer_id = $customer->id;
-//        $order->shopify_customer_id = $request->input('customer_id');
-//
-//        $package_detail  = new PackageDetail();
-//        $package_detail->type = $request->input('post_type');
-//        $package_detail->special_holding = $request->input('special_holding');
-//        $package_detail->shape = $request->input('shape');
-//        $package_detail->scale = $request->input('unit_of_measures');
-//        $package_detail->weight = $weight;
-//        $package_detail->length = $request->input('length');
-//        $package_detail->girth = $request->input('girth');
-//        $package_detail->width = $request->input('width');
-//        $package_detail->height = $request->input('height');
-//        $package_detail->setUpdatedAt(now());
-//        $package_detail->setCreatedAt(now());
-//        $package_detail->save();
-//
-//        $order->package_detail_id = $package_detail->id;
-//
-//        $billing_address = new BillingAddress();
-//        $billing_address->address1 = $request->input('billing_address1');
-//        $billing_address->  address2 =  $request->input('billing_address2');
-//        $billing_address ->city =  $request->input('billing_city');
-//        $billing_address->business =  $request->input('billing_business');
-//        $billing_address->first_name =  $request->input('billing_first_name');
-//        $billing_address -> last_name =  $request->input('billing_last_name');
-//        $billing_address->state =  $request->input('billing_state');
-//        $billing_address->country =  $request->input('billing_country');
-//        $billing_address->postcode =  $request->input('billing_postecode');
-//        $billing_address->email =   $request->input('billing_phone');
-//        $billing_address->save();
-//
-//        $order->billing_address_id = $billing_address->id;
-//
-//        $sender_address = new SenderAddress();
-//        $sender_address->address1 = $request->input('sender_address1');
-//        $sender_address->  address2 =  $request->input('sender_address2');
-//        $sender_address ->city =  $request->input('sender_city');
-//        $sender_address->business =  $request->input('sender_business');
-//        $sender_address->first_name =  $request->input('sender_first_name');
-//        $sender_address -> last_name =  $request->input('sender_last_name');
-//        $sender_address->state =  $request->input('sender_state');
-//        $sender_address->country =  $request->input('sender_country');
-//        $sender_address->postcode =  $request->input('sender_postecode');
-//        $sender_address->phone =   $request->input('sender_phone');
-//        $sender_address->save();
-//
-//        $order->sender_address_id = $sender_address->id;
-//
-//        $recipient_address = new RecipientAddress();
-//        $recipient_address->address1 = $request->input('receipent_address1');
-//        $recipient_address->  address2 =  $request->input('receipent_address2');
-//        $recipient_address ->city =  $request->input('receipent_city');
-//        $recipient_address->business =  $request->input('receipent_business');
-//        $recipient_address->first_name =  $request->input('receipent_first_name');
-//        $recipient_address -> last_name =  $request->input('receipent_last_name');
-//        $recipient_address->state =  $request->input('receipent_state');
-//        $recipient_address->country =  $request->input('receipent_country');
-//        $recipient_address->postcode =  $request->input('receipent_postecode');
-//        $recipient_address->phone =   $request->input('receipent_phone');
-//        $recipient_address->save();
-//
-//        $order->recipient_address_id = $recipient_address->id;
-//        $order->save();
-//
-//        return response()->json([
-//            "invoiceURL" => $invoiceURL,
-//        ]);
-//    }
+    public function place_order(Request $request){
+
+
+        if($request->input('weight') == null){
+            $post_type = PostType::where('name',$request->input('post_type'))->first();
+            if($post_type != null){
+                if($post_type->weight == null){
+                    $weight = 1000;
+                }else{
+                    $weight = $post_type->weight;
+                }
+
+            }
+            else{
+                $weight = 1000;
+            }
+        }
+        else{
+            $weight = $request->input('weight');
+        }
+        $default =  PostDelayFee::where('default',1)->where('type','primary')->first();
+
+        $draft_orders = $this->helper->getShop('postdelay.myshopify.com')->call([
+            'METHOD' => 'POST',
+            'URL' => '/admin/draft_orders.json',
+            'DATA' =>
+                [
+                    "draft_order" => [
+                        'line_items' => [
+                            [
+                                "title"=> $default->name,
+                                "price"=> $default->price,
+                                "quantity"=> 1,
+                                "requires_shipping" => true,
+                                "grams" =>$weight,
+
+                            ]
+                        ],
+                        "customer" => [
+                            "id" => $request->input('customer_id'),
+                        ],
+                        "shipping_address" => [
+                            "address1" => $request->input('receipent_address1'),
+                            "address2" =>  $request->input('receipent_address2'),
+                            "city" =>  $request->input('receipent_city'),
+                            "company" =>  $request->input('receipent_business'),
+                            "first_name" =>  $request->input('receipent_first_name'),
+                            "last_name" =>  $request->input('receipent_last_name'),
+                            "province" =>  $request->input('receipent_state'),
+                            "country" =>  $request->input('receipent_country'),
+                            "phone" =>  $request->input('receipent_phone'),
+                            "zip" =>  $request->input('receipent_postecode'),
+                            "name" =>  $request->input('receipent_first_name').' '.$request->input('receipent_last_name'),
+                        ],
+                        "billing_address" => [
+                            "address1" => $request->input('billing_address1'),
+                            "address2" =>  $request->input('billing_address2'),
+                            "city" =>  $request->input('billing_city'),
+                            "company" =>  $request->input('billing_business'),
+                            "first_name" =>  $request->input('billing_first_name'),
+                            "last_name" =>  $request->input('billing_last_name'),
+                            "province" =>  $request->input('billing_state'),
+                            "country" =>  $request->input('billing_country'),
+                            "zip" =>  $request->input('billing_postecode'),
+                            "name" =>  $request->input('billing_first_name').' '.$request->input('billing_last_name'),
+                        ]
+
+                    ]
+
+                ]
+        ]);
+        $invoiceURL = $draft_orders->draft_order->invoice_url;
+        $token = explode('/',$invoiceURL)[5];
+        $order =  new Order();
+        $order->draft_order_id =  $draft_orders->draft_order->id;
+        $order->checkout_token = $token;
+        $order->ship_out_date = $request->input('ship_out_date');
+        $order->checkout_completed = 0;
+
+        $customer = Customer::where('shopify_customer_id',$request->input('customer_id'))->first();
+
+        $order->customer_id = $customer->id;
+        $order->shopify_customer_id = $request->input('customer_id');
+
+        $package_detail  = new PackageDetail();
+        $package_detail->type = $request->input('post_type');
+        $package_detail->special_holding = $request->input('special_holding');
+        $package_detail->shape = $request->input('shape');
+        $package_detail->scale = $request->input('unit_of_measures');
+        $package_detail->weight = $weight;
+        $package_detail->length = $request->input('length');
+        $package_detail->girth = $request->input('girth');
+        $package_detail->width = $request->input('width');
+        $package_detail->height = $request->input('height');
+        $package_detail->setUpdatedAt(now());
+        $package_detail->setCreatedAt(now());
+        $package_detail->save();
+
+        $order->package_detail_id = $package_detail->id;
+
+        $billing_address = new BillingAddress();
+        $billing_address->address1 = $request->input('billing_address1');
+        $billing_address->  address2 =  $request->input('billing_address2');
+        $billing_address ->city =  $request->input('billing_city');
+        $billing_address->business =  $request->input('billing_business');
+        $billing_address->first_name =  $request->input('billing_first_name');
+        $billing_address -> last_name =  $request->input('billing_last_name');
+        $billing_address->state =  $request->input('billing_state');
+        $billing_address->country =  $request->input('billing_country');
+        $billing_address->postcode =  $request->input('billing_postecode');
+        $billing_address->email =   $request->input('billing_phone');
+        $billing_address->save();
+
+        $order->billing_address_id = $billing_address->id;
+
+        $sender_address = new SenderAddress();
+        $sender_address->address1 = $request->input('sender_address1');
+        $sender_address->  address2 =  $request->input('sender_address2');
+        $sender_address ->city =  $request->input('sender_city');
+        $sender_address->business =  $request->input('sender_business');
+        $sender_address->first_name =  $request->input('sender_first_name');
+        $sender_address -> last_name =  $request->input('sender_last_name');
+        $sender_address->state =  $request->input('sender_state');
+        $sender_address->country =  $request->input('sender_country');
+        $sender_address->postcode =  $request->input('sender_postecode');
+        $sender_address->phone =   $request->input('sender_phone');
+        $sender_address->save();
+
+        $order->sender_address_id = $sender_address->id;
+
+        $recipient_address = new RecipientAddress();
+        $recipient_address->address1 = $request->input('receipent_address1');
+        $recipient_address->  address2 =  $request->input('receipent_address2');
+        $recipient_address ->city =  $request->input('receipent_city');
+        $recipient_address->business =  $request->input('receipent_business');
+        $recipient_address->first_name =  $request->input('receipent_first_name');
+        $recipient_address -> last_name =  $request->input('receipent_last_name');
+        $recipient_address->state =  $request->input('receipent_state');
+        $recipient_address->country =  $request->input('receipent_country');
+        $recipient_address->postcode =  $request->input('receipent_postecode');
+        $recipient_address->phone =   $request->input('receipent_phone');
+        $recipient_address->save();
+
+        $order->recipient_address_id = $recipient_address->id;
+        $order->save();
+
+        return response()->json([
+            "invoiceURL" => $invoiceURL,
+        ]);
+    }
 
     public function get_order(){
         $orders = $this->helper->getShop('postdelay.myshopify.com')->call([
@@ -200,7 +200,7 @@ class OrdersController extends Controller
         foreach ($orders as $index => $order){
             $checkout_token =  explode('/',$order->landing_site)[3];
             $draft_order = Order::where('checkout_token',$checkout_token)
-              ->where('checkout_completed',0)->first();
+                ->where('checkout_completed',0)->first();
             if($draft_order != NULL){
 
                 $draft_order->checkout_completed = 1;
@@ -356,7 +356,7 @@ class OrdersController extends Controller
             'status_id' => $request->input('status')
         ]);
 
-       $order = Order::find($request->input('order'));
+        $order = Order::find($request->input('order'));
         $this->status_log($order);
 
         $customer = Customer::find($order->customer_id);
@@ -368,10 +368,10 @@ class OrdersController extends Controller
     }
 
     public function order_history(Request $request){
-       $logs =  OrderStatusHistory::where('order_id',$request->id)->get();
-       return view('orders.order_history')->with([
-           'logs' => $logs
-       ]);
+        $logs =  OrderStatusHistory::where('order_id',$request->id)->get();
+        return view('orders.order_history')->with([
+            'logs' => $logs
+        ]);
     }
 
     public function place_additional_payments(Request $request){
@@ -506,7 +506,7 @@ class OrdersController extends Controller
     public function set_key_dates(Request $request){
 //        dd($request);
         KeyDate::UpdateOrcreate([
-           "order_id" => $request->input('order_id'),
+            "order_id" => $request->input('order_id'),
         ],[
             "received_post_date" => $request->input('received_post_date'),
             "completion_date" => $request->input('completion_date'),
@@ -517,7 +517,7 @@ class OrdersController extends Controller
 
     public function shipment_to_postdelay(Request $request){
         Order::where('order_name',$request->input('order_name'))->update([
-           'ship_to_postdelay_date' => $request->input('ship-date'),
+            'ship_to_postdelay_date' => $request->input('ship-date'),
             'ship_method' => $request->input('ship-method'),
             'tracking_id' => $request->input('tracking_id'),
             'status_id' => 2
@@ -573,158 +573,155 @@ class OrdersController extends Controller
     }
 
 
-    public function place_order(Request $request){
-
-
-        if($request->input('weight') == null){
-            $post_type = PostType::where('name',$request->input('post_type'))->first();
-            if($post_type != null){
-                if($post_type->weight == null){
-                    $weight = 1000;
-                }else{
-                    $weight = $post_type->weight;
-                }
-
-            }
-            else{
-                $weight = 1000;
-            }
-        }
-        else{
-            $weight = $request->input('weight');
-        }
-        $default =  PostDelayFee::where('default',1)->where('type','primary')->first();
-
-        $checkout = $this->helper->getShop('postdelay.myshopify.com')->call([
-            'METHOD' => 'POST',
-            'URL' => '/admin/checkouts.json',
-            'DATA' =>
-                [
-                    "checkout" => [
-                        'line_items' => [
-                            [
-//                                "title"=> $default->name,
-//                                "price"=> $default->price,
-                            "variant_id" => 4294293454929,
-                                "quantity"=> 1,
-//                                "requires_shipping" => true,
-//                                "grams" =>$weight,
-
-                            ]
-                        ],
-                        "customer" => [
-                            "id" => $request->input('customer_id'),
-                        ],
-                        "shipping_address" => [
-                            "address1" => $request->input('receipent_address1'),
-                            "address2" =>  $request->input('receipent_address2'),
-                            "city" =>  $request->input('receipent_city'),
-                            "company" =>  $request->input('receipent_business'),
-                            "first_name" =>  $request->input('receipent_first_name'),
-                            "last_name" =>  $request->input('receipent_last_name'),
-                            "province" =>  $request->input('receipent_state'),
-                            "country" =>  $request->input('receipent_country'),
-                            "phone" =>  $request->input('receipent_phone'),
-                            "zip" =>  $request->input('receipent_postecode'),
-                            "name" =>  $request->input('receipent_first_name').' '.$request->input('receipent_last_name'),
-                        ],
-                        "billing_address" => [
-                            "address1" => $request->input('billing_address1'),
-                            "address2" =>  $request->input('billing_address2'),
-                            "city" =>  $request->input('billing_city'),
-                            "company" =>  $request->input('billing_business'),
-                            "first_name" =>  $request->input('billing_first_name'),
-                            "last_name" =>  $request->input('billing_last_name'),
-                            "province" =>  $request->input('billing_state'),
-                            "country" =>  $request->input('billing_country'),
-                            "zip" =>  $request->input('billing_postecode'),
-
-                        ]
-
-                    ]
-
-                ]
-        ]);
-        dd($checkout);
-        $invoiceURL = $draft_orders->draft_order->invoice_url;
-        $token = explode('/',$invoiceURL)[5];
-        $order =  new Order();
-        $order->draft_order_id =  $draft_orders->draft_order->id;
-        $order->checkout_token = $token;
-        $order->ship_out_date = $request->input('ship_out_date');
-        $order->checkout_completed = 0;
-
-        $customer = Customer::where('shopify_customer_id',$request->input('customer_id'))->first();
-
-        $order->customer_id = $customer->id;
-        $order->shopify_customer_id = $request->input('customer_id');
-
-        $package_detail  = new PackageDetail();
-        $package_detail->type = $request->input('post_type');
-        $package_detail->special_holding = $request->input('special_holding');
-        $package_detail->shape = $request->input('shape');
-        $package_detail->scale = $request->input('unit_of_measures');
-        $package_detail->weight = $weight;
-        $package_detail->length = $request->input('length');
-        $package_detail->girth = $request->input('girth');
-        $package_detail->width = $request->input('width');
-        $package_detail->height = $request->input('height');
-        $package_detail->setUpdatedAt(now());
-        $package_detail->setCreatedAt(now());
-        $package_detail->save();
-
-        $order->package_detail_id = $package_detail->id;
-
-        $billing_address = new BillingAddress();
-        $billing_address->address1 = $request->input('billing_address1');
-        $billing_address->  address2 =  $request->input('billing_address2');
-        $billing_address ->city =  $request->input('billing_city');
-        $billing_address->business =  $request->input('billing_business');
-        $billing_address->first_name =  $request->input('billing_first_name');
-        $billing_address -> last_name =  $request->input('billing_last_name');
-        $billing_address->state =  $request->input('billing_state');
-        $billing_address->country =  $request->input('billing_country');
-        $billing_address->postcode =  $request->input('billing_postecode');
-        $billing_address->email =   $request->input('billing_phone');
-        $billing_address->save();
-
-        $order->billing_address_id = $billing_address->id;
-
-        $sender_address = new SenderAddress();
-        $sender_address->address1 = $request->input('sender_address1');
-        $sender_address->  address2 =  $request->input('sender_address2');
-        $sender_address ->city =  $request->input('sender_city');
-        $sender_address->business =  $request->input('sender_business');
-        $sender_address->first_name =  $request->input('sender_first_name');
-        $sender_address -> last_name =  $request->input('sender_last_name');
-        $sender_address->state =  $request->input('sender_state');
-        $sender_address->country =  $request->input('sender_country');
-        $sender_address->postcode =  $request->input('sender_postecode');
-        $sender_address->phone =   $request->input('sender_phone');
-        $sender_address->save();
-
-        $order->sender_address_id = $sender_address->id;
-
-        $recipient_address = new RecipientAddress();
-        $recipient_address->address1 = $request->input('receipent_address1');
-        $recipient_address->  address2 =  $request->input('receipent_address2');
-        $recipient_address ->city =  $request->input('receipent_city');
-        $recipient_address->business =  $request->input('receipent_business');
-        $recipient_address->first_name =  $request->input('receipent_first_name');
-        $recipient_address -> last_name =  $request->input('receipent_last_name');
-        $recipient_address->state =  $request->input('receipent_state');
-        $recipient_address->country =  $request->input('receipent_country');
-        $recipient_address->postcode =  $request->input('receipent_postecode');
-        $recipient_address->phone =   $request->input('receipent_phone');
-        $recipient_address->save();
-
-        $order->recipient_address_id = $recipient_address->id;
-        $order->save();
-
-        return response()->json([
-            "invoiceURL" => $invoiceURL,
-        ]);
-    }
+//    public function place_order(Request $request){
+//
+//
+//        if($request->input('weight') == null){
+//            $post_type = PostType::where('name',$request->input('post_type'))->first();
+//            if($post_type != null){
+//                if($post_type->weight == null){
+//                    $weight = 1000;
+//                }else{
+//                    $weight = $post_type->weight;
+//                }
+//
+//            }
+//            else{
+//                $weight = 1000;
+//            }
+//        }
+//        else{
+//            $weight = $request->input('weight');
+//        }
+//        $default =  PostDelayFee::where('default',1)->where('type','primary')->first();
+////        dd($default->price);
+//
+//        $product = $this->helper->getShop('postdelay.myshopify.com')->call([
+//            'METHOD' => 'POST',
+//            'URL' => '/admin/api/2019-10/products.json',
+//            'DATA' =>[
+//                "product"=>[
+//                    "title"=> $default->name,
+//                    "requires_shipping" => true,
+//                    "variants" => [
+//                        [
+//                            "price" =>  $default->price,
+//                            "grams" =>$weight,
+//                            "inventory_quantity" => 20
+//
+//                        ]
+//
+//                    ]
+//                ],
+//            ]]);
+////
+////dd($product);
+//        $variant_id = $product->product->variants[0]->id;
+////        dd($variant_id);
+//        $product_listing = $this->helper->getShop('postdelay.myshopify.com')->call([
+//            'METHOD' => 'GET',
+//            'URL' => '/admin/api/2019-10/product_listings.json',
+//        ]);
+//
+//        dd($product_listing);
+//
+//        $checkout = $this->helper->getShop('postdelay.myshopify.com')->call([
+//            'METHOD' => 'POST',
+//            'URL' => '/admin/checkouts.json',
+//            'DATA' =>
+//                [
+//                    "checkout" => [
+//                        'line_items' => [
+//                            [
+//                                "variant_id" => $variant_id,
+//                                "quantity"=> 1,
+//                            ]
+//                        ],
+//
+//                    ]
+//
+//                ]
+//        ]);
+//        dd($checkout);
+//        $invoiceURL = $draft_orders->draft_order->invoice_url;
+//        $token = explode('/',$invoiceURL)[5];
+//        $order =  new Order();
+//        $order->draft_order_id =  $draft_orders->draft_order->id;
+//        $order->checkout_token = $token;
+//        $order->ship_out_date = $request->input('ship_out_date');
+//        $order->checkout_completed = 0;
+//
+//        $customer = Customer::where('shopify_customer_id',$request->input('customer_id'))->first();
+//
+//        $order->customer_id = $customer->id;
+//        $order->shopify_customer_id = $request->input('customer_id');
+//
+//        $package_detail  = new PackageDetail();
+//        $package_detail->type = $request->input('post_type');
+//        $package_detail->special_holding = $request->input('special_holding');
+//        $package_detail->shape = $request->input('shape');
+//        $package_detail->scale = $request->input('unit_of_measures');
+//        $package_detail->weight = $weight;
+//        $package_detail->length = $request->input('length');
+//        $package_detail->girth = $request->input('girth');
+//        $package_detail->width = $request->input('width');
+//        $package_detail->height = $request->input('height');
+//        $package_detail->setUpdatedAt(now());
+//        $package_detail->setCreatedAt(now());
+//        $package_detail->save();
+//
+//        $order->package_detail_id = $package_detail->id;
+//
+//        $billing_address = new BillingAddress();
+//        $billing_address->address1 = $request->input('billing_address1');
+//        $billing_address->  address2 =  $request->input('billing_address2');
+//        $billing_address ->city =  $request->input('billing_city');
+//        $billing_address->business =  $request->input('billing_business');
+//        $billing_address->first_name =  $request->input('billing_first_name');
+//        $billing_address -> last_name =  $request->input('billing_last_name');
+//        $billing_address->state =  $request->input('billing_state');
+//        $billing_address->country =  $request->input('billing_country');
+//        $billing_address->postcode =  $request->input('billing_postecode');
+//        $billing_address->email =   $request->input('billing_phone');
+//        $billing_address->save();
+//
+//        $order->billing_address_id = $billing_address->id;
+//
+//        $sender_address = new SenderAddress();
+//        $sender_address->address1 = $request->input('sender_address1');
+//        $sender_address->  address2 =  $request->input('sender_address2');
+//        $sender_address ->city =  $request->input('sender_city');
+//        $sender_address->business =  $request->input('sender_business');
+//        $sender_address->first_name =  $request->input('sender_first_name');
+//        $sender_address -> last_name =  $request->input('sender_last_name');
+//        $sender_address->state =  $request->input('sender_state');
+//        $sender_address->country =  $request->input('sender_country');
+//        $sender_address->postcode =  $request->input('sender_postecode');
+//        $sender_address->phone =   $request->input('sender_phone');
+//        $sender_address->save();
+//
+//        $order->sender_address_id = $sender_address->id;
+//
+//        $recipient_address = new RecipientAddress();
+//        $recipient_address->address1 = $request->input('receipent_address1');
+//        $recipient_address->  address2 =  $request->input('receipent_address2');
+//        $recipient_address ->city =  $request->input('receipent_city');
+//        $recipient_address->business =  $request->input('receipent_business');
+//        $recipient_address->first_name =  $request->input('receipent_first_name');
+//        $recipient_address -> last_name =  $request->input('receipent_last_name');
+//        $recipient_address->state =  $request->input('receipent_state');
+//        $recipient_address->country =  $request->input('receipent_country');
+//        $recipient_address->postcode =  $request->input('receipent_postecode');
+//        $recipient_address->phone =   $request->input('receipent_phone');
+//        $recipient_address->save();
+//
+//        $order->recipient_address_id = $recipient_address->id;
+//        $order->save();
+//
+//        return response()->json([
+//            "invoiceURL" => $invoiceURL,
+//        ]);
+//    }
 
 
 
@@ -732,22 +729,22 @@ class OrdersController extends Controller
         $checkout = $this->helper->getShop('postdelay.myshopify.com')->call([
             'METHOD' => 'POST',
             'URL' => '/admin/api/2019-10/checkouts.json',
-//            'DATA' =>
-//                [
-//                    "checkout" => [
-////                        'line_items' => [
-////                            [
-////
-////                                "variant_id" => 30931674529873,
-////                                "quantity"=> 1,
-////
-////
-////                            ]
-//                        ],
-//
-//                    ]
-//
-//                ]
+            'DATA' =>
+                [
+                    "checkout" => [
+                        'line_items' => [
+                            [
+
+                                "variant_id" => 30931674529873,
+                                "quantity"=> 1,
+
+
+                            ]
+                        ],
+
+                    ]
+
+                ]
         ]);
 
         dd($checkout);

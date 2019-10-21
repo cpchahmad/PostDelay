@@ -20,7 +20,7 @@ Route::get("install", function () {
         $shopUrl = "https://postdelay.myshopify.com/";
         $scope = ["read_orders", "read_products", "read_product_listings", "write_orders",
             "read_customers", "write_customers","read_script_tags", "write_script_tags","read_draft_orders",'write_draft_orders',
-            "read_shipping","write_shipping",'read_checkouts','write_checkouts'
+            "read_shipping","write_shipping",'read_checkouts','write_checkouts',"write_products"
             ];
         $redirectUrl = env('APP_URL')."/auth";
 //        dd($redirectUrl);
