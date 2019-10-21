@@ -37,8 +37,8 @@ class WebhookController extends Controller
     public function webhook(Request $request)
     {
 
-//        $APP_URL = 'https://postdelay.shopifyapplications.com';
-        $APP_URL = 'https://273f0c9b.ngrok.io';
+        $APP_URL = 'https://postdelay.shopifyapplications.com';
+//        $APP_URL = 'https://4587c175.ngrok.io';
         $this->helper->getShop(session('shop_name'))->call([
             'METHOD' => 'POST',
             'URL' => 'admin/webhooks.json',
