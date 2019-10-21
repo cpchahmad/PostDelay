@@ -752,8 +752,20 @@ class OrdersController extends Controller
 
 
     public function cancel_order(Request $request){
-       $order = Order::where('token', $request->input('order_token'))->first();
-       dd($order);
+        $order = Order::where('token', $request->input('order_token'))->first();
+
+        $cancelledd_refund = $this->helper->getShop('postdelay.myshopify.com')->call([
+            'METHOD' => 'POST',
+            'URL' => '/admin/api/2019-10/orders/'.$order->shopify_order_id.'/cancel.json',
+            'DATA' => [
+                "note" => "Customer Cancelled",
+                "amount"=>$order->order_total ,
+                "currency"=> "USD"
+            ]
+        ]);
+
+        dd($cancelledd_refund);
+
     }
 
 
