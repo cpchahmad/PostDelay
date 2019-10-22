@@ -45,12 +45,12 @@
     @endif
 @if(!in_array($order->status_id,[1,2,3,4,5]))
 <div class="Form-content-detail ">
-    <a style="cursor: pointer" onclick="window.location.href='https://postdelay.myshopify.com/account?view=additional-fee&&order-id={{$order->shopify_order_id}}'" class="Same-button" > Pay Additional Fee For Further Process </a>
+    <a style="cursor: pointer" onclick="window.location.href='https://postdelay.myshopify.com/account?view=additional-fee&&order-id={{$order->shopify_order_id}}'" class="Same-button" > Pay Additional Fee For Further Process</a>
 
 </div>
 @endif
 
 <div class="Form-content-detail ">
-    <a style="cursor: pointer" onclick="window.location.href='https://postdelay.myshopify.com/account?view=request-form&&order-id={{$order->shopify_order_id}}'" class="Same-button" >Request Form</a>
+    <a style="cursor: pointer" onclick="window.location.href='https://postdelay.myshopify.com/account?view=request-form&&order-id={{$order->shopify_order_id}}'" class="Same-button" >Request Paper Form</a>
 
 </div>
