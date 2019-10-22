@@ -58,7 +58,7 @@
                                    <a class="btn btn-warning waves-effect waves-light btn-sm" href="{{route('order_update',$order->id)}}">
                                    View
                                    </a>
-                                   <a href="btn btn-danger waves-effect waves-light btn-sm" onclick="$(this).next().submit();">Delete</a>
+                                   <a href="javascript:void(0);" class="btn btn-danger waves-effect waves-light btn-sm" onclick="$(this).next().submit();">Delete</a>
                                    <form action="{{route('delete_order')}}" method="get" style="display: none;">
                                        <input type="hidden" value="{{$order->id}}" name="id">
                                        <input type="submit" class="form-control btn btn-danger waves-effect waves-light btn-sm" value="Delete">
