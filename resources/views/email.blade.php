@@ -8,9 +8,9 @@
 
 <p>Hi, {{$customer->first_name}}</p>
 <p>
-    Your Order (ID-{{$order->shopify_order_id}}) Status has been changed to {{$order->has_status->name}}.
+    Your Order (ID-{{$order->shopify_order_id}}) Status has been changed to "{{$order->has_status->name}}".
 </p>
-<h5> Order Status Summaryo </h5>
+<h5> Order Status Summary </h5>
 <p>
 
 
@@ -91,7 +91,6 @@
 
 </p>
 
-<strong>Thank you Sir. :)</strong>
 
 </body>
 </html>

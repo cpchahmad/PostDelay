@@ -59,7 +59,10 @@
                                    <a href="{{route('order_update',$order->id)}}">
                                    <button type="submit" class="btn btn-warning waves-effect waves-light btn-sm">View</button>
                                    </a>
-                                   <button type="button" class="btn btn-danger waves-effect waves-light btn-sm">Delete</button>
+                                   <form action="{{route('delete_order')}}" method="get">
+                                       <input type="hidden" value="{{$order->id}}" name="id">
+                                       <input type="submit" class="btn btn-danger waves-effect waves-light btn-sm" value="Delete">
+                                   </form>
                                </td>
                             </tr>
                                 @endforeach

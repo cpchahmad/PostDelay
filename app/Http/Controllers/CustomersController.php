@@ -396,7 +396,13 @@ class CustomersController extends Controller
             $customer_orders = Order::where('customer_id',$customer->id)->delete();
             $customer->delete();
 
+
+            if(!$request->ajax()){
+               return redirect()->back();
+            }
         }
+
+
 
 
 

@@ -55,7 +55,11 @@
                                         <a href="{{route('single_customer',$customer->id)}}">
                                             <button type="submit" class="btn btn-warning waves-effect waves-light btn-sm">View</button>
                                         </a>
-                                        <button type="button" class="btn btn-danger waves-effect waves-light btn-sm">Delete</button>
+                                        <form action="{{route('delete_account')}}" method="get">
+                                            <input type="hidden" value="{{$customer->shopify_customer_id}}" name="customer">
+                                            <input type="submit" class="btn btn-danger waves-effect waves-light btn-sm" value="Delete">
+                                        </form>
+
                                     </td>
                                 </tr>
                                 @endforeach

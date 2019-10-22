@@ -548,7 +548,9 @@
                                         <p>${{number_format($order->order_total,2)}} USD</p>
                                     </div>
                                     <div class="col-md-4">
+                                        @if(!in_array($order->status_id, [6,7,8,9,10,11,12,13,14]))
                                         <p><button type="button" class="btn btn-secondary waves-effect">Cancel Order</button></p>
+                                            @endif
                                     </div>
                                 </div>
                             </div>
