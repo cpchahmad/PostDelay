@@ -831,6 +831,15 @@ class OrdersController extends Controller
 
     }
 
+    public function delete_order(Request $request){
+        $order = Order::find($request->input('id'));
+        $this->helper->getShop('postdelay.myshopify.com')->call([
+            'METHOD' => 'DELETE',
+            'URL' => 'admin/orders/' .$order->shopify_order_id. '.json',
+        ]);
+        return redirect()->back();
+    }
+
 
 }
 
