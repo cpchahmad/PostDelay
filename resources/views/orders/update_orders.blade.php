@@ -517,13 +517,13 @@
                                         <p>${{$order->shipping_method_price}} USD</p>
                                     </div>
                                     <div class="col-md-4">
-                                        <p>Post Delay Fee</p>
+                                        <p>Post Delay Cost with Additional Fee</p>
                                     </div>
                                     <div class="col-md-4">
                                         <p></p>
                                     </div>
                                     <div class="col-md-4 text-right">
-                                        <p>${{$order->order_total - $order->shipping_method_price}}.00 USD</p>
+                                        <p>${{ number_format($order->order_total - $order->shipping_method_price, 2) }} USD</p>
                                     </div>
                                     <div class="col-md-4">
                                         <p>Tax</p>
