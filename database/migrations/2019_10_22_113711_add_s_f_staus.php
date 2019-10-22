@@ -14,7 +14,7 @@ class AddSFStaus extends Migration
     public function up()
     {
         Schema::table('statuses', function (Blueprint $table) {
-            //
+            $table->text('color')->nullable();
         });
     }
 
