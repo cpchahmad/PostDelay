@@ -13,6 +13,7 @@ class AdminController extends Controller
     public function order_update($id)
     {
         $order = Order::find($id);
+        dd($order);
         $logs = OrderStatusHistory::where('order_id',$id)->orderBy('change_at','desc')->get();
         $status = Status::all();
         return view('orders.update_orders')->with([
