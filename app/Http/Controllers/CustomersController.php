@@ -239,35 +239,35 @@ class CustomersController extends Controller
 
     public function delete_all()
     {
-//        $customers = Customer::all();
-//
-//           $orders =  $this->helper->getShop('postdelay.myshopify.com')->call([
-//                'METHOD' => 'GET',
-//                'URL' => 'admin/orders.json',
-//                ]);
-//           if(count($orders->orders) > 0){
-//               foreach ($orders->orders as $order){
-//                   $this->helper->getShop('postdelay.myshopify.com')->call([
-//                       'METHOD' => 'DELETE',
-//                       'URL' => 'admin/orders/' .$order->id. '.json',
-//                   ]);
-//               }
-//           }
-//
-//           $shopify_customer =  $this->helper->getShop('postdelay.myshopify.com')->call([
-//                'METHOD' => 'GET',
-//                'URL' => 'admin/customers.json',
-//            ]);
-//
-////           dd($shopify_customer);
-//        if(count($shopify_customer->customers) > 0) {
-//            foreach ($shopify_customer->customers as $customer) {
-//                $this->helper->getShop('postdelay.myshopify.com')->call([
-//                    'METHOD' => 'DELETE',
-//                    'URL' => 'admin/customers/' . $customer->id . '.json',
-//                ]);
-//            }
-//        }
+        $customers = Customer::all();
+
+           $orders =  $this->helper->getShop('postdelay.myshopify.com')->call([
+                'METHOD' => 'GET',
+                'URL' => 'admin/orders.json',
+                ]);
+           if(count($orders->orders) > 0){
+               foreach ($orders->orders as $order){
+                   $this->helper->getShop('postdelay.myshopify.com')->call([
+                       'METHOD' => 'DELETE',
+                       'URL' => 'admin/orders/' .$order->id. '.json',
+                   ]);
+               }
+           }
+
+           $shopify_customer =  $this->helper->getShop('postdelay.myshopify.com')->call([
+                'METHOD' => 'GET',
+                'URL' => 'admin/customers.json',
+            ]);
+
+//           dd($shopify_customer);
+        if(count($shopify_customer->customers) > 0) {
+            foreach ($shopify_customer->customers as $customer) {
+                $this->helper->getShop('postdelay.myshopify.com')->call([
+                    'METHOD' => 'DELETE',
+                    'URL' => 'admin/customers/' . $customer->id . '.json',
+                ]);
+            }
+        }
 
         DB::table('customers')->truncate();
         DB::table('addresses')->truncate();

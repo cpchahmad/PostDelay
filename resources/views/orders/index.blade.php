@@ -61,7 +61,7 @@
                                    </a>
                                    <form action="{{route('delete_order')}}" method="get">
                                        <input type="hidden" value="{{$order->id}}" name="id">
-                                       <input type="submit" class="btn btn-danger waves-effect waves-light btn-sm" value="Delete">
+                                       <input type="submit" class="form-control btn btn-danger waves-effect waves-light btn-sm" value="Delete">
                                    </form>
                                </td>
                             </tr>
