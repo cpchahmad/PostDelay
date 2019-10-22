@@ -52,7 +52,6 @@ class SettingsController extends Controller
 
     public function show_type(){
         $types = PostType::all();
-
         return view('settings.post-types.index')->with([
             "types" =>$types,
         ]);

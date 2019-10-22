@@ -28,6 +28,8 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Type </th>
+                                <th scope="col">Commision Type</th>
+                                <th scope="col">Commision</th>
                                 <th scope="col">Weight (grams)</th>
                                 <th scope="col">Action</th>
                             </tr>
@@ -44,7 +46,15 @@
                                             </div>
                                         </div>
                                     </td>
-
+                                    <td>
+                                        <select class="form-control" name="commision_type">
+                                            <option value="fixed">Fixed</option>
+                                            <option valie="percentage">Percentage</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input class="form-control" name="commision_type" data-id="{{$type->id}}" type="text" value="">
+                                    </td>
                                     <td>
                                         <div class="form-group row">
                                             <div class="col-md-10">
