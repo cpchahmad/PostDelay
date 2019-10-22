@@ -48,9 +48,8 @@
                                 <td>{{$order->has_customer->email}}</td>
                                 <td> {{\Carbon\Carbon::parse($order->created_at)->format('F j ,Y')}}</td>
                                 <td> ${{$order->order_total}}</td>
-                                <td>
+                                <td style="color:{{ $order->has_status->color  }};">
                                     {{$order->has_status->name}}
-
                                 </td>
                                <td>
 {{--                                   <a href="{{route('order_history',$order->id)}}">--}}
