@@ -768,6 +768,46 @@ class OrdersController extends Controller
 //
 //            ]
         ]);
+        $status = $order->status_id;
+        if($status == 1){
+            $order->status_id = 6;
+            $order->save();
+            $this->status_log($order);
+            $customer = Customer::find($order->customer_id);
+            Mail::to($customer->email)->send(new NotificationEmail($customer,$order));
+        }
+
+        if($status == 2){
+            if(count($order->has_additional_payments) > 0){
+                $order->status_id = 7;
+                $order->save();
+                $this->status_log($order);
+            }
+            else{
+                $order->status_id = 9;
+                $order->save();
+                $this->status_log($order);
+            }
+
+            $customer = Customer::find($order->customer_id);
+            Mail::to($customer->email)->send(new NotificationEmail($customer,$order));
+        }
+
+        if($status == 3){
+            if(count($order->has_additional_payments) > 0){
+                $order->status_id = 10;
+                $order->save();
+                $this->status_log($order);
+            }
+            else{
+                $order->status_id = 12;
+                $order->save();
+                $this->status_log($order);
+            }
+
+            $customer = Customer::find($order->customer_id);
+            Mail::to($customer->email)->send(new NotificationEmail($customer,$order));
+        }
 
 ////        if($cancelledd_refund != null){
 //            $refund = $this->helper->getShop('postdelay.myshopify.com')->call([
