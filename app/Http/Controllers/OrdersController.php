@@ -221,7 +221,7 @@ class OrdersController extends Controller
                 $draft_order->order_name = $order->name;
                 $draft_order->order_total = $order->total_price;
                 $draft_order->payment_gateway = $order->gateway;
-
+                $draft_order->items = json_encode($order->line_items);
                 if(count($order->shipping_lines) > 0){
                     $draft_order->shipping_method_title = $order->shipping_lines[0]->title;
                     $draft_order->shipping_method_id = $order->shipping_lines[0]->id;
