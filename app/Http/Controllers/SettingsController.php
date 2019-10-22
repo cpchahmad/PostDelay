@@ -60,22 +60,35 @@ class SettingsController extends Controller
 
     public function update_type(Request $request){
 
-        if($request->input('update_weight') == 'no'){
+        if($request->input('update_type') == 'type_name'){
             PostType::find($request->input('type_id'))->update([
                 'name' => $request->input('type')
             ]);
-
             return response()->json([
                 'type' => $request->input('type')
             ]);
-        }
-        else{
+        } elseif($request->input('update_type') == 'weight') {
             PostType::find($request->input('type_id'))->update([
                 'weight' => $request->input('weight')
             ]);
-
             return response()->json([
                 'weight' => $request->input('weight')
+            ]);
+        }elseif ($request->input('update_type') == 'commission_type'){
+
+            PostType::find($request->input('type_id'))->update([
+                'commision_type' => $request->input('commision_type')
+            ]);
+            return response()->json([
+                'commision_type' => $request->input('weight')
+            ]);
+
+        }elseif ($request->input('update_type') == 'commission'){
+            PostType::find($request->input('type_id'))->update([
+                'commision' => $request->input('commision')
+            ]);
+            return response()->json([
+                'commision' => $request->input('commision')
             ]);
         }
 
