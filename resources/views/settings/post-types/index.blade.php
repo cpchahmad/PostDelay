@@ -47,13 +47,17 @@
                                         </div>
                                     </td>
                                     <td>
+                                        <div class="form-group">
                                         <select class="form-control" name="commision_type">
-                                            <option value="fixed">Fixed</option>
-                                            <option valie="percentage">Percentage</option>
+                                            <option value="fixed" @if($type->commision_type == 'fixed') selected @endif>Fixed</option>
+                                            <option value="percentage" @if($type->commision_type == 'percentage') selected @endif>Percentage</option>
                                         </select>
+                                        </div>
                                     </td>
                                     <td>
-                                        <input class="form-control" name="commision_type" data-id="{{$type->id}}" type="text" value="">
+                                        <div class="form-group">
+                                            <input class="form-control" name="commision" data-id="{{$type->id}}" type="text" value="{{ $type->commision }}">
+                                        </div>
                                     </td>
                                     <td>
                                         <div class="form-group row">
