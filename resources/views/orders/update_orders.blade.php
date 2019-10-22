@@ -516,7 +516,10 @@
                                     <div class="col-md-4 text-right">
                                         <p>${{$order->shipping_method_price}} USD</p>
                                     </div>
-                                    <?php $items = json_decode($order->items, true); ?>
+                                    <?php
+                                    $items = json_decode($order->items, true);
+                                    dd($items);
+                                    ?>
                                     @foreach($items as $item)
                                     <div class="col-md-6">
                                         <p>{{ $item->title }}</p>
