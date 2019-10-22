@@ -40,8 +40,6 @@ class OrdersController extends Controller
         return view('orders.index',compact('orders','status'));
     }
     public function place_order(Request $request){
-
-
         if($request->input('weight') == null){
             $post_type = PostType::where('name',$request->input('post_type'))->first();
             if($post_type != null){
@@ -60,6 +58,15 @@ class OrdersController extends Controller
             $weight = $request->input('weight');
         }
         $default =  PostDelayFee::where('default',1)->where('type','primary')->first();
+        $line_items = [];
+
+        array_push($line_items, [
+            "title"=> $default->name,
+            "price"=> $default->price,
+            "quantity"=> 1,
+            "requires_shipping" => true,
+            "grams" =>$weight,
+        ]);
 
         $draft_orders = $this->helper->getShop('postdelay.myshopify.com')->call([
             'METHOD' => 'POST',
@@ -67,16 +74,7 @@ class OrdersController extends Controller
             'DATA' =>
                 [
                     "draft_order" => [
-                        'line_items' => [
-                            [
-                                "title"=> $default->name,
-                                "price"=> $default->price,
-                                "quantity"=> 1,
-                                "requires_shipping" => true,
-                                "grams" =>$weight,
-
-                            ]
-                        ],
+                        'line_items' => $line_items,
                         "customer" => [
                             "id" => $request->input('customer_id'),
                         ],
