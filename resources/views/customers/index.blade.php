@@ -57,7 +57,7 @@
                                         </a>
                                         <form action="{{route('delete_account')}}" method="get">
                                             <input type="hidden" value="{{$customer->shopify_customer_id}}" name="customer">
-                                            <input type="submit" class="btn btn-danger waves-effect waves-light btn-sm" value="Delete">
+                                            <input type="submit" class="form-control btn btn-danger waves-effect waves-light btn-sm" value="Delete">
                                         </form>
 
                                     </td>
