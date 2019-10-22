@@ -518,14 +518,14 @@
                                     </div>
                                     <?php
                                     $items = json_decode($order->items, true);
-                                    dd($items);
+//                                    dd($items);
                                     ?>
                                     @foreach($items as $item)
                                     <div class="col-md-6">
-                                        <p>{{ $item->title }}</p>
+                                        <p>{{ $item['title'] }}</p>
                                     </div>
                                     <div class="col-md-6 text-right">
-                                        <p>${{ number_format($item->price, 2) }} USD</p>
+                                        <p>${{ number_format($item['price'], 2) }} USD</p>
                                     </div>
                                     @endforeach
                                     <div class="col-md-4">
