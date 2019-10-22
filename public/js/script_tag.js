@@ -11,9 +11,9 @@
         var $ = window.jQuery;
         $(document).ready(function() {
 
-                // var APP_URL = "https://postdelay.shopifyapplications.com";
+                var APP_URL = "https://postdelay.shopifyapplications.com";
 
-            var APP_URL ="http://127.0.0.1:8000"
+            // var APP_URL ="http://127.0.0.1:8000"
 
             var orderDetails = Shopify.checkout;
             var shopifyorderid = orderDetails.order_id;
