@@ -42,7 +42,7 @@ $('body').on('change','.type-input',function () {
             type:'GET',
             url:'/type/update',
             data: {
-                update_weight : 'no',
+                update_type : 'type_name',
                 type : $(this).val(),
                 type_id:$(this).data('id'),
 
@@ -56,13 +56,12 @@ $('body').on('change','.type-input',function () {
 });
 
 $('body').on('change','.weight-input',function () {
-
     $.ajax(
         {
             type:'GET',
             url:'/type/update',
             data: {
-                update_weight : 'yes',
+                update_type : 'weight',
                 weight : $(this).val(),
                 type_id:$(this).data('id'),
 
@@ -332,3 +331,46 @@ function changeCountry($this){
     }
     return true;
 }
+
+
+$('body').on('change','.commision_type_change',function () {
+
+    $.ajax(
+        {
+            type:'GET',
+            url:'/type/update',
+            data: {
+                update_type : 'commision_type',
+                type : $(this).val(),
+                type_id:$(this).data('id'),
+
+            },
+            success:function(data){
+                alertify.success('Commission Type Updated');
+                $(this).val(data.commision_type);
+            }
+        });
+
+});
+
+
+$('body').on('change','.commision_change',function () {
+
+    $.ajax(
+        {
+            type:'GET',
+            url:'/type/update',
+            data: {
+                update_type : 'commision',
+                type : $(this).val(),
+                type_id:$(this).data('id'),
+
+            },
+            success:function(data){
+                alertify.success('Commission Updated');
+                $(this).val(data.commision);
+            }
+        });
+
+});
+
