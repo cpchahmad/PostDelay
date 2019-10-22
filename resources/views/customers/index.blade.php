@@ -52,12 +52,13 @@
                                     <td>{{$customer->country}} </td>
                                     <td>{{$customer->phone}} </td>
                                     <td>
-                                        <a href="{{route('single_customer',$customer->id)}}">
-                                            <button type="submit" class="btn btn-warning waves-effect waves-light btn-sm">View</button>
+                                        <a href="{{route('single_customer',$customer->id)}}" class="btn btn-warning waves-effect waves-light btn-sm">
+                                            View
                                         </a>
-                                        <form action="{{route('delete_account')}}" method="get">
+                                        <a href="javascript:void(0);" class="btn btn-danger waves-effect waves-light btn-sm" onclick="$(this).next().submit();">Delete</a>
+                                        <form action="{{route('delete_account')}}" method="get" style="display: none;">
                                             <input type="hidden" value="{{$customer->shopify_customer_id}}" name="customer">
-                                            <input type="submit" class="form-control btn btn-danger waves-effect waves-light btn-sm" value="Delete">
+                                            <button type="submit" class="form-control btn btn-danger waves-effect waves-light btn-sm">Delete</button>
                                         </form>
 
                                     </td>
