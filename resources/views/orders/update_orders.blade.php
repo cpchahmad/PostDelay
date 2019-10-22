@@ -41,7 +41,7 @@
                     <div class="col-md-6">
                         <div class="vertical_adjustment vertical_adjustment_status">
                             <h4>Order Status</h4>
-                            <select id="change_order_status" data-order-id="{{$order->id}}" class="form-control">
+                            <select id="change_order_status" data-order-id="{{$order->id}}" class="form-control" style="color: {{ $order->has_status->color  }};">
                                 @foreach($status as $stats)
                                     <option @if($order->status_id == $stats->id) selected @endif value="{{$stats->id}}" >{{$stats->name}}</option>
                                 @endforeach

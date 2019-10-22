@@ -48,18 +48,18 @@
                                 <td>{{$order->has_customer->email}}</td>
                                 <td> {{\Carbon\Carbon::parse($order->created_at)->format('F j ,Y')}}</td>
                                 <td> ${{$order->order_total}}</td>
-                                <td>
+                                <td style="color:{{ $order->has_status->color  }};">
                                     {{$order->has_status->name}}
-
                                 </td>
                                <td>
 {{--                                   <a href="{{route('order_history',$order->id)}}">--}}
 {{--                                       <button type="submit" class="btn btn-info waves-effect waves-light btn-sm">View Status Log</button>--}}
 {{--                                   </a>--}}
-                                   <a href="{{route('order_update',$order->id)}}">
-                                   <button type="submit" class="btn btn-warning waves-effect waves-light btn-sm">View</button>
+                                   <a class="btn btn-warning waves-effect waves-light btn-sm" href="{{route('order_update',$order->id)}}">
+                                   View
                                    </a>
-                                   <form action="{{route('delete_order')}}" method="get">
+                                   <a href="btn btn-danger waves-effect waves-light btn-sm" onclick="$(this).next().submit();">Delete</a>
+                                   <form action="{{route('delete_order')}}" method="get" style="display: none;">
                                        <input type="hidden" value="{{$order->id}}" name="id">
                                        <input type="submit" class="form-control btn btn-danger waves-effect waves-light btn-sm" value="Delete">
                                    </form>

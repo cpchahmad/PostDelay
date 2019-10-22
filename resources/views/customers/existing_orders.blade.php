@@ -15,7 +15,7 @@
     </div>
     <div class="ex-order-coloum1 adj">
         <div class="status_box">
-            <span style="background: {{ $order->has_status->color }};"></span>
+            {{--<span style="background: {{ $order->has_status->color }};"></span>--}}
         <p class="ex-order-id" style="@if($order->has_status->color )color:{{ $order->has_status->color }}@else black @endif; max-width: fit-content">{{$order->has_status->name}}</p>
         </div>
     </div>
