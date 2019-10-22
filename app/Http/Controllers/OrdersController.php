@@ -837,6 +837,7 @@ class OrdersController extends Controller
             'METHOD' => 'DELETE',
             'URL' => 'admin/orders/' .$order->shopify_order_id. '.json',
         ]);
+        $order->delete();
         return redirect()->back();
     }
 
