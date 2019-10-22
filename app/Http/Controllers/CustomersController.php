@@ -335,12 +335,12 @@ class CustomersController extends Controller
 
 
 
-        $complete = $this->helper->getShop('postdelay.myshopify.com')->call([
-            'METHOD' => 'PUT',
-            'URL' =>'/admin/api/2019-10/draft_orders/'.$draft_orders->draft_order->id.'/complete.json',
-    ]);
+//        $complete = $this->helper->getShop('postdelay.myshopify.com')->call([
+//            'METHOD' => 'PUT',
+//            'URL' =>'/admin/api/2019-10/draft_orders/'.$draft_orders->draft_order->id.'/complete.json',
+//    ]);
 
-        dd($complete);
+        dd($draft_orders);
 
 
 //        $rates = $this->helper->getShop('postdelay.myshopify.com')->call([
