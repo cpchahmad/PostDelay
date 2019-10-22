@@ -83,7 +83,7 @@ class WebhookController extends Controller
 
 
     public function script_tag(Request $request){
-        $this->helper->getShop(session('shop_name'))->call([
+        $this->helper->getShop(env('WEB_URL'))->call([
             'METHOD' => 'POST',
             'URL' => 'admin/script_tags.json',
             "DATA" => [
