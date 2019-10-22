@@ -8,6 +8,7 @@ use App\OrderStatusHistory;
 use App\Status;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+
 class AdminController extends Controller
 {
     public function order_update($id)

@@ -516,15 +516,15 @@
                                     <div class="col-md-4 text-right">
                                         <p>${{$order->shipping_method_price}} USD</p>
                                     </div>
-                                    <div class="col-md-4">
-                                        <p>Post Delay Cost with Additional Fee</p>
+                                    <?php $items = json_decode($order->items, true); ?>
+                                    @foreach($items as $item)
+                                    <div class="col-md-6">
+                                        <p>{{ $item->title }}</p>
                                     </div>
-                                    <div class="col-md-4">
-                                        <p></p>
+                                    <div class="col-md-6 text-right">
+                                        <p>${{ number_format($item->price, 2) }} USD</p>
                                     </div>
-                                    <div class="col-md-4 text-right">
-                                        <p>${{ number_format($order->order_total - $order->shipping_method_price, 2) }} USD</p>
-                                    </div>
+                                    @endforeach
                                     <div class="col-md-4">
                                         <p>Tax</p>
                                     </div>
