@@ -855,5 +855,8 @@ class OrdersController extends Controller
     }
 
 
+    public function showEmail(){
+        return view('email_template');
+    }
 }
 
