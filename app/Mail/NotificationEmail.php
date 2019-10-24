@@ -35,7 +35,7 @@ class NotificationEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('email')->with([
+        return $this->view('email_template')->with([
             "customer" => $this->customer,
             "order" =>$this->order
         ]);
