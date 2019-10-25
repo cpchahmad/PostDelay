@@ -35,7 +35,7 @@
 
         </div>
         <div class="email_btn">
-            <a href="" style="
+            <a href="https://postdelay.myshopify.com/account/orders/{{$order->token}}" style="
     text-align: center;
     display: block;
     background: #0000FF;
