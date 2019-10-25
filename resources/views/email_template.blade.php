@@ -28,10 +28,11 @@
     line-height: 25px;
     font-family: Arial;
 ">
-            <p>Hello <b>{{$customer->name}}</b>, {{$order->has_status->message}}</p>
             <p>
-
+                Order : {{$order->order_name}}
             </p>
+            <p>Hello <b>{{$customer->first_name}}</b>, {{$order->has_status->message}}</p>
+
         </div>
         <div class="email_btn">
             <a href="" style="
@@ -50,6 +51,7 @@
     letter-spacing: 3px;
     border-radius: 12px;
     margin-top: 25px;
+    cursor: pointer;
 ">{{$order->has_status->button_text}}</a>
         </div>
     </div>
