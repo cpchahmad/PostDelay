@@ -28,9 +28,9 @@
     line-height: 25px;
     font-family: Arial;
 ">
-            <p>Hello <b>Ahmad</b></p>
+            <p>Hello <b>{{$customer->name}}</b>, {{$order->has_status->message}}</p>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo felis sit amet eros vehicula tincidunt. Nulla tincidunt luctus neque, eu finibus tortor. Pellentesque ullamcorper ornare ex, vitae efficitur ligula ultricies quis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla placerat, enim a varius consectetur, ante dui tempor nisi, vitae venenatis tortor nulla vel mauris. Phasellus pharetra rhoncus dolor, ut tincidunt libero facilisis sit amet. Mauris tristique, arcu a vestibulum gravida, felis erat pulvinar quam, vel eleifend velit erat sit amet lacus. Vivamus faucibus tempor felis ac pharetra.
+
             </p>
         </div>
         <div class="email_btn">
@@ -50,7 +50,7 @@
     letter-spacing: 3px;
     border-radius: 12px;
     margin-top: 25px;
-">Click Here</a>
+">{{$order->has_status->button_text}}</a>
         </div>
     </div>
     <div class="men_icon_wrapper" style="
@@ -71,7 +71,7 @@
     font-family: Arial;
 ">
 
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <p>{{$order->has_status->description}}</p>
 </div>
 </body>
 </html>
