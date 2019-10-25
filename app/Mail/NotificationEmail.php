@@ -35,7 +35,7 @@ class NotificationEmail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject($this->order->has_status()->subject)->view('email_template')->with([
+        return $this->subject($this->order->has_status->subject)->view('email_template')->with([
             "customer" => $this->customer,
             "order" =>$this->order
         ]);
