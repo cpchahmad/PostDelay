@@ -29,7 +29,6 @@
 </div>
 
 <div class="additiona_text" style="max-width: 767px;margin: auto;line-height: 25px;font-family: Arial;">
-
     <p></p>
 </div>
 </body>

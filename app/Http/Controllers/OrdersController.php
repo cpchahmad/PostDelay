@@ -270,8 +270,8 @@ class OrdersController extends Controller
                     $history->save();
                 }
 
-                $customer = Customer::find($draft_order->customer_id);
-                Mail::to($customer->email)->send(new NotificationEmail($customer,$draft_order));
+//                $customer = Customer::find($draft_order->customer_id);
+//                Mail::to($customer->email)->send(new NotificationEmail($customer,$draft_order));
             }
         }
     }
