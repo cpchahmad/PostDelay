@@ -140,3 +140,6 @@ Route::GET('/delete/order', 'OrdersController@delete_order')->name('delete_order
 
 Route::GET('/email', 'OrdersController@showEmail');
 
+Route::get('/test', function () {
+    return view('test');
+});
