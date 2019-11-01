@@ -275,12 +275,10 @@
                                             <td class="customer-info__item">
                                                 <h4>Shipping address</h4>
                                                 <p>{{$order->has_recepient->firstname}} {{$order->has_recepient->last_name}}</p>
-                                                <br>
-                                                <p>{{$order->has_recepient->business}}</p><br>
-                                                <p>{{$order->has_recepient->address1}}</p><br>
-                                                <p>{{$order->has_recepient->address2}}</p><br>
+                                                <p>{{$order->has_recepient->business}}</p>
+                                                <p>{{$order->has_recepient->address1}}</p>
+                                                <p>{{$order->has_recepient->address2}}</p>
                                                 <p>{{$order->has_recepient->city}}, {{$order->has_recepient->state}} {{$order->has_recepient->postcode}}</p>
-                                                <br>
                                                 <p>{{$order->has_recepient->country}}</p>
                                             </td>
                                         @endif
@@ -289,12 +287,10 @@
                                             <td class="customer-info__item">
                                                 <h4>Billing address</h4>
                                                 <p>{{$order->has_billing->firstname}} {{$order->has_billing->last_name}}</p>
-                                                <br>
-                                                <p>{{$order->has_billing->business}}</p><br>
-                                                <p>{{$order->has_billing->address1}}</p><br>
-                                                <p>{{$order->has_billing->address2}}</p><br>
+                                                <p>{{$order->has_billing->business}}</p>
+                                                <p>{{$order->has_billing->address1}}</p>
+                                                <p>{{$order->has_billing->address2}}</p>
                                                 <p>{{$order->has_billing->city}} {{$order->has_billing->state}} {{$order->has_billing->postcode}}</p>
-                                                <br>
                                                 <p>{{$order->has_billing->country}}</p>
                                             </td>
                                         @endif
