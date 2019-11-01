@@ -2,7 +2,7 @@
     <div class="custom_fields_half">
         <div class="custom_Request_fields_half tow-field-Row-left ">
             <label for="Order ID">Ship Date</label>
-            <input type="date" required="" name="ship-date"  value="{{\Carbon\Carbon::parse($order->ship_to_postdelay_date)->format('Y-m-d')}}" placeholder="">
+            <input type="date" required="" name="ship-date"  value="{{\Carbon\Carbon::parse($order->ship_to_postdelay_date)->format('Y-m-d')}}" placeholder="" min="{{now()->format('Y-m-d')}}" max="{{\Carbon\Carbon::parse($order->ship_out_date)->format('Y-m-d')}}">
         </div>
     </div>
     <div class="custom_fields_half">

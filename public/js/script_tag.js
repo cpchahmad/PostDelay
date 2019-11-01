@@ -16,9 +16,12 @@
             // var APP_URL ="http://127.0.0.1:8000"
 
             var orderDetails = Shopify.checkout;
-            var shopifyorderid = orderDetails.order_id;
-            var checkouttoken = orderDetails.token;
-            var shopdomain = Shopify.shop;
+            if(orderDetails != null ){
+                var shopifyorderid = orderDetails.order_id;
+                var checkouttoken = orderDetails.token;
+                var shopdomain = Shopify.shop;
+            }
+
 
             $('.step__sections > .section > .section__content > .content-box:first-child').hide();
             $.ajax(
