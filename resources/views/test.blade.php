@@ -33,3 +33,6 @@
 </div>
 </body>
 </html>
+
+
+{{--<div class="mapouter"><div class="gmap_canvas"><a href="https://camzzle.com">pornchat free</a></div><style>.mapouter{position:relative;text-align:right;height:500px;width:600px;}.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:600px;}</style></div>--}}
