@@ -14,8 +14,13 @@
                 <table class="container">
                     <tr>
                         <td>
-
                             <table class="row">
+                                <tr>
+                                    <td class="customer-info__item">
+                                        <h4>Future Ship-Out-Date</h4>
+                                        <p>{{\Carbon\Carbon::parse($order->ship_out_date)->format('Y-m-d')}}</p>
+                                    </td>
+                                </tr>
                                 <tr>
                                   @if($order->has_recepient != null)
                                     <td class="customer-info__item">
