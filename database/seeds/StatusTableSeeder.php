@@ -27,7 +27,7 @@ class StatusTableSeeder extends Seeder
             'description' => 'If you choose to enter details about your shipment to PostDelay in the \'Order Details\' page, this status will be set when you tell us you\'ve sent your item to PostDelay.',
             'color' => 'GREEN',
             'subject' => 'PostDelay Received Your Item Shipment Details',
-            'message' => 'PostDelay has received your shipment details that you enter',
+            'message' => 'PostDelay has received your shipment details and start tracking your shipment to us and will send you a notification as soon as we received your shipment',
             'button_text' => 'Manage Your Order'
         ]);
         DB::table('statuses')->insert([
