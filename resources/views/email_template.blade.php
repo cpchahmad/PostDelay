@@ -70,7 +70,6 @@
     line-height: 25px;
     font-family: Arial;
 ">
-
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 </div>
 </body>
