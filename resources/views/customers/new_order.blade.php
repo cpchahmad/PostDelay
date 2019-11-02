@@ -231,7 +231,7 @@
                             <div class="order-invoice-price">
                                 <input type="hidden" name="new_postdelay_fee">
                                 <p class="invoice-Money ">$100.0</p>
-                            </>
+                            </div>
                         </div>
 
                         <div class="order-invoice-detail" style="display: none;">
@@ -265,8 +265,6 @@
         </div>
     </div>
 </div>
-
-
 <div class="page-double-right equ">
     <div class="Form-wraper" style="margin-top: 45px">
         <div class="Form-contaner">
