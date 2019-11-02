@@ -897,7 +897,7 @@ class OrdersController extends Controller
                 ]);
 
                 $product_id = $product->product->variants[0]->id;
-                dd($product_id, $product);
+                echo $product_id;
     }
 }
 
