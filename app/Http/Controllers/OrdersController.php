@@ -860,7 +860,44 @@ class OrdersController extends Controller
     }
 
     public function get_shipping_rates(Request $request){
-            dd($request);
+               if($request->input('weight') == null){
+            $post_type = PostType::where('name',$request->input('post_type'))->first();
+            if($post_type != null){
+                if($post_type->weight == null){
+                    $weight = 1000;
+                }else {
+                    $weight = $post_type->weight;
+                }
+            }
+            else{
+                $weight = 1000;
+            }
+        }
+        else{
+            $weight = $request->input('weight');
+        }
+
+        $default =  PostDelayFee::where('default',1)->where('type','primary')->first();
+                $product = $this->helper->getShop('postdelay.myshopify.com')->call([
+            'METHOD' => 'POST',
+            'URL' => '/admin/api/2019-10/products.json',
+            'DATA' =>[
+                "product"=>[
+                    "title"=> 'Post Delay Fee',
+                    "requires_shipping" => true,
+                    "variants" => [
+                        [
+                            "price" =>  $default->price,
+                            "grams" =>$weight
+                        ]
+
+                    ]
+                ],
+            ]
+                ]);
+
+                $product_id = $product->product->variants[0]->id;
+                dd($product_id, $product);
     }
 }
 
