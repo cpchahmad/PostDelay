@@ -858,5 +858,9 @@ class OrdersController extends Controller
     public function showEmail(){
         return view('email_template');
     }
+
+    public function get_shipping_rates(Request $request){
+            dd($request);
+    }
 }
 
