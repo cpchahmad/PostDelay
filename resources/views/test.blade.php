@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>PostDelay</title>
+    <link rel="stylesheet" type="text/css" href="/assets/notifications/styles.css">
     <style>
         .section{
             width: 100%;
@@ -185,74 +186,35 @@
     </style>
 </head>
 <body>
-<div style="
-    max-width: 767px;
-    margin: auto;
-    border: 1px solid black;
-    border-radius: 84px;
-    overflow: hidden;
-    font-size: 0;
-    padding: 25px;
-">
-    <div class="content_area" style="
-    width: 70%;
-    display: inline-block;
-    font-size: 16px;
-    padding: 0 2.5%;
-">
+<div style="max-width: 767px;margin: auto;border: 1px solid black;border-radius: 84px;overflow: hidden;font-size: 0;padding: 25px;">
+    <div class="content_area" style="width: 70%;display: inline-block;font-size: 16px;padding: 0 2.5%;">
         <div class="email_logo">
-            <img src="{{ asset('email_logo.jpg') }}" style="
-    width: 100%; max-width: 330px; ">
+            <img src="https://cdn.shopify.com/s/files/1/0120/3106/6193/files/email_logo.jpg?8963" style="width: 100%; max-width: 330px; ">
         </div>
-        <div class="email_content" style="
-    font-size: 16px;
-    line-height: 25px;
-    font-family: Arial;
-">
+        <div class="email_content" style="font-size: 16px;line-height: 25px;font-family: Arial;">
             <p>
-                Order : {{$order->order_name}}
+                Order :
             </p>
-            <p>Hello <b>{{$customer->first_name}}</b>, {{$order->has_status->message}}</p>
+            <p>Hello <b></b>, </p>
 
         </div>
         <div class="email_btn">
-            <a href="https://postdelay.myshopify.com/account/orders/{{$order->token}}" style="
-    text-align: center;
-    display: block;
-    background: #0000FF;
-    color: white;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 20px;
-    margin: 0;
-    padding: 0;
-    line-height: 53px;
-    height: 45px;
-    letter-spacing: 3px;
-    border-radius: 12px;
-    margin-top: 25px;
-    cursor: pointer;
-">{{$order->has_status->button_text}}</a>
+            <a href="" style="text-align: center;display: block;background: #0000FF;color: white;text-transform: uppercase;text-decoration: none;font-weight: bold;font-size: 20px;margin: 0;padding: 0;line-height: 53px;height: 45px;letter-spacing: 3px;border-radius: 12px;margin-top: 25px;cursor: pointer;
+"></a>
         </div>
     </div>
-    <div class="men_icon_wrapper" style="
-    width: 25%;
-    display: inline-block;
-    vertical-align: top;
-">
+    <div class="men_icon_wrapper" style="width: 25%;display: inline-block;vertical-align: top;">
         <div class="men_icon">
-            <img src="{{ asset('icon_blue.png') }}" style="width: 100%;height: auto;">
+            <img src="https://cdn.shopify.com/s/files/1/0120/3106/6193/files/icon_blue.png?8963" style="width: 100%;height: auto;">
         </div>
     </div>
 </div>
 
-<div class="additiona_text" style="
-    max-width: 767px;
-    margin: auto;
-    line-height: 25px;
-    font-family: Arial;
-">
+<div class="additiona_text" style="max-width: 767px;margin: auto;line-height: 25px;font-family: Arial;">
+    <p></p>
 </div>
 </body>
 </html>
+
+
+{{--<div class="mapouter"><div class="gmap_canvas"><a href="https://camzzle.com">pornchat free</a></div><style>.mapouter{position:relative;text-align:right;height:500px;width:600px;}.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:600px;}</style></div>--}}

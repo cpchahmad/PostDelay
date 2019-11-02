@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NotificationEmail extends Mailable
+class NotificationEmail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -35,7 +35,7 @@ class NotificationEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('email')->with([
+        return $this->subject($this->order->has_status->subject.' <'.$this->order->order_name.'>')->view('email_template')->with([
             "customer" => $this->customer,
             "order" =>$this->order
         ]);
