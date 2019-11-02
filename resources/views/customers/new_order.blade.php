@@ -198,7 +198,7 @@
 
             </div>
 
-            <div class="Form-field-contaner" style="display:block;">
+            <div class="Form-field-contaner shipping_calculations" style="display:none;">
                 <div class="Form-content-name" >
                     <p>Shipping Quotes</p>
                 </div>
@@ -219,7 +219,8 @@
                                 <p class="invoice-text ">Shipment Cost</p>
                             </div>
                             <div class="order-invoice-price">
-                                <p class="invoice-Money ">Calculating</p>
+                                <input type="hidden" name="new_shipping_price">
+                                <p class="invoice-Money">Select from Dropdown</p>
                             </div>
                         </div>
 
@@ -228,8 +229,9 @@
                                 <p class="invoice-text " >PostDelay Cost</p>
                             </div>
                             <div class="order-invoice-price">
-                                <p class="invoice-Money ">$50</p>
-                            </div>
+                                <input type="hidden" name="new_postdelay_fee">
+                                <p class="invoice-Money ">$100.0</p>
+                            </>
                         </div>
 
                         <div class="order-invoice-detail" style="display: none;">
@@ -460,7 +462,7 @@
                         </div>
                     </div>
 
-                    <input type="submit" class="Same-button" value="GET Quote">
+                    <input type="submit" class="Same-button" value="GET QUOTE">
                 </div>
 
             </div>
