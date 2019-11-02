@@ -53,6 +53,8 @@ Route::get('/customer/get/new_order', 'OrdersController@show_new_order')->name('
 Route::get('/customer/put/addresses', 'OrdersController@put_addresses')->name('put_addresses');
 
 Route::GET('/place/order', 'OrdersController@place_order')->name('place_order');
+Route::GET('/get_shipping_rates', 'OrdersController@get_shipping_rates')->name('get_shipping_rates');
+
 Route::GET('/place/additional-payment', 'OrdersController@place_additional_payments')->name('place_additional_payments');
 Route::GET('/sync-orders', 'OrdersController@get_order')->name('get_order');
 

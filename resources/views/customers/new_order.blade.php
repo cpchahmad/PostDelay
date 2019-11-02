@@ -1,4 +1,4 @@
-<form id="place_order_form" action="/place/order" method="GET">
+<form id="get_shipping_rates" class="place_order_form" action="/get_shipping_rates" method="GET">
 
     <input type="hidden" value="{{$customer_id}}" name="customer_id">
 <div class="page-double-left equ">
@@ -198,15 +198,12 @@
 
             </div>
 
-            <div class="Form-field-contaner" style="display:none">
+            <div class="Form-field-contaner" style="display:block;">
                 <div class="Form-content-name" >
                     <p>Shipping Quotes</p>
                 </div>
-
                 <div class="Form-content-detail">
-
                     <div class="order-Invoice">
-
                         <div class="order-id-field" >
                             <div class="custom_fields_half">
                                 <div class="custom_Request_fields_half ">
@@ -219,10 +216,10 @@
 
                         <div class="order-invoice-detail" >
                             <div class="order-invoice-product">
-                                <p class="invoice-text "> Shipment Cost</p>
+                                <p class="invoice-text ">Shipment Cost</p>
                             </div>
                             <div class="order-invoice-price">
-                                <p class="invoice-Money ">$150</p>
+                                <p class="invoice-Money ">Calculating</p>
                             </div>
                         </div>
 
@@ -235,12 +232,12 @@
                             </div>
                         </div>
 
-                        <div class="order-invoice-detail" >
+                        <div class="order-invoice-detail" style="display: none;">
                             <div class="order-invoice-tex">
                                 <p class="invoice-text"  >Tax</p>
                             </div>
                             <div class="order-invoice-Tax-money">
-                                <p class="invoice-Money" style="text-align:right">$50</p>
+                                <p class="invoice-Money" style="text-align:right">Calculated on Checkout Page</p>
                             </div>
                         </div>
 
@@ -463,7 +460,7 @@
                         </div>
                     </div>
 
-                    <input type="submit" class="Same-button" value="PLACE ORDER">
+                    <input type="submit" class="Same-button" value="GET Quote">
                 </div>
 
             </div>
