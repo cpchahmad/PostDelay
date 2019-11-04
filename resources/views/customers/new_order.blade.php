@@ -219,7 +219,7 @@
                                 <p class="invoice-text ">Shipment Cost</p>
                             </div>
                             <div class="order-invoice-price">
-                                <input type="hidden" name="new_shipping_price">
+                                <input type="hidden" name="new_shipping_price" class="caclulated_amount">
                                 <p class="invoice-Money">Select from Dropdown</p>
                             </div>
                         </div>
@@ -229,8 +229,8 @@
                                 <p class="invoice-text " >PostDelay Cost</p>
                             </div>
                             <div class="order-invoice-price">
-                                <input type="hidden" name="new_postdelay_fee">
-                                <p class="invoice-Money ">$100.0</p>
+                                <input type="hidden" class="caclulated_amount" name="new_postdelay_fee" value="{{ number_format($fee->price,2) }}">
+                                <p class="invoice-Money ">${{ number_format($fee->price,2) }}</p>
                             </div>
                         </div>
 
@@ -239,6 +239,7 @@
                                 <p class="invoice-text"  >Tax</p>
                             </div>
                             <div class="order-invoice-Tax-money">
+                                <input type="hidden" class="caclulated_amount" name="new_tax_fee" value="0">
                                 <p class="invoice-Money" style="text-align:right">Calculated on Checkout Page</p>
                             </div>
                         </div>
@@ -254,7 +255,8 @@
                                 <p class="invoice-text" style="text-align: left">Total</p>
                             </div>
                             <div class="order-total-money">
-                                <p class="invoice-Money total" style="text-align: right">$210</p>
+                                <input type="hidden" class="" name="new_total_fee" value="{{ number_format($fee->price,2) }}">
+                                <p class="invoice-Money total" style="text-align: right">${{ number_format($fee->price,2) }}</p>
                             </div>
                         </div>
 
