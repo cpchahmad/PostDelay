@@ -378,7 +378,7 @@
                             <label for="TypeSelect">Type</label>
                             <select required id="TypeSelect" name="post_type">
                                 @foreach($types as $type)
-                                    <option value="{{$type->name}}">{{$type->name}}</option>
+                                    <option data-commission="{{ $type->commision_type }}" data-commission-type="{{ $type->commision }}" value="{{$type->name}}">{{$type->name}}</option>
                                 @endforeach
                             </select>
                         </div>
