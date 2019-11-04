@@ -858,13 +858,13 @@ class OrdersController extends Controller
             $post_type = PostType::where('name',$request->input('post_type'))->first();
             if($post_type != null){
                 if($post_type->weight == null){
-                    $weight = 1000;
+                    $weight = 100;
                 }else {
                     $weight = $post_type->weight;
                 }
             }
             else{
-                $weight = 1000;
+                $weight = 100;
             }
         }
         else{
