@@ -151,11 +151,8 @@ class CustomersController extends Controller
                     'shopify_customer_id' => $customer->shopify_customer_id,
                     'customer_id' => $customer->id,
                     'shopify_address_id' => $address->customer_address->id
-
                 ]);
             }
-
-
             return response()->json(['msg' => 'address_created'], 200);
         } else {
             return response()->json(['msg' => 'shop or customer not exists'], 200);

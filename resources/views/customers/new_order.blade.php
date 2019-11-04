@@ -205,6 +205,10 @@
                 <div class="Form-content-detail">
                     <div class="order-Invoice">
                         <div class="order-id-field" >
+
+                            <select id="shipping_method_selects2">
+                            </select>
+
                             <div class="custom_fields_half">
                                 <div class="custom_Request_fields_half ">
                                     <label for="Type">Shipping Methods</label>
