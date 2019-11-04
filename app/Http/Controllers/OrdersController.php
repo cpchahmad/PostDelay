@@ -43,23 +43,7 @@ class OrdersController extends Controller
     public function place_order(Request $request){
         $line_items = [];
         $default =  PostDelayFee::where('default',1)->where('type','primary')->first();
-        if($request->input('weight') == null){
-            $post_type = PostType::where('name',$request->input('post_type'))->first();
-            if($post_type != null){
-                if($post_type->weight == null){
-                    $weight = 1000;
-                }else{
-                    $weight = $post_type->weight;
-                }
-
-            }
-            else{
-                $weight = 1000;
-            }
-        }
-        else{
-            $weight = $request->input('weight');
-        }
+        $weight = $request->input('weight');
 
         array_push($line_items, [
             "title"=> 'Postdelay Fee',
@@ -854,25 +838,11 @@ class OrdersController extends Controller
     }
 
     public function get_shipping_rates(Request $request){
-               if($request->input('weight') == null){
-            $post_type = PostType::where('name',$request->input('post_type'))->first();
-            if($post_type != null){
-                if($post_type->weight == null){
-                    $weight = 100;
-                }else {
-                    $weight = $post_type->weight;
-                }
-            }
-            else{
-                $weight = 100;
-            }
-        }
-        else{
-            $weight = $request->input('weight');
-        }
 
+         $post_type = PostType::where('name',$request->input('post_type'))->first();
+         $weight = $request->input('weight');
         $default =  PostDelayFee::where('default',1)->where('type','primary')->first();
-                $product = $this->helper->getShop('postdelay.myshopify.com')->call([
+        $product = $this->helper->getShop('postdelay.myshopify.com')->call([
             'METHOD' => 'POST',
             'URL' => '/admin/api/2019-10/products.json',
             'DATA' =>[
@@ -881,10 +851,9 @@ class OrdersController extends Controller
                     "requires_shipping" => true,
                     "variants" => [
                         [
-                            "price" =>  $default->price,
-                            "grams" =>$weight
+                            "price" => $default->price,
+                            "grams" => $weight
                         ]
-
                     ]
                 ],
             ]
