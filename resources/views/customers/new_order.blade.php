@@ -364,7 +364,7 @@
                 </div>
 
             </div>
-            <div class="Form-field-contaner">
+            <div class="Form-field-contaner shipment_details">
                 <div class="Form-content-name">
                     <p>Shipment Details</p>
                 </div>
