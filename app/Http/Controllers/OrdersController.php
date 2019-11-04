@@ -39,6 +39,7 @@ class OrdersController extends Controller
         $status=Status::all();
         return view('orders.index',compact('orders','status'));
     }
+
     public function place_order(Request $request){
         $line_items = [];
         $default =  PostDelayFee::where('default',1)->where('type','primary')->first();
@@ -68,20 +69,6 @@ class OrdersController extends Controller
             "requires_shipping" => true,
             "grams" =>$weight,
         ]);
-
-        $post_type = PostType::where('name',$request->input('post_type'))->first();
-        if($post_type){
-            if($post_type->commision_type == 'fixed'){
-                array_push($line_items, [
-                    "title"=> 'Additional Charges',
-                    "price"=> $post_type->commision,
-                    "quantity"=> 1
-                ]);
-            }
-        }
-
-
-
 
         $draft_orders = $this->helper->getShop('postdelay.myshopify.com')->call([
             'METHOD' => 'POST',
@@ -117,8 +104,12 @@ class OrdersController extends Controller
                             "country" =>  $request->input('billing_country'),
                             "zip" =>  $request->input('billing_postecode'),
                             "name" =>  $request->input('billing_first_name').' '.$request->input('billing_last_name'),
+                        ],
+                        "shipping_line" => [
+                            "custom" => true,
+                            "price" => $request->input('new_shipping_price'),
+                            "title" => $request->input('shipping_method')
                         ]
-
                     ]
 
                 ]
