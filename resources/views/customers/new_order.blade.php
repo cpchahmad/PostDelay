@@ -208,7 +208,7 @@
                             <div class="custom_fields_half">
                                 <div class="custom_Request_fields_half ">
                                     <label for="Type">Shipping Methods</label>
-                                    <select id="shipping_method_select" name="shipping_method" required>
+                                    <select id="shipping_method_select" name="shipping_method">
                                     </select>
                                 </div>
                             </div>
@@ -378,7 +378,7 @@
                             <label for="TypeSelect">Type</label>
                             <select required id="TypeSelect" name="post_type">
                                 @foreach($types as $type)
-                                    <option data-commission="{{ $type->commision_type }}" data-commission-type="{{ $type->commision }}" value="{{$type->name}}">{{$type->name}}</option>
+                                    <option data-weight="{{ $type->weight }}" data-commission="{{ $type->commision_type }}" data-commission-type="{{ $type->commision }}" value="{{$type->name}}">{{$type->name}}</option>
                                 @endforeach
                             </select>
                         </div>
