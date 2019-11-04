@@ -43,7 +43,6 @@ class OrdersController extends Controller
     public function place_order(Request $request){
         $line_items = [];
         $default =  PostDelayFee::where('default',1)->where('type','primary')->first();
-
         if($request->input('weight') == null){
             $post_type = PostType::where('name',$request->input('post_type'))->first();
             if($post_type != null){
@@ -63,8 +62,8 @@ class OrdersController extends Controller
         }
 
         array_push($line_items, [
-            "title"=> $default->name,
-            "price"=> $default->price,
+            "title"=> 'Postdelay Fee',
+            "price"=> $request->input('new_postdelay_fee'),
             "quantity"=> 1,
             "requires_shipping" => true,
             "grams" =>$weight,

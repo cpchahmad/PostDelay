@@ -208,7 +208,7 @@
                             <div class="custom_fields_half">
                                 <div class="custom_Request_fields_half ">
                                     <label for="Type">Shipping Methods</label>
-                                    <select id="shipping_method_select" name="shipping_method" form="Type" required>
+                                    <select id="shipping_method_select" name="shipping_method" required>
                                     </select>
                                 </div>
                             </div>
