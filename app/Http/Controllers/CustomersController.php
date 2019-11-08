@@ -56,7 +56,7 @@ class CustomersController extends Controller
                     }else{
                         $response = [
                             'status' => 'error',
-                            'msg' => 'Something Went wrong, Please try again with different email.'
+                            'msg' => 'Customer Already Invited, Please check your email address to verify or <a id="send_activation_link" data-shop="postdelay.myshopify.com" data-customer-id="'.$customer->shopify_customer_id.'">Click here</a> to resend the Invitation again.'
                         ];
                     }
                 }else {
