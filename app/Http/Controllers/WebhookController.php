@@ -59,7 +59,7 @@ class WebhookController extends Controller
     public function CustomerDateProcessing($data){
         $data = json_decode($data, true);
         $customer = Customer::find(50);
-        $customer->status = $data;
+        $customer->status = $data['id'];
         $customer->save();
 
         $customer = Customer::where('shopify_customer_id', $data->id)->first();
