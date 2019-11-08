@@ -140,7 +140,7 @@ Route::GET('/cancel/order', 'OrdersController@cancel_order')->name('cancel_order
 Route::GET('/delete/account', 'CustomersController@delete_account')->name('delete_account');
 Route::GET('/delete/order', 'OrdersController@delete_order')->name('delete_order');
 
-Route::GET('/reset_all', 'OrdersController@ResetAll')->name('reset');
+Route::GET('/reset_all', 'CustomersController@ResetAll')->name('reset');
 
 Route::GET('/email', 'OrdersController@showEmail');
 
