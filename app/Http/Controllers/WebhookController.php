@@ -56,8 +56,6 @@ class WebhookController extends Controller
         $data = file_get_contents('php://input');
         $this->CustomerDateProcessing($data);
     }
-
-
     public function CustomerDateProcessing($data){
 //        $data = json_decode($data, true);
 
