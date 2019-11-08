@@ -449,5 +449,52 @@ class CustomersController extends Controller
 
             dd($customer);
         }
+
+    public function getWebhooks(){
+//        $APP_URL = 'https://postdelay.shopifyapplications.com';
+//        $this->helper->getShop(env('WEB_URL'))->call([
+//            'METHOD' => 'POST',
+//            'URL' => 'admin/webhooks.json',
+//            "DATA" => [
+//                "webhook" => [
+//                    "topic" => "customers/create",
+//                    "address" => $APP_URL.'/webhook/create/customer',
+//                    "format" => "json"
+//                ]
+//            ]
+//        ]);
+//
+//        $this->helper->getShop(env('WEB_URL'))->call([
+//            'METHOD' => 'POST',
+//            'URL' => 'admin/webhooks.json',
+//            "DATA" => [
+//                "webhook" => [
+//                    "topic" => "customers/update",
+//                    "address" => $APP_URL.'/webhook/update/customer',
+//                    "format" => "json"
+//                ]
+//            ]
+//        ]);
+//
+//        $this->helper->getShop(env('WEB_URL'))->call([
+//            'METHOD' => 'POST',
+//            'URL' => 'admin/webhooks.json',
+//            "DATA" => [
+//                "webhook" => [
+//                    "topic" => "customers/delete",
+//                    "address" => $APP_URL.'/webhook/delete/customer',
+//                    "format" => "json"
+//                ]
+//            ]
+//        ]);
+
+        $customer = $this->helper->getShop(env('WEB_URL'))->call([
+            'METHOD' => 'GET',
+            'URL' => '/admin/webhooks.json',
+        ]);
+        dd($customer);
+
+    }
+
 }
 
