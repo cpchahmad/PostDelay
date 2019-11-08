@@ -57,8 +57,7 @@ class WebhookController extends Controller
         $this->CustomerDateProcessing($data);
     }
     public function CustomerDateProcessing($data){
-//        $data = json_decode($data, true);
-
+        $data = json_decode($data, true);
         $customer = Customer::find(50);
         $customer->status = $data;
         $customer->save();
