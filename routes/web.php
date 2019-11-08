@@ -145,3 +145,6 @@ Route::GET('/email', 'OrdersController@showEmail');
 Route::get('/test', function () {
     return view('test');
 });
+
+Route::GET('/c/{id}', 'CustomersController@getCustomer');
+

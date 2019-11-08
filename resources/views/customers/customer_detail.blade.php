@@ -2,108 +2,128 @@
 
     <input type="hidden" name="customer_id" value="{{$customer->shopify_customer_id}}">
     <input type="hidden" name="shop" value="{{ $customer->has_shop->shop_name }}">
-    <div class="Get-name">
-        <div class="custom_fields_half">
-            <div class="custom_Request_fields_half  Get-name-left">
-                <label for="FirstName">First Name</label>
-                <input type="text" required="" name="first_name" id="FirstName" value="{{$customer->first_name}}" placeholder="">
-            </div>
-        </div>
-        <div class="custom_fields_half">
-            <div class="custom_Request_fields_half Get-name-right">
-                <label for="LastName">Last Name</label>
-                <input type="text" required="" name="last_name" id="LastName" value="{{$customer->last_name}}" placeholder="">
-            </div>
-        </div>
-    </div>
 
-    <div class="tow-field-Row">
-        <div class="custom_fields_half">
-            <div class="custom_Request_fields_half  Get-contect-left">
-                <label for="Email">Email</label>
-                <input readonly type="email"  name="email" id="Email" value="{{$customer->email}}" placeholder="">
-            </div>
-        </div>
-        <div class="custom_fields_half">
-            <div class="custom_Request_fields_half Get-contect-right">
-                <label for="Phone">Phone</label>
-                <input type="text" required="" name="phone" id="Phone" value="{{ $customer->phone }}" placeholder="">
-            </div>
-        </div>
-    </div>
 
-    <div class="custom_fields_half">
-        <div class="custom_Request_fields_half">
-            <label for="Business">Business</label>
-            <input type="text"  name="business" id="Business" value="{{$customer->business}}" placeholder="">
-        </div>
-    </div>
-    <div class="custom_fields_half">
-        <div class="custom_Request_fields_half">
-            <label for="Address1">Address1</label>
-            <input type="text" required="" name="address1" id="Address1" value="{{$customer->address1}}" placeholder="">
-        </div>
-    </div>
-    <div class="custom_fields_half">
-        <div class="custom_Request_fields_half">
-            <label for="Address2">Address2</label>
-            <input type="text"   id="Address2" value="{{$customer->address2}}" placeholder="">
-        </div>
-    </div>
 
-    <div class="Complete-address">
-        <div id="city_div" class="custom_fields_half">
+        <div class="custom_fields_half associate">
             <div class="custom_Request_fields_half">
-                <label for="City">City</label>
-                <input type="text" required="" name="city" id="City" value="{{$customer->city}}" placeholder="">
-            </div>
-        </div>
-        <div id="province_div" class="custom_fields_half hide associate">
-            <div class="custom_Request_fields_half adj">
-                <label for="AddressProvinceNew">State</label>
-                <select class="AddressProvinceNew" name="state" autocomplete="address-level1"></select>
-            </div>
-        </div>
-        <div id="postal_div" class="custom_fields_half">
-            <div class="custom_Request_fields_half">
-                <label for="PosteCode">Zip Code</label>
-                <input type="text" required="" name="postecode" id="PosteCode" value="{{$customer->postcode}}" placeholder="">
+                <label for="AddressCountryNew" >Country</label>
+                <select required class="AddressCountryNew2" name="country" @if($customer != null) data-country-select="{{ $customer->country }}"  data-province-select="{{$customer->state}}" @endif>
+                    @include('customers.inc.countries')
+                </select>
             </div>
         </div>
 
-    </div>
 
-    <div class="custom_fields_half associate">
-        <div class="custom_Request_fields_half">
-        <label for="AddressCountryNew" >Country</label>
-        <select required class="AddressCountryNew" name="country" @if($customer != null) data-country-select="{{ $customer->country }}"  data-province-select="{{$customer->state}}" @endif>
-            @include('customers.inc.countries')
-        </select>
-    </div>
-    </div>
-
-
-
-    <div class="tow-field-Row">
-        <div class="custom_Button-contaner">
-            <input type="submit" class="Same-button" value="SAVE">
+        <div class="Get-name">
+            <div class="custom_fields_half">
+                <div class="custom_Request_fields_half  Get-name-left">
+                    <label for="FirstName">First Name</label>
+                    <input type="text" required="" name="first_name" id="FirstName" value="{{$customer->first_name}}" placeholder="">
+                </div>
+            </div>
+            <div class="custom_fields_half">
+                <div class="custom_Request_fields_half Get-name-right">
+                    <label for="LastName">Last Name</label>
+                    <input type="text" required="" name="last_name" id="LastName" value="{{$customer->last_name}}" placeholder="">
+                </div>
+            </div>
         </div>
 
-        <div class="custom_Button-contaner ">
-            <a  id="change-password" style="cursor: pointer" class="Same-button" >CHANGE PASSWORD</a>
+            <div class="full_width_iput">
+                <div class="custom_Request_fields_half">
+                    <label for="Address1">Street Adress</label>
+                    <input type="text" required="" name="address1" id="Address1" value="{{ $customer->address1 }}" placeholder="Street and number, P.O.box C/O">
+                    <input style="margin-top: 25px;
+    margin-bottom: 45px;" type="text" name="address2" id="Address2" value="{{ $customer->address2 }}" placeholder="Apartment, suite, building etc.">
+                </div>
+            </div>
+
+
+            <div class="Complete-address">
+                <div class="">
+                    <div class="custom_fields_half full_width_iput ">
+                        <label for="City">City</label>
+                        <input type="text" required="" name="city" id="City" value="{{ $customer->city }}" placeholder="">
+                    </div>
+                </div>
+                <div id="" class="custom_fields_half full_width_iput">
+                    <div class="custom_Request_fields_half adj">
+                        <label for="AddressProvinceNew">State/Province/Region</label>
+                        <select class="AddressProvinceNew2" name="province" autocomplete="address-level1">
+                            @include('customers.inc.usa_states')
+                        </select>
+                    </div>
+                </div>
+                <div id="postal_div" class="custom_fields_half full_width_iput">
+                    <div class="custom_Request_fields_half">
+                        <label for="PosteCode">Zip Code</label>
+                        <input type="text"  name="postecode" id="PosteCode" value="{{ $customer->postcode }}" placeholder="">
+                    </div>
+                </div>
+
+            </div>
+            <div class="tow-field-Row">
+                    <div class="full_width_iput full_width_iput">
+                        <div class="custom_fields_half full_width_iput Get-contect-left">
+                            <label for="Email">Email</label>
+                            <input readonly type="email"  name="email" id="Email" value="{{$customer->email}}" placeholder="">
+                        </div>
+                    </div>
+                    <div class="custom_fields_half full_width_iput">
+                        <div class="custom_Request_fields_half Get-contect-right">
+                            <label for="Phone">Phone</label>
+                            <input type="text" required="" name="phone" id="Phone" value="{{ $customer->phone }}" placeholder="">
+                        </div>
+                    </div>
+
+            </div>
+
+            <div id="email-status"></div>
+
+            <div class="custom_fields_half" style="display:none;">
+                <div class="custom_Request_fields_half">
+                    <label for="Business">Business</label>
+                    <input type="text" name="business" id="Business" value="" placeholder="">
+                </div>
+            </div>
+
+
+
+
+        <div class="Form-content-detail2">
+            <div class="receve-mail promotions ">
+                <div class="receve-mail-text">
+                    <p class="" >Please send me emails regarding PostDelay promotions</p>
+                </div>
+                <div class="receve-mail-box promotions-mail">
+                    <input class="" checked type="checkbox" name="receve-mail" value="receve-mail"><br>
+                </div>
+            </div>
+            <div class="tow-field-Row">
+                <div class="custom_Button-contaner">
+                    <input type="submit" class="Same-button" value="SAVE">
+                </div>
+
+                <div class="custom_Button-contaner ">
+                    <a  id="change-password" style="cursor: pointer" class="Same-button" >CHANGE PASSWORD</a>
+                </div>
+
+
+                <div class="custom_Button-contaner ">
+                    <a style="cursor: pointer" id="customer_delete_account" data-id="{{$customer->shopify_customer_id}}" class="Same-button" >DELETE ACCOUNT</a>
+                </div>
+
+            </div>
+            <div class="form-message form-message--success hide" id="RecoverPasswordStatus" tabindex="-1">
+
+            </div>
         </div>
 
-
-        <div class="custom_Button-contaner ">
-            <a style="cursor: pointer" id="customer_delete_account" data-id="{{$customer->shopify_customer_id}}" class="Same-button" >DELETE ACCOUNT</a>
-        </div>
-
-    </div>
-    <div class="form-message form-message--success hide" id="RecoverPasswordStatus" tabindex="-1">
-
-    </div>
 
 </form>
+
+
 
 <div class="add-rem-address ">
     <div class="custom_fields_half">
