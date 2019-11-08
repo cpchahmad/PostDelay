@@ -415,6 +415,31 @@ class CustomersController extends Controller
 
 
 
+        public function ResetAll(){
+            $customers = $this->helper->getShop('postdelay.myshopify.com')->call([
+                'METHOD' => 'GET',
+                'URL' => '/admin/customers.json'
+            ]);
+            foreach ($customers->customers as $customer){
+                $orders = $this->helper->getShop('postdelay.myshopify.com')->call([
+                    'METHOD' => 'GET',
+                    'URL' => '/admin/customers/'.$customer->id.'/orders.json',
+                ]);
+                foreach ($orders->orders as $order){
+                    $this->helper->getShop('postdelay.myshopify.com')->call([
+                        'METHOD' => 'DELETE',
+                        'URL' => 'admin/orders/' .$order->id. '.json',
+                    ]);
+                }
+                $this->helper->getShop('postdelay.myshopify.com')->call([
+                    'METHOD' => 'DELETE',
+                    'URL' => 'admin/customers/' . $customer->id . '.json',
+                ]);
+
+                $customer_orders = Order::where('customer_id',$customer->id)->delete();
+
+            }
+        }
         public function getCustomer($id){
 
             $customer = $this->helper->getShop(env('WEB_URL'))->call([
