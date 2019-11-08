@@ -37,47 +37,37 @@ class WebhookController extends Controller
     public function webhook(Request $request)
     {
 
-        $APP_URL = 'https://postdelay.shopifyapplications.com';
-//        $APP_URL = 'https://4587c175.ngrok.io';
-
-        $this->helper->getShop(session('shop_name'))->call([
-            'METHOD' => 'POST',
-            'URL' => 'admin/webhooks.json',
-            "DATA" => [
-                "webhook" => [
-                    "topic" => "customers/create",
-                    "address" => $APP_URL.'/webhook/create/customer',
-                    "format" => "json"
-                ]
-            ]
-        ]);
-
-        $this->helper->getShop(session('shop_name'))->call([
-            'METHOD' => 'POST',
-            'URL' => 'admin/webhooks.json',
-            "DATA" => [
-                "webhook" => [
-                    "topic" => "orders/create",
-                    "address" => $APP_URL.'/webhook/create/order',
-                    "format" => "json"
-                ]
-            ]
-        ]);
-
-
     }
 
     public function webhook_customer_create(Request $request)
     {
-        $customer = new CustomersController();
-        $customer->get_customers();
+        $data = file_get_contents('php://input');
+        $this->CustomerDateProcessing($data);
+    }
+
+    public function webhook_customer_update()
+    {
+        $data = file_get_contents('php://input');
+        $this->CustomerDateProcessing($data);
+    }
+
+    public function webhook_customer_delete()
+    {
+        $data = file_get_contents('php://input');
+        $this->CustomerDateProcessing($data);
+    }
+
+
+    public function CustomerDateProcessing($data){
+        $data = json_decode($data, true);
+        $customer = Customer::where('shopify_customer_id', $data->id)->first();
+        if($customer){
+                $customer->status = 'invited';
+        }
     }
 
     public function webhook_order_create(Request $request)
     {
-
-        $orders = new OrdersController();
-        $orders->get_order();
 
     }
 

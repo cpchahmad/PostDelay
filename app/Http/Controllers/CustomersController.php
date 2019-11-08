@@ -56,7 +56,7 @@ class CustomersController extends Controller
                     }else{
                         $response = [
                             'status' => 'error',
-                            'msg' => 'Something Went wrong, Please try again with different email.'
+                            'msg' => 'Customer Already Invited, Please check your email address to verify or <a id="send_activation_link" data-shop="postdelay.myshopify.com" data-customer-id="'.$customer->shopify_customer_id.'">Click here</a> to resend the Invitation again.'
                         ];
                     }
                 }else {
@@ -449,5 +449,52 @@ class CustomersController extends Controller
 
             dd($customer);
         }
+
+    public function getWebhooks(){
+//        $APP_URL = 'https://postdelay.shopifyapplications.com';
+//        $this->helper->getShop(env('WEB_URL'))->call([
+//            'METHOD' => 'POST',
+//            'URL' => 'admin/webhooks.json',
+//            "DATA" => [
+//                "webhook" => [
+//                    "topic" => "customers/create",
+//                    "address" => $APP_URL.'/webhook/create/customer',
+//                    "format" => "json"
+//                ]
+//            ]
+//        ]);
+//
+//        $this->helper->getShop(env('WEB_URL'))->call([
+//            'METHOD' => 'POST',
+//            'URL' => 'admin/webhooks.json',
+//            "DATA" => [
+//                "webhook" => [
+//                    "topic" => "customers/update",
+//                    "address" => $APP_URL.'/webhook/update/customer',
+//                    "format" => "json"
+//                ]
+//            ]
+//        ]);
+//
+//        $this->helper->getShop(env('WEB_URL'))->call([
+//            'METHOD' => 'POST',
+//            'URL' => 'admin/webhooks.json',
+//            "DATA" => [
+//                "webhook" => [
+//                    "topic" => "customers/delete",
+//                    "address" => $APP_URL.'/webhook/delete/customer',
+//                    "format" => "json"
+//                ]
+//            ]
+//        ]);
+
+        $customer = $this->helper->getShop(env('WEB_URL'))->call([
+            'METHOD' => 'GET',
+            'URL' => '/admin/webhooks.json',
+        ]);
+        dd($customer);
+
+    }
+
 }
 

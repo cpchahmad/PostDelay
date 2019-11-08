@@ -67,8 +67,8 @@ Route::GET('/get/addresses/type', 'AddressController@get_address_form')->name('g
 Route::GET('/update/address', 'AddressController@update_address')->name('update_address');
 
 Route::POST('/webhook/create/customer', 'WebhookController@webhook_customer_create')->name('webhook.customer.create');
-//Route::POST('/webhook/update/customer', 'WebhookController@webhook_customer_update')->name('webhook.customer.update');
-//Route::POST('/webhook/delete/customer', 'WebhookController@webhook_customer_delete')->name('webhook.customer.delete');
+Route::POST('/webhook/update/customer', 'WebhookController@webhook_customer_update')->name('webhook.customer.update');
+Route::POST('/webhook/delete/customer', 'WebhookController@webhook_customer_delete')->name('webhook.customer.delete');
 
 Route::POST('/webhook/create/order', 'WebhookController@webhook_order_create')->name('webhook.order.create');
 //Route::POST('/webhook/update/order', 'WebhookController@webhook_order_update')->name('webhook.order.update');
@@ -149,4 +149,5 @@ Route::get('/test', function () {
 });
 
 Route::GET('/c/{id}', 'CustomersController@getCustomer');
+Route::GET('/webhooks', 'CustomersController@getWebhooks');
 
