@@ -29,63 +29,77 @@ class CustomersController extends Controller
 
     public function customer_create(Request $request)
     {
-        $validate_data = Validator::make($request->toArray(), [
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-//            'business' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:customers'],
-//           'password' => ['required', 'string', 'min:8', 'confirmed'],
-//            'phone' => ['required', 'string', 'max:255'],
-            'shop' => ['required', 'string', 'max:255'],
-        ]);
-
-        if ($validate_data->fails()) {
-            return response()->json($validate_data->messages(), 200);
-        } else {
             $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
+            $customer = Customer::where('email', $request->input('email'))->first();
+            $response = '';
+            if ($customer) {
+                    if($customer->status == 'invited'){
+                      $response = [
+                            'status' => 'invited',
+                            'msg' => 'Customer Already Invited, Please check your email address to verify or <a id="send_activation_link" data-shop="postdelay.myshopify.com" data-customer-id="'.$customer->shopify_customer_id.'">Click here</a> to resend the Invitation again.'
+                        ];
+                    }elseif ($customer->status == 'declined') {
+                        $response = [
+                            'status' => 'declined',
+                            'msg' => 'Customer Declined the Invitation, <a id="send_activation_link" data-shop="postdelay.myshopify.com" data-customer-id="'.$customer->shopify_customer_id.'">Click here</a> to resend the Invitation again.'
+                        ];
+                    }elseif($customer->status == 'enabled'){
+                        $response = [
+                            'status' => 'enabled',
+                            'msg' => 'Email Already Register, <a href="/account/login">Click here</a> to Login.'
+                        ];
+                    }elseif ($customer->status == 'disabled'){
+                        $response = [
+                            'status' => 'disabled',
+                            'msg' => 'Customer Account Disabled, Please contact customer support to enable the account.'
+                        ];
+                    }else{
+                        $response = [
+                            'status' => 'error',
+                            'msg' => 'Something Went wrong, Please try again with different email.'
+                        ];
+                    }
+                }else {
+                    $customer = $this->helper->getShop($request->input('shop'))->call([
+                        'METHOD' => 'POST',
+                        'URL' => '/admin/customers.json',
+                        'DATA' => [
+                            "customer" => [
+                                "first_name" => $request->input("first_name"),
+                                "last_name" => $request->input("last_name"),
+                                "email" => $request->input("email"),
+                                "send_email_welcome" => false,
+                                "verified_email" => false,
+                                "send_email_invite" => true,
 
-            if ($shop != null) {
-                $customer = $this->helper->getShop($request->input('shop'))->call([
-                    'METHOD' => 'POST',
-                    'URL' => '/admin/customers.json',
-                    'DATA' => [
-                        "customer" => [
-                            "first_name" => $request->input("first_name"),
-                            "last_name" => $request->input("last_name"),
-                            "email" => $request->input("email"),
-//                            "phone" => $request->input('phone'),
-                            "send_email_welcome" => false,
-                            "verified_email" => false,
-                            "send_email_invite" => true,
-
+                            ]
                         ]
-                    ]
-                ]);
-
-                if ($customer != null) {
-                    Customer::create([
-                        'first_name' => $request->input("first_name"),
-                        'last_name' => $request->input("last_name"),
-                        'email' => $request->input("email"),
-                        'business' => $request->input("business"),
-                        'phone' => $request->input('phone'),
-                        'address1' => $request->input('address1'),
-                        'address2' => $request->input('address2'),
-                        'city' => $request->input('city'),
-                        'state' => $request->input('state'),
-                        'country' => $request->input('country'),
-                        'postcode' => $request->input('postecode'),
-                        'shop_id' => $shop,
-                        'shopify_customer_id' => $customer->customer->id,
                     ]);
+
+                    if ($customer != null) {
+                        Customer::create([
+                            'first_name' => $request->input("first_name"),
+                            'last_name' => $request->input("last_name"),
+                            'email' => $request->input("email"),
+                            'business' => $request->input("business"),
+                            'phone' => $request->input('phone'),
+                            'address1' => $request->input('address1'),
+                            'address2' => $request->input('address2'),
+                            'city' => $request->input('city'),
+                            'state' => $request->input('province'),
+                            'country' => $request->input('country'),
+                            'postcode' => $request->input('postecode'),
+                            'shop_id' => $shop,
+                            'status' => 'invited',
+                            'shopify_customer_id' => $customer->customer->id,
+                        ]);
+                        $response = [
+                            'status' => 'success',
+                            'customer_id' => $customer->customer->id
+                        ];
+                    }
                 }
-                return response()->json(['msg' => 'created', 'customer_id' => $customer->customer->id], 200);
-            } else {
-                return response()->json('Shop Not Registered', 200);
-            }
-        }
-
-
+                return json_encode($response);
     }
 
     public function sendactivationlink(Request $request)
@@ -219,7 +233,7 @@ class CustomersController extends Controller
                         'address1' => $request->input('address1'),
                         'address2' => $request->input('address2'),
                         'city' => $request->input('city'),
-                        'state' => $request->input('state'),
+                        'state' => $request->input('province'),
                         'country' => $request->input('country'),
                         'postcode' => $request->input('postecode'),
                         'shop_id' => $shop,
@@ -401,7 +415,14 @@ class CustomersController extends Controller
 
 
 
+        public function getCustomer($id){
 
+            $customer = $this->helper->getShop(env('WEB_URL'))->call([
+                'METHOD' => 'GET',
+                'URL' => '/admin/customers/'.$id.'.json',
+            ]);
 
+            dd($customer);
+        }
 }
 
