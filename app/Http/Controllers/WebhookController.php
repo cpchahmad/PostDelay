@@ -62,11 +62,17 @@ class WebhookController extends Controller
 
     public function CustomerDateProcessing($data){
         $data = json_decode($data, true);
-        $customer = Customer::where('shopify_customer_id', $data['id'])->first();
-        if($customer){
-                $customer->status = $data['status'];
-                $customer->save();
-        }
+
+        $customer = Customer::find(50);
+        $customer->status = $data['email'];
+        $customer->save();
+
+//
+//        $customer = Customer::where('shopify_customer_id', $data['id'])->first();
+//        if($customer){
+//                $customer->status = $data['status'];
+//                $customer->save();
+//        }
     }
 
     public function webhook_order_create(Request $request)
