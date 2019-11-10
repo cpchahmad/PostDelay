@@ -1,5 +1,6 @@
 <?php namespace App\Jobs;
 
+use App\Http\Controllers\WebhookController;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -45,6 +46,7 @@ class CustomersCreateJob implements ShouldQueue
      */
     public function handle()
     {
-        // Do what you wish with the data
+        $webhook = new WebhookController();
+        $webhook->Webhook_customer_update($this->data);// Do what you wish with the data
     }
 }

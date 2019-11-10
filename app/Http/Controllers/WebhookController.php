@@ -39,25 +39,24 @@ class WebhookController extends Controller
 
     }
 
-    public function webhook_customer_create(Request $request)
-    {
-        $data = file_get_contents('php://input');
-        $this->CustomerDateProcessing($data);
+    public function Webhook_customer_update($data){
+
+        if (Customer::where('shopify_customer_id', '=', $data->id)->exists()) {
+                $customer = Customer::where('shopify_customer_id', '=', $data->id)->first();
+        }else{
+            $customer = new Customer();
+        }
+        $customer->status = $data->state;
+        $customer->save();
     }
 
-    public function webhook_customer_update()
-    {
-        $data = file_get_contents('php://input');
-        $this->CustomerDateProcessing($data);
-    }
-    public function webhook_customer_delete()
-    {
-        $data = file_get_contents('php://input');
-        $data = json_decode($data, true);
-        $customer = Customer::where('shopify_customer_id', $data['id'])->first();
-        if($customer){
-            $customer->delete();
-        }
+    public function webhook_customer_delete($data) {
+//        $customer = $this->helper->getShopify()->call([
+//            'METHOD' => 'DELETE',
+//            'URL' => '/admin/customers/'.$data->id.'.json',
+//        ]);
+//
+//        $customers = Customer::where('shopify_customer_id', $data->id)->delete();
     }
 
     public function CustomerDateProcessing($data){
