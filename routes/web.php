@@ -1,9 +1,7 @@
 <?php
 
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', 'ShopsController@Dashboard')->name('home')->middleware('auth.shop');
 use Oseintow\Shopify\Facades\Shopify;
 
 //Route::get("install", function () {
