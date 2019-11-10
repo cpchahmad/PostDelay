@@ -25,6 +25,7 @@ class HelperController extends Controller
             'SHOP_DOMAIN' => $shop->shopify_domain,
             'ACCESS_TOKEN' => $shop->access_token
         ]);
+        dd($this->shopify);
         return $this->shopify;
     }
 }
