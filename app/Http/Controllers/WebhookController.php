@@ -19,7 +19,7 @@ class WebhookController extends Controller
 
     public function getWebhooks()
     {
-        $webhooks = $this->helper->getShop(session('shop_name'))->call([
+        $webhooks = $this->helper->getShopify()->call([
             'METHOD' => 'get',
             'URL' => 'admin/webhooks.json',
         ]);
@@ -27,7 +27,7 @@ class WebhookController extends Controller
 
 //        foreach ($webhooks->webhooks as $webhook){
 //
-//            $this->helper->getShop(session('shop_name'))->call([
+//            $this->helper->getShopify()->call([
 //                'METHOD' => 'delete',
 //                'URL' => 'admin/webhooks/'.$webhook->id.'.json',
 //            ]);
@@ -82,7 +82,7 @@ class WebhookController extends Controller
 
 
     public function script_tag(Request $request){
-        $this->helper->getShop(env('WEB_URL'))->call([
+        $this->helper->getShopify()->call([
             'METHOD' => 'POST',
             'URL' => 'admin/script_tags.json',
             "DATA" => [
@@ -95,7 +95,7 @@ class WebhookController extends Controller
     }
 
     public function getScriptTags(Request $request){
-        $scripts = $this->helper->getShop(session('shop_name'))->call([
+        $scripts = $this->helper->getShopify()->call([
             'METHOD' => 'get',
             'URL' => 'admin/script_tags.json',
         ]);
@@ -103,7 +103,7 @@ class WebhookController extends Controller
 
         foreach ($scripts->script_tags as $script){
 
-            $this->helper->getShop(session('shop_name'))->call([
+            $this->helper->getShopify()->call([
                 'METHOD' => 'delete',
                 'URL' => 'admin/script_tags/'.$script->id.'.json',
             ]);

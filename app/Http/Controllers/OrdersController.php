@@ -53,7 +53,7 @@ class OrdersController extends Controller
             "grams" =>$weight,
         ]);
 
-        $draft_orders = $this->helper->getShop('postdelay.myshopify.com')->call([
+        $draft_orders = $this->helper->getShopify()->call([
             'METHOD' => 'POST',
             'URL' => '/admin/draft_orders.json',
             'DATA' =>
@@ -178,7 +178,7 @@ class OrdersController extends Controller
     }
 
     public function get_order(){
-        $orders = $this->helper->getShop('postdelay.myshopify.com')->call([
+        $orders = $this->helper->getShopify()->call([
             'METHOD' => 'GET',
             'URL' => '/admin/orders.json',
         ]);
@@ -370,7 +370,7 @@ class OrdersController extends Controller
         $shop = Shop::where('shopify_domain',$request->input('shop'))->first();
         if($request->input('type') == 'additional-fee'){
             $default =  PostDelayFee::where('default',1)->where('type','additional')->first();
-            $draft_orders = $this->helper->getShop($shop->shopify_domain)->call([
+            $draft_orders = $this->helper->getShopify()->call([
                 'METHOD' => 'POST',
                 'URL' => '/admin/draft_orders.json',
                 'DATA' =>
@@ -407,7 +407,7 @@ class OrdersController extends Controller
         else{
             $default =  PostDelayFee::where('default',1)->where('type','request_form')->first();
 
-            $draft_orders = $this->helper->getShop($shop->shopify_domain)->call([
+            $draft_orders = $this->helper->getShopify()->call([
                 'METHOD' => 'POST',
                 'URL' => '/admin/draft_orders.json',
                 'DATA' =>
@@ -587,7 +587,7 @@ class OrdersController extends Controller
 //        $default =  PostDelayFee::where('default',1)->where('type','primary')->first();
 ////        dd($default->price);
 //
-//        $product = $this->helper->getShop('postdelay.myshopify.com')->call([
+//        $product = $this->helper->getShopify()->call([
 //            'METHOD' => 'POST',
 //            'URL' => '/admin/api/2019-10/products.json',
 //            'DATA' =>[
@@ -609,14 +609,14 @@ class OrdersController extends Controller
 ////dd($product);
 //        $variant_id = $product->product->variants[0]->id;
 ////        dd($variant_id);
-//        $product_listing = $this->helper->getShop('postdelay.myshopify.com')->call([
+//        $product_listing = $this->helper->getShopify()->call([
 //            'METHOD' => 'GET',
 //            'URL' => '/admin/api/2019-10/product_listings.json',
 //        ]);
 //
 //        dd($product_listing);
 //
-//        $checkout = $this->helper->getShop('postdelay.myshopify.com')->call([
+//        $checkout = $this->helper->getShopify()->call([
 //            'METHOD' => 'POST',
 //            'URL' => '/admin/checkouts.json',
 //            'DATA' =>
@@ -717,7 +717,7 @@ class OrdersController extends Controller
 
 
     public function get_checkout(){
-        $checkout = $this->helper->getShop('postdelay.myshopify.com')->call([
+        $checkout = $this->helper->getShopify()->call([
             'METHOD' => 'POST',
             'URL' => '/admin/api/2019-10/checkouts.json',
             'DATA' =>
@@ -745,7 +745,7 @@ class OrdersController extends Controller
     public function cancel_order(Request $request){
         $order = Order::where('token', $request->input('order_token'))->first();
 
-        $cancelledd_refund = $this->helper->getShop('postdelay.myshopify.com')->call([
+        $cancelledd_refund = $this->helper->getShopify()->call([
             'METHOD' => 'POST',
             'URL' => '/admin/api/2019-10/orders/'.$order->shopify_order_id.'/cancel.json',
 //            'DATA' => [
@@ -801,7 +801,7 @@ class OrdersController extends Controller
         }
 
 ////        if($cancelledd_refund != null){
-//            $refund = $this->helper->getShop('postdelay.myshopify.com')->call([
+//            $refund = $this->helper->getShopify()->call([
 //                'METHOD' => 'POST',
 //                'URL' => '/admin/api/2019-10/orders/'.$order->shopify_order_id.'/refunds.json',
 //
@@ -824,7 +824,7 @@ class OrdersController extends Controller
 
     public function delete_order(Request $request){
         $order = Order::find($request->input('id'));
-        $this->helper->getShop('postdelay.myshopify.com')->call([
+        $this->helper->getShopify()->call([
             'METHOD' => 'DELETE',
             'URL' => 'admin/orders/' .$order->shopify_order_id. '.json',
         ]);
@@ -842,7 +842,7 @@ class OrdersController extends Controller
          $post_type = PostType::where('name',$request->input('post_type'))->first();
          $weight = $request->input('weight');
         $default =  PostDelayFee::where('default',1)->where('type','primary')->first();
-        $product = $this->helper->getShop('postdelay.myshopify.com')->call([
+        $product = $this->helper->getShopify()->call([
             'METHOD' => 'POST',
             'URL' => '/admin/api/2019-10/products.json',
             'DATA' =>[
