@@ -501,11 +501,11 @@ class CustomersController extends Controller
 //            ]);
 //        }
 //
-//        $customer = $this->helper->getShopify()->call([
-//            'METHOD' => 'GET',
-//            'URL' => '/admin/webhooks.json',
-//        ]);
-//        dd($customer);
+        $customer = $this->helper->getShopify()->call([
+            'METHOD' => 'GET',
+            'URL' => '/admin/webhooks.json',
+        ]);
+        dd($customer);
     }
 
 }
