@@ -9,15 +9,16 @@
     "license": "MIT",
     "require": {
         "php": "^7.1.3",
+        "ext-curl": "*",
         "barryvdh/laravel-dompdf": "^0.8.5",
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
+        "ohmybrew/laravel-shopify": "^10.2",
         "oseintow/laravel-shopify": "^1.1",
         "rocket-code/shopify": "^2.0",
-        "stripe/stripe-php": "^7.3",
-        "ext-curl": "*"
+        "stripe/stripe-php": "^7.3"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

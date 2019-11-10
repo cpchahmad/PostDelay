@@ -252,7 +252,7 @@ class OrdersController extends Controller
 
     public function show_new_order(Request $request)
     {
-        $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
+        $shop = Shop::where('shopify_domain', $request->input('shop'))->value('id');
         $customer_addresses = Address::where('shopify_customer_id', $request->input('customer_id'))
             ->where('shop_id', $shop)->get();
         $shapes = Shape::all();
@@ -277,7 +277,7 @@ class OrdersController extends Controller
 
     public function put_addresses(Request $request)
     {
-        $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
+        $shop = Shop::where('shopify_domain', $request->input('shop'))->value('id');
         $customer_addresses = Address::where('shopify_customer_id', $request->input('customer_id'))
             ->where('shop_id', $shop)->get();
         $billing_address = Address::find($request->input('billing_address'));
@@ -304,7 +304,7 @@ class OrdersController extends Controller
     }
 
     public function show_existing_orders(Request $request){
-        $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
+        $shop = Shop::where('shopify_domain', $request->input('shop'))->value('id');
         $customer = Customer::where('shopify_customer_id', $request->input('customer_id'))->first();
         $orders = Order::where('shopify_customer_id',$customer->shopify_customer_id)->where('checkout_completed',1)
             ->where('additional_payment',0)->orderBy('order_name', 'DESC')->get();
@@ -367,10 +367,10 @@ class OrdersController extends Controller
 
     public function place_additional_payments(Request $request){
 
-        $shop = Shop::where('shop_name',$request->input('shop'))->first();
+        $shop = Shop::where('shopify_domain',$request->input('shop'))->first();
         if($request->input('type') == 'additional-fee'){
             $default =  PostDelayFee::where('default',1)->where('type','additional')->first();
-            $draft_orders = $this->helper->getShop($shop->shop_name)->call([
+            $draft_orders = $this->helper->getShop($shop->shopify_domain)->call([
                 'METHOD' => 'POST',
                 'URL' => '/admin/draft_orders.json',
                 'DATA' =>
@@ -407,7 +407,7 @@ class OrdersController extends Controller
         else{
             $default =  PostDelayFee::where('default',1)->where('type','request_form')->first();
 
-            $draft_orders = $this->helper->getShop($shop->shop_name)->call([
+            $draft_orders = $this->helper->getShop($shop->shopify_domain)->call([
                 'METHOD' => 'POST',
                 'URL' => '/admin/draft_orders.json',
                 'DATA' =>

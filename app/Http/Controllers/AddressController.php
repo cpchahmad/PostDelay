@@ -79,13 +79,13 @@ class AddressController extends Controller
     {
         $address = Address::find($request->input('address_id'));
 
-        $address_json = $this->helper->getShop($address->has_Shop->shop_name)->call([
+        $address_json = $this->helper->getShop($address->has_Shop->shopify_domain)->call([
 
             'METHOD' => 'GET',
             'URL' => '/admin/customers/' . $address->shopify_customer_id . '/addresses/' . $address->shopify_address_id . 'json',
         ]);
 
-         $this->helper->getShop($address->has_Shop->shop_name)->call([
+         $this->helper->getShop($address->has_Shop->shopify_domain)->call([
 
                 'METHOD' => 'DELETE',
                 'URL' => '/admin/customers/' . $address->shopify_customer_id . '/addresses/' . $address->shopify_address_id . 'json',

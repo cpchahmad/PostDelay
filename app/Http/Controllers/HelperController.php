@@ -10,8 +10,8 @@ class HelperController extends Controller
     public $shopify;
 
     public function getShop($shop){
-            $shop = App\Shop::Where('shop_name', $shop)->first();
-            return $this->getShopify($shop->shop_name, $shop->access_token);
+            $shop = App\Shop::Where('shopify_domain', $shop)->first();
+            return $this->getShopify($shop->shopify_domain, $shop->access_token);
    }
 
     public function getShopify($shop_name,$access_token){
@@ -23,5 +23,4 @@ class HelperController extends Controller
         ]);
         return $this->shopify;
     }
-
 }

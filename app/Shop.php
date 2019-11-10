@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Shop extends Model
 {
     protected $fillable = [
-        'shop_name', 'access_token','status',
+        'shopify_domain', 'access_token','status',
     ];
 }

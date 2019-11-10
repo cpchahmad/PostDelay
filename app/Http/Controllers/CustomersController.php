@@ -29,7 +29,7 @@ class CustomersController extends Controller
 
     public function customer_create(Request $request)
     {
-            $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
+            $shop = Shop::where('shopify_domain', $request->input('shop'))->value('id');
             $customer = Customer::where('email', $request->input('email'))->first();
             $response = '';
             if ($customer) {
@@ -123,7 +123,7 @@ class CustomersController extends Controller
 
     public function add_customer_addresses(Request $request)
     {
-        $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
+        $shop = Shop::where('shopify_domain', $request->input('shop'))->value('id');
         $customer = Customer::where('shopify_customer_id', $request->input('customer_id'))->first();
         if ($shop != null && $customer != null) {
 
@@ -176,7 +176,7 @@ class CustomersController extends Controller
 
     public function get_customer_details(Request $request)
     {
-        $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
+        $shop = Shop::where('shopify_domain', $request->input('shop'))->value('id');
         $customer = Customer::where('shopify_customer_id', $request->input('customer_id'))
             ->where('shop_id', $shop)->first();
         $customer_addresses = Address::where('shopify_customer_id', $request->input('customer_id'))
@@ -203,7 +203,7 @@ class CustomersController extends Controller
 //        if ($validate_data->fails()) {
 //            return response()->json($validate_data->messages(), 200);
 //        } else {
-            $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
+            $shop = Shop::where('shopify_domain', $request->input('shop'))->value('id');
 
             if ($shop != null) {
 //                $updated_customer = $this->helper->getShop($request->input('shop'))->call([
@@ -368,7 +368,7 @@ class CustomersController extends Controller
             'URL' => '/admin/customers.json',
         ]);
         $customers = $customers->customers;
-        $shop = Shop::where('shop_name','postdelay.myshopify.com')->value('id');
+        $shop = Shop::where('shopify_domain','postdelay.myshopify.com')->value('id');
         foreach ($customers as $index => $customer){
             Customer::UpdateorCreate([
                 'shopify_customer_id' => $customer->id
@@ -451,7 +451,8 @@ class CustomersController extends Controller
         }
 
     public function getWebhooks(){
-//        $APP_URL = 'https://postdelay.shopifyapplications.com';
+        $APP_URL = 'https://postdelay.shopifyapplications.com';
+
 //        $this->helper->getShop(env('WEB_URL'))->call([
 //            'METHOD' => 'POST',
 //            'URL' => 'admin/webhooks.json',
@@ -488,12 +489,23 @@ class CustomersController extends Controller
 //            ]
 //        ]);
 
-        $customer = $this->helper->getShop(env('WEB_URL'))->call([
-            'METHOD' => 'GET',
-            'URL' => '/admin/webhooks.json',
-        ]);
-        dd($customer);
-
+//        $customer = $this->helper->getShop(env('WEB_URL'))->call([
+//            'METHOD' => 'GET',
+//            'URL' => '/admin/webhooks.json',
+//        ]);
+//
+//        foreach ($customer->webhooks as $webhook){
+//            $customer = $this->helper->getShop(env('WEB_URL'))->call([
+//                'METHOD' => 'DELETE',
+//                'URL' => '/admin/webhooks/'.$webhook->id.'.json',
+//            ]);
+//        }
+//
+//        $customer = $this->helper->getShop(env('WEB_URL'))->call([
+//            'METHOD' => 'GET',
+//            'URL' => '/admin/webhooks.json',
+//        ]);
+//        dd($customer);
     }
 
 }
