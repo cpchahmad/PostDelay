@@ -282,13 +282,26 @@ return [
     */
 
     'webhooks' => [
-        /*
             [
-                'topic' => env('SHOPIFY_WEBHOOK_1_TOPIC', 'orders/create'),
-                'address' => env('SHOPIFY_WEBHOOK_1_ADDRESS', 'https://some-app.com/webhook/orders-create')
+                'topic' => 'customers/create',
+                'address' => 'https://postdelay.shopifyapplications.com/webhook/customers-create'
             ],
-            ...
-        */
+            [
+                'topic' => 'customers/disable',
+                'address' => 'https://postdelay.shopifyapplications.com/webhook/customer-disable'
+            ],
+            [
+                'topic' => 'customers/enable',
+                'address' => 'https://postdelay.shopifyapplications.com/webhook/customer-enable'
+            ],
+            [
+                'topic' => 'customers/update',
+                'address' => 'https://postdelay.shopifyapplications.com/webhook/customer-update'
+            ],
+            [
+                'topic' => 'customers/delete',
+                'address' => 'https://postdelay.shopifyapplications.com/webhook/customer-delete'
+            ]
     ],
 
     /*
