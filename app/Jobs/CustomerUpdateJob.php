@@ -49,4 +49,5 @@ class CustomerUpdateJob implements ShouldQueue
         $webhook = new WebhookController();
         $webhook->Webhook_customer_update($this->data);
     }
+
 }
