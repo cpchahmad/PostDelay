@@ -23,9 +23,8 @@ class HelperController extends Controller
             'API_KEY' => env('SHOPIFY_APIKEY'),
             'API_SECRET' => env('SHOPIFY_SECRET'),
             'SHOP_DOMAIN' => $shop->shopify_domain,
-            'ACCESS_TOKEN' => $shop->access_token
+            'ACCESS_TOKEN' => $shop->shopify_token
         ]);
-        dd($this->shopify);
         return $this->shopify;
     }
 }
