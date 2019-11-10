@@ -6,7 +6,7 @@ Route::get('/', function () {
 });
 use Oseintow\Shopify\Facades\Shopify;
 
-Route::get("install", function () {
+//Route::get("install", function () {
 //    if ($_GET["shop"]) {
 //        $shopUrl = $_GET["shop"];
 //        $scope = ["read_orders", "read_products", "read_product_listings", "write_orders",
@@ -17,20 +17,20 @@ Route::get("install", function () {
 //        return redirect()->to($shopify->getAuthorizeUrl($scope, $redirectUrl));
 //    } else {
 //        return 'Please enter shop url';
-        $shopUrl = "https://postdelay.myshopify.com/";
-        $scope = ["read_orders", "read_products", "read_product_listings", "write_orders",
-            "read_customers", "write_customers","read_script_tags", "write_script_tags","read_draft_orders",'write_draft_orders',
-            "read_shipping","write_shipping",'read_checkouts','write_checkouts',"write_products"
-            ];
-        $redirectUrl = env('APP_URL')."/auth";
-//        dd($redirectUrl);
+//        $shopUrl = "https://postdelay.myshopify.com/";
+//        $scope = ["read_orders", "read_products", "read_product_listings", "write_orders",
+//            "read_customers", "write_customers","read_script_tags", "write_script_tags","read_draft_orders",'write_draft_orders',
+//            "read_shipping","write_shipping",'read_checkouts','write_checkouts',"write_products"
+//            ];
+//        $redirectUrl = env('APP_URL')."/auth";
+////        dd($redirectUrl);
+//
+//        $shopify = Shopify::setShopUrl($shopUrl);
+//        return redirect()->to($shopify->getAuthorizeUrl($scope,$redirectUrl));
 
-        $shopify = Shopify::setShopUrl($shopUrl);
-        return redirect()->to($shopify->getAuthorizeUrl($scope,$redirectUrl));
+//});
 
-});
-
-Route::get("auth", "ShopsController@index");
+//Route::get("auth", "ShopsController@index");
 Route::prefix('admin')->group(function () {
     Route::get('orders', 'OrdersController@index')->name('shop.orders');
     Route::get('customers', 'CustomersController@index')->name('shop.customers');
