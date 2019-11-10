@@ -32,6 +32,7 @@ class CustomersController extends Controller
             $shop = Shop::where('shopify_domain', $request->input('shop'))->value('id');
             $customer = Customer::where('email', $request->input('email'))->first();
             $response = '';
+
             if ($customer) {
                     if($customer->status == 'invited'){
                       $response = [
@@ -60,6 +61,12 @@ class CustomersController extends Controller
                         ];
                     }
                 }else {
+
+                if($request->input('receve-mail')){
+                    $subscription = true;
+                }else{
+                    $subscription = false;
+                }
                     $customer = $this->helper->getShopify()->call([
                         'METHOD' => 'POST',
                         'URL' => '/admin/customers.json',
@@ -68,6 +75,7 @@ class CustomersController extends Controller
                                 "first_name" => $request->input("first_name"),
                                 "last_name" => $request->input("last_name"),
                                 "email" => $request->input("email"),
+                                "accepts_marketing" => $subscription,
                                 "send_email_welcome" => false,
                                 "verified_email" => false,
                                 "send_email_invite" => true,
@@ -89,6 +97,7 @@ class CustomersController extends Controller
                             'state' => $request->input('province'),
                             'country' => $request->input('country'),
                             'postcode' => $request->input('postecode'),
+                            'accept_marketing' => $subscription,
                             'shop_id' => $shop,
                             'status' => 'invited',
                             'shopify_customer_id' => $customer->customer->id,
