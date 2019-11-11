@@ -438,6 +438,10 @@ class CustomersController extends Controller
 
         }
 
+        public function delete_account_from_email($id){
+
+        }
+
 
         public function ResetAll(){
             $customers = $this->helper->getShopify()->call([

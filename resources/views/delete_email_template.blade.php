@@ -213,7 +213,7 @@
 
         </div>
         <div class="email_btn">
-            <a href="https://postdelay.shopifyapplications.com/customer/{{ $customer->id }}/delete" style="
+            <a href="https://postdelay.myshopify.com/pages/account_delete#/customer/id/{{ $customer->shopify_customer_id }}" style="
     text-align: center;
     display: block;
     background: #0000FF;
