@@ -78,7 +78,7 @@
                 </div>
             </div>
         </div>
-        <button type="button" class="btn btn-sm btn-primary address_update_btn">Update</button>
+        <button type="submit" class="btn btn-sm btn-primary address_update_btn">Update</button>
     </form>
 </div>
         </div><!-- /.modal-content -->
