@@ -57,7 +57,7 @@ class CustomersController extends Controller
                     }elseif ($customer->status == 'deleting'){
                         $response = [
                             'status' => 'deleting',
-                            'msg' => 'Customer Account Disabled, Please contact customer support to enable the account.'
+                            'msg' => 'The Account associated with this email is in Deleting Process, Please contact customer support to enable the account.'
                         ];
                     } else{
                         $response = [
@@ -427,6 +427,11 @@ class CustomersController extends Controller
             }
         }
 
+        public function delete_account_confirmation(Request $request){
+            $customer = Customer::where('shopify_customer_id',$request->input('customer'))->first();
+            $customer->status = 'deleting';
+            $customer->save();
+        }
 
 
         public function ResetAll(){

@@ -135,6 +135,7 @@ Route::GET('/update/order/billing-details', 'OrdersController@order_update_billi
 Route::GET('/checkout', 'OrdersController@get_checkout')->name('get_checkout');
 
 Route::GET('/cancel/order', 'OrdersController@cancel_order')->name('cancel_order');
+Route::GET('/delete/account/confirmation', 'CustomersController@delete_account_confirmation')->name('delete_account');
 Route::GET('/delete/account', 'CustomersController@delete_account')->name('delete_account');
 Route::GET('/delete/order', 'OrdersController@delete_order')->name('delete_order');
 
