@@ -41,7 +41,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link " data-toggle="tab" href="#home" role="tab">
-                                <span class="d-none d-md-block">Recipients Addresses</span><span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
+                                <span class="d-none d-md-block">Recipient Addresses</span><span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -70,7 +70,7 @@
                                         <th scope="col">#</th>
                                         <th scope="col">First Name</th>
                                         <th scope="col">Last Name</th>
-                                        <th scope="col">Business</th>
+                                        {{--<th scope="col">Business</th>--}}
                                         <th scope="col">Email</th>
                                         <th scope="col">Phone</th>
                                         <th scope="col">Address1</th>
@@ -79,6 +79,7 @@
                                         <th scope="col">State</th>
                                         <th scope="col">Country</th>
                                         <th scope="col">ZipCode</th>
+                                        <td></td>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -86,7 +87,7 @@
                                         <td>1</td>
                                         <td>{{$customer->first_name}} </td>
                                         <td>{{$customer->last_name}}</td>
-                                        <td>{{$customer->business}}</td>
+                                        {{--<td>{{$customer->business}}</td>--}}
                                         <td>{{$customer->email}} </td>
                                         <td>{{$customer->phone}} </td>
                                         <td>{{$customer->address1}}</td>
@@ -95,10 +96,13 @@
                                         <td>{{$customer->state}}</td>
                                         <td>{{$customer->country}}</td>
                                         <td>{{$customer->postcode}}</td>
+                                        <th><button type="button" class="btn-sm btn-warning btn" data-toggle="modal" data-target="#customer_{{ $customer->id }}">Edit</button></th>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
+                            @include('inc.admin.customer_info_update')
+
                         </div>
                         <div class="tab-pane p-3" id="home" role="tabpanel">
                             <div class="table-responsive">
@@ -128,10 +132,18 @@
                                                 <td>{{$address->phone}} </td>
                                                 <td>{{$address->email}} </td>
                                                 <td>
-                                                    <form action="{{route('address.delete')}}" method="get">
+                                                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#address_{{ $address->id }}">Edit</button>
+                                                    <form action="{{route('address.delete')}}" method="get" style="display: inline-block;">
                                                         <input type="hidden" value="{{$address->id}}" name="address_id">
                                                         <button type="submit" class="btn btn-danger waves-effect waves-light btn-sm">Delete</button>
                                                     </form>
+
+
+
+                                                                @include('inc.admin.address_update')
+
+
+
                                                 </td>
                                             </tr>
                                             @php
@@ -171,10 +183,12 @@
                                                 <td>{{$address->phone}} </td>
                                                 <td>{{$address->email}} </td>
                                                 <td>
-                                                    <form action="{{route('address.delete')}}" method="get">
+                                                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#address_{{ $address->id }}">Edit</button>
+                                                    <form action="{{route('address.delete')}}" method="get" style="display: inline-block;">
                                                         <input type="hidden" value="{{$address->id}}" name="address_id">
                                                         <button type="submit" class="btn btn-danger waves-effect waves-light btn-sm">Delete</button>
                                                     </form>
+                                                    @include('inc.admin.address_update')
                                                 </td>
                                             </tr>
                                             @php
@@ -212,10 +226,12 @@
                                                 <td>{{$address->phone}} </td>
                                                 <td>{{$address->email}} </td>
                                                 <td>
-                                                    <form action="{{route('address.delete')}}" method="get">
+                                                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#address_{{ $address->id }}">Edit</button>
+                                                    <form action="{{route('address.delete')}}" method="get" style="display: inline-block;">
                                                         <input type="hidden" value="{{$address->id}}" name="address_id">
                                                         <button type="submit" class="btn btn-danger waves-effect waves-light btn-sm">Delete</button>
                                                     </form>
+                                                    @include('inc.admin.address_update')
                                                 </td>
                                             </tr>
                                         @endif

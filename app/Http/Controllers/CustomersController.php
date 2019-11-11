@@ -54,7 +54,12 @@ class CustomersController extends Controller
                             'status' => 'disabled',
                             'msg' => 'Customer Account Disabled, Please contact customer support to enable the account.'
                         ];
-                    }else{
+                    }elseif ($customer->status == 'deleting'){
+                        $response = [
+                            'status' => 'deleting',
+                            'msg' => 'Customer Account Disabled, Please contact customer support to enable the account.'
+                        ];
+                    } else{
                         $response = [
                             'status' => 'error',
                             'msg' => 'Customer Already Invited, Please check your email address to verify or <a id="send_activation_link" data-shop="postdelay.myshopify.com" data-customer-id="'.$customer->shopify_customer_id.'">Click here</a> to resend the Invitation again.'

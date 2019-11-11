@@ -372,5 +372,34 @@ $('body').on('change','.commision_change',function () {
             }
         });
 
+
+    $('body').on('click', '.address_update_btn', function(e){
+        e.preventDefault();
+        var $this =  $('.update_address_admin')
+        $.ajax(
+            {
+                type:$this.attr('method'),
+                url:$this.attr('action'),
+                data: $this.serialize(),
+                success:function(data){
+                    alertify.success('Address Updated.');
+                }
+            });
+    });
+
+    $('body').on('submit', '.update_customer_details_form', function(e){
+        e.preventDefault();
+        var $this =  $('.update_customer_details_form')
+        $.ajax(
+            {
+                type:$this.attr('method'),
+                url:$this.attr('action'),
+                data: $this.serialize(),
+                success:function(data){
+                    alertify.success('Information Updated.');
+                }
+            });
+    });
+
 });
 
