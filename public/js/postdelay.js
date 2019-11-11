@@ -373,7 +373,7 @@ $('body').on('change','.commision_change',function () {
         });
 
 
-    $('body').on('click', '.address_update_btn', function(e){
+    $('.address_update_btn').click(function(e){
         e.preventDefault();
         var $this =  $('.update_address_admin')
         $.ajax(
@@ -387,7 +387,7 @@ $('body').on('change','.commision_change',function () {
             });
     });
 
-    $('body').on('submit', '.update_customer_details_form', function(e){
+    $('.update_customer_details_form').submit(function(e){
         e.preventDefault();
         var $this =  $('.update_customer_details_form')
         $.ajax(
