@@ -60,10 +60,13 @@ class AddressController extends Controller
                     ]
                 ]
             ]);
+        if($request->input('source') == 'admin'){
+            return redirect()->back();
+        }else {
             return response()->json([
                 "html" => $returnHTML,
             ]);
-
+        }
     }
 
     public function set_default_address(Request $request)

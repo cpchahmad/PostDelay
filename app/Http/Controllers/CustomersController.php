@@ -258,8 +258,11 @@ class CustomersController extends Controller
                 }
 
 
-                return response()->json(['msg' => 'Updated'], 200);
-
+        if($request->input('source') == 'admin'){
+            return redirect()->back();
+        }else {
+            return response()->json(['msg' => 'Updated'], 200);
+        }
 //            }
 
         }
@@ -400,7 +403,6 @@ class CustomersController extends Controller
         public function delete_account(Request $request){
 
         $customer = Customer::where('shopify_customer_id',$request->input('customer'))->first();
-
             $orders = $this->helper->getShopify()->call([
                 'METHOD' => 'GET',
                 'URL' => '/admin/customers/'.$customer->shopify_customer_id.'/orders.json',

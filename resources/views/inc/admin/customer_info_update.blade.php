@@ -12,6 +12,7 @@
 
                     <form id="update_customer_details_form" action="/customer/update" method="get">
                         <input type="hidden" name="customer_id" value="{{ $customer->shopify_customer_id }}">
+                        <input type="hidden" name="source" value="admin">
                     <input type="hidden" name="shop" value="postdelay.myshopify.com">
                     <div class="form-group">
                         <label for="example-text-input" class="">Country</label>
