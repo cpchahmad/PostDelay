@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Customer;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -16,9 +17,11 @@ class SendAccountDeleteEmail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    protected $customer;
+
+    public function __construct(Customer $customer)
     {
-        //
+        $this->customer = $customer;
     }
 
     /**
@@ -28,6 +31,8 @@ class SendAccountDeleteEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->subject('')->view('delete_email_template')->with([
+            "customer" => $this->customer
+        ]);
     }
 }
