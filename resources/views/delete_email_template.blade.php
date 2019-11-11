@@ -212,11 +212,8 @@
             <p>Hello <b>{{$customer->first_name}}</b>, Please click on button to delete you account completely.</p>
 
         </div>
-        <?php
-        $link = 'https://postdelay.myshopify.com/pages/delete_account?id='.$customer->id;
-        ?>
         <div class="email_btn">
-            <a style="
+            <a href="https://postdelay.shopifyapplications.com/customer/{{ $customer->id }}/delete" style="
     text-align: center;
     display: block;
     background: #0000FF;

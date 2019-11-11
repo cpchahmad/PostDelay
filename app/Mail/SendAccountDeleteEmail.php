@@ -31,7 +31,7 @@ class SendAccountDeleteEmail extends Mailable
      */
     public function build()
     {
-        return $this->subject('')->view('delete_email_template')->with([
+        return $this->subject('Post Delay Account Deletion Confirmation')->view('delete_email_template')->with([
             "customer" => $this->customer
         ]);
     }
