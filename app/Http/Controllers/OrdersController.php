@@ -183,7 +183,7 @@ class OrdersController extends Controller
             'URL' => '/admin/orders.json',
         ]);
         $orders = $orders->orders;
-//        dd($orders);
+
         foreach ($orders as $index => $order){
             $checkout_token =  explode('/',$order->landing_site)[3];
             $draft_order = Order::where('checkout_token',$checkout_token)
@@ -862,5 +862,6 @@ class OrdersController extends Controller
                 $product_id = $product->product->variants[0]->id;
                 echo $product_id;
     }
+
 }
 

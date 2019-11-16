@@ -301,6 +301,14 @@ return [
             [
                 'topic' => 'customers/delete',
                 'address' => 'https://postdelay.shopifyapplications.com/webhook/customer-delete'
+            ],
+            [
+                'topic' => 'orders/create',
+                'address' => 'https://postdelay.shopifyapplications.com/webhook/orders-create'
+            ],
+            [
+                'topic' => 'orders/update',
+                'address' => 'https://postdelay.shopifyapplications.com/webhook/orders-update'
             ]
     ],
 
