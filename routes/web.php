@@ -49,7 +49,6 @@ Route::GET('/update/address', 'AddressController@update_address')->name('update_
 //Route::GET('/webhook/insert', 'WebhookController@webhook')->name('webhook.insert');
 Route::GET('/webhook/get', 'WebhookController@getWebhooks')->name('webhook.getWebhooks');
 
-
 Route::get('/order_update/{id}','AdminController@order_update')->name('order_update');
 Route::get('/single_customer/{id}','AdminController@single_customer')->name('single_customer');
 
