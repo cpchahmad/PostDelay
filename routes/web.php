@@ -47,7 +47,7 @@ Route::GET('/update/address', 'AddressController@update_address')->name('update_
 ////Route::POST('/webhook/delete/order', 'WebhookController@webhook_order_delete')->name('webhook.order.delete');
 //
 //Route::GET('/webhook/insert', 'WebhookController@webhook')->name('webhook.insert');
-//Route::GET('/webhook/get', 'WebhookController@getWebhooks')->name('webhook.getWebhooks');
+Route::GET('/webhook/get', 'WebhookController@getWebhooks')->name('webhook.getWebhooks');
 
 
 Route::get('/order_update/{id}','AdminController@order_update')->name('order_update');
