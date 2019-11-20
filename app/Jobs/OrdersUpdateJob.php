@@ -1,5 +1,6 @@
 <?php namespace App\Jobs;
 
+use App\Http\Controllers\WebhookController;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -45,6 +46,8 @@ class OrdersUpdateJob implements ShouldQueue
      */
     public function handle()
     {
-        // Do what you wish with the data
+        $order_controller = new WebhookController();
+        $order_controller->webhook_order_create($this->data, $this->shopDomain);
+        return response()->json(['OK' => 'OK'], 200);
     }
 }
