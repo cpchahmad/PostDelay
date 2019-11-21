@@ -222,7 +222,6 @@ class CustomersController extends Controller
 //        } else {
             $shop = Shop::where('shopify_domain', $request->input('shop'))->value('id');
 
-            if ($shop != null) {
 //                $updated_customer = $this->helper->getShopify()->call([
 //                    'METHOD' => 'PUT',
 //                    'URL' => '/admin/customers/' . $request->input('customer_id') . '.json',
@@ -257,7 +256,7 @@ class CustomersController extends Controller
                         'shop_id' => $shop,
                         'shopify_customer_id' => $request->input('customer_id'),
                     ]);
-                }
+
 
 
         if($request->input('source') == 'admin'){
