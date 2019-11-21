@@ -240,6 +240,7 @@ class CustomersController extends Controller
 //                ]);
 
 
+                dd($request);
                     Customer::where('shopify_customer_id', $request->input('customer_id'))->update([
                         'first_name' => $request->input("first_name"),
                         'last_name' => $request->input("last_name"),
