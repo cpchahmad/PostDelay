@@ -53,7 +53,7 @@ class AddressController extends Controller
                         "company" => $request->input('business'),
                         "first_name" => $request->input('first_name'),
                         "last_name" => $request->input('last_name'),
-                        "province" => $request->input('state'),
+                        "province" => $request->input('province'),
                         "country" => $request->input('country'),
                         "phone" => $request->input('phone'),
                         "zip" => $request->input('postcode'),
