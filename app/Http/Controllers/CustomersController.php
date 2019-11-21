@@ -239,7 +239,7 @@ class CustomersController extends Controller
 //                    ]
 //                ]);
 
-
+        dd($this->helper->getShop());
                     Customer::where('shopify_customer_id', $request->input('customer_id'))->update([
                         'first_name' => $request->input("first_name"),
                         'last_name' => $request->input("last_name"),
@@ -255,8 +255,6 @@ class CustomersController extends Controller
                         'shop_id' => $this->helper->getShop()->id,
                         'shopify_customer_id' => $request->input('customer_id'),
                     ]);
-
-
 
         if($request->input('source') == 'admin'){
             return redirect()->back();
