@@ -3,25 +3,28 @@
 namespace App\Http\Controllers;
 use App;
 use Oseintow\Shopify\Facades\Shopify;
+use OhMyBrew\ShopifyApp\Facades\ShopifyApp;
+
 
 class HelperController extends Controller
 {
 
     public $shopify;
+    public $shop;
 
-    public function getShop($shop){
-            $shop = App\Shop::Where('shop_name', $shop)->first();
-            return $this->getShopify($shop->shop_name, $shop->access_token);
-   }
+    public function getShop(){
+        $shop = App\Shop::Where('shopify_domain', 'postdelay.myshopify.com')->first();
+        return $this->shop;
+    }
 
-    public function getShopify($shop_name,$access_token){
+    public function getShopify(){
+        $shop = App\Shop::Where('shopify_domain', 'postdelay.myshopify.com')->first();
         $this->shopify = App::make('ShopifyAPI', [
             'API_KEY' => env('SHOPIFY_APIKEY'),
             'API_SECRET' => env('SHOPIFY_SECRET'),
-            'SHOP_DOMAIN' => $shop_name,
-            'ACCESS_TOKEN' => $access_token
+            'SHOP_DOMAIN' => $shop->shopify_domain,
+            'ACCESS_TOKEN' => $shop->shopify_token
         ]);
         return $this->shopify;
     }
-
 }

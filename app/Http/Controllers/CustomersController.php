@@ -6,6 +6,7 @@ use App\Address;
 use App\BillingAddress;
 use App\Country;
 use App\Customer;
+use App\Mail\SendAccountDeleteEmail;
 use App\Order;
 use App\OrderStatusHistory;
 use App\PackageDetail;
@@ -15,6 +16,7 @@ use App\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Oseintow\Shopify\Facades\Shopify;
 
@@ -29,9 +31,10 @@ class CustomersController extends Controller
 
     public function customer_create(Request $request)
     {
-            $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
+            $shop = Shop::where('shopify_domain', $request->input('shop'))->value('id');
             $customer = Customer::where('email', $request->input('email'))->first();
             $response = '';
+
             if ($customer) {
                     if($customer->status == 'invited'){
                       $response = [
@@ -53,14 +56,25 @@ class CustomersController extends Controller
                             'status' => 'disabled',
                             'msg' => 'Customer Account Disabled, Please contact customer support to enable the account.'
                         ];
-                    }else{
+                    }elseif ($customer->status == 'deleting'){
+                        $response = [
+                            'status' => 'deleting',
+                            'msg' => 'The Account associated with this email is in Deleting Process, Please contact customer support to enable the account.'
+                        ];
+                    } else{
                         $response = [
                             'status' => 'error',
                             'msg' => 'Customer Already Invited, Please check your email address to verify or <a id="send_activation_link" data-shop="postdelay.myshopify.com" data-customer-id="'.$customer->shopify_customer_id.'">Click here</a> to resend the Invitation again.'
                         ];
                     }
                 }else {
-                    $customer = $this->helper->getShop($request->input('shop'))->call([
+
+                if($request->input('receve-mail')){
+                    $subscription = true;
+                }else{
+                    $subscription = false;
+                }
+                    $customer = $this->helper->getShopify()->call([
                         'METHOD' => 'POST',
                         'URL' => '/admin/customers.json',
                         'DATA' => [
@@ -68,6 +82,7 @@ class CustomersController extends Controller
                                 "first_name" => $request->input("first_name"),
                                 "last_name" => $request->input("last_name"),
                                 "email" => $request->input("email"),
+                                "accepts_marketing" => $subscription,
                                 "send_email_welcome" => false,
                                 "verified_email" => false,
                                 "send_email_invite" => true,
@@ -89,6 +104,7 @@ class CustomersController extends Controller
                             'state' => $request->input('province'),
                             'country' => $request->input('country'),
                             'postcode' => $request->input('postecode'),
+                            'accept_marketing' => $subscription,
                             'shop_id' => $shop,
                             'status' => 'invited',
                             'shopify_customer_id' => $customer->customer->id,
@@ -105,7 +121,7 @@ class CustomersController extends Controller
     public function sendactivationlink(Request $request)
     {
 
-        $invite_send = $this->helper->getShop($request->input('shop'))->call([
+        $invite_send = $this->helper->getShopify()->call([
             'METHOD' => 'post',
             'URL' => 'admin/customers/' . $request->input('customer_id') . '/send_invite.json',
         ]);
@@ -123,11 +139,11 @@ class CustomersController extends Controller
 
     public function add_customer_addresses(Request $request)
     {
-        $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
+        $shop = Shop::where('shopify_domain', $request->input('shop'))->value('id');
         $customer = Customer::where('shopify_customer_id', $request->input('customer_id'))->first();
         if ($shop != null && $customer != null) {
 
-            $address = $this->helper->getShop($request->input('shop'))->call([
+            $address = $this->helper->getShopify()->call([
                 'METHOD' => 'POST',
                 'URL' => '/admin/customers/' . $customer->shopify_customer_id . '/addresses.json',
                 'DATA' => [
@@ -176,7 +192,7 @@ class CustomersController extends Controller
 
     public function get_customer_details(Request $request)
     {
-        $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
+        $shop = Shop::where('shopify_domain', $request->input('shop'))->value('id');
         $customer = Customer::where('shopify_customer_id', $request->input('customer_id'))
             ->where('shop_id', $shop)->first();
         $customer_addresses = Address::where('shopify_customer_id', $request->input('customer_id'))
@@ -203,10 +219,10 @@ class CustomersController extends Controller
 //        if ($validate_data->fails()) {
 //            return response()->json($validate_data->messages(), 200);
 //        } else {
-            $shop = Shop::where('shop_name', $request->input('shop'))->value('id');
+            $shop = Shop::where('shopify_domain', $request->input('shop'))->value('id');
 
             if ($shop != null) {
-//                $updated_customer = $this->helper->getShop($request->input('shop'))->call([
+//                $updated_customer = $this->helper->getShopify()->call([
 //                    'METHOD' => 'PUT',
 //                    'URL' => '/admin/customers/' . $request->input('customer_id') . '.json',
 //                    'DATA' => [
@@ -224,6 +240,7 @@ class CustomersController extends Controller
 //                ]);
 
 
+                dd($request);
                     Customer::where('shopify_customer_id', $request->input('customer_id'))->update([
                         'first_name' => $request->input("first_name"),
                         'last_name' => $request->input("last_name"),
@@ -242,8 +259,11 @@ class CustomersController extends Controller
                 }
 
 
-                return response()->json(['msg' => 'Updated'], 200);
-
+        if($request->input('source') == 'admin'){
+            return redirect()->back();
+        }else {
+            return response()->json(['msg' => 'Updated'], 200);
+        }
 //            }
 
         }
@@ -252,20 +272,20 @@ class CustomersController extends Controller
     {
         $customers = Customer::all();
 
-           $orders =  $this->helper->getShop('postdelay.myshopify.com')->call([
+           $orders =  $this->helper->getShopify()->call([
                 'METHOD' => 'GET',
                 'URL' => 'admin/orders.json',
                 ]);
            if(count($orders->orders) > 0){
                foreach ($orders->orders as $order){
-                   $this->helper->getShop('postdelay.myshopify.com')->call([
+                   $this->helper->getShopify()->call([
                        'METHOD' => 'DELETE',
                        'URL' => 'admin/orders/' .$order->id. '.json',
                    ]);
                }
            }
 
-           $shopify_customer =  $this->helper->getShop('postdelay.myshopify.com')->call([
+           $shopify_customer =  $this->helper->getShopify()->call([
                 'METHOD' => 'GET',
                 'URL' => 'admin/customers.json',
             ]);
@@ -273,7 +293,7 @@ class CustomersController extends Controller
 //           dd($shopify_customer);
         if(count($shopify_customer->customers) > 0) {
             foreach ($shopify_customer->customers as $customer) {
-                $this->helper->getShop('postdelay.myshopify.com')->call([
+                $this->helper->getShopify()->call([
                     'METHOD' => 'DELETE',
                     'URL' => 'admin/customers/' . $customer->id . '.json',
                 ]);
@@ -293,7 +313,7 @@ class CustomersController extends Controller
 
     public function draft_orders()
     {
-        $draft_orders = $this->helper->getShop('postdelay.myshopify.com')->call([
+        $draft_orders = $this->helper->getShopify()->call([
             'METHOD' => 'POST',
             'URL' => '/admin/draft_orders.json',
             'DATA' =>
@@ -346,7 +366,7 @@ class CustomersController extends Controller
 
 
 
-//        $complete = $this->helper->getShop('postdelay.myshopify.com')->call([
+//        $complete = $this->helper->getShopify()->call([
 //            'METHOD' => 'PUT',
 //            'URL' =>'/admin/api/2019-10/draft_orders/'.$draft_orders->draft_order->id.'/complete.json',
 //    ]);
@@ -354,7 +374,7 @@ class CustomersController extends Controller
         dd($draft_orders);
 
 
-//        $rates = $this->helper->getShop('postdelay.myshopify.com')->call([
+//        $rates = $this->helper->getShopify()->call([
 //            'METHOD' => 'GET',
 //            'URL' => '/admin/api/2019-10/checkouts/'.'ede863e74844686f2de19f59e0052378'.'/shipping_rates.json',
 //        ]);
@@ -363,12 +383,12 @@ class CustomersController extends Controller
     }
 
     public function get_customers(){
-        $customers = $this->helper->getShop('postdelay.myshopify.com')->call([
+        $customers = $this->helper->getShopify()->call([
             'METHOD' => 'GET',
             'URL' => '/admin/customers.json',
         ]);
         $customers = $customers->customers;
-        $shop = Shop::where('shop_name','postdelay.myshopify.com')->value('id');
+        $shop = Shop::where('shopify_domain','postdelay.myshopify.com')->value('id');
         foreach ($customers as $index => $customer){
             Customer::UpdateorCreate([
                 'shopify_customer_id' => $customer->id
@@ -384,8 +404,7 @@ class CustomersController extends Controller
         public function delete_account(Request $request){
 
         $customer = Customer::where('shopify_customer_id',$request->input('customer'))->first();
-
-            $orders = $this->helper->getShop('postdelay.myshopify.com')->call([
+            $orders = $this->helper->getShopify()->call([
                 'METHOD' => 'GET',
                 'URL' => '/admin/customers/'.$customer->shopify_customer_id.'/orders.json',
             ]);
@@ -393,13 +412,13 @@ class CustomersController extends Controller
             $orders = $orders->orders;
 
             foreach ($orders as $order){
-                $this->helper->getShop('postdelay.myshopify.com')->call([
+                $this->helper->getShopify()->call([
                     'METHOD' => 'DELETE',
                     'URL' => 'admin/orders/' .$order->id. '.json',
                 ]);
             }
 
-            $this->helper->getShop('postdelay.myshopify.com')->call([
+            $this->helper->getShopify()->call([
                 'METHOD' => 'DELETE',
                 'URL' => 'admin/customers/' . $customer->shopify_customer_id . '.json',
             ]);
@@ -413,25 +432,37 @@ class CustomersController extends Controller
             }
         }
 
+        public function delete_account_confirmation(Request $request){
+            $customer = Customer::where('shopify_customer_id',$request->input('customer'))->first();
+            $customer->status = 'deleting';
+            $customer->save();
+
+            Mail::to($customer->email)->send(new SendAccountDeleteEmail($customer));
+
+        }
+
+        public function delete_account_from_email($id){
+
+        }
 
 
         public function ResetAll(){
-            $customers = $this->helper->getShop('postdelay.myshopify.com')->call([
+            $customers = $this->helper->getShopify()->call([
                 'METHOD' => 'GET',
                 'URL' => '/admin/customers.json'
             ]);
             foreach ($customers->customers as $customer){
-                $orders = $this->helper->getShop('postdelay.myshopify.com')->call([
+                $orders = $this->helper->getShopify()->call([
                     'METHOD' => 'GET',
                     'URL' => '/admin/customers/'.$customer->id.'/orders.json',
                 ]);
                 foreach ($orders->orders as $order){
-                    $this->helper->getShop('postdelay.myshopify.com')->call([
+                    $this->helper->getShopify()->call([
                         'METHOD' => 'DELETE',
                         'URL' => 'admin/orders/' .$order->id. '.json',
                     ]);
                 }
-                $this->helper->getShop('postdelay.myshopify.com')->call([
+                $this->helper->getShopify()->call([
                     'METHOD' => 'DELETE',
                     'URL' => 'admin/customers/' . $customer->id . '.json',
                 ]);
@@ -442,7 +473,7 @@ class CustomersController extends Controller
         }
         public function getCustomer($id){
 
-            $customer = $this->helper->getShop(env('WEB_URL'))->call([
+            $customer = $this->helper->getShopify()->call([
                 'METHOD' => 'GET',
                 'URL' => '/admin/customers/'.$id.'.json',
             ]);
@@ -451,8 +482,9 @@ class CustomersController extends Controller
         }
 
     public function getWebhooks(){
-//        $APP_URL = 'https://postdelay.shopifyapplications.com';
-//        $this->helper->getShop(env('WEB_URL'))->call([
+        $APP_URL = 'https://postdelay.shopifyapplications.com';
+
+//        $this->helper->getShopify()->call([
 //            'METHOD' => 'POST',
 //            'URL' => 'admin/webhooks.json',
 //            "DATA" => [
@@ -464,7 +496,7 @@ class CustomersController extends Controller
 //            ]
 //        ]);
 //
-//        $this->helper->getShop(env('WEB_URL'))->call([
+//        $this->helper->getShopify(->call([
 //            'METHOD' => 'POST',
 //            'URL' => 'admin/webhooks.json',
 //            "DATA" => [
@@ -476,7 +508,7 @@ class CustomersController extends Controller
 //            ]
 //        ]);
 //
-//        $this->helper->getShop(env('WEB_URL'))->call([
+//        $this->helper->getShopify()->call([
 //            'METHOD' => 'POST',
 //            'URL' => 'admin/webhooks.json',
 //            "DATA" => [
@@ -488,12 +520,23 @@ class CustomersController extends Controller
 //            ]
 //        ]);
 
-        $customer = $this->helper->getShop(env('WEB_URL'))->call([
+//        $customer = $this->helper->getShopify()->call([
+//            'METHOD' => 'GET',
+//            'URL' => '/admin/webhooks.json',
+//        ]);
+//
+//        foreach ($customer->webhooks as $webhook){
+//            $customer = $this->helper->getShopify()->call([
+//                'METHOD' => 'DELETE',
+//                'URL' => '/admin/webhooks/'.$webhook->id.'.json',
+//            ]);
+//        }
+//
+        $customer = $this->helper->getShopify()->call([
             'METHOD' => 'GET',
             'URL' => '/admin/webhooks.json',
         ]);
         dd($customer);
-
     }
 
 }

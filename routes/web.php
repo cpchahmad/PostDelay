@@ -1,36 +1,8 @@
 <?php
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
-use Oseintow\Shopify\Facades\Shopify;
+Route::get('/', 'ShopsController@Dashboard')->name('home')->middleware('auth.shop');
 
-Route::get("install", function () {
-//    if ($_GET["shop"]) {
-//        $shopUrl = $_GET["shop"];
-//        $scope = ["read_orders", "read_products", "read_product_listings", "write_orders",
-//            "read_customers", "write_customers","read_script_tags", "write_script_tags","read_draft_orders",'write_draft_orders',
-//            "read_shipping","write_shipping"];
-//        $redirectUrl = env('APP_URL')."/auth";
-//        $shopify = Shopify::setShopUrl($shopUrl);
-//        return redirect()->to($shopify->getAuthorizeUrl($scope, $redirectUrl));
-//    } else {
-//        return 'Please enter shop url';
-        $shopUrl = "https://postdelay.myshopify.com/";
-        $scope = ["read_orders", "read_products", "read_product_listings", "write_orders",
-            "read_customers", "write_customers","read_script_tags", "write_script_tags","read_draft_orders",'write_draft_orders',
-            "read_shipping","write_shipping",'read_checkouts','write_checkouts',"write_products"
-            ];
-        $redirectUrl = env('APP_URL')."/auth";
-//        dd($redirectUrl);
-
-        $shopify = Shopify::setShopUrl($shopUrl);
-        return redirect()->to($shopify->getAuthorizeUrl($scope,$redirectUrl));
-
-});
-
-Route::get("auth", "ShopsController@index");
 Route::prefix('admin')->group(function () {
     Route::get('orders', 'OrdersController@index')->name('shop.orders');
     Route::get('customers', 'CustomersController@index')->name('shop.customers');
@@ -66,17 +38,16 @@ Route::GET('/get/addresses', 'AddressController@get_address')->name('get_address
 Route::GET('/get/addresses/type', 'AddressController@get_address_form')->name('get_address_form');
 Route::GET('/update/address', 'AddressController@update_address')->name('update_address');
 
-Route::POST('/webhook/create/customer', 'WebhookController@webhook_customer_create')->name('webhook.customer.create');
-Route::POST('/webhook/update/customer', 'WebhookController@webhook_customer_update')->name('webhook.customer.update');
-Route::POST('/webhook/delete/customer', 'WebhookController@webhook_customer_delete')->name('webhook.customer.delete');
-
-Route::POST('/webhook/create/order', 'WebhookController@webhook_order_create')->name('webhook.order.create');
-//Route::POST('/webhook/update/order', 'WebhookController@webhook_order_update')->name('webhook.order.update');
-//Route::POST('/webhook/delete/order', 'WebhookController@webhook_order_delete')->name('webhook.order.delete');
-
-Route::GET('/webhook/insert', 'WebhookController@webhook')->name('webhook.insert');
+//Route::POST('/webhook/create/customer', 'WebhookController@webhook_customer_create')->name('webhook.customer.create');
+//Route::POST('/webhook/update/customer', 'WebhookController@webhook_customer_update')->name('webhook.customer.update');
+//Route::POST('/webhook/delete/customer', 'WebhookController@webhook_customer_delete')->name('webhook.customer.delete');
+//
+//Route::POST('/webhook/create/order', 'WebhookController@webhook_order_create')->name('webhook.order.create');
+////Route::POST('/webhook/update/order', 'WebhookController@webhook_order_update')->name('webhook.order.update');
+////Route::POST('/webhook/delete/order', 'WebhookController@webhook_order_delete')->name('webhook.order.delete');
+//
+//Route::GET('/webhook/insert', 'WebhookController@webhook')->name('webhook.insert');
 Route::GET('/webhook/get', 'WebhookController@getWebhooks')->name('webhook.getWebhooks');
-
 
 Route::get('/order_update/{id}','AdminController@order_update')->name('order_update');
 Route::get('/single_customer/{id}','AdminController@single_customer')->name('single_customer');
@@ -137,7 +108,9 @@ Route::GET('/update/order/billing-details', 'OrdersController@order_update_billi
 Route::GET('/checkout', 'OrdersController@get_checkout')->name('get_checkout');
 
 Route::GET('/cancel/order', 'OrdersController@cancel_order')->name('cancel_order');
+Route::GET('/delete/account/confirmation', 'CustomersController@delete_account_confirmation')->name('delete_account');
 Route::GET('/delete/account', 'CustomersController@delete_account')->name('delete_account');
+Route::GET('customer/{id}/delete', 'CustomersController@delete_account_from_email')->name('delete_account.from.email');
 Route::GET('/delete/order', 'OrdersController@delete_order')->name('delete_order');
 
 Route::GET('/reset_all', 'CustomersController@ResetAll')->name('reset');

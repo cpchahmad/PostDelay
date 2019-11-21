@@ -21,14 +21,14 @@ class ShopsController extends Controller
 
         $shopUrl = $request->input('shop');
         $accessToken = Shopify::setShopUrl($shopUrl)->getAccessToken($request->code);
-        if (Shop::where('shop_name', '=', $shopUrl)->exists()) {
-            $shop = Shop::where('shop_name', $shopUrl)
+        if (Shop::where('shopify_domain', '=', $shopUrl)->exists()) {
+            $shop = Shop::where('shopify_domain', $shopUrl)
                 ->update([
                     'access_token'=>$accessToken
                 ]);
         }else{
             $shop = Shop::create([
-                'shop_name'=> $shopUrl,
+                'shopify_domain'=> $shopUrl,
                 'access_token'=>$accessToken
             ]);
         }

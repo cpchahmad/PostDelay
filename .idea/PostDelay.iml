@@ -36,6 +36,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/nesbot/carbon" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nikic/php-parser" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nunomaduro/collision" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/ohmybrew/basic-shopify-api" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/ohmybrew/laravel-shopify" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/opis/closure" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/oseintow/laravel-shopify" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/paragonie/random_compat" />
