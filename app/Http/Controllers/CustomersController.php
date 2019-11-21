@@ -211,7 +211,7 @@ class CustomersController extends Controller
 
     public function update_customer_details(Request $request)
     {
-        dd($request);
+
         $customer = Customer::where('shopify_customer_id', $request->input('customer_id'))->first();
 //        $validate_data = Validator::make($request->toArray(), [
 //            'email' => ['required', 'string', 'email', 'max:255', 'unique:customers,email,' . $customer->id],
@@ -220,7 +220,7 @@ class CustomersController extends Controller
 //        if ($validate_data->fails()) {
 //            return response()->json($validate_data->messages(), 200);
 //        } else {
-            $shop = Shop::where('shopify_domain', $request->input('shop'))->value('id');
+//            $shop = Shop::where('shopify_domain', $request->input('shop'))->value('id');
 
 //                $updated_customer = $this->helper->getShopify()->call([
 //                    'METHOD' => 'PUT',
@@ -240,7 +240,6 @@ class CustomersController extends Controller
 //                ]);
 
 
-                dd($request);
                     Customer::where('shopify_customer_id', $request->input('customer_id'))->update([
                         'first_name' => $request->input("first_name"),
                         'last_name' => $request->input("last_name"),
@@ -253,7 +252,7 @@ class CustomersController extends Controller
                         'state' => $request->input('province'),
                         'country' => $request->input('country'),
                         'postcode' => $request->input('postecode'),
-                        'shop_id' => $shop,
+                        'shop_id' => $this->helper->getShop()->id,
                         'shopify_customer_id' => $request->input('customer_id'),
                     ]);
 
