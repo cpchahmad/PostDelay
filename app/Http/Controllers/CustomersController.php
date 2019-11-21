@@ -211,6 +211,7 @@ class CustomersController extends Controller
 
     public function update_customer_details(Request $request)
     {
+        dd($request);
         $customer = Customer::where('shopify_customer_id', $request->input('customer_id'))->first();
 //        $validate_data = Validator::make($request->toArray(), [
 //            'email' => ['required', 'string', 'email', 'max:255', 'unique:customers,email,' . $customer->id],
