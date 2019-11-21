@@ -14,7 +14,7 @@ class HelperController extends Controller
 
     public function getShop(){
         $shop = App\Shop::Where('shopify_domain', 'postdelay.myshopify.com')->first();
-        return $this->shop;
+        return $shop;
     }
 
     public function getShopify(){
