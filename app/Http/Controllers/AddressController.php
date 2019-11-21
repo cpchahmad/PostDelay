@@ -63,7 +63,6 @@ class AddressController extends Controller
             'first_name' => $request->input("first_name"),
             'last_name' => $request->input("last_name"),
             'email' => $request->input("email"),
-            'address_type' => $request->input('address_type'),
             'business' => $request->input("business"),
             'phone' => $request->input('phone'),
             'address1' => $request->input('address1'),
