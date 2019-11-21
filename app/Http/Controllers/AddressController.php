@@ -39,8 +39,6 @@ class AddressController extends Controller
     {
         Address::find($request->input('address_id'))->update($request->all());
         $address = Address::find($request->input('address_id'));
-        $returnHTML = view('customers.addresses', ['address' => $address])->render();
-
         $this->helper->getShopify()->call([
                 'METHOD' => 'PUT',
                 'URL' => 'admin/customers/' . $address->shopify_customer_id . '/addresses/'.$address->shopify_address_id.'.json',
@@ -60,6 +58,25 @@ class AddressController extends Controller
                     ]
                 ]
             ]);
+
+        $address_update = $address->update([
+            'first_name' => $request->input("first_name"),
+            'last_name' => $request->input("last_name"),
+            'email' => $request->input("email"),
+            'address_type' => $request->input('address_type'),
+            'business' => $request->input("business"),
+            'phone' => $request->input('phone'),
+            'address1' => $request->input('address1'),
+            'address2' => $request->input('address2'),
+            'city' => $request->input('city'),
+            'state' => $request->input('province'),
+            'country' => $request->input('country'),
+            'postcode' => $request->input('postecode')
+        ]);
+
+        $returnHTML = view('customers.addresses', ['address' => $address_update])->render();
+
+
         if($request->input('source') == 'admin'){
             return redirect()->back();
         }else {
