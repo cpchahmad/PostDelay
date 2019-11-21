@@ -46,7 +46,7 @@
 
     <div id="province_div" class="custom_fields_third ">
         <div class="custom_Request_fields_half adj">
-            <label for="AddressProvinceNew">State</label>
+            <label for="AddressProvinceNew">Province or State</label>
             <input type="text"  name="state" id="State" value="{{$address->state}}" placeholder="">
         </div>
     </div>

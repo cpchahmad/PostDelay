@@ -63,7 +63,7 @@
         </div>
         <div id="province_div" class="custom_fields_half associate full_width_iput">
             <div class="custom_Request_fields_half adj">
-                <label for="AddressProvinceNew">State</label>
+                <label for="AddressProvinceNew">Province or State</label>
                 <select class="AddressProvinceNew2" name="province" autocomplete="address-level1">
                     @include('customers.inc.usa_states')
                 </select>
