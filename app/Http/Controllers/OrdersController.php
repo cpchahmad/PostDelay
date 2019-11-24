@@ -315,7 +315,6 @@ class OrdersController extends Controller
     }
 
     public function getData(Request $request){
-
         if($request->input('customer_url') != null){
             $token = explode('/',$request->input('customer_url'))[5];
             $order = Order::where('token',$token)->first();
@@ -330,13 +329,13 @@ class OrdersController extends Controller
                 $shipment_to_postdelay = view('customers.inc.shipment_to_postdelay', ['order' => $order])->render();
                 return response()->json([
                     "sender_form_html" => $sender_form,
-                    "order_status" => $order_status,
+                    "order_status" =>     $order_status,
                     "shipment_details" => $shipment_details,
-                    "billing_email" => $billing_email,
-                    "recepient_email" => $recepient_email,
-                    "additional_fee" => $additional_fee,
-                    "keydate" => $keydate,
-                    "shipment_to_postdelay" =>$shipment_to_postdelay,
+                    "billing_email" =>    $billing_email,
+                    "recepient_email" =>  $recepient_email,
+                    "additional_fee" =>   $additional_fee,
+                    "keydate" =>               $keydate,
+                    "shipment_to_postdelay" => $shipment_to_postdelay,
                 ]);
             }
         }
@@ -367,7 +366,7 @@ class OrdersController extends Controller
 
     public function place_additional_payments(Request $request){
 
-        $shop = Shop::where('shopify_domain',$request->input('shop'))->first();
+//        $shop = Shop::where('shopify_domain',$request->input('shop'))->first();
         if($request->input('type') == 'additional-fee'){
             $default =  PostDelayFee::where('default',1)->where('type','additional')->first();
             $draft_orders = $this->helper->getShopify()->call([
@@ -393,14 +392,12 @@ class OrdersController extends Controller
                                 "company" =>  $request->input('business'),
                                 "first_name" =>  $request->input('first_name'),
                                 "last_name" =>  $request->input('blast_name'),
-                                "province" =>  $request->input('state'),
+                                "province" =>  $request->input('province'),
                                 "country" =>  $request->input('country'),
                                 "zip" =>  $request->input('postecode'),
                                 "name" =>  $request->input('first_name').' '.$request->input('last_name'),
                             ]
-
                         ]
-
                     ]
             ]);
         }

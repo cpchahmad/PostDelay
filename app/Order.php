@@ -36,7 +36,7 @@ class Order extends Model
         return $this->belongsTo('App\Customer','customer_id');
     }
     public function has_additional_payments(){
-        return $this->hasMany('App\Order','order_id');
+        return $this->hasMany('App\Order','order_id')->where('checkout_completed', 1);
     }
 
     public function has_order(){

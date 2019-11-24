@@ -5,7 +5,7 @@
     <div class="Form-wraper">
         <div class="Form-contaner">
             <div class="Form-content-header">
-                <h1 class="Form-content-header-Head">Address Details  <a href="/account/addresses?view=new" style="margin-left:10px;padding:10px 10px" class="Same-button" >Add New Address</a> </h1>
+                <h1 class="Form-content-header-Head">Address Details  <a href="/account/addresses?view=new" style="margin-left:10px;" class="Same-button" >Add New Address</a> </h1>
             </div>
             <div class="Form-field-contaner">
                 <div class="Form-content-name">
@@ -25,7 +25,7 @@
                     <div class="custom_fields_half associate">
                         <div class="custom_Request_fields_half">
                             <label for="AddressCountryNew">Country</label>
-                            <select required class="AddressCountryNew" name="sender_country" @if($sender_address != null) data-country-select="{{ $sender_address->country }}"  data-province-select="{{$sender_address->state}}" @else data-country-select="United States" @endif >
+                            <select required class="AddressCountryNew2" name="sender_country" @if($sender_address != null) data-country-select="{{ $sender_address->country }}"  data-province-select="{{$sender_address->state}}" @else data-country-select="United States" @endif >
                                 @include('customers.inc.countries')
                             </select>
                         </div>
@@ -120,7 +120,7 @@
                     <div class="custom_fields_half associate">
                         <div class="custom_Request_fields_half">
                             <label for="AddressCountryNew">Country</label>
-                            <select required class="AddressCountryNew" name="billing_country" @if($billing_address != null) data-country-select="{{ $billing_address->country }}"  data-province-select="{{$billing_address->state}}" @else data-country-select="United States" @endif >
+                            <select required class="AddressCountryNew2" name="billing_country" @if($billing_address != null) data-country-select="{{ $billing_address->country }}"  data-province-select="{{$billing_address->state}}" @else data-country-select="United States" @endif >
                                 @include('customers.inc.countries')
                             </select>
                         </div>
@@ -165,7 +165,7 @@
                         </div>
                         <div id="province_div" class="custom_fields_half full_width_iput">
                             <div class="custom_Request_fields_half adj">
-                                <label for="AddressProvinceNew">State/Province/Region</label>
+                                <label for="AddressProvinceNew">Province or State</label>
                                 <select class="AddressProvinceNew2" name="billing_state" autocomplete="address-level1">
                                     @include('customers.inc.usa_states')
                                 </select>
@@ -297,7 +297,7 @@
                     <div class="custom_fields_half associate">
                         <div class="custom_Request_fields_half">
                             <label for="AddressCountryNew">Country</label>
-                            <select required class="AddressCountryNew" name="receipent_country" @if($recipient_address != null) data-country-select="{{ $recipient_address->country }}"  data-province-select="{{$recipient_address->state}}" @else data-country-select="United States" @endif >
+                            <select required class="AddressCountryNew2" name="receipent_country" @if($recipient_address != null) data-country-select="{{ $recipient_address->country }}"  data-province-select="{{$recipient_address->state}}" @else data-country-select="United States" @endif >
                                 @include('customers.inc.countries')
                             </select>
                         </div>
@@ -342,7 +342,7 @@
                         </div>
                         <div id="province_div" class="custom_fields_half full_width_iput">
                             <div class="custom_Request_fields_half adj">
-                                <label for="AddressProvinceNew">State/Province/Region</label>
+                                <label for="AddressProvinceNew">Province or State</label>
                                 <select class="AddressProvinceNew2" name="receipent_state" autocomplete="address-level1">
                                 @include('customers.inc.usa_states')
                                 </select>
@@ -472,6 +472,7 @@
                 </div>
 
             </div>
+
             <div class="Form-field-contaner" style="display: none">
                 <div class="Form-content-detail">
                     <div class="three-field-Row" >

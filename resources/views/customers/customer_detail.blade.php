@@ -34,8 +34,7 @@
                 <div class="custom_Request_fields_half">
                     <label for="Address1">Street Adress</label>
                     <input type="text" required="" name="address1" id="Address1" value="{{ $customer->address1 }}" placeholder="Street and number, P.O.box C/O">
-                    <input style="margin-top: 25px;
-    margin-bottom: 45px;" type="text" name="address2" id="Address2" value="{{ $customer->address2 }}" placeholder="Apartment, suite, building etc.">
+                    <input type="text" name="address2" id="Address2" value="{{ $customer->address2 }}" placeholder="Apartment, suite, building etc.">
                 </div>
             </div>
 
@@ -97,7 +96,7 @@
                     <p class="" >Please send me emails regarding PostDelay promotions</p>
                 </div>
                 <div class="receve-mail-box promotions-mail">
-                    <input class="" checked type="checkbox" name="receve-mail" value="receve-mail"><br>
+                    <input @if($customer->accept_marketing) checked @endif type="checkbox" name="receve-mail" value="receve-mail"><br>
                 </div>
             </div>
             <div class="tow-field-Row">

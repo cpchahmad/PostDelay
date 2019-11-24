@@ -27,7 +27,6 @@ class AddressController extends Controller
 
     public function get_address_form(Request $request)
     {
-
         $address = Address::find($request->input('address'));
         $returnHTML = view('customers.addresses', ['address' => $address])->render();
         return response()->json([
