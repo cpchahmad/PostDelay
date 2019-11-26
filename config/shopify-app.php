@@ -81,7 +81,7 @@ return [
     |
     */
 
-    'appbridge_enabled' => (bool) env('SHOPIFY_APPBRIDGE_ENABLED', true),
+    ' en' => (bool) env('SHOPIFY_APPBRIDGE_ENABLED', true),
 
     // Use semver range to link to a major or minor version number.
     // Leaving empty will use the latest verison - not recommended in production.
@@ -166,7 +166,7 @@ return [
     |
     */
 
-    'api_redirect' => env('SHOPIFY_API_REDIRECT', '/authenticate'),
+    'api_redirect' => env('SHOPIFY_API_REDIRECT', 'http://127.0.0.1:8000/authenticate'),
 
     /*
     |--------------------------------------------------------------------------
@@ -311,6 +311,37 @@ return [
                 'address' => 'https://postdelay.shopifyapplications.com/webhook/orders-update'
             ]
     ],
+
+//    'webhooks' => [
+//        [
+//            'topic' => 'customers/create',
+//            'address' => 'https://fd53f2f1.ngrok.io/webhook/customers-create'
+//        ],
+//        [
+//            'topic' => 'customers/disable',
+//            'address' => 'https://fd53f2f1.ngrok.io/webhook/customer-disable'
+//        ],
+//        [
+//            'topic' => 'customers/enable',
+//            'address' => 'https://fd53f2f1.ngrok.io/webhook/customer-enable'
+//        ],
+//        [
+//            'topic' => 'customers/update',
+//            'address' => 'https://fd53f2f1.ngrok.io/webhook/customer-update'
+//        ],
+//        [
+//            'topic' => 'customers/delete',
+//            'address' => 'https://fd53f2f1.ngrok.io/webhook/customer-delete'
+//        ],
+//        [
+//            'topic' => 'orders/create',
+//            'address' => 'https://fd53f2f1.ngrok.io/webhook/orders-create'
+//        ],
+//        [
+//            'topic' => 'orders/update',
+//            'address' => 'https://fd53f2f1.ngrok.io/webhook/orders-update'
+//        ]
+//    ],
 
     /*
     |--------------------------------------------------------------------------

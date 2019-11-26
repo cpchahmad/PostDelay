@@ -7,7 +7,9 @@ use App\BillingAddress;
 use App\Customer;
 use App\KeyDate;
 use App\Mail\NotificationEmail;
+use App\Mail\RequestFormEmail;
 use App\Order;
+use App\OrderResponse;
 use App\OrderStatusHistory;
 use App\PackageDetail;
 use App\PostDelayFee;
@@ -23,6 +25,7 @@ use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
 
 class OrdersController extends Controller
 {
@@ -185,6 +188,7 @@ class OrdersController extends Controller
         $orders = $orders->orders;
 
         foreach ($orders as $index => $order){
+
             $checkout_token =  explode('/',$order->landing_site)[3];
             $draft_order = Order::where('checkout_token',$checkout_token)
                 ->where('checkout_completed',0)->first();
@@ -233,19 +237,38 @@ class OrdersController extends Controller
 
                 $draft_order->save();
 
-                $old_history = OrderStatusHistory::where('order_id',$draft_order->id)->first();
-                if($old_history ==  null){
-                    $history = new OrderStatusHistory();
-                    $history->order_id = $draft_order->id;
-                    $history->order_status_id =  $draft_order->status_id;
-                    $history->change_at = now();
-                    $history->setCreatedAt(now());
-                    $history->setUpdatedAt(now());
-                    $history->save();
-                }
+                if($draft_order->additional_payment == 1){
+                    if($draft_order->additional_payment_name == 'Additional PostDelay Charges Payment'){
+                        $res = OrderResponse::where('order_id',$draft_order->order_id)
+                            ->where('fulfill',0)->first();
+                        $res->fulfill = 1;
+                        $res->save();
+                        $assosiate_order = Order::find($draft_order->order_id);
+                        $assosiate_order->status_id = $res->response;
+                        $assosiate_order->save();
+                        $this->status_log($assosiate_order);
+                        $customer = Customer::find($assosiate_order->customer_id);
+                        Mail::to($customer->email)->send(new NotificationEmail($customer,$assosiate_order));
+                    }
+                    else{
+                        $assosiate_order = Order::find($draft_order->order_id);
+                        $customer = Customer::find($assosiate_order->customer_id);
+                        Mail::to($customer->email)->send(new RequestFormEmail($customer,$assosiate_order));
+                    }
 
-//                $customer = Customer::find($draft_order->customer_id);
-//                Mail::to($customer->email)->send(new NotificationEmail($customer,$draft_order));
+                }
+                else{
+                    $old_history = OrderStatusHistory::where('order_id',$draft_order->id)->first();
+                    if($old_history ==  null){
+                        $history = new OrderStatusHistory();
+                        $history->order_id = $draft_order->id;
+                        $history->order_status_id =  $draft_order->status_id;
+                        $history->change_at = now();
+                        $history->setCreatedAt(now());
+                        $history->setUpdatedAt(now());
+                        $history->save();
+                    }
+                }
             }
         }
     }
@@ -318,14 +341,16 @@ class OrdersController extends Controller
 
         if($request->input('customer_url') != null){
             $token = explode('/',$request->input('customer_url'))[5];
+
             $order = Order::where('token',$token)->first();
+            $response = OrderResponse::where('order_id',$order->id)->where('fulfill',0)->first();
             if($order !=  null){
                 $sender_form = view('customers.inc.sender_detail_form', ['order' => $order])->render();
                 $order_status = view('customers.inc.order_status', ['order' => $order])->render();
                 $shipment_details = view('customers.inc.package_detail', ['order' => $order])->render();
                 $billing_email = view('customers.inc.billing_email', ['order' => $order])->render();
                 $recepient_email = view('customers.inc.recepient_email', ['order' => $order])->render();
-                $additional_fee = view('customers.inc.additional_fee', ['order' => $order])->render();
+                $additional_fee = view('customers.inc.additional_fee', ['order' => $order,'response' => $response])->render();
                 $keydate = view('customers.inc.keydate', ['order' => $order])->render();
                 $shipment_to_postdelay = view('customers.inc.shipment_to_postdelay', ['order' => $order])->render();
                 return response()->json([
@@ -741,7 +766,6 @@ class OrdersController extends Controller
         dd($checkout);
     }
 
-
     public function cancel_order(Request $request){
         $order = Order::where('token', $request->input('order_token'))->first();
 
@@ -832,15 +856,14 @@ class OrdersController extends Controller
         return redirect()->back();
     }
 
-
     public function showEmail(){
         return view('email_template');
     }
 
     public function get_shipping_rates(Request $request){
 
-         $post_type = PostType::where('name',$request->input('post_type'))->first();
-         $weight = $request->input('weight');
+        $post_type = PostType::where('name',$request->input('post_type'))->first();
+        $weight = $request->input('weight');
         $default =  PostDelayFee::where('default',1)->where('type','primary')->first();
         $product = $this->helper->getShopify()->call([
             'METHOD' => 'POST',
@@ -857,10 +880,42 @@ class OrdersController extends Controller
                     ]
                 ],
             ]
-                ]);
+        ]);
 
-                $product_id = $product->product->variants[0]->id;
-                echo $product_id;
+        $product_id = $product->product->variants[0]->id;
+        echo $product_id;
+    }
+
+
+    public function response_from_user(Request $request){
+        $order = Order::where('shopify_order_id',$request->input('order-id'))->first();
+
+        $response = new OrderResponse();
+        $response->order_id = $order->id;
+        $response->status_id = $order->status_id;
+        $response->response = $request->input('response');
+        $response->save();
+
+
+        if(in_array($request->input('response'),[16,17,20,21])){
+
+            return Redirect::to('https://postdelay.myshopify.com/account?view=additional-fee&&order-id='.$order->shopify_order_id.'&&response='.$response->response);
+        }
+        else{
+            $order->status_id = $request->input('response');
+            $order->save();
+            $this->status_log($order);
+            $customer = Customer::find($order->customer_id);
+            Mail::to($customer->email)->send(new NotificationEmail($customer,$order));
+
+            $res = OrderResponse::where('order_id',$order->id)
+                ->where('response', $request->input('response'))->where('fulfill',0)->first();
+            $res->fulfill = 1;
+            $res->save();
+            return Redirect::to('https://postdelay.myshopify.com/account/orders/'.$order->token);
+
+        }
+
     }
 
 }

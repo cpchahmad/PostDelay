@@ -373,33 +373,34 @@ $('body').on('change','.commision_change',function () {
         });
 
 
-    $('.address_update_btn').click(function(e){
-        e.preventDefault();
-        var $this =  $('.update_address_admin')
-        $.ajax(
-            {
-                type:$this.attr('method'),
-                url:$this.attr('action'),
-                data: $this.serialize(),
-                success:function(data){
-                    alertify.success('Address Updated.');
-                }
-            });
-    });
 
-    $('.update_customer_details_form').submit(function(e){
-        e.preventDefault();
-        var $this =  $('.update_customer_details_form')
-        $.ajax(
-            {
-                type:$this.attr('method'),
-                url:$this.attr('action'),
-                data: $this.serialize(),
-                success:function(data){
-                    alertify.success('Information Updated.');
-                }
-            });
-    });
+});
 
+$('.address_update_btn').click(function(e){
+    e.preventDefault();
+    var $this =  $('.update_address_admin')
+    $.ajax(
+        {
+            type:$this.attr('method'),
+            url:$this.attr('action'),
+            data: $this.serialize(),
+            success:function(data){
+                alertify.success('Address Updated.');
+            }
+        });
+});
+
+$('.update_customer_details_form').submit(function(e){
+    e.preventDefault();
+    var $this =  $('.update_customer_details_form')
+    $.ajax(
+        {
+            type:$this.attr('method'),
+            url:$this.attr('action'),
+            data: $this.serialize(),
+            success:function(data){
+                alertify.success('Information Updated.');
+            }
+        });
 });
 

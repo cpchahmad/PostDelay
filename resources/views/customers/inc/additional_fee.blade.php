@@ -43,9 +43,9 @@
     </div>
 
     @endif
-@if(!in_array($order->status_id,[1,2,3,4,5]))
+@if(in_array($order->status_id,[15,19]) && $response != null)
 <div class="Form-content-detail ">
-    <a style="cursor: pointer" onclick="window.location.href='https://postdelay.myshopify.com/account?view=additional-fee&&order-id={{$order->shopify_order_id}}'" class="Same-button" > Pay Additional Fee For Further Process</a>
+    <a style="cursor: pointer" onclick="window.location.href='https://postdelay.myshopify.com/account?view=additional-fee&&order-id={{$order->shopify_order_id}}&&response={{$response->response}}'" class="Same-button" > Pay Additional Fee For Further Process</a>
 
 </div>
 @endif

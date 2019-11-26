@@ -47,6 +47,7 @@ class OrdersCreateJob implements ShouldQueue
     public function handle()
     {
         $order_controller = new WebhookController();
+
         $order_controller->webhook_order_create($this->data, $this->shopDomain);
         return response()->json(['OK' => 'OK'], 200);
     }

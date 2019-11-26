@@ -5,7 +5,7 @@
     <div class="Form-wraper">
         <div class="Form-contaner">
             <div class="Form-content-header">
-                <h1 class="Form-content-header-Head">Address Details  <a href="/account/addresses?view=new" style="margin-left:10px;padding:10px 10px" class="Same-button" >Add New Address</a> </h1>
+                <h1 class="Form-content-header-Head">Address Details  <a href="/account/addresses?view=new" style="margin-left:10px;padding:10px 10px;line-height: 1" class="Same-button" >Add New Address</a> </h1>
             </div>
             <div class="Form-field-contaner">
                 <div class="Form-content-name">
@@ -70,7 +70,7 @@
                         </div>
                         <div id="province_div" class="custom_fields_half full_width_iput">
                             <div class="custom_Request_fields_half adj">
-                                <label for="AddressProvinceNew">State/Province/Region</label>
+                                <label for="AddressProvinceNew">Province or State</label>
                                 <select class="AddressProvinceNew2" name="sender_state" autocomplete="address-level1">
                                @include('customers.inc.usa_states')
                                 </select>
@@ -165,7 +165,7 @@
                         </div>
                         <div id="province_div" class="custom_fields_half full_width_iput">
                             <div class="custom_Request_fields_half adj">
-                                <label for="AddressProvinceNew">State/Province/Region</label>
+                                <label for="AddressProvinceNew">Province or State</label>
                                 <select class="AddressProvinceNew2" name="billing_state" autocomplete="address-level1">
                                     @include('customers.inc.usa_states')
                                 </select>
@@ -303,7 +303,7 @@
                         </div>
                     </div>
 
-                    
+
                     <div class="Get-name">
                         <div class="custom_fields_half">
                             <div class="custom_Request_fields_half  Get-name-left">
@@ -342,7 +342,7 @@
                         </div>
                         <div id="province_div" class="custom_fields_half full_width_iput">
                             <div class="custom_Request_fields_half adj">
-                                <label for="AddressProvinceNew">State/Province/Region</label>
+                                <label for="AddressProvinceNew">Province or State</label>
                                 <select class="AddressProvinceNew2" name="receipent_state" autocomplete="address-level1">
                                 @include('customers.inc.usa_states')
                                 </select>
@@ -428,19 +428,19 @@
                         <div class="custom_fields_half" id="weight_input" >
                             <div class="custom_Request_fields_half">
                                 <label for="Weight">Weight (grams)</label>
-                                <input type="text" name="weight" id="City" value="" placeholder="">
+                                <input type="number" name="weight" id="City" value="" placeholder="">
                             </div>
                         </div>
                         <div class="custom_fields_half" id="height_input">
                             <div class="custom_Request_fields_half adj">
                                 <label for="Height">Height</label>
-                                <input type="text" name="height" id="State" value="" placeholder="">
+                                <input type="number" name="height" id="State" value="" placeholder="">
                             </div>
                         </div>
                         <div class="custom_fields_half" id="length_input">
                             <div class="custom_Request_fields_half">
                                 <label for="length">Length</label>
-                                <input type="text" required="" name="length" id="PosteCode" value="" placeholder="">
+                                <input type="number" required="" name="length" id="PosteCode" value="" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -449,13 +449,13 @@
                         <div class="custom_fields_half" id="width_input">
                             <div class="custom_Request_fields_half tow-field-Row-left">
                                 <label for="width">Width</label>
-                                <input type="text" required="" name="width" id="Country" value="" placeholder="">
+                                <input type="number" required="" name="width" id="Country" value="" placeholder="">
                             </div>
                         </div>
                         <div class="custom_fields_half" id="girth_input">
                             <div class="custom_Request_fields_half tow-field-Row-right">
                                 <label for="Girth">Girth</label>
-                                <input type="text"  name="girth" id="Country" value="" placeholder="">
+                                <input type="number"  name="girth" id="Country" value="" placeholder="">
                             </div>
                         </div>
                     </div>

@@ -210,77 +210,13 @@
     font-family: Arial;
 ">
             <p>
-                Order : {{$order->order_name}}
+             Request Mailing Label for Order {{$order->order_name}}
             </p>
-            <p>Hello <b>{{$customer->first_name}}</b>, {{$order->has_status->message}}</p>
+            <p>Hello <b>{{$customer->first_name}}</b>, You have requested that postDelay mail you the shipping label that will allow us to link your incoming package to your order. You will receive it in the mail in the next few days. Remember, you can always print the label yourself by going to 'Manage Mailings' and clicking 'Print Incoming Shipment Label'.
+            </p>
 
         </div>
-        @if(!in_array($order->status_id,[7,10,15,19]))
-        <div class="email_btn">
-            <a href="https://postdelay.myshopify.com/account/orders/{{$order->token}}" style="
-    text-align: center;
-    display: block;
-    background: #0000FF;
-    color: white;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 20px;
-    margin: 0;
-    padding: 0;
-    line-height: 53px;
-    height: 45px;
-    letter-spacing: 3px;
-    border-radius: 12px;
-    margin-top: 25px;
-    cursor: pointer;
-">{{$order->has_status->button_text}}</a>
-        </div>
-            @else
-            <form action="{{route('response_from_user')}}" method="post">
-                <input type="hidden" name="order-id" value="{{$order->shopify_order_id}}">
-                @if(in_array($order->status_id , [7]))
-                <input type="radio" name="response" value="9"> Return my shipment <br>
-                <input type="radio" name="response" value="8"> Dispose my shipment <br>
-                @endif
 
-                @if(in_array($order->status_id , [10]))
-                    <input type="radio" name="response" value="12"> Return my shipment <br>
-                    <input type="radio" name="response" value="11"> Dispose my shipment <br>
-                @endif
-
-                @if(in_array($order->status_id , [15]))
-                    <input type="radio" name="response" value="16"> Ready to pay extra to continue shipment <br>
-                    <input type="radio" name="response" value="17"> Charge Extra and Return my shipment <br>
-                    <input type="radio" name="response" value="18"> Dispose my shipment <br>
-                @endif
-
-                @if(in_array($order->status_id , [19]))
-                    <input type="radio" name="response" value="20"> Charge Extra and Re-attempt Delivery Process <br>
-                    <input type="radio" name="response" value="21"> Charge Extra and Return my shipment <br>
-                    <input type="radio" name="response" value="22"> Dispose my shipment <br>
-                @endif
-
-
-                <input style="text-align: center;
-    display: block;
-    background: #0000FF;
-    color: white;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 20px;
-    margin: 0;
-    padding: 10px 20px;
-    line-height: 1;
-    height: 43px;
-    letter-spacing: 0px;
-    border-radius: 12px;
-    margin-top: 25px;
-    cursor: pointer" type="submit" value="Send Response">
-
-            </form>
-        @endif
     </div>
     <div class="men_icon_wrapper" style="
     width: 25%;

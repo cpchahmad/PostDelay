@@ -35,7 +35,7 @@ class StatusTableSeeder extends Seeder
             'description' => 'Your item has been received by PostDelay and have been placed into storage, waiting for the future shipment date.',
             'color' => 'ORANGE',
             'subject' => 'PostDelay has received your item for Order',
-            'message' => 'PostDelay has received your shipment. It has now been placed into our secure storage and will be shipped out to its final destination on ',
+            'message' => 'PostDelay has received your shipment. It has now been placed into our secure storage and will be shipped out to its final destination on your specified date',
             'button_text' => 'Manage Your Order'
         ]);
         DB::table('statuses')->insert([
@@ -68,7 +68,7 @@ class StatusTableSeeder extends Seeder
             'description' => 'You cancelled your order after you shipped the item to us, but before PostDelay received it. We are waiting to hear from you how you want to proceed.',
             'color' => 'GREEN',
             'subject' => 'PostDelay Action Required for order',
-            'message' => 'You requested to cancel your order during PostDelay received your shipment.  Let us know whether you want the item shipped back to you, or if you want PostDelay to dispose of the item.',
+            'message' => 'You requested to cancel your order during PostDelay received your shipment.  Let us know whether you want the item shipped back to you, or if you want PostDelay to dispose of the item. Respond to this email to let us know how to proceed',
             'button_text' => 'View Your Order'
         ]);
         DB::table('statuses')->insert([
@@ -92,7 +92,7 @@ class StatusTableSeeder extends Seeder
             'description' => 'You cancelled your order after you shipped the item to us, but before PostDelay received it. We are waiting to hear from you how you want to proceed.',
             'color' => 'GREEN',
             'subject' => 'PostDelay Action Required for order',
-            'message' => 'You requested to cancel your order during PostDelay received your shipment.  Let us know whether you want the item shipped back to you, or if you want PostDelay to dispose of the item.',
+            'message' => 'You requested to cancel your order during PostDelay received your shipment.  Let us know whether you want the item shipped back to you, or if you want PostDelay to dispose of the item. Respond to this email to let us know how to proceed',
             'button_text' => 'View Your Order'
         ]);
         DB::table('statuses')->insert([
@@ -132,7 +132,7 @@ class StatusTableSeeder extends Seeder
             'description' => 'We check the price of mailing again a few days before shipment date. The price of shipping your package increased. We are waiting to hear from you how you want to proceed.',
             'color' => 'GREEN',
             'subject' => 'PostDelay Action Required for order ',
-            'message' => 'PostDelay has attempted to ship your item, but the cost to complete the shipment changed. Let us know whether you want to continue with shipment or if you want to have the item shipped back to you. You can also choose to cancel the order and wen can dispose of the item for you.',
+            'message' => 'PostDelay has attempted to ship your item, but the cost to complete the shipment changed. Let us know whether you want to continue with shipment or if you want to have the item shipped back to you. You can also choose to cancel the order and we can dispose of the item for you.  Respond to this email to let us know how to proceed',
             'button_text' => 'Let us know how to Proceed'
         ]);
         DB::table('statuses')->insert([
@@ -164,7 +164,7 @@ class StatusTableSeeder extends Seeder
             'description' => 'After shipping your item to your recipient, the item was returned to PostDelay as undeliverable. We are waiting to hear from you how you want to proceed.',
             'color' => 'GREEN',
             'subject' => 'PostDelay Action Required for order',
-            'message' => ' PostDelay has attempted to ship your item, but the shipment was returned to us as undeliverable. Let us know whether you want to re-attempt delivery with the same or another address, or if you want to have the item shipped back to you. You can also choose to cancel the order and wen can dispose of the item for you.',
+            'message' => ' PostDelay has attempted to ship your item, but the shipment was returned to us as undeliverable. Let us know whether you want to re-attempt delivery with the same or another address, or if you want to have the item shipped back to you. You can also choose to cancel the order and we can dispose of the item for you. Respond to this email to let us know how to proceed',
             'button_text' => 'Let us know how to Proceed'
         ]);
         DB::table('statuses')->insert([
