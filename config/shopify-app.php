@@ -166,7 +166,7 @@ return [
     |
     */
 
-    'api_redirect' => env('SHOPIFY_API_REDIRECT', 'http://127.0.0.1:8000/authenticate'),
+    'api_redirect' => env('SHOPIFY_API_REDIRECT', 'https://postdelay.shopifyapplications.com/authenticate'),
 
     /*
     |--------------------------------------------------------------------------
