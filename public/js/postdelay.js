@@ -348,6 +348,7 @@ $('body').on('change','.commision_type_change',function () {
             success:function(data){
                 alertify.success('Commission Type Updated');
                 $(this).val(data.commision_type);
+
             }
         });
 
@@ -369,6 +370,7 @@ $('body').on('change','.commision_change',function () {
             success:function(data){
                 alertify.success('Commission Updated');
                 $(this).val(data.commision);
+
             }
         });
 
@@ -378,7 +380,7 @@ $('body').on('change','.commision_change',function () {
 
 $('.address_update_btn').click(function(e){
     e.preventDefault();
-    var $this =  $('.update_address_admin')
+    var $this =  $('.update_address_admin');
     $.ajax(
         {
             type:$this.attr('method'),
@@ -392,7 +394,7 @@ $('.address_update_btn').click(function(e){
 
 $('.update_customer_details_form').submit(function(e){
     e.preventDefault();
-    var $this =  $('.update_customer_details_form')
+    var $this =  $('.update_customer_details_form');
     $.ajax(
         {
             type:$this.attr('method'),

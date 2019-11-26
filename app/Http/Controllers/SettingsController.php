@@ -8,6 +8,8 @@ use App\PostType;
 use App\Scale;
 use App\Shape;
 
+use App\State;
+use App\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -67,14 +69,18 @@ class SettingsController extends Controller
             return response()->json([
                 'type' => $request->input('type')
             ]);
-        } elseif($request->input('update_type') == 'weight') {
+        }
+
+        if($request->input('update_type') == 'weight') {
             PostType::find($request->input('type_id'))->update([
                 'weight' => $request->input('weight')
             ]);
             return response()->json([
                 'weight' => $request->input('weight')
             ]);
-        }elseif ($request->input('update_type') == 'commission_type'){
+        }
+
+        if ($request->input('update_type') == 'commision_type'){
 
             PostType::find($request->input('type_id'))->update([
                 'commision_type' => $request->input('type')
@@ -83,7 +89,10 @@ class SettingsController extends Controller
                 'commision_type' => $request->input('type')
             ]);
 
-        }elseif ($request->input('update_type') == 'commission'){
+        }
+
+        if ($request->input('update_type') == 'commision'){
+
             PostType::find($request->input('type_id'))->update([
                 'commision' => $request->input('type')
             ]);
@@ -209,5 +218,23 @@ class SettingsController extends Controller
             'fee_id' => 'deleted'
         ]);
 
+    }
+    public function show_statuses(Request $request){
+        $statuses = Status::all();
+        return view('settings.statuses.index')->with([
+            'statuses' => $statuses
+        ]);
+    }
+
+    public function edit_status(Request $request){
+        $status = Status::find($request->id);
+        return view('settings.statuses.edit')->with([
+            'status' => $status
+        ]);
+    }
+
+    public function update_status(Request $request){
+       Status::find($request->input('id'))->update($request->all());
+       return redirect()->back();
     }
 }

@@ -15,9 +15,7 @@
                     <div class="col-md-4">
                         <button class="float-right d-none d-md-block btn btn-success btn-lg waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-center"> Add Type </button>
                     </div>
-
                 </div>
-
             </div>
 
             <div class="card">
