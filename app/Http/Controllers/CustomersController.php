@@ -539,5 +539,21 @@ class CustomersController extends Controller
         dd($customer);
     }
 
+    public function check_customer_status(Request $request){
+        $customer_status = Customer::where('email',$request->input('customer')['email'])->value('status');
+        return response()->json([
+            'status' => $customer_status
+        ]);
+    }
+
+    public function update_customer_status(Request $request){
+        $customer = Customer::where('email',$request->input('customer')['email'])->first();
+        $customer->status = "enabled";
+        $customer->save();
+        return response()->json([
+            'status' => $customer->status
+        ]);
+    }
+
 }
 

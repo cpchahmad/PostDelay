@@ -126,3 +126,5 @@ Route::GET('/c/{id}', 'CustomersController@getCustomer');
 Route::GET('/webhooks', 'CustomersController@getWebhooks');
 
 Route::POST('/response/customer', 'OrdersController@response_from_user')->name('response_from_user');
+Route::GET('/check/customer/status', 'CustomersController@check_customer_status')->name('check_customer_status');
+Route::GET('/update/customer/status', 'CustomersController@update_customer_status')->name('update_customer_status');
