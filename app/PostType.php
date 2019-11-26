@@ -9,4 +9,5 @@ class PostType extends Model
    protected $fillable = [
        'name','weight','commision_type','commision'
    ];
+
 }
