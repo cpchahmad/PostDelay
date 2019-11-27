@@ -353,6 +353,14 @@ class OrdersController extends Controller
                 $additional_fee = view('customers.inc.additional_fee', ['order' => $order,'response' => $response])->render();
                 $keydate = view('customers.inc.keydate', ['order' => $order])->render();
                 $shipment_to_postdelay = view('customers.inc.shipment_to_postdelay', ['order' => $order])->render();
+                if(in_array($order->status_id,[7,10,15,19])){
+                   $response_form_status = 'yes';
+                   $response_form = view('customers.inc.response_form',['order' => $order])->render();
+                }
+                else{
+                    $response_form_status = 'no';
+                    $response_form = null;
+                }
                 return response()->json([
                     "sender_form_html" => $sender_form,
                     "order_status" => $order_status,
@@ -362,6 +370,8 @@ class OrdersController extends Controller
                     "additional_fee" => $additional_fee,
                     "keydate" => $keydate,
                     "shipment_to_postdelay" =>$shipment_to_postdelay,
+                    "response_form" => $response_form,
+                    "response_form_status" => $response_form_status
                 ]);
             }
         }
