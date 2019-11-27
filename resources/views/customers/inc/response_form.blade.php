@@ -6,7 +6,7 @@
         padding-left: 35px;
         margin-bottom: 12px;
         cursor: pointer;
-        font-size: 16px;
+        font-size: 14px;
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
@@ -25,8 +25,8 @@
         position: absolute;
         top: 0;
         left: 0;
-        height: 25px;
-        width: 25px;
+        height: 20px;
+        width: 20px;
         background-color: #eee;
         border-radius: 50%;
     }
@@ -55,10 +55,10 @@
 
     /* Style the indicator (dot/circle) */
     .container .checkmark:after {
-        top: 9px;
-        left: 9px;
-        width: 8px;
-        height: 8px;
+        top: 7px;
+        left: 7px;
+        width: 6px;
+        height: 6px;
         border-radius: 50%;
         background: white;
     }
