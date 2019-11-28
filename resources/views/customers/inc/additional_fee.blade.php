@@ -36,7 +36,7 @@
         @endif
     @endforeach
 @else
-    <div class="Form-content-detail ">
+    <div class="Form-content-detail">
 
         <div class="ex-order-coloum1" style="width: 100%">
             <p style="max-width: fit-content;text-align: left">No Additional Fee Paid</p>

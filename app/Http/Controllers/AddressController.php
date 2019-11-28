@@ -81,17 +81,25 @@ class AddressController extends Controller
     public function delete_address(Request $request)
     {
         $address = Address::find($request->input('address_id'));
-
-        $address_json = $this->helper->getShopify()->call([
-            'METHOD' => 'GET',
-            'URL' => '/admin/customers/' . $address->shopify_customer_id . '/addresses/' . $address->shopify_address_id . 'json',
-        ]);
-
-         $this->helper->getShopify()->call([
-                'METHOD' => 'DELETE',
+        if($address->shopify_address_id != null){
+            $address_json = $this->helper->getShopify()->call([
+                'METHOD' => 'GET',
                 'URL' => '/admin/customers/' . $address->shopify_customer_id . '/addresses/' . $address->shopify_address_id . 'json',
-         ]);
+            ]);
+            if($address_json->customer_address->default != true){
+                $this->helper->getShopify()->call([
+                    'METHOD' => 'DELETE',
+                    'URL' => '/admin/customers/' . $address->shopify_customer_id . '/addresses/' . $address->shopify_address_id . 'json',
+                ]);
+            }
+
             Address::find($request->input('address_id'))->delete();
+        }
+        else{
+            Address::find($request->input('address_id'))->delete();
+        }
+
+
 
 //        return redirect()->back();
     }

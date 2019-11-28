@@ -14,7 +14,7 @@
     <div class="custom_fields_half associate">
         <div class="custom_Request_fields_half">
             <label for="AddressCountryNew">Country</label>
-            <select required class="AddressCountryNew2" name="country" @if($address != null) data-country-select="{{ $address->country }}"  data-province-select="{{$address->state}}" @endif>
+            <select required class="AddressCountryNew" name="country" @if($address != null) data-country-select="{{ $address->country }}"  data-province-select="{{$address->state}}" @endif>
                 @include('customers.inc.countries')
             </select>
         </div>
