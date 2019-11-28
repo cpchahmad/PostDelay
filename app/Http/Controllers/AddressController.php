@@ -41,7 +41,7 @@ class AddressController extends Controller
         $address = Address::find($request->input('address_id'));
         $returnHTML = view('customers.addresses', ['address' => $address])->render();
 
-        $this->helper->getShopify()->call([
+   /*     $this->helper->getShopify()->call([
                 'METHOD' => 'PUT',
                 'URL' => 'admin/customers/' . $address->shopify_customer_id . '/addresses/'.$address->shopify_address_id.'.json',
                 'DATA' => [
@@ -59,7 +59,7 @@ class AddressController extends Controller
                         "zip" => $request->input('postcode'),
                     ]
                 ]
-            ]);
+            ]);*/
         if($request->input('source') == 'admin'){
             return redirect()->back();
         }else {
@@ -80,8 +80,9 @@ class AddressController extends Controller
 
     public function delete_address(Request $request)
     {
-        $address = Address::find($request->input('address_id'));
-        if($address->shopify_address_id != null){
+//        $address = Address::find($request->input('address_id'));
+        Address::find($request->input('address_id'))->delete();
+      /*  if($address->shopify_address_id != null){
             $address_json = $this->helper->getShopify()->call([
                 'METHOD' => 'GET',
                 'URL' => '/admin/customers/' . $address->shopify_customer_id . '/addresses/' . $address->shopify_address_id . 'json',
@@ -97,7 +98,7 @@ class AddressController extends Controller
         }
         else{
             Address::find($request->input('address_id'))->delete();
-        }
+        }*/
 
 
 
@@ -150,7 +151,7 @@ class AddressController extends Controller
                 "shopify_customer_id" => $address->shopify_customer_id,
                 "shop_id" => $address->shop_id,
                 "customer_id" => $address->customer_id,
-                "shopify_address_id"=> $address->shopify_address_id,
+//                "shopify_address_id"=> $address->shopify_address_id,
             ]);
         }
 
