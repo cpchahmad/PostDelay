@@ -31,6 +31,7 @@ class CustomersController extends Controller
 
     public function customer_create(Request $request)
     {
+//        dd($request);
             $shop = Shop::where('shopify_domain', $request->input('shop'))->value('id');
             $customer = Customer::where('email', $request->input('email'))->first();
             $response = '';
@@ -71,9 +72,12 @@ class CustomersController extends Controller
 
                 if($request->input('receve-mail')){
                     $subscription = true;
+                    $accept_marketing = 1;
                 }else{
                     $subscription = false;
+                    $accept_marketing = 0;
                 }
+
                     $customer = $this->helper->getShopify()->call([
                         'METHOD' => 'POST',
                         'URL' => '/admin/customers.json',
@@ -104,7 +108,7 @@ class CustomersController extends Controller
                             'state' => $request->input('province'),
                             'country' => $request->input('country'),
                             'postcode' => $request->input('postecode'),
-                            'accept_marketing' => $subscription,
+                            'accept_marketing' => $accept_marketing,
                             'shop_id' => $shop,
                             'status' => 'invited',
                             'shopify_customer_id' => $customer->customer->id,
