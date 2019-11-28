@@ -143,25 +143,29 @@ class CustomersController extends Controller
         $customer = Customer::where('shopify_customer_id', $request->input('customer_id'))->first();
         if ($shop != null && $customer != null) {
 
-            $address = $this->helper->getShopify()->call([
-                'METHOD' => 'POST',
-                'URL' => '/admin/customers/' . $customer->shopify_customer_id . '/addresses.json',
-                'DATA' => [
-                    "address" => [
-                        "address1" => $request->input('address1'),
-                        "address2" => $request->input('address2'),
-                        "city" => $request->input('city'),
-                        "company" => $request->input('business'),
-                        "first_name" => $request->input('first_name'),
-                        "last_name" => $request->input('last_name'),
-                        "province" => $request->input('province'),
-                        "country" => $request->input('country'),
-                        "phone" => $request->input('phone'),
-                        "zip" => $request->input('postecode'),
-                        "name" => $request->input('first_name') . ' ' . $request->input('last_name'),
+            try{
+                $address = $this->helper->getShopify()->call([
+                    'METHOD' => 'POST',
+                    'URL' => '/admin/customers/' . $customer->shopify_customer_id . '/addresses.json',
+                    'DATA' => [
+                        "address" => [
+                            "address1" => $request->input('address1'),
+                            "address2" => $request->input('address2'),
+                            "city" => $request->input('city'),
+                            "company" => $request->input('business'),
+                            "first_name" => $request->input('first_name'),
+                            "last_name" => $request->input('last_name'),
+                            "province" => $request->input('province'),
+                            "country" => $request->input('country'),
+                            "phone" => $request->input('phone'),
+                            "zip" => $request->input('postecode'),
+                            "name" => $request->input('first_name') . ' ' . $request->input('last_name'),
+                        ]
                     ]
-                ]
-            ]);
+                ]);
+            }catch (\Exception $e){
+                $address = null;
+            }
 
             if ($address != null) {
                 Address::create([
@@ -182,10 +186,49 @@ class CustomersController extends Controller
                     'customer_id' => $customer->id,
                     'shopify_address_id' => $address->customer_address->id
                 ]);
+                return response()->json(['msg' => 'address_created'], 200);
             }
-            return response()->json(['msg' => 'address_created'], 200);
+            else{
+                $old_record = Address::where('address_type', $request->input('address_type'))
+                    ->where('first_name', $request->input('first_name'))
+                    ->where('last_name', $request->input('last_name'))
+                    ->where('email', $request->input('email'))
+                    ->where('phone', $request->input('phone'))
+                    ->where('address1', $request->input('address1'))
+                    ->where('address2', $request->input('address2'))
+                    ->where('city', $request->input('city'))
+                    ->where('state', $request->input('province'))
+                    ->where('country', $request->input('country'))
+                    ->where('postcode', $request->input('postecode'))
+                    ->where('shop_id', $shop)
+                 ->exists();
+                if($old_record == false){
+                    Address::create([
+                        'first_name' => $request->input("first_name"),
+                        'last_name' => $request->input("last_name"),
+                        'email' => $request->input("email"),
+                        'address_type' => $request->input('address_type'),
+                        'business' => $request->input("business"),
+                        'phone' => $request->input('phone'),
+                        'address1' => $request->input('address1'),
+                        'address2' => $request->input('address2'),
+                        'city' => $request->input('city'),
+                        'state' => $request->input('province'),
+                        'country' => $request->input('country'),
+                        'postcode' => $request->input('postecode'),
+                        'shop_id' => $shop,
+                        'shopify_customer_id' => $customer->shopify_customer_id,
+                        'customer_id' => $customer->id,
+                    ]);
+                    return response()->json(['msg' => 'address_created'], 200);
+                }
+                else{
+                    return response()->json(['msg' => 'shop or customer not exists'], 500);
+                }
+            }
+
         } else {
-            return response()->json(['msg' => 'shop or customer not exists'], 200);
+            return response()->json(['msg' => 'shop or customer not exists'], 500);
         }
 
     }

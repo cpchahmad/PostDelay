@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PostDelay</title>
     <style>
         .section{
@@ -182,6 +183,46 @@
             border-spacing: 0;
             border-collapse: collapse;
         }
+
+        .main_button{
+            text-align: center;
+            display: block;
+            background: #0000FF;
+            color: white;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 20px;
+            margin: 0;
+            padding: 10px 20px;
+            line-height: 1;
+            height: 43px;
+            letter-spacing: 0px;
+            border-radius: 12px;
+            margin-top: 25px;
+            cursor: pointer
+        }
+
+        @media only screen and (max-width: 768px) {
+            .main_button{
+                text-align: center;
+                display: block;
+                background: #0000FF;
+                color: white;
+                text-transform: uppercase;
+                text-decoration: none;
+                font-weight: bold;
+                font-size: 14px;
+                margin: 0;
+                /*padding: 10px 20px;*/
+                /*line-height: 1;*/
+                height: 18px;
+                /*letter-spacing: 0px;*/
+                border-radius: 12px;
+                /*margin-top: 25px;*/
+                cursor: pointer
+            }
+        }
     </style>
 </head>
 <body>
@@ -217,24 +258,7 @@
         </div>
         @if(!in_array($order->status_id,[7,10,15,19]))
         <div class="email_btn">
-            <a href="https://postdelay.myshopify.com/account/orders/{{$order->token}}" style="
-    text-align: center;
-    display: block;
-    background: #0000FF;
-    color: white;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 20px;
-    margin: 0;
-    padding: 0;
-    line-height: 53px;
-    height: 45px;
-    letter-spacing: 3px;
-    border-radius: 12px;
-    margin-top: 25px;
-    cursor: pointer;
-">{{$order->has_status->button_text}}</a>
+            <a href="https://postdelay.myshopify.com/account/orders/{{$order->token}}" class="main_button">{{$order->has_status->button_text}}</a>
         </div>
             @else
             <form action="{{route('response_from_user')}}" method="post">
@@ -262,22 +286,7 @@
                 @endif
 
 
-                <input style="text-align: center;
-    display: block;
-    background: #0000FF;
-    color: white;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 20px;
-    margin: 0;
-    padding: 10px 20px;
-    line-height: 1;
-    height: 43px;
-    letter-spacing: 0px;
-    border-radius: 12px;
-    margin-top: 25px;
-    cursor: pointer" type="submit" value="Send Response">
+                <input class="main_button" type="submit" value="Send Response">
 
             </form>
         @endif

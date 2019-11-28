@@ -5,23 +5,22 @@
     <div class="Form-wraper">
         <div class="Form-contaner">
             <div class="Form-content-header">
-                <h1 class="Form-content-header-Head">Address Details  <a href="/account/addresses?view=new" style="margin-left:10px;padding:10px 10px;line-height: 1" class="Same-button" >Add New Address</a> </h1>
+                <h1 class="Form-content-header-Head">Address Details  {{--<a href="/account/addresses?view=new" style="margin-left:10px;padding:10px 10px;line-height: 1" class="Same-button" >Add New Address</a>--}} </h1>
             </div>
             <div class="Form-field-contaner">
-                <div class="Form-content-name">
-                    <p> Sender Details </p>
-                    <select class="addresses_select" id="sender_address_select"  name="sender-addresses" >
-                        <option value="---">Select Sender Address</option>
-                        @foreach($addresses as $address)
-                            @if($address->address_type == "Sender")
-                                <option @if($sender_address != null) @if($sender_address->id  == $address->id) selected @endif @endif  value="{{$address->id}}">{{$address->address1.' , '.$address->country}}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-
                 <div class="Form-content-detail">
+                    <div class="Form-content-name">
+                        <p> Sender Details <a href="/account/addresses?view=new&&type=Sender" style="margin-left:10px;padding:10px 10px;line-height: 1" class="Same-button" >Add Sender Address</a>  </p>
 
+                        <select class="addresses_select" id="sender_address_select"  name="sender-addresses" >
+                            <option value="---">Select Sender Address</option>
+                            @foreach($addresses as $address)
+                                @if($address->address_type == "Sender")
+                                    <option @if($sender_address != null) @if($sender_address->id  == $address->id) selected @endif @endif  value="{{$address->id}}">{{$address->address1.' , '.$address->country}}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="custom_fields_half associate">
                         <div class="custom_Request_fields_half">
                             <label for="AddressCountryNew">Country</label>
@@ -100,23 +99,19 @@
 
             </div>
             <div class="Form-field-contaner">
-
-                <div class="Form-content-name">
-                    <p>Billing Details</p>
-
-                    <select class="addresses_select" id="billing_address_select" name="billing-addresses" >
-                        <option value="---">Select Billing Address</option>
-                        @foreach($addresses as $address)
-                            @if($address->address_type == "Billing")
-                                <option @if($billing_address != null) @if($billing_address->id  == $address->id) selected @endif @endif  value="{{$address->id}}">{{$address->address1.' , '.$address->country}}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-
                 <div class="Form-content-detail">
+                    <div class="Form-content-name">
+                        <p>Billing Details <a href="/account/addresses?view=new&&type=Billing" style="margin-left:10px;padding:10px 10px;line-height: 1" class="Same-button" >Add Billing Address</a></p>
 
-
+                        <select class="addresses_select" id="billing_address_select" name="billing-addresses" >
+                            <option value="---">Select Billing Address</option>
+                            @foreach($addresses as $address)
+                                @if($address->address_type == "Billing")
+                                    <option @if($billing_address != null) @if($billing_address->id  == $address->id) selected @endif @endif  value="{{$address->id}}">{{$address->address1.' , '.$address->country}}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="custom_fields_half associate">
                         <div class="custom_Request_fields_half">
                             <label for="AddressCountryNew">Country</label>
@@ -278,21 +273,18 @@
         <div class="Form-contaner">
 
             <div class="Form-field-contaner">
-                <div class="Form-content-name">
-                    <p>Receipent Details</p>
-                    <select class="addresses_select" id="receipent_address_select" name="receipent-addresses" >
-                        <option value="---">Select Receipent Address</option>
-                        @foreach($addresses as $address)
-                            @if($address->address_type == "Recipients")
-                                <option @if($recipient_address != null) @if($recipient_address->id  == $address->id) selected @endif @endif value="{{$address->id}}">{{$address->address1.' , '.$address->country}}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-
                 <div class="Form-content-detail">
-
-
+                    <div class="Form-content-name">
+                        <p>Recipient Details<a href="/account/addresses?view=new&&type=Recipients" style="margin-left:10px;padding:10px 10px;line-height: 1" class="Same-button" >Add Recipient Address</a> </p>
+                        <select class="addresses_select" id="receipent_address_select" name="receipent-addresses" >
+                            <option value="---">Select Recipient Address</option>
+                            @foreach($addresses as $address)
+                                @if($address->address_type == "Recipients")
+                                    <option @if($recipient_address != null) @if($recipient_address->id  == $address->id) selected @endif @endif value="{{$address->id}}">{{$address->address1.' , '.$address->country}}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
 
                     <div class="custom_fields_half associate">
                         <div class="custom_Request_fields_half">
@@ -373,11 +365,10 @@
 
             </div>
             <div class="Form-field-contaner shipment_details">
-                <div class="Form-content-name">
-                    <p>Shipment Details</p>
-                </div>
-
                 <div class="Form-content-detail">
+                    <div class="Form-content-name">
+                        <p>Shipment Details</p>
+                    </div>
 
                     <div class="custom_fields_half">
                         <div class="custom_Request_fields_half  ">
