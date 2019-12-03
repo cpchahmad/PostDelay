@@ -1,14 +1,14 @@
 <form id="update_customer_details_form" action="/customer/update" method="get">
 
     <input type="hidden" name="customer_id" value="{{$customer->shopify_customer_id}}">
-    <input type="hidden" name="shop" value="{{ $customer->has_shop->shop_name }}">
+    <input type="hidden" name="shop" value="{{ $customer->has_shop->shopify_domain }}">
 
 
 
         <div class="custom_fields_half associate">
             <div class="custom_Request_fields_half">
                 <label for="AddressCountryNew" >Country</label>
-                <select required class="AddressCountryNew2" name="country" @if($customer != null) data-country-select="{{ $customer->country }}"  data-province-select="{{$customer->state}}" @endif>
+                <select required class="AddressCountryNew" name="country" @if($customer != null) data-country-select="{{ $customer->country }}"  data-province-select="{{$customer->state}}" @endif>
                     @include('customers.inc.countries')
                 </select>
             </div>
@@ -33,9 +33,10 @@
             <div class="full_width_iput">
                 <div class="custom_Request_fields_half">
                     <label for="Address1">Street Adress</label>
-                    <input type="text" required="" name="address1" id="Address1" value="{{ $customer->address1 }}" placeholder="Street and number, P.O.box C/O">
+                    <input type="text" required=""  id="autocomplete" value="{{ $customer->address1 }}" placeholder="Street and number, P.O.box C/O">
+                    <input  type="hidden" name="address1" id="street_number" value="{{ $customer->address1 }}" placeholder="Apartment, suite, building etc.">
                     <input style="margin-top: 25px;
-    margin-bottom: 45px;" type="text" name="address2" id="Address2" value="{{ $customer->address2 }}" placeholder="Apartment, suite, building etc.">
+    margin-bottom: 45px;" type="text" name="address2" id="route" value="{{ $customer->address2 }}" placeholder="Apartment, suite, building etc.">
                 </div>
             </div>
 
@@ -44,13 +45,13 @@
                 <div class="">
                     <div class="custom_fields_half full_width_iput ">
                         <label for="City">City</label>
-                        <input type="text" required="" name="city" id="City" value="{{ $customer->city }}" placeholder="">
+                        <input type="text" required="" name="city" id="locality" value="{{ $customer->city }}" placeholder="">
                     </div>
                 </div>
                 <div id="" class="custom_fields_half full_width_iput">
                     <div class="custom_Request_fields_half adj">
                         <label for="AddressProvinceNew">Province or State</label>
-                        <select class="AddressProvinceNew2" name="province" autocomplete="address-level1">
+                        <select id="administrative_area_level_1" class="AddressProvinceNew2" name="province" autocomplete="address-level1">
                             @include('customers.inc.usa_states')
                         </select>
                     </div>
@@ -58,7 +59,7 @@
                 <div id="postal_div" class="custom_fields_half full_width_iput">
                     <div class="custom_Request_fields_half">
                         <label for="PosteCode">Zip Code</label>
-                        <input type="text"  name="postecode" id="PosteCode" value="{{ $customer->postcode }}" placeholder="">
+                        <input type="text"  name="postecode" id="postal_code" value="{{ $customer->postcode }}" placeholder="">
                     </div>
                 </div>
 

@@ -188,7 +188,7 @@
             text-align: center;
             display: block;
             background: #0000FF;
-            color: white;
+            color: white !important;
             text-transform: uppercase;
             text-decoration: none;
             font-weight: bold;
@@ -208,7 +208,7 @@
                 text-align: center;
                 display: block;
                 background: #0000FF;
-                color: white;
+                color: white !important;
                 text-transform: uppercase;
                 text-decoration: none;
                 font-weight: bold;
