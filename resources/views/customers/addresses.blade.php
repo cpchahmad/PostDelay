@@ -49,8 +49,9 @@
     <div class="custom_fields_half">
         <div class="custom_Request_fields_half">
             <label for="Address1">Street Address</label>
-            <input type="text" required="" name="address1" id="Address1" value="{{$address->address1}}" placeholder="treet and number, P.O. box, c/o.">
-            <input type="text"  name="address2" id="Address2" value="{{$address->address2}}" placeholder="Apartment, suite, unit, building, floor, etc." style="margin-bottom:25px">
+            <input type="text" required=""  id="autocomplete" value="{{$address->address1}}" placeholder="treet and number, P.O. box, c/o.">
+            <input type="hidden" name="address1" id="street_number" value="{{$address->address1}}" >
+            <input type="text"  name="address2" id="route" value="{{$address->address2}}" placeholder="Apartment, suite, unit, building, floor, etc." style="margin-bottom:25px">
         </div>
     </div>
 
@@ -58,13 +59,13 @@
         <div id="city_div" class="custom_fields_half full_width_iput">
             <div class="custom_Request_fields_half">
                 <label for="City">City</label>
-                <input type="text" required="" name="city" id="City" value="{{$address->city}}" placeholder="">
+                <input type="text" required="" name="city" id="locality" value="{{$address->city}}" placeholder="">
             </div>
         </div>
         <div id="province_div" class="custom_fields_half associate full_width_iput">
             <div class="custom_Request_fields_half adj">
                 <label for="AddressProvinceNew">State</label>
-                <select class="AddressProvinceNew2" name="province" autocomplete="address-level1">
+                <select id="administrative_area_level_1" class="AddressProvinceNew2" name="province" autocomplete="address-level1">
                     @include('customers.inc.usa_states')
                 </select>
             </div>
@@ -73,7 +74,7 @@
         <div id="postal_div" class="custom_fields_half full_width_iput">
             <div class="custom_Request_fields_half">
                 <label for="PosteCode">Zip Code</label>
-                <input type="text" required="" name="postcode" id="PosteCode" value="{{$address->postcode}}" placeholder="">
+                <input type="text" required="" name="postcode" id="postal_code" value="{{$address->postcode}}" placeholder="">
             </div>
         </div>
 
