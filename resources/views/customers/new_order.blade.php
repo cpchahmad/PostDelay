@@ -474,7 +474,7 @@
                         </div>
                     </div>
 
-                    <input type="submit" class="Same-button" value="GET QUOTE">
+                    <input type="submit" class="Same-button qoute_button" value="GET QUOTE">
                 </div>
 
             </div>
