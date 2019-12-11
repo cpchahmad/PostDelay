@@ -26,6 +26,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
+use Jasny\ISO\Countries;
+use Jasny\ISO\CountrySubdivisions;
+
+require_once 'library/ISO/CountrySubdivisions.php';
+require_once 'library/ISO/Countries.php';
 
 class OrdersController extends Controller
 {
@@ -44,6 +49,7 @@ class OrdersController extends Controller
     }
 
     public function place_order(Request $request){
+//        dd($request);
         $line_items = [];
         $default =  PostDelayFee::where('default',1)->where('type','primary')->first();
         $weight = $request->input('weight');
@@ -55,6 +61,8 @@ class OrdersController extends Controller
             "requires_shipping" => true,
             "grams" =>$weight,
         ]);
+
+//        dd(CountrySubdivisions::getCode('United States','Alabama'));
 
         $draft_orders = $this->helper->getShopify()->call([
             'METHOD' => 'POST',
@@ -78,6 +86,8 @@ class OrdersController extends Controller
                             "phone" =>  $request->input('receipent_phone'),
                             "zip" =>  $request->input('receipent_postecode'),
                             "name" =>  $request->input('receipent_first_name').' '.$request->input('receipent_last_name'),
+                            "country_code"=> Countries::getCode($request->input('receipent_country')),
+                            "province_code"=> CountrySubdivisions::getCode($request->input('receipent_country'),$request->input('receipent_state'))
                         ],
                         "billing_address" => [
                             "address1" => $request->input('billing_address1'),
@@ -90,16 +100,20 @@ class OrdersController extends Controller
                             "country" =>  $request->input('billing_country'),
                             "zip" =>  $request->input('billing_postecode'),
                             "name" =>  $request->input('billing_first_name').' '.$request->input('billing_last_name'),
+                            "country_code"=> Countries::getCode($request->input('billing_country')),
+                            "province_code"=> CountrySubdivisions::getCode($request->input('billing_country'),$request->input('billing_state'))
                         ],
                         "shipping_line" => [
                             "custom" => true,
                             "price" => $request->input('new_shipping_price'),
                             "title" => $request->input('shipping_method')
-                        ]
+                        ],
+//                        "use_customer_default_address" => false
                     ]
 
                 ]
         ]);
+//        dd($draft_orders);
         $invoiceURL = $draft_orders->draft_order->invoice_url;
         $token = explode('/',$invoiceURL)[5];
         $order =  new Order();
@@ -354,8 +368,8 @@ class OrdersController extends Controller
                 $keydate = view('customers.inc.keydate', ['order' => $order])->render();
                 $shipment_to_postdelay = view('customers.inc.shipment_to_postdelay', ['order' => $order])->render();
                 if(in_array($order->status_id,[7,10,15,19])){
-                   $response_form_status = 'yes';
-                   $response_form = view('customers.inc.response_form',['order' => $order])->render();
+                    $response_form_status = 'yes';
+                    $response_form = view('customers.inc.response_form',['order' => $order])->render();
                 }
                 else{
                     $response_form_status = 'no';
@@ -524,6 +538,7 @@ class OrdersController extends Controller
 
     public function get_order_type(Request $request){
         $type = Order::where('shopify_order_id',$request->input('shopify_order_id'))->value('additional_payment');
+//     ad
         return response()->json([
             "type" => $type,
         ]);

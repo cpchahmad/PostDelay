@@ -35,7 +35,7 @@ class RequestFormEmail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject('Paper version of the mailing label')->view('request_template')->with([
+        return $this->subject('Shipping Label Request from PostDelay')->view('request_template')->with([
             "customer" => $this->customer,
             "order" =>$this->order
         ]);
