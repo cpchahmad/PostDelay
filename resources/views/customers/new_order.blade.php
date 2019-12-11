@@ -271,6 +271,9 @@
                         </div>
 
                     </div>
+                    <div class="">
+                        <input type="submit" value="PLACE ORDER" class="Same-button final_submit_button">
+                    </div>
 
                 </div>
             </div>
