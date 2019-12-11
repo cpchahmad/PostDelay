@@ -7,15 +7,19 @@
     <div class="custom_fields_half">
         <div class="custom_Request_fields_half ">
             <label for="FirstName">Address Type</label>
-            <input  type="text" disabled required="" name="address_type" id="FirstName" value="{{$address->address_type}}" placeholder="">
+            <input  type="text" disabled required="" name="address_type" id="Address-Type" value="{{$address->address_type}}" placeholder="">
         </div>
     </div>
 
     <div class="custom_fields_half associate">
         <div class="custom_Request_fields_half">
             <label for="AddressCountryNew">Country</label>
-            <select required class="AddressCountryNew" name="country" @if($address != null) data-country-select="{{ $address->country }}"  data-province-select="{{$address->state}}" @endif>
+            <select required class="AddressCountryNew country_select" name="country" @if($address != null) data-country-select="{{ $address->country }}"  data-province-select="{{$address->state}}" @endif>
+              @if($address->address_type == 'Billing' || $address->address_type == 'Sender')
                 @include('customers.inc.countries')
+                  @else
+                    @include('customers.inc.reciepient_countries')
+                  @endif
             </select>
         </div>
     </div>
@@ -39,17 +43,17 @@
 
 
 
-    <div class="custom_fields_half" style="display: none;">
-        <div class="custom_Request_fields_half">
-            <label for="Business">Business</label>
-            <input type="text"  name="business" id="Business" value="{{$address->business}}" placeholder="">
-        </div>
-    </div>
+{{--    <div class="custom_fields_half" style="display: none;">--}}
+{{--        <div class="custom_Request_fields_half">--}}
+{{--            <label for="Business">Business</label>--}}
+{{--            <input type="text"  name="business" id="Business" value="{{$address->business}}" placeholder="">--}}
+{{--        </div>--}}
+{{--    </div>--}}
 
-    <div class="custom_fields_half">
+    <div class="custom_fields_half full_width_iput">
         <div class="custom_Request_fields_half">
             <label for="Address1">Street Address</label>
-            <input type="text" required=""  id="autocomplete" value="{{$address->address1}}" placeholder="treet and number, P.O. box, c/o.">
+            <input type="text" required="" id="autocomplete" class="autocomplete" value="{{$address->address1}}" placeholder="treet and number, P.O. box, c/o.">
             <input type="hidden" name="address1" id="street_number" value="{{$address->address1}}" >
             <input type="text"  name="address2" id="route" value="{{$address->address2}}" placeholder="Apartment, suite, unit, building, floor, etc." style="margin-bottom:25px">
         </div>
@@ -65,9 +69,10 @@
         <div id="province_div" class="custom_fields_half associate full_width_iput">
             <div class="custom_Request_fields_half adj">
                 <label for="AddressProvinceNew">State</label>
-                <select id="administrative_area_level_1" class="AddressProvinceNew2" name="province" autocomplete="address-level1">
-                    @include('customers.inc.usa_states')
-                </select>
+                <input type="text" id="administrative_area_level_1" class="AddressProvinceNew2" name="province">
+{{--                <select id="administrative_area_level_1" class="AddressProvinceNew2" name="province" autocomplete="address-level1">--}}
+{{--                    @include('customers.inc.usa_states')--}}
+{{--                </select>--}}
             </div>
         </div>
 
@@ -85,7 +90,7 @@
         <div class="custom_fields_half full_width_iput">
             <div class="custom_Request_fields_half">
                 <label for="Phone">Phone Number</label>
-                <input type="text" required="" name="phone" id="Phone" value="{{$address->phone}}" placeholder="">
+                <input type="text"  name="phone" id="Phone" value="{{$address->phone}}" placeholder="">
             </div>
         </div>
 

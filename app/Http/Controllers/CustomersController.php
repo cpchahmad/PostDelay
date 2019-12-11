@@ -6,6 +6,7 @@ use App\Address;
 use App\BillingAddress;
 use App\Country;
 use App\Customer;
+use App\Mail\AccountDeletionEmail;
 use App\Mail\SendAccountDeleteEmail;
 use App\Order;
 use App\OrderStatusHistory;
@@ -470,6 +471,7 @@ class CustomersController extends Controller
             ]);
 
             $customer_orders = Order::where('customer_id',$customer->id)->delete();
+            Mail::to($customer->email)->send(new AccountDeletionEmail($customer));
             $customer->delete();
 
 
