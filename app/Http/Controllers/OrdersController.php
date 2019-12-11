@@ -905,7 +905,7 @@ class OrdersController extends Controller
                     ],
                     'images' => [
                         [
-                            'src' => 'https://cdn.shopify.com/s/files/1/0120/3106/6193/files/Screenshot_36.png?v=1576081850'
+                            'src' => 'https://cdn.shopify.com/s/files/1/0120/3106/6193/files/Screenshot_36.png'
                         ]
                     ]
                 ],
