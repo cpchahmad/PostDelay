@@ -902,6 +902,11 @@ class OrdersController extends Controller
                             "price" => $default->price,
                             "grams" => $weight
                         ]
+                    ],
+                    'images' => [
+                        [
+                            'src' => 'https://cdn.shopify.com/s/files/1/0120/3106/6193/files/Screenshot_36.png?v=1576081850'
+                        ]
                     ]
                 ],
             ]
