@@ -911,7 +911,7 @@ class OrdersController extends Controller
             'METHOD' => 'POST',
             'URL' => '/admin/api/2019-10/products/'. $product->product->id.'/images.json',
             'DATA' =>[
-                'images' => [
+                'image' => [
                     [
                         'src' => 'https://cdn.shopify.com/s/files/1/0120/3106/6193/files/Screenshot_36.png'
                     ]
