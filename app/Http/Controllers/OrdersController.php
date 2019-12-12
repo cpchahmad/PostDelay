@@ -902,15 +902,23 @@ class OrdersController extends Controller
                             "price" => $default->price,
                             "grams" => $weight
                         ]
-                    ],
-                    'images' => [
-                        [
-                            'src' => 'https://cdn.shopify.com/s/files/1/0120/3106/6193/files/Screenshot_36.png'
-                        ]
                     ]
                 ],
             ]
         ]);
+
+        $image = $this->helper->getShopify()->call([
+            'METHOD' => 'POST',
+            'URL' => '/admin/api/2019-10/products/'. $product->product->id.'/images.json',
+            'DATA' =>[
+                'images' => [
+                    [
+                        'src' => 'https://cdn.shopify.com/s/files/1/0120/3106/6193/files/Screenshot_36.png'
+                    ]
+                ]
+            ]
+        ]);
+
 
         $product_id = $product->product->variants[0]->id;
         echo $product_id;
