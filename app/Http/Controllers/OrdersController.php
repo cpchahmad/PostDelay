@@ -54,12 +54,17 @@ class OrdersController extends Controller
         $default =  PostDelayFee::where('default',1)->where('type','primary')->first();
         $weight = $request->input('weight');
 
+//        array_push($line_items, [
+//            "title"=> 'Postdelay Fee',
+//            "price"=> $request->input('new_postdelay_fee'),
+//            "quantity"=> 1,
+//            "requires_shipping" => true,
+//            "grams" =>$weight,
+//        ]);
+
         array_push($line_items, [
-            "title"=> 'Postdelay Fee',
-            "price"=> $request->input('new_postdelay_fee'),
+            "variant_id" => $request->input('product_id'),
             "quantity"=> 1,
-            "requires_shipping" => true,
-            "grams" =>$weight,
         ]);
 
 //        dd(CountrySubdivisions::getCode('United States','Alabama'));
