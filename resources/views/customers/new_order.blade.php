@@ -470,7 +470,7 @@
 
                     <div class="custom_fields_half">
                         <div class="custom_Request_fields_half  ">
-                            <label for="Shape">Send to your recipient on <i class="tooltip far fa-question-circle"> <span style="width: 320px;" class="tooltiptext">This is the date that PostDelay will send the item to your recipient. It is not the date that the recipient will receive your item. Be sure to choose a date that is far enough in the future for postDelay to receive your incoming shipment</span></i></label>
+                            <label for="Shape">Send to your recipient on <i class="tooltip far fa-question-circle"> <span style="width: 320px;padding: 10px" class="tooltiptext">This is the date that PostDelay will send the item to your recipient. It is not the date that the recipient will receive your item. Be sure to choose a date that is far enough in the future for postDelay to receive your incoming shipment</span></i></label>
                             <input class="modify" type="date" required="" name="ship_out_date" id="Country" value="" placeholder="" min="{{now()->addDays(7)->format('Y-m-d')}}" max="{{now()->addDays(1825)->format('Y-m-d')}}">
                         </div>
                     </div>
