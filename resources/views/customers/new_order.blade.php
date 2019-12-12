@@ -1,6 +1,7 @@
 <form id="get_shipping_rates" class="place_order_form" action="/get_shipping_rates" method="GET">
     <input type="hidden" id="modification" value="empty">
     <input type="hidden" value="{{$customer_id}}" name="customer_id">
+    <input type="hidden" id="shopify_product_id" name="product_id" value="">
 <div class="page-double-left equ">
     <div class="Form-wraper">
         <div class="Form-contaner">
