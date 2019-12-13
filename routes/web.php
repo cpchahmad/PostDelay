@@ -133,3 +133,5 @@ Route::GET('/update/customer/status', 'CustomersController@update_customer_statu
 Route::get('/setting/statuses', 'SettingsController@show_statuses')->name('statuses.index');
 Route::get('/status/{id}', 'SettingsController@edit_status')->name('statuses.edit_status');
 Route::POST('/status/update', 'SettingsController@update_status')->name('statuses.update_status');
+
+Route::get('/test/usps', 'OrdersController@testusps');
