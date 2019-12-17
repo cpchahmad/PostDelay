@@ -134,7 +134,7 @@
             <select class="" name="billing_address" id="billing_address" >
                 @foreach($addresses as $address)
                     @if($address->address_type == "Billing")
-                        <option @if($address->default == 1) selected @endif value="{{$address->id}}"> {{$address->address1}} @if($address->default == 1) (Default) @endif </option>
+                        <option @if($address->default == 1) selected @endif value="{{$address->id}}"> {{$address->address1.' '.$address->address2.' '.$address->city.' '.$address->state.' '.$address->country.','.$address->postcode}}  @if($address->default == 1) (Default) @endif </option>
                     @endif
                 @endforeach
             </select>
@@ -157,7 +157,7 @@
             <select class="" name="recipients_address" id="recipients_address" >
                 @foreach($addresses as $address)
                     @if($address->address_type == "Recipients")
-                        <option @if($address->default == 1) selected @endif value="{{$address->id}}"> {{$address->address1}} @if($address->default == 1) (Default) @endif </option>
+                        <option @if($address->default == 1) selected @endif value="{{$address->id}}"> {{$address->address1.' '.$address->address2.' '.$address->city.' '.$address->state.' '.$address->country.','.$address->postcode}} @if($address->default == 1) (Default) @endif </option>
                     @endif
                 @endforeach
             </select>
@@ -180,7 +180,7 @@
             <select class="" name="sender_address" id="sender_address">
                 @foreach($addresses as $address)
                     @if($address->address_type == "Sender")
-                        <option @if($address->default == 1) selected @endif value="{{$address->id}}"> {{$address->address1}} @if($address->default == 1) (Default) @endif </option>
+                        <option @if($address->default == 1) selected @endif value="{{$address->id}}"> {{$address->address1.' '.$address->address2.' '.$address->city.' '.$address->state.' '.$address->country.','.$address->postcode}} @if($address->default == 1) (Default) @endif </option>
                     @endif
                 @endforeach
             </select>
