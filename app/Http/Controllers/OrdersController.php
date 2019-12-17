@@ -6,6 +6,7 @@ use App\Address;
 use App\BillingAddress;
 use App\Customer;
 use App\KeyDate;
+use App\Mail\MailingFormEmail;
 use App\Mail\NotificationEmail;
 use App\Mail\RequestFormEmail;
 use App\Order;
@@ -21,11 +22,13 @@ use App\Shape;
 use App\Shop;
 use App\Status;
 use Barryvdh\DomPDF\PDF;
+use Doctrine\DBAL\Schema\AbstractAsset;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Jasny\ISO\Countries;
 use Jasny\ISO\CountrySubdivisions;
 use USPS\Rate;
@@ -218,7 +221,7 @@ class OrdersController extends Controller
                 ->where('checkout_completed', 0)->first();
             if ($draft_order != NULL) {
 
-                $draft_order->checkout_completed = 1;
+                $draft_order->checkout_completed = 0;
                 $draft_order->shopify_order_id = $order->id;
                 $draft_order->order_name = $order->name;
                 $draft_order->order_total = $order->total_price;
@@ -277,6 +280,17 @@ class OrdersController extends Controller
                         $assosiate_order = Order::find($draft_order->order_id);
                         $customer = Customer::find($assosiate_order->customer_id);
                         Mail::to($customer->email)->send(new RequestFormEmail($customer, $assosiate_order));
+
+                        $name = now()->format('Ymd').'_mailing_form.pdf';
+                        $pdf = App::make('dompdf.wrapper');
+                        $pdf = $pdf->loadView('mailing_form',[
+                            'customer' => $customer,
+                            'order' => $assosiate_order,
+                        ]);
+                        $content = $pdf->download()->getOriginalContent();
+                        Storage::put($name,$content) ;
+                        Mail::to($customer->email)->send(new MailingFormEmail($customer, $assosiate_order,$name));
+
                     }
 
                 } else {

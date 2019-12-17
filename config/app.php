@@ -166,7 +166,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+//        Johnpaulmedina\Usps\UspsServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -230,6 +230,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Shopify' => Oseintow\Shopify\Facades\Shopify::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+//        'Usps' => Johnpaulmedina\Usps\Facades\Usps::class,
     ],
 
 ];

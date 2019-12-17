@@ -189,18 +189,13 @@
 <div style="max-width: 767px;margin: auto;border: 1px solid black;border-radius: 84px;overflow: hidden;font-size: 0;padding: 25px;">
     <div class="content_area" style="width: 70%;display: inline-block;font-size: 16px;padding: 0 2.5%;">
         <div class="email_logo">
-            <img src="https://cdn.shopify.com/s/files/1/0120/3106/6193/files/email_logo.jpg" style="width: 100%; max-width: 330px; ">
+            <img src="https://cdn.shopify.com/s/files/1/0120/3106/6193/files/email_logo.jpg" style="width: 100%; max-width: 330px;margin-top: 80px">
         </div>
         <div class="email_content" style="font-size: 16px;line-height: 25px;font-family: Arial;">
-            <p>
-                Order :
-            </p>
-            <p>Hello <b></b>, </p>
+            <p>Hi {{$customer->first_name}}, <br>Thank you for using PostDelay! <br> This form allows us to link this incoming shipment with your order </p>
+            <p>Send your item, including this label, to: <br> PostDelay LLCBox <br>3492, Church Street Station <br>New York, NY, 10008, USA</p>
+            <p>Order ID: <{{$order->order_name}}> <br>Order Date: {{$order->created_at}} <br>Mail Out Date : {{$order->ship_out_date}}  </p>
 
-        </div>
-        <div class="email_btn">
-            <a href="" style="text-align: center;display: block;background: #0000FF;color: white;text-transform: uppercase;text-decoration: none;font-weight: bold;font-size: 20px;margin: 0;padding: 0;line-height: 53px;height: 45px;letter-spacing: 3px;border-radius: 12px;margin-top: 25px;cursor: pointer;
-"></a>
         </div>
     </div>
     <div class="men_icon_wrapper" style="width: 25%;display: inline-block;vertical-align: top;">
@@ -217,4 +212,3 @@
 </html>
 
 
-{{--<div class="mapouter"><div class="gmap_canvas"><a href="https://camzzle.com">pornchat free</a></div><style>.mapouter{position:relative;text-align:right;height:500px;width:600px;}.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:600px;}</style></div>--}}
