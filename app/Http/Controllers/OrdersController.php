@@ -221,7 +221,7 @@ class OrdersController extends Controller
                 ->where('checkout_completed', 0)->first();
             if ($draft_order != NULL) {
 
-                $draft_order->checkout_completed = 0;
+                $draft_order->checkout_completed = 1;
                 $draft_order->shopify_order_id = $order->id;
                 $draft_order->order_name = $order->name;
                 $draft_order->order_total = $order->total_price;
