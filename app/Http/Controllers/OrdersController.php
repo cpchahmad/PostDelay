@@ -275,20 +275,20 @@ class OrdersController extends Controller
                         $assosiate_order->save();
                         $this->status_log($assosiate_order);
                         $customer = Customer::find($assosiate_order->customer_id);
-                        Mail::to($customer->email)->send(new NotificationEmail($customer, $assosiate_order));
+//                        Mail::to($customer->email)->send(new NotificationEmail($customer, $assosiate_order));
                     } else {
                         $assosiate_order = Order::find($draft_order->order_id);
                         $customer = Customer::find($assosiate_order->customer_id);
                         Mail::to($customer->email)->send(new RequestFormEmail($customer, $assosiate_order));
 
                         $name = now()->format('Ymd').'_mailing_form.pdf';
-                        $pdf = App::make('dompdf.wrapper');
-                        $pdf = $pdf->loadView('mailing_form',[
-                            'customer' => $customer,
-                            'order' => $assosiate_order,
-                        ]);
-                        $content = $pdf->download()->getOriginalContent();
-                        Storage::put($name,$content) ;
+//                        $pdf = App::make('dompdf.wrapper');
+//                        $pdf = $pdf->loadView('mailing_form',[
+//                            'customer' => $customer,
+//                            'order' => $assosiate_order,
+//                        ]);
+//                        $content = $pdf->download()->getOriginalContent();
+//                        Storage::put($name,$content) ;
                         Mail::to($customer->email)->send(new MailingFormEmail($customer, $assosiate_order,$name));
 
                     }
