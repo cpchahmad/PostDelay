@@ -209,7 +209,7 @@
     line-height: 25px;
     font-family: Arial;
 ">
-            <p>Hello <b>{{$customer->first_name}}</b>, Please click on button to delete you account completely.</p>
+            <p>Hello <b>{{$customer->first_name}}</b> <br> You have requested deletion of your PostDelay account. Click below to confirm</p>
 
         </div>
         <div class="email_btn">

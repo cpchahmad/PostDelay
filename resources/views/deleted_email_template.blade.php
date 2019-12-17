@@ -209,7 +209,7 @@
     line-height: 25px;
     font-family: Arial;
 ">
-            <p>Hello <b>{{$customer->first_name}}</b>, Your PostDelay Account Successfully Deleted, Thanks For Using Our Services.</p>
+            <p>Hello <b>{{$customer->first_name}}</b>,<br> Your PostDelay account has been deleted.</p>
 
         </div>
     </div>
