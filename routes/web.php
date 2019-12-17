@@ -1,6 +1,8 @@
 <?php
 
 
+use Illuminate\Support\Facades\App;
+
 Route::get('/', 'ShopsController@Dashboard')->name('home')->middleware('auth.shop');
 
 Route::prefix('admin')->group(function () {
@@ -119,7 +121,10 @@ Route::GET('/reset_all', 'CustomersController@ResetAll')->name('reset');
 Route::GET('/email', 'OrdersController@showEmail');
 
 Route::get('/test', function () {
-    return view('test');
+    $pdf = App::make('dompdf.wrapper');
+    $pdf = $pdf->loadView('mailing_form');
+    return $pdf->download('Mailing_form.pdf');
+//    return view('mailing_form');
 });
 
 Route::GET('/c/{id}', 'CustomersController@getCustomer');

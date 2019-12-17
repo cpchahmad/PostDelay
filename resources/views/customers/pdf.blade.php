@@ -10,7 +10,7 @@
 <h3>Hi - {{$order->has_customer->first_name}}</h3>
 <h5>THANKS FOR USING POSTDELAY</h5>
 <br>
-<p> Order-ID : {{$order->shopify_order_id}} </p>
+<p> Order-ID : {{$order->order_name}} </p>
 <p> Ship-Out-Date : {{$order->ship_out_date}}</p>
 <br>
 <div class="row">
