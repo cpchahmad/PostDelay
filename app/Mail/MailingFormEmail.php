@@ -42,9 +42,10 @@ class MailingFormEmail extends Mailable
         return $this->subject('Shipping Label from PostDelay')->view('mailing_form')->with([
             "customer" => $this->customer,
             "order" =>$this->order
-        ])->attachFromStorage($this->pdf, 'mailing_form.pdf', [
-            'mime' => 'application/pdf'
-        ]);
+            ]);
+//        ])->attachFromStorage($this->pdf, 'mailing_form.pdf', [
+//            'mime' => 'application/pdf'
+//        ]);
 
     }
 
