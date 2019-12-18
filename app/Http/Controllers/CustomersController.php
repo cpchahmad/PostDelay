@@ -451,28 +451,30 @@ class CustomersController extends Controller
         public function delete_account(Request $request){
 
         $customer = Customer::where('shopify_customer_id',$request->input('customer'))->first();
-            $orders = $this->helper->getShopify()->call([
-                'METHOD' => 'GET',
-                'URL' => '/admin/customers/'.$customer->shopify_customer_id.'/orders.json',
-            ]);
-
-            $orders = $orders->orders;
-
-            foreach ($orders as $order){
-                $this->helper->getShopify()->call([
-                    'METHOD' => 'DELETE',
-                    'URL' => 'admin/orders/' .$order->id. '.json',
-                ]);
-            }
-
-            $this->helper->getShopify()->call([
-                'METHOD' => 'DELETE',
-                'URL' => 'admin/customers/' . $customer->shopify_customer_id . '.json',
-            ]);
-
-            $customer_orders = Order::where('customer_id',$customer->id)->delete();
+        $customer->status = 'inactive';
+        $customer->save();
+//            $orders = $this->helper->getShopify()->call([
+//                'METHOD' => 'GET',
+//                'URL' => '/admin/customers/'.$customer->shopify_customer_id.'/orders.json',
+//            ]);
+//
+//            $orders = $orders->orders;
+//
+//            foreach ($orders as $order){
+//                $this->helper->getShopify()->call([
+//                    'METHOD' => 'DELETE',
+//                    'URL' => 'admin/orders/' .$order->id. '.json',
+//                ]);
+//            }
+//
+//            $this->helper->getShopify()->call([
+//                'METHOD' => 'DELETE',
+//                'URL' => 'admin/customers/' . $customer->shopify_customer_id . '.json',
+//            ]);
+//
+//            $customer_orders = Order::where('customer_id',$customer->id)->delete();
             Mail::to($customer->email)->send(new AccountDeletionEmail($customer));
-            $customer->delete();
+//            $customer->delete();
 
 
             if(!$request->ajax()){
