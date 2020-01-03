@@ -406,3 +406,20 @@ $('.update_customer_details_form').submit(function(e){
         });
 });
 
+$('body').on('change','#customer_status',function () {
+
+    $.ajax(
+        {
+            type:'GET',
+            url:$(this).data('url'),
+            data: {
+                id : $(this).data('id'),
+                customer_status : $(this).val(),
+            },
+            success:function(data){
+                alertify.success('Customer '+data.status);
+            }
+        });
+
+});
+

@@ -604,6 +604,14 @@ class CustomersController extends Controller
             'status' => $customer->status
         ]);
     }
+    public function customer_status(Request $request){
+        $customer = Customer::find($request->input('id'));
+        $customer->status = $request->input('customer_status');
+        $customer->save();
+        return response()->json([
+            'status' => $customer->status
+        ]);
+    }
 
 }
 

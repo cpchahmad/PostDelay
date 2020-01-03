@@ -39,6 +39,7 @@
                                 <th scope="col">city</th>
                                 <th scope="col"> Country</th>
                                 <th scope="col">Phone</th>
+                                <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
                             </thead>
@@ -51,6 +52,12 @@
                                     <td>{{$customer->city}} </td>
                                     <td>{{$customer->country}} </td>
                                     <td>{{$customer->phone}} </td>
+                                    <td>
+                                        <select data-url="{{route('update.status')}}" data-id="{{$customer->id}}" class="form-control" name="customer_status" id="customer_status">
+                                            <option @if($customer->status == 'enabled') selected @endif value="enabled">Active</option>
+                                            <option @if($customer->status == 'disabled') selected @endif value="disabled">Disabled</option>
+                                        </select>
+                                    </td>
                                     <td>
                                         <a href="{{route('single_customer',$customer->id)}}" class="btn btn-warning waves-effect waves-light btn-sm">
                                             View

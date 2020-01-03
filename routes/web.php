@@ -133,8 +133,9 @@ Route::GET('/webhooks', 'CustomersController@getWebhooks');
 Route::POST('/response/customer', 'OrdersController@response_from_user')->name('response_from_user');
 Route::GET('/check/customer/status', 'CustomersController@check_customer_status')->name('check_customer_status');
 Route::GET('/update/customer/status', 'CustomersController@update_customer_status')->name('update_customer_status');
-
-
+/*Admin side*/
+Route::GET('/update/status', 'CustomersController@customer_status')->name('update.status');
+/* End Admin side */
 Route::get('/setting/statuses', 'SettingsController@show_statuses')->name('statuses.index');
 Route::get('/status/{id}', 'SettingsController@edit_status')->name('statuses.edit_status');
 Route::POST('/status/update', 'SettingsController@update_status')->name('statuses.update_status');
