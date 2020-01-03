@@ -423,7 +423,7 @@
                     <div class="custom_fields_half">
                         <div class="custom_Request_fields_half">
                             <label for="Shape">Unit of Measure</label>
-                            <select class="modify" name="unit_of_measures">
+                            <select disabled class="modify" name="unit_of_measures">
                                @foreach($scales as $scale)
                                     <option value="{{$scale->name}}">{{$scale->name}}</option>
                                 @endforeach
@@ -435,13 +435,13 @@
                         <div class="custom_fields_half" id="weight_input" >
                             <div class="custom_Request_fields_half">
                                 <label for="Weight">Weight (grams)</label>
-                                <input class="modify" type="number" name="weight" id="City" value="" placeholder="">
+                                <input class="modify" required type="number" name="weight" id="City" value="" placeholder="">
                             </div>
                         </div>
                         <div class="custom_fields_half" id="height_input">
                             <div class="custom_Request_fields_half adj">
                                 <label for="Height">Height</label>
-                                <input class="modify" type="number" name="height" id="State" value="" placeholder="">
+                                <input class="modify" type="number" required name="height" id="State" value="" placeholder="">
                             </div>
                         </div>
                         <div class="custom_fields_half" id="length_input">
@@ -462,7 +462,7 @@
                         <div class="custom_fields_half" id="girth_input">
                             <div class="custom_Request_fields_half tow-field-Row-right">
                                 <label for="Girth">Girth</label>
-                                <input class="modify" type="number"  name="girth" id="Country" value="" placeholder="">
+                                <input class="modify" type="number" required  name="girth" id="Country" value="" placeholder="">
                             </div>
                         </div>
                     </div>
