@@ -289,7 +289,7 @@ class OrdersController extends Controller
 //                        ]);
 //                        $content = $pdf->download()->getOriginalContent();
 //                        Storage::put($name,$content) ;
-                        Mail::to($customer->email)->send(new MailingFormEmail($customer, $assosiate_order,$name));
+//                        Mail::to($customer->email)->send(new MailingFormEmail($customer, $assosiate_order,$name));
 
                     }
 
@@ -618,13 +618,14 @@ class OrdersController extends Controller
 
     public function download_pdf(Request $request)
     {
-
         $pdf = App::make('dompdf.wrapper');
         $order = Order::where('shopify_order_id', $request->input('order'))->first();
-        $pdf = $pdf->loadView('customers.pdf', [
-            "order" => $order
+        $customer = Customer::find($order->customer_id);
+        $pdf = $pdf->loadView('mailing_form', [
+            "customer" => $customer,
+            "order" =>$order
         ]);
-        return $pdf->download('PostDelay_OrderDetails.pdf');
+        return $pdf->download('PostDelay_<'.$order->order_name.'>_Shipping_Label.pdf');
     }
 
     public function update_order_sender_details(Request $request)
