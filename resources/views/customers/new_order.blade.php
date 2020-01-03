@@ -420,10 +420,10 @@
                         </div>
                     </div>
 
-                    <div class="custom_fields_half">
+                    <div class="custom_fields_half" style="display: none">
                         <div class="custom_Request_fields_half">
                             <label for="Shape">Unit of Measure</label>
-                            <select disabled class="modify" name="unit_of_measures">
+                            <select class="modify" name="unit_of_measures">
                                @foreach($scales as $scale)
                                     <option value="{{$scale->name}}">{{$scale->name}}</option>
                                 @endforeach
