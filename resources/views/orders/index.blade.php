@@ -37,7 +37,7 @@
                                 <th scope="col">Customer Email</th>
                                 <th scope="col">Order Placement Date</th>
                                 <th scope="col">Price</th>
-                                <th scope="col"> Current Status</th>
+                                <th scope="col">Current Status</th>
                                 <th scope="col">Action</th>
                             </tr>
                             </thead>
@@ -48,7 +48,7 @@
                                 <td>{{$order->has_customer->email}}</td>
                                 <td> {{\Carbon\Carbon::parse($order->created_at)->format('F j ,Y')}}</td>
                                 <td> ${{$order->order_total}}</td>
-                                <td style="color:{{ $order->has_status->color  }};">
+                                <td style="color:{{ $order->has_status->color  }};width: 300px">
                                     {{$order->has_status->name}}
                                 </td>
                                <td>

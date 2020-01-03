@@ -205,22 +205,18 @@
 
         @media only screen and (max-width: 768px) {
             .main_button{
-                text-align: center;
-                display: block;
-                background: #0000FF;
+                text-align: center !important;
+                display: block !important;
+                background: #0000FF !important;
                 color: white !important;
-                text-transform: uppercase;
-                text-decoration: none;
-                font-weight: bold;
-                font-size: 14px;
-                margin: 0;
-                /*padding: 10px 20px;*/
-                /*line-height: 1;*/
-                height: 18px;
-                /*letter-spacing: 0px;*/
-                border-radius: 12px;
-                /*margin-top: 25px;*/
-                cursor: pointer
+                text-transform: uppercase !important;
+                text-decoration: none !important;
+                font-weight: bold !important;
+                font-size: 13px !important;
+                margin: 0 !important;
+                height: 27px !important;
+                border-radius: 12px !important;
+                cursor: pointer !important;
             }
         }
     </style>

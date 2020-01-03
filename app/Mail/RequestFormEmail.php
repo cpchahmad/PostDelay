@@ -22,10 +22,13 @@ class RequestFormEmail extends Mailable implements ShouldQueue
     protected $customer;
     protected $order;
 
+
     public function __construct(Customer $customer, Order $order)
     {
         $this->customer = $customer;
         $this->order = $order;
+
+
     }
 
     /**
