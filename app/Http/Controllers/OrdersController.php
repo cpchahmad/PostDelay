@@ -1129,7 +1129,7 @@ class OrdersController extends Controller
                 }
             }
             else if($request->input('post_type') == 'Large Envelope'){
-                $package->setField('Container', RatePackage::CONTAINER_FLAT_RATE_ENVELOPE);
+                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
             }
             else if($request->input('post_type') == 'Postcard'){
                 $package->setField('Container', RatePackage::CONTAINER_RECTANGULAR);
