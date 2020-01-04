@@ -282,7 +282,7 @@
     </div>
 </div>
 <div class="page-double-right equ">
-    <div class="Form-wraper" style="margin-top: 45px">
+    <div class="Form-wraper" style="margin-top: 36px">
         <div class="Form-contaner">
 
             <div class="Form-field-contaner">
@@ -434,20 +434,20 @@
                     <div class="three-field-Row">
                         <div class="custom_fields_half" id="weight_input" >
                             <div class="custom_Request_fields_half">
-                                <label for="Weight">Weight (grams)</label>
-                                <input class="modify" required type="number" name="weight" id="City" value="" placeholder="">
+                                <label for="Weight">Weight (grams)<i class="tooltip far fa-question-circle"> <span style="padding: 10px" class="tooltiptext"></span></i></label>
+                                <input class="modify" required type="number" step="any" name="weight"  value="" placeholder="">
                             </div>
                         </div>
                         <div class="custom_fields_half" id="height_input">
                             <div class="custom_Request_fields_half adj">
-                                <label for="Height">Height</label>
-                                <input class="modify" type="number" required name="height" id="State" value="" placeholder="">
+                                <label for="Height">Height <i class="tooltip far fa-question-circle"> <span style="padding: 10px" class="tooltiptext"></span></i></label>
+                                <input class="modify" type="number" required step="any" name="height"  value="" placeholder="">
                             </div>
                         </div>
                         <div class="custom_fields_half" id="length_input">
                             <div class="custom_Request_fields_half">
-                                <label for="length">Length</label>
-                                <input class="modify" type="number" required="" name="length" id="PosteCode" value="" placeholder="">
+                                <label for="length">Length <i class="tooltip far fa-question-circle"> <span style="padding: 10px" class="tooltiptext"></span></i></label>
+                                <input class="modify" type="number" required="" step="any" name="length" value="" placeholder="" >
                             </div>
                         </div>
                     </div>
@@ -455,14 +455,14 @@
                     <div class="tow-field-Row" >
                         <div class="custom_fields_half" id="width_input">
                             <div class="custom_Request_fields_half tow-field-Row-left">
-                                <label for="width">Width</label>
-                                <input class="modify" type="number" required="" name="width" id="Country" value="" placeholder="">
+                                <label for="width">Width <i class="tooltip far fa-question-circle"> <span style="padding: 10px" class="tooltiptext"></span></i></label>
+                                <input class="modify" type="number" required="" step="any" name="width"  value="" placeholder="">
                             </div>
                         </div>
                         <div class="custom_fields_half" id="girth_input">
                             <div class="custom_Request_fields_half tow-field-Row-right">
-                                <label for="Girth">Girth</label>
-                                <input class="modify" type="number" required  name="girth" id="Country" value="" placeholder="">
+                                <label for="Girth">Girth  <i class="tooltip far fa-question-circle"> <span style="padding: 10px" class="tooltiptext"></span></i></label>
+                                <input class="modify" type="number" required  name="girth" step="any"  value="" placeholder="">
                             </div>
                         </div>
                     </div>
