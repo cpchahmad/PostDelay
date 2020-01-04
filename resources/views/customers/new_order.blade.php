@@ -391,8 +391,12 @@
                                 <label for="TypeSelect">Type</label>
                                 <select class="modify" required id="TypeSelect" name="post_type">
                                     @foreach($types as $type)
-                                        @if($recipient_address->country != 'United States')
-                                            @if($type->name != 'Postcard')
+                                        @if($recipient_address != null)
+                                            @if($recipient_address->country != 'United States')
+                                                @if($type->name != 'Postcard')
+                                                    <option data-weight="{{ $type->weight }}" data-commission="{{ $type->commision_type }}" data-commission-type="{{ $type->commision }}" value="{{$type->name}}">{{$type->name}}</option>
+                                                @endif
+                                            @else
                                                 <option data-weight="{{ $type->weight }}" data-commission="{{ $type->commision_type }}" data-commission-type="{{ $type->commision }}" value="{{$type->name}}">{{$type->name}}</option>
                                             @endif
                                         @else
