@@ -1,9 +1,12 @@
 
 <div class="Form-content-name">
     <p>Key Date</p>
+    <div class="icon_wrapper">
+        <i class="fa fa-chevron-right"></i>
+    </div>
 </div>
 
-<div class="Form-content-detail">
+<div class="Form-content-detail" style="display: none">
 
     <div class="Key-date-field" >
         <div class="custom_fields_half">
@@ -31,3 +34,5 @@
             <label for="Order ID">Completion Date</label>
             <input disabled type="text"  name="account[first_name]" id="FirstName" @if($order->has_key_dates != null) value="{{\Carbon\Carbon::parse($order->has_key_dates->completion_date)->format('F j ,Y')}}"  @else value="" @endif placeholder="">
         </div>
+    </div>
+</div>
