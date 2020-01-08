@@ -4,7 +4,7 @@
         <i class="fa fa-chevron-right"></i>
     </div>
 </div>
-<div class="Form-content-detail" style="display:none;">
+<div class="" style="display:none;">
 @if(count($order->has_additional_payments) > 0)
 
     <div class="Form-content-detail ">
