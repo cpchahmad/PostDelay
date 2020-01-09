@@ -423,3 +423,6 @@ $('body').on('change','#customer_status',function () {
 
 });
 
+$('.delete_customer_class').click(function () {
+    $(this).next().submit();
+})

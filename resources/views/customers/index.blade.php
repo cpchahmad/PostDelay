@@ -74,11 +74,7 @@
                             </tbody>
                         </table>
                     </div>
-                        <script>
-                        $('.delete_customer_class').click(function () {
-                            $(this).next().submit();
-                        })
-                        </script>
+
 @else
                     <div class="text-center">
                         <i class="fas fa-user-alt-slash" style="font-size:25px; marin:15px 0;"></i>
