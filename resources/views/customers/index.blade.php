@@ -62,8 +62,8 @@
                                         <a href="{{route('single_customer',$customer->id)}}" class="btn btn-warning waves-effect waves-light btn-sm">
                                             View
                                         </a>
-                                        <a href="javascript:void(0);" class="btn btn-danger waves-effect waves-light btn-sm" onclick="$(this).next().submit();">Delete</a>
-                                        <form action="{{route('delete_account')}}" method="get" style="display: none;">
+                                        <a href="javascript:void(0);" class="btn btn-danger delete_customer_class waves-effect waves-light btn-sm" >Delete</a>
+                                        <form  action="{{route('delete_account')}}" method="get" style="display: none;">
                                             <input type="hidden" value="{{$customer->shopify_customer_id}}" name="customer">
                                             <button type="submit" class="form-control btn btn-danger waves-effect waves-light btn-sm">Delete</button>
                                         </form>
@@ -74,6 +74,11 @@
                             </tbody>
                         </table>
                     </div>
+                        <script>
+                        $('.delete_customer_class').click(function () {
+                            $(this).next().submit();
+                        })
+                        </script>
 @else
                     <div class="text-center">
                         <i class="fas fa-user-alt-slash" style="font-size:25px; marin:15px 0;"></i>
