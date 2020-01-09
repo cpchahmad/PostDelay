@@ -56,6 +56,7 @@
                                         <select data-url="{{route('update.status')}}" data-id="{{$customer->id}}" class="form-control" name="customer_status" id="customer_status">
                                             <option @if($customer->status == 'enabled') selected @endif value="enabled">Active</option>
                                             <option @if($customer->status == 'disabled') selected @endif value="disabled">Disabled</option>
+                                            <option @if($customer->status == 'inactive') selected @endif value="disabled">Inactive</option>
                                         </select>
                                     </td>
                                     <td>
