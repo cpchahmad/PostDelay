@@ -1,3 +1,4 @@
+<option value="">Select Country</option>
 <option value="United States">United States</option>
 <option value="Afghanistan">Afghanistan</option>
 <option value="Åland Islands">Åland Islands</option>
