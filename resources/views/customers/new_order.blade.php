@@ -394,13 +394,13 @@
                                         @if($recipient_address != null)
                                             @if($recipient_address->country != 'United States')
                                                 @if($type->name != 'POSTCARD')
-                                                    <option data-weight="{{ $type->weight }}" data-commission="{{ $type->commision_type }}" data-commission-type="{{ $type->commision }}" value="{{$type->name}}">{{$type->name}}</option>
+                                                    <option data-weight="{{ $type->weight }}" data-commission="{{ $type->commision_type }}" data-commission-type="{{ $type->commision }}" value="{{$type->name}}">{{ucwords(strtolower($type->name))}}</option>
                                                 @endif
                                             @else
-                                                <option data-weight="{{ $type->weight }}" data-commission="{{ $type->commision_type }}" data-commission-type="{{ $type->commision }}" value="{{$type->name}}">{{$type->name}}</option>
+                                                <option data-weight="{{ $type->weight }}" data-commission="{{ $type->commision_type }}" data-commission-type="{{ $type->commision }}" value="{{$type->name}}">{{ucwords(strtolower($type->name))}}</option>
                                             @endif
                                         @else
-                                            <option data-weight="{{ $type->weight }}" data-commission="{{ $type->commision_type }}" data-commission-type="{{ $type->commision }}" value="{{$type->name}}">{{$type->name}}</option>
+                                            <option data-weight="{{ $type->weight }}" data-commission="{{ $type->commision_type }}" data-commission-type="{{ $type->commision }}" value="{{$type->name}}">{{ucwords(strtolower($type->name))}}</option>
                                         @endif
                                     @endforeach
                                 </select>
@@ -424,7 +424,7 @@
                                 <label for="Shape">Shape</label>
                                 <select class="modify" name="shape" >
                                     @foreach($shapes as $shape)
-                                        <option value="{{$shape->name}}">{{ucwords(strtolower($shape->name))}}</option>
+                                        <option value="{{$shape->name}}">{{$shape->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
