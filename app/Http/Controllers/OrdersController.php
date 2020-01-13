@@ -1123,7 +1123,7 @@ class OrdersController extends Controller
 
             }
             else if($request->input('post_type') == 'ENVELOPE'){
-                $package->setService(RatePackage::SERVICE_EXPRESS);
+                $package->setService(RatePackage::SERVICE_ALL);
 
             }
             else if($request->input('post_type') == 'LETTER'){
@@ -1136,7 +1136,7 @@ class OrdersController extends Controller
                 $package->setService(RatePackage::SERVICE_PRIORITY);
 
             }
-            $package->setZipOrigination(10008);
+            $package->setZipOrigination(10001);
             $package->setZipDestination($request->input('receipent_postecode'));
             $package->setPounds($weight_in_pounds);
             $package->setOunces($weight_in_ounches);
