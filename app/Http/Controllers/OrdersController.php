@@ -6,6 +6,7 @@ use App\Address;
 use App\BillingAddress;
 use App\Customer;
 use App\KeyDate;
+use App\Location;
 use App\Mail\MailingFormEmail;
 use App\Mail\NotificationEmail;
 use App\Mail\RequestFormEmail;
@@ -994,6 +995,23 @@ class OrdersController extends Controller
         $rate = new Rate('021POSTD3725');
 //        dd($request);
 
+        $location = Location::all()->first();
+      if($location != null){
+          $origin_zip_code = $location->postcode;
+      }
+      else{
+          $origin_zip_code = 10008;
+      }
+
+      $fee = PostDelayFee::where('type','primary')->where('default',1)->first();
+        if($fee != null){
+            $origin_fee = $fee->price;
+        }
+        else{
+            $origin_fee = 200;
+        }
+
+
         if($request->input('width')!= null){
             $width = $request->input('width');
         }
@@ -1062,7 +1080,7 @@ class OrdersController extends Controller
                     'GiftFlag' => 'Y'
                 ));
             }
-            $package->setField('ValueOfContents', 200);
+            $package->setField('ValueOfContents', $origin_fee);
             $package->setField('Country', $request->input('receipent_country'));
             if($request->input('post_type') == 'PACKAGE' || $request->input('post_type') == 'LARGE PACKAGE'){
                 if($request->input('shape') == 'Rectangular'){
@@ -1087,7 +1105,7 @@ class OrdersController extends Controller
                 $package->setField('Height', $height);
                 $package->setField('Girth', $girth);
             }
-            $package->setField('OriginZip', 10001);
+            $package->setField('OriginZip', $origin_zip_code);
             $date =now()->addDays(7)->format('Y-m-d\TH:i:s');
             $date = $date . '-06:00';
 //            '2020-01-01T13:15:00-06:00'
@@ -1136,7 +1154,7 @@ class OrdersController extends Controller
                 $package->setService(RatePackage::SERVICE_PRIORITY);
 
             }
-            $package->setZipOrigination(10001);
+            $package->setZipOrigination($origin_zip_code);
             $package->setZipDestination($request->input('receipent_postecode'));
             $package->setPounds($weight_in_pounds);
             $package->setOunces($weight_in_ounches);
@@ -1149,7 +1167,7 @@ class OrdersController extends Controller
                 }
             }
             else if($request->input('post_type') == 'ENVELOPE'){
-                $package->setField('Container', RatePackage::CONTAINER_FLAT_RATE_ENVELOPE);
+                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
             }
             else if($request->input('post_type') == 'POSTCARD'){
                 $package->setField('Container', RatePackage::CONTAINER_VARIABLE);

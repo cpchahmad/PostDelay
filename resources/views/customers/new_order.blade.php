@@ -424,7 +424,7 @@
                                 <label for="Shape">Shape</label>
                                 <select class="modify" name="shape" >
                                     @foreach($shapes as $shape)
-                                        <option value="{{$shape->name}}">{{$shape->name}}</option>
+                                        <option value="{{$shape->name}}">{{ucwords(strtolower($shape->name))}}</option>
                                     @endforeach
                                 </select>
                             </div>
