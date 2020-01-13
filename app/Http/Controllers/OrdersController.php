@@ -1068,6 +1068,9 @@ class OrdersController extends Controller
             else if($request->input('post_type') == 'ENVELOPE'){
                 $package->setField('MailType', 'ENVELOPE');
             }
+            else if($request->input('post_type') == 'ENVELOPE'){
+                $package->setField('MailType', 'LARGEENVELOPE');
+            }
             else if($request->input('post_type') == 'LETTER'){
                 $package->setField('MailType', 'LETTER');
             }
@@ -1092,6 +1095,9 @@ class OrdersController extends Controller
             }
             else if($request->input('post_type') == 'ENVELOPE'){
                 $package->setField('Container', RatePackage::CONTAINER_FLAT_RATE_ENVELOPE);
+            }
+            else if($request->input('post_type') == 'LARGE ENVELOPE'){
+                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
             }
             else if($request->input('post_type') == 'POSTCARD'){
                 $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
@@ -1144,6 +1150,10 @@ class OrdersController extends Controller
                 $package->setService(RatePackage::SERVICE_ALL);
 
             }
+            else if($request->input('post_type') == 'LARGE ENVELOPE'){
+                $package->setService(RatePackage::SERVICE_PRIORITY);
+
+            }
             else if($request->input('post_type') == 'LETTER'){
                 $package->setService(RatePackage::SERVICE_FIRST_CLASS);
                 $package->setFirstClassMailType(RatePackage::MAIL_TYPE_LETTER);
@@ -1158,7 +1168,13 @@ class OrdersController extends Controller
             $package->setZipDestination($request->input('receipent_postecode'));
             $package->setPounds($weight_in_pounds);
             $package->setOunces($weight_in_ounches);
+
+
             if($request->input('post_type') == 'PACKAGE' || $request->input('post_type') == 'LARGE PACKAGE'){
+                $package->setField('Width', $width);
+                $package->setField('Length', $length);
+                $package->setField('Height', $height);
+                $package->setField('Girth', $girth);
                 if($request->input('shape') == 'Rectangular'){
                     $package->setField('Container', RatePackage::CONTAINER_RECTANGULAR);
                 }
@@ -1167,6 +1183,9 @@ class OrdersController extends Controller
                 }
             }
             else if($request->input('post_type') == 'ENVELOPE'){
+                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+            }
+            else if($request->input('post_type') == 'LARGE ENVELOPE'){
                 $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
             }
             else if($request->input('post_type') == 'POSTCARD'){
