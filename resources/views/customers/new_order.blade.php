@@ -393,7 +393,7 @@
                                     @foreach($types as $type)
                                         @if($recipient_address != null)
                                             @if($recipient_address->country != 'United States')
-                                                @if($type->name != 'Postcard')
+                                                @if($type->name != 'POSTCARD')
                                                     <option data-weight="{{ $type->weight }}" data-commission="{{ $type->commision_type }}" data-commission-type="{{ $type->commision }}" value="{{$type->name}}">{{$type->name}}</option>
                                                 @endif
                                             @else
@@ -440,14 +440,37 @@
                                 </select>
                             </div>
                         </div>
-
-                        <div class="three-field-Row">
-                            <div class="custom_fields_half" id="weight_input" >
-                                <div class="custom_Request_fields_half">
-                                    <label for="Weight">Weight (grams)<i class="tooltip far fa-question-circle"> <span style="padding: 10px" class="tooltiptext"></span></i></label>
-                                    <input class="modify" required type="number" step="any" name="weight"  value="" placeholder="">
+                        <div class="custom_fields_half" id="measures_input">
+                            <div class="custom_Request_fields_half">
+                                <label for="unit_of_measures_weight">Unit of Measure (Weight)</label>
+                                <select class="modify" name="unit_of_measures_weight">
+                                    <option value="Metric">Metric</option>
+                                    <option value="Standard">Standard</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="custom_fields_half" id="weight_input" >
+                            <div class="custom_Request_fields_half">
+                                <label for="Weight">Weight (Kilograms)<i class="tooltip far fa-question-circle"> <span style="padding: 10px" class="tooltiptext"></span></i></label>
+                                <input class="modify" required type="number" step="any" name="weight"  value="" placeholder="">
+                            </div>
+                        </div>
+                        <div class="tow-field-Row">
+                            <div class="custom_fields_half" id="pounds_input" >
+                                <div class="custom_Request_fields_half tow-field-Row-left">
+                                    <label for="width">Weight (Pounds) <i class="tooltip far fa-question-circle"> <span style="padding: 10px" class="tooltiptext"></span></i></label>
+                                    <input class="modify" type="number" required="" step="any" name="pounds"  value="" placeholder="">
                                 </div>
                             </div>
+                            <div class="custom_fields_half" id="ounches_input" >
+                                <div class="custom_Request_fields_half tow-field-Row-right">
+                                    <label for="Girth">Ounches <i class="tooltip far fa-question-circle"> <span style="padding: 10px" class="tooltiptext"></span></i></label>
+                                    <input class="modify" type="number" required  name="ounches" step="any"  value="" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tow-field-Row">
                             <div class="custom_fields_half" id="height_input">
                                 <div class="custom_Request_fields_half adj">
                                     <label for="Height">Height <i class="tooltip far fa-question-circle"> <span style="padding: 10px" class="tooltiptext"></span></i></label>

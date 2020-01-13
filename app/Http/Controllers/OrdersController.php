@@ -1018,20 +1018,22 @@ class OrdersController extends Controller
         else{
             $girth = 0;
         }
-        if($request->input('weight') != null){
-            $grams = $request->input('weight');
-            $weight_in_pounds =  number_format($grams/453.592,2);
-            $temp = explode('.',$grams);
-            if(array_key_exists('1',$temp)){
-                $weight_in_ounches = number_format($temp[1]/28.35,2);
-            }
-            else{
-                $weight_in_ounches = 0;
-            }
+        if($request->input('pounds') != null){
+//            $grams = $request->input('weight');
+//            $weight_in_pounds =  number_format($grams/453.592,2);
+//            $temp = explode('.',$grams);
+//            if(array_key_exists('1',$temp)){
+//                $weight_in_ounches = number_format($temp[1]/28.35,2);
+//            }
+//            else{
+//                $weight_in_ounches = 0;
+//            }
+            $weight_in_pounds =number_format($request->input('pounds'),2);
+            $weight_in_ounches = number_format($request->input('ounches'),2);
         }
         else{
             $weight_in_ounches = 0;
-            $weight_in_pounds  =15.12345678;
+            $weight_in_pounds  =0.21345678;
         }
 
         if($request->input('receipent_country') != 'United States'){
@@ -1042,8 +1044,14 @@ class OrdersController extends Controller
             $package->setPounds($weight_in_pounds);
             $package->setOunces($weight_in_ounches);
             $package->setField('Machinable', 'false');
-            if($request->input('post_type') == 'Postcard' || $request->input('post_type') == 'Large Envelope'){
-                $package->setField('MailType', 'LARGEENVELOPE');
+            if($request->input('post_type') == 'POSTCARD' ){
+                $package->setField('MailType', 'POSTCARD');
+            }
+            else if($request->input('post_type') == 'ENVELOPE'){
+                $package->setField('MailType', 'ENVELOPE');
+            }
+            else if($request->input('post_type') == 'LETTER'){
+                $package->setField('MailType', 'LETTER');
             }
             else{
                 $package->setField('MailType', 'PACKAGE');
@@ -1056,7 +1064,7 @@ class OrdersController extends Controller
             }
             $package->setField('ValueOfContents', 200);
             $package->setField('Country', $request->input('receipent_country'));
-            if($request->input('post_type') == 'Package' || $request->input('post_type') == 'Large Package'){
+            if($request->input('post_type') == 'PACKAGE' || $request->input('post_type') == 'LARGE PACKAGE'){
                 if($request->input('shape') == 'Rectangular'){
                     $package->setField('Container', RatePackage::CONTAINER_RECTANGULAR);
                 }
@@ -1064,21 +1072,22 @@ class OrdersController extends Controller
                     $package->setField('Container', RatePackage::CONTAINER_NONRECTANGULAR);
                 }
             }
-            else if($request->input('post_type') == 'Large Envelope'){
+            else if($request->input('post_type') == 'ENVELOPE'){
                 $package->setField('Container', RatePackage::CONTAINER_FLAT_RATE_ENVELOPE);
             }
-            else if($request->input('post_type') == 'Postcard'){
+            else if($request->input('post_type') == 'POSTCARD'){
                 $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
             }
             else{
-                $package->setField('Container', RatePackage::CONTAINER_RECTANGULAR);
+                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
             }
-
-            $package->setField('Width',$width);
-            $package->setField('Length', $length);
-            $package->setField('Height', $height);
-            $package->setField('Girth', $girth);
-            $package->setField('OriginZip', 18701);
+            if($request->input('post_type') == 'PACKAGE' || $request->input('post_type') == 'LARGE PACKAGE'){
+                $package->setField('Width', $width);
+                $package->setField('Length', $length);
+                $package->setField('Height', $height);
+                $package->setField('Girth', $girth);
+            }
+            $package->setField('OriginZip', 10001);
             $date =now()->addDays(7)->format('Y-m-d\TH:i:s');
             $date = $date . '-06:00';
 //            '2020-01-01T13:15:00-06:00'
@@ -1086,7 +1095,6 @@ class OrdersController extends Controller
             $package->setField('DestinationPostalCode', $request->input('receipent_postecode'));
 
             $rate->addPackage($package);
-
             $rate->getRate();
             $rates = $rate->getArrayResponse();
             if ($rate->isSuccess()) {
@@ -1106,21 +1114,33 @@ class OrdersController extends Controller
         }
         else{
             $package = new RatePackage();
-            $package->setService(RatePackage::SERVICE_ALL);
-            if($request->input('post_type') == 'Postcard'){
+
+            if($request->input('post_type') == 'POSTCARD'){
+                $package->setService(RatePackage::SERVICE_FIRST_CLASS);
                 $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
+                $weight_in_ounches = 0;
+                $weight_in_pounds = 0.21875;
+
             }
-            else if($request->input('post_type') == 'Large Envelope'){
-                $package->setFirstClassMailType(RatePackage::CONTAINER_FLAT_RATE_ENVELOPE);
+            else if($request->input('post_type') == 'ENVELOPE'){
+                $package->setService(RatePackage::SERVICE_EXPRESS);
+
+            }
+            else if($request->input('post_type') == 'LETTER'){
+                $package->setService(RatePackage::SERVICE_FIRST_CLASS);
+                $package->setFirstClassMailType(RatePackage::MAIL_TYPE_LETTER);
+                $weight_in_ounches = 0;
+                $weight_in_pounds = 0.21875;
             }
             else{
-                $package->setFirstClassMailType(RatePackage::MAIL_TYPE_PACKAGE);
+                $package->setService(RatePackage::SERVICE_PRIORITY);
+
             }
             $package->setZipOrigination(10008);
             $package->setZipDestination($request->input('receipent_postecode'));
             $package->setPounds($weight_in_pounds);
             $package->setOunces($weight_in_ounches);
-            if($request->input('post_type') == 'Package' || $request->input('post_type') == 'Large Package'){
+            if($request->input('post_type') == 'PACKAGE' || $request->input('post_type') == 'LARGE PACKAGE'){
                 if($request->input('shape') == 'Rectangular'){
                     $package->setField('Container', RatePackage::CONTAINER_RECTANGULAR);
                 }
@@ -1128,14 +1148,14 @@ class OrdersController extends Controller
                     $package->setField('Container', RatePackage::CONTAINER_NONRECTANGULAR);
                 }
             }
-            else if($request->input('post_type') == 'Large Envelope'){
+            else if($request->input('post_type') == 'ENVELOPE'){
+                $package->setField('Container', RatePackage::CONTAINER_FLAT_RATE_ENVELOPE);
+            }
+            else if($request->input('post_type') == 'POSTCARD'){
                 $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
             }
-            else if($request->input('post_type') == 'Postcard'){
-                $package->setField('Container', RatePackage::CONTAINER_RECTANGULAR);
-            }
             else{
-                $package->setField('Container', RatePackage::CONTAINER_RECTANGULAR);
+                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
             }
             $package->setField('Machinable', false);
 
@@ -1150,7 +1170,6 @@ class OrdersController extends Controller
                 $error = $rate->getErrorMessage();
                 $services = null;
             }
-
             return response()->json([
                 'services' => $services,
                 'error' => $error,
