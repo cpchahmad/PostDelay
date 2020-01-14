@@ -1131,14 +1131,6 @@ class OrdersController extends Controller
 
         } else{
 
-            $all_packages = [
-                RatePackage::SERVICE_FIRST_CLASS,
-                RatePackage::SERVICE_FIRST_CLASS_COMMERCIAL,
-                RatePackage::SERVICE_FIRST_CLASS_HFP_COMMERCIAL,
-                RatePackage::SERVICE_PRIORITY,
-                RatePackage::SERVICE_FIRST_CLASS
-            ];
-
 //            foreach ($all_packages as $a){
 //
 //            }
@@ -1224,9 +1216,21 @@ class OrdersController extends Controller
     }
 
     public function USPS_PostCard($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds){
-        $rate = new Rate('021POSTD3725');
-        $package = new RatePackage();
-            $package->setService(RatePackage::SERVICE_FIRST_CLASS);
+        $all_services = [];
+        $all_errors = [];
+
+        $all_packages = [
+            RatePackage::SERVICE_FIRST_CLASS,
+            RatePackage::SERVICE_FIRST_CLASS_COMMERCIAL,
+            RatePackage::SERVICE_FIRST_CLASS_HFP_COMMERCIAL,
+            RatePackage::SERVICE_PRIORITY,
+            RatePackage::SERVICE_FIRST_CLASS
+        ];
+
+        foreach ($all_packages as $a) {
+            $rate = new Rate('021POSTD3725');
+            $package = new RatePackage();
+            $package->setService($a);
             $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
             $weight_in_ounches = 0;
             $weight_in_pounds = 0.21875;
@@ -1240,14 +1244,14 @@ class OrdersController extends Controller
             $rate->getRate();
             $rates = $rate->getArrayResponse();
             if ($rate->isSuccess()) {
-                $services = $rates['RateV4Response']['Package']['Postage'];
-                $error = null;
+                array_push($all_services, $rates['RateV4Response']['Package']['Postage']);
+                array_push($all_errors, []);
             } else {
-                $error = $rate->getErrorMessage();
-                $services = null;
+                array_push($all_errors, $rate->getErrorMessage());
+                array_push($all_services, []);
             }
-
-            dd($services, $error);
+        }
+            dd($all_services, $all_errors);
     }
 }
 
