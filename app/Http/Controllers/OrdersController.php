@@ -993,8 +993,6 @@ class OrdersController extends Controller
     public function testusps(Request $request)
     {
         $rate = new Rate('021POSTD3725');
-//        dd($request);
-
         $location = Location::all()->first();
       if($location != null){
           $origin_zip_code = $location->postcode;
@@ -1014,28 +1012,25 @@ class OrdersController extends Controller
 
         if($request->input('width')!= null){
             $width = $request->input('width');
-        }
-        else{
+        } else{
             $width = 10;
         }
         if($request->input('length')!= null){
             $length = $request->input('length');
-        }
-        else{
+        } else{
             $length = 15;
         }
         if($request->input('height')!= null){
             $height = $request->input('height');
-        }
-        else{
+        } else{
             $height = 10;
         }
         if($request->input('girth')!= null){
             $girth = $request->input('girth');
-        }
-        else{
+        } else{
             $girth = 0;
         }
+
         if($request->input('pounds') != null){
 //            $grams = $request->input('weight');
 //            $weight_in_pounds =  number_format($grams/453.592,2);
@@ -1048,8 +1043,7 @@ class OrdersController extends Controller
 //            }
             $weight_in_pounds =number_format($request->input('pounds'),2);
             $weight_in_ounches = number_format($request->input('ounches'),2);
-        }
-        else{
+        } else{
             $weight_in_ounches = 0;
             $weight_in_pounds  =0.21345678;
         }
@@ -1135,24 +1129,29 @@ class OrdersController extends Controller
                 'status' => 'international'
             ]);
 
-        }
-        else{
+        } else{
+
+            $all_packages = [
+                RatePackage::SERVICE_FIRST_CLASS,
+                RatePackage::SERVICE_FIRST_CLASS_COMMERCIAL,
+                RatePackage::SERVICE_FIRST_CLASS_HFP_COMMERCIAL,
+                RatePackage::SERVICE_PRIORITY,
+                RatePackage::SERVICE_FIRST_CLASS
+            ];
+
             $package = new RatePackage();
 
             if($request->input('post_type') == 'POSTCARD'){
                 $package->setService(RatePackage::SERVICE_FIRST_CLASS);
-                $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
+//                $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
                 $weight_in_ounches = 0;
                 $weight_in_pounds = 0.21875;
-
             }
             else if($request->input('post_type') == 'ENVELOPE'){
                 $package->setService(RatePackage::SERVICE_ALL);
-
             }
             else if($request->input('post_type') == 'LARGE ENVELOPE'){
                 $package->setService(RatePackage::SERVICE_PRIORITY);
-
             }
             else if($request->input('post_type') == 'LETTER'){
                 $package->setService(RatePackage::SERVICE_FIRST_CLASS);
@@ -1162,8 +1161,8 @@ class OrdersController extends Controller
             }
             else{
                 $package->setService(RatePackage::SERVICE_PRIORITY);
-
             }
+
             $package->setZipOrigination($origin_zip_code);
             $package->setZipDestination($request->input('receipent_postecode'));
             $package->setPounds($weight_in_pounds);
