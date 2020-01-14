@@ -1136,7 +1136,7 @@ class OrdersController extends Controller
 //            }
             $package = new RatePackage();
             if($request->input('post_type') == 'POSTCARD'){
-                $this->USPS_PostCard($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds);
+//                $this->USPS_PostCard($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds);
 
                 $package->setService(RatePackage::SERVICE_FIRST_CLASS);
                 $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
@@ -1144,8 +1144,8 @@ class OrdersController extends Controller
                 $weight_in_pounds = 0.21875;
             }
             else if($request->input('post_type') == 'ENVELOPE'){
-//                $package->setService(RatePackage::SERVICE_ALL);
-            $this->USPS_Envolope($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds);
+                $package->setService(RatePackage::SERVICE_ALL);
+//            $this->USPS_Envolope($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds);
             }
             else if($request->input('post_type') == 'LARGE ENVELOPE'){
                 $package->setService(RatePackage::SERVICE_PRIORITY);
