@@ -1145,7 +1145,7 @@ class OrdersController extends Controller
             }
             else if($request->input('post_type') == 'ENVELOPE'){
 //                $package->setService(RatePackage::SERVICE_ALL);
-            $this->USPS_Envolope($request, $origin_zip_code, $weight_in_ounches. $weight_in_pounds);
+            $this->USPS_Envolope($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds);
             }
             else if($request->input('post_type') == 'LARGE ENVELOPE'){
                 $package->setService(RatePackage::SERVICE_PRIORITY);
