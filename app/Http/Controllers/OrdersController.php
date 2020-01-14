@@ -1256,6 +1256,9 @@ class OrdersController extends Controller
         $all_packages = [
             RatePackage::SERVICE_FIRST_CLASS,
             RatePackage::SERVICE_PRIORITY,
+            RatePackage::SERVICE_EXPRESS,
+            RatePackage::SERVICE_EXPRESS_SH,
+            RatePackage::SERVICE_EXPRESS_HFP
         ];
 
         foreach ($all_packages as $a) {
