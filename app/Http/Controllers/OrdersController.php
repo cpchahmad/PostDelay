@@ -1140,25 +1140,28 @@ class OrdersController extends Controller
             ];
 
             foreach ($all_packages as $a) {
-
-
                 $package = new RatePackage();
                 if ($request->input('post_type') == 'POSTCARD') {
-                    $package->setService(RatePackage::SERVICE_FIRST_CLASS);
+//                    $package->setService(RatePackage::SERVICE_FIRST_CLASS);
+                    $package->setService($a);
                     $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
                     $weight_in_ounches = 0;
                     $weight_in_pounds = 0.21875;
                 } else if ($request->input('post_type') == 'ENVELOPE') {
-                    $package->setService(RatePackage::SERVICE_ALL);
+//                    $package->setService(RatePackage::SERVICE_ALL);
+                    $package->setService($a);
                 } else if ($request->input('post_type') == 'LARGE ENVELOPE') {
-                    $package->setService(RatePackage::SERVICE_PRIORITY);
+//                    $package->setService(RatePackage::SERVICE_PRIORITY);
+                    $package->setService($a);
                 } else if ($request->input('post_type') == 'LETTER') {
-                    $package->setService(RatePackage::SERVICE_FIRST_CLASS);
+//                    $package->setService(RatePackage::SERVICE_FIRST_CLASS);
+                    $package->setService($a);
                     $package->setFirstClassMailType(RatePackage::MAIL_TYPE_LETTER);
                     $weight_in_ounches = 0;
                     $weight_in_pounds = 0.21875;
                 } else {
-                    $package->setService(RatePackage::SERVICE_PRIORITY);
+//                    $package->setService(RatePackage::SERVICE_PRIORITY);
+                    $package->setService($a);
                 }
 
                 $package->setZipOrigination($origin_zip_code);
