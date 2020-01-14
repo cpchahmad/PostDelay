@@ -1226,7 +1226,7 @@ class OrdersController extends Controller
             $rate = new Rate('021POSTD3725');
             $package = new RatePackage();
             $package->setService(RatePackage::SERVICE_ALL);
-            $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
+//            $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
             $weight_in_ounches = 0;
             $weight_in_pounds = 0.21875;
             $package->setZipOrigination($origin_zip_code);
