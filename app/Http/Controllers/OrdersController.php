@@ -1222,7 +1222,7 @@ class OrdersController extends Controller
             RatePackage::SERVICE_PRIORITY,
         ];
 
-        foreach ($all_packages as $a) {
+//        foreach ($all_packages as $a) {
             $rate = new Rate('021POSTD3725');
             $package = new RatePackage();
             $package->setService(RatePackage::SERVICE_ALL);
@@ -1245,7 +1245,7 @@ class OrdersController extends Controller
                 array_push($all_errors, $rate->getErrorMessage());
                 array_push($all_services, []);
             }
-        }
+//        }
             dd($all_services, $all_errors);
     }
 }
