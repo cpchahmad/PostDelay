@@ -1223,9 +1223,8 @@ class OrdersController extends Controller
             RatePackage::SERVICE_PRIORITY,
         ];
 
-            $rate = new Rate('021POSTD3725');
-
         foreach ($all_packages as $a) {
+            $rate = new Rate('021POSTD3725');
             $package = new RatePackage();
             $package->setService($a);
             $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
@@ -1238,7 +1237,6 @@ class OrdersController extends Controller
             $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
             $package->setField('Machinable', false);
             $rate->addPackage($package);
-        }
             $rate->getRate();
             $rates = $rate->getArrayResponse();
             if ($rate->isSuccess()) {
@@ -1248,7 +1246,7 @@ class OrdersController extends Controller
                 array_push($all_errors, $rate->getErrorMessage());
                 array_push($all_services, []);
             }
-
+        }
             dd($all_services, $all_errors);
     }
     public function USPS_Envolope($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds){
