@@ -1257,15 +1257,14 @@ class OrdersController extends Controller
             RatePackage::SERVICE_FIRST_CLASS,
             RatePackage::SERVICE_PRIORITY,
             RatePackage::SERVICE_EXPRESS,
-            RatePackage::SERVICE_EXPRESS_SH,
             RatePackage::SERVICE_EXPRESS_HFP
         ];
 
-        foreach ($all_packages as $a) {
+//        foreach ($all_packages as $a) {
             $rate = new Rate('021POSTD3725');
             $package = new RatePackage();
-            $package->setService($a);
-            $package->setFirstClassMailType(RatePackage::MAIL_TYPE_FLAT);
+            $package->setService(RatePackage::SERVICE_ALL);
+//            $package->setFirstClassMailType(RatePackage::MAIL_TYPE_FLAT);
             $package->setZipOrigination($origin_zip_code);
             $package->setZipDestination($request->input('receipent_postecode'));
             $package->setPounds($weight_in_pounds);
@@ -1282,7 +1281,7 @@ class OrdersController extends Controller
                 array_push($all_errors, $rate->getErrorMessage());
                 array_push($all_services, []);
             }
-        }
+//        }
         dd($all_services, $all_errors);
     }
 }
