@@ -1146,7 +1146,7 @@ class OrdersController extends Controller
             if($request->input('post_type') == 'POSTCARD'){
 //                $package->setService(RatePackage::SERVICE_FIRST_CLASS);
 //                $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
-//                $package->setField('MailType', 'POSTCARD');
+                $package->setField('MailType', 'POSTCARD');
                 $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
                 $weight_in_ounches = 0;
                 $weight_in_pounds = 0.21875;
