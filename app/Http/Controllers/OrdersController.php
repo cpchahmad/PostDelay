@@ -1136,7 +1136,7 @@ class OrdersController extends Controller
 //            }
             $package = new RatePackage();
             if($request->input('post_type') == 'POSTCARD'){
-                $this->USPS_PostCard($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds);
+//                $this->USPS_PostCard($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds);
 
                 $package->setService(RatePackage::SERVICE_FIRST_CLASS);
                 $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
