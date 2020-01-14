@@ -1139,73 +1139,77 @@ class OrdersController extends Controller
                 RatePackage::SERVICE_FIRST_CLASS
             ];
 
-            foreach ($all_packages as $a) {
-                $package = new RatePackage();
-                if ($request->input('post_type') == 'POSTCARD') {
-//                    $package->setService(RatePackage::SERVICE_FIRST_CLASS);
-                    $package->setService($a);
-                    $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
-                    $weight_in_ounches = 0;
-                    $weight_in_pounds = 0.21875;
-                } else if ($request->input('post_type') == 'ENVELOPE') {
-//                    $package->setService(RatePackage::SERVICE_ALL);
-                    $package->setService($a);
-                } else if ($request->input('post_type') == 'LARGE ENVELOPE') {
-//                    $package->setService(RatePackage::SERVICE_PRIORITY);
-                    $package->setService($a);
-                } else if ($request->input('post_type') == 'LETTER') {
-//                    $package->setService(RatePackage::SERVICE_FIRST_CLASS);
-                    $package->setService($a);
-                    $package->setFirstClassMailType(RatePackage::MAIL_TYPE_LETTER);
-                    $weight_in_ounches = 0;
-                    $weight_in_pounds = 0.21875;
-                } else {
-//                    $package->setService(RatePackage::SERVICE_PRIORITY);
-                    $package->setService($a);
-                }
-
-                $package->setZipOrigination($origin_zip_code);
-                $package->setZipDestination($request->input('receipent_postecode'));
-                $package->setPounds($weight_in_pounds);
-                $package->setOunces($weight_in_ounches);
-
-
-                if ($request->input('post_type') == 'PACKAGE' || $request->input('post_type') == 'LARGE PACKAGE') {
-                    $package->setField('Width', $width);
-                    $package->setField('Length', $length);
-                    $package->setField('Height', $height);
-                    $package->setField('Girth', $girth);
-                    if ($request->input('shape') == 'Rectangular') {
-                        $package->setField('Container', RatePackage::CONTAINER_RECTANGULAR);
-                    } else {
-                        $package->setField('Container', RatePackage::CONTAINER_NONRECTANGULAR);
-                    }
-                } else if ($request->input('post_type') == 'ENVELOPE') {
-                    $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
-                } else if ($request->input('post_type') == 'LARGE ENVELOPE') {
-                    $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
-                } else if ($request->input('post_type') == 'POSTCARD') {
-                    $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
-                } else {
-                    $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
-                }
-                $package->setField('Machinable', false);
-
-                $rate->addPackage($package);
-
-                $rate->getRate();
-                $rates = $rate->getArrayResponse();
-                $services = [];
-                $error = [];
-                if ($rate->isSuccess()) {
-                    array_push($services, $rates['RateV4Response']['Package']['Postage']);
-//                    $error = null;
-                } else {
-                    array_push($error, $rate->getErrorMessage());
-//                    $services = null;
-                }
+//            foreach ($all_packages as $a){
+//
+//            }
+            $package = new RatePackage();
+            if($request->input('post_type') == 'POSTCARD'){
+//                $package->setService(RatePackage::SERVICE_FIRST_CLASS);
+//                $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
+//                $package->setField('MailType', 'POSTCARD');
+                $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
+                $weight_in_ounches = 0;
+                $weight_in_pounds = 0.21875;
+            }
+            else if($request->input('post_type') == 'ENVELOPE'){
+                $package->setService(RatePackage::SERVICE_ALL);
+            }
+            else if($request->input('post_type') == 'LARGE ENVELOPE'){
+                $package->setService(RatePackage::SERVICE_PRIORITY);
+            }
+            else if($request->input('post_type') == 'LETTER'){
+                $package->setService(RatePackage::SERVICE_FIRST_CLASS);
+                $package->setFirstClassMailType(RatePackage::MAIL_TYPE_LETTER);
+                $weight_in_ounches = 0;
+                $weight_in_pounds = 0.21875;
+            }
+            else{
+                $package->setService(RatePackage::SERVICE_PRIORITY);
             }
 
+            $package->setZipOrigination($origin_zip_code);
+            $package->setZipDestination($request->input('receipent_postecode'));
+            $package->setPounds($weight_in_pounds);
+            $package->setOunces($weight_in_ounches);
+
+
+            if($request->input('post_type') == 'PACKAGE' || $request->input('post_type') == 'LARGE PACKAGE'){
+                $package->setField('Width', $width);
+                $package->setField('Length', $length);
+                $package->setField('Height', $height);
+                $package->setField('Girth', $girth);
+                if($request->input('shape') == 'Rectangular'){
+                    $package->setField('Container', RatePackage::CONTAINER_RECTANGULAR);
+                }
+                else{
+                    $package->setField('Container', RatePackage::CONTAINER_NONRECTANGULAR);
+                }
+            }
+            else if($request->input('post_type') == 'ENVELOPE'){
+                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+            }
+            else if($request->input('post_type') == 'LARGE ENVELOPE'){
+                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+            }
+            else if($request->input('post_type') == 'POSTCARD'){
+                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+            }
+            else{
+                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+            }
+            $package->setField('Machinable', false);
+
+            $rate->addPackage($package);
+
+            $rate->getRate();
+            $rates = $rate->getArrayResponse();
+            if ($rate->isSuccess()) {
+                $services = $rates['RateV4Response']['Package']['Postage'];
+                $error = null;
+            } else {
+                $error = $rate->getErrorMessage();
+                $services = null;
+            }
             return response()->json([
                 'services' => $services,
                 'error' => $error,
