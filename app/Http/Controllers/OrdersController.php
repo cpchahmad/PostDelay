@@ -1144,9 +1144,11 @@ class OrdersController extends Controller
 //            }
             $package = new RatePackage();
             if($request->input('post_type') == 'POSTCARD'){
-//                $package->setService(RatePackage::SERVICE_FIRST_CLASS);
-//                $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
-                $package->setField('MailType', 'POSTCARD');
+                $this->USPS_PostCard($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds);
+
+                $package->setService(RatePackage::SERVICE_FIRST_CLASS);
+                $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
+//                $package->setField('MailType', 'POSTCARD');
 //                $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
                 $weight_in_ounches = 0;
                 $weight_in_pounds = 0.21875;
@@ -1197,6 +1199,7 @@ class OrdersController extends Controller
             else{
                 $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
             }
+
             $package->setField('Machinable', false);
 
             $rate->addPackage($package);
@@ -1218,6 +1221,33 @@ class OrdersController extends Controller
 
         }
 
+    }
+
+    public function USPS_PostCard($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds){
+        $rate = new Rate('021POSTD3725');
+        $package = new RatePackage();
+            $package->setService(RatePackage::SERVICE_FIRST_CLASS);
+            $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
+            $weight_in_ounches = 0;
+            $weight_in_pounds = 0.21875;
+            $package->setZipOrigination($origin_zip_code);
+            $package->setZipDestination($request->input('receipent_postecode'));
+            $package->setPounds($weight_in_pounds);
+            $package->setOunces($weight_in_ounches);
+            $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+            $package->setField('Machinable', false);
+            $rate->addPackage($package);
+            $rate->getRate();
+            $rates = $rate->getArrayResponse();
+            if ($rate->isSuccess()) {
+                $services = $rates['RateV4Response']['Package']['Postage'];
+                $error = null;
+            } else {
+                $error = $rate->getErrorMessage();
+                $services = null;
+            }
+
+            dd($services, $error);
     }
 }
 
