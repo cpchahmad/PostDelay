@@ -1009,38 +1009,53 @@ class OrdersController extends Controller
             $origin_fee = 200;
         }
 
+if($request->input('unit_of_measures_weight') == 'Metric'){
+    if($request->input('width')!= null){
+        $width = $request->input('width');
+    } else{
+        $width = 10;
+    }
+    if($request->input('length')!= null){
+        $length = $request->input('length');
+    } else{
+        $length = 15;
+    }
+    if($request->input('height')!= null){
+        $height = $request->input('height');
+    } else{
+        $height = 10;
+    }
+    if($request->input('girth')!= null){
+        $girth = $request->input('girth');
+    } else{
+        $girth = 0;
+    }
+}
+else{
+    if($request->input('width')!= null){
+        $width = $request->input('width')/2.54;
+    } else{
+        $width = 10;
+    }
+    if($request->input('length')!= null){
+        $length = $request->input('length')/2.54;
+    } else{
+        $length = 15;
+    }
+    if($request->input('height')!= null){
+        $height = $request->input('height')/2.54;
+    } else{
+        $height = 10;
+    }
+    if($request->input('girth')!= null){
+        $girth = $request->input('girth')/2.54;
+    } else{
+        $girth = 0;
+    }
+}
 
-        if($request->input('width')!= null){
-            $width = $request->input('width');
-        } else{
-            $width = 10;
-        }
-        if($request->input('length')!= null){
-            $length = $request->input('length');
-        } else{
-            $length = 15;
-        }
-        if($request->input('height')!= null){
-            $height = $request->input('height');
-        } else{
-            $height = 10;
-        }
-        if($request->input('girth')!= null){
-            $girth = $request->input('girth');
-        } else{
-            $girth = 0;
-        }
 
         if($request->input('pounds') != null){
-//            $grams = $request->input('weight');
-//            $weight_in_pounds =  number_format($grams/453.592,2);
-//            $temp = explode('.',$grams);
-//            if(array_key_exists('1',$temp)){
-//                $weight_in_ounches = number_format($temp[1]/28.35,2);
-//            }
-//            else{
-//                $weight_in_ounches = 0;
-//            }
             $weight_in_pounds =number_format($request->input('pounds'),2);
             $weight_in_ounches = number_format($request->input('ounches'),2);
         } else{
@@ -1171,6 +1186,7 @@ class OrdersController extends Controller
                 $package->setField('Length', $length);
                 $package->setField('Height', $height);
                 $package->setField('Girth', $girth);
+                $package->setSize('LARGE');
                 if($request->input('shape') == 'Rectangular'){
                     $package->setField('Container', RatePackage::CONTAINER_RECTANGULAR);
                 }
