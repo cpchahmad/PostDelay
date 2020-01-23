@@ -280,9 +280,9 @@ class OrdersController extends Controller
                     } else {
                         $assosiate_order = Order::find($draft_order->order_id);
                         $customer = Customer::find($assosiate_order->customer_id);
-                        Mail::to($customer->email)->send(new RequestFormEmail($customer, $assosiate_order));
-
-                        $name = now()->format('Ymd').'_mailing_form.pdf';
+//                        Mail::to($customer->email)->send(new RequestFormEmail($customer, $assosiate_order));
+//
+//                        $name = now()->format('Ymd').'_mailing_form.pdf';
 //                        $pdf = App::make('dompdf.wrapper');
 //                        $pdf = $pdf->loadView('mailing_form',[
 //                            'customer' => $customer,
