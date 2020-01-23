@@ -1182,11 +1182,11 @@ else{
 
 
             if($request->input('post_type') == 'PACKAGE' || $request->input('post_type') == 'LARGE PACKAGE'){
-                $package->setField('Width', $width);
-                $package->setField('Length', $length);
-                $package->setField('Height', $height);
-                $package->setField('Girth', $girth);
-                $package->setSize('LARGE');
+//                $package->setField('Width', $width);
+//                $package->setField('Length', $length);
+//                $package->setField('Height', $height);
+//                $package->setField('Girth', $girth);
+//                $package->setSize('LARGE');
                 if($request->input('shape') == 'Rectangular'){
                     $package->setField('Container', RatePackage::CONTAINER_RECTANGULAR);
                 }
