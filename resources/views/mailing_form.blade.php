@@ -192,9 +192,9 @@
             <img src="https://cdn.shopify.com/s/files/1/0120/3106/6193/files/email_logo.jpg" style="width: 100%; max-width: 330px;margin-top: 80px">
         </div>
         <div class="email_content" style="font-size: 16px;line-height: 25px;font-family: Arial;">
-            <p>Hi {{$customer->first_name}}, <br>Thank you for using PostDelay! <br> This form allows us to link this incoming shipment with your order </p>
-            <p>Send your item, including this label, to: <br> PostDelay LLCBox <br>3492, Church Street Station <br>New York, NY, 10008, USA</p>
-            <p>Order ID: <{{$order->order_name}}> <br>Order Date: {{$order->created_at}} <br>Mail Out Date : {{$order->ship_out_date}}  </p>
+            <p>Hi {{$customer->first_name}}, <br>Thank you for using PostDelay. This form allows us to link this incoming shipment with your order. </p>
+            <p>Send your item, including this label, to: <br> PostDelay LLCBox 3492, Church Street Station <br>New York, NY, 10008, USA</p>
+            <p>Order ID: <{{$order->order_name}}> <br>Order Date: {{date_format($order->created_at,'M d,Y')}} <br>Mail Out Date : {{date_format($order->ship_out_date,'M d,Y')}}  </p>
 
         </div>
     </div>

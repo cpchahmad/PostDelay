@@ -35,13 +35,13 @@
                             <div class="custom_fields_half">
                                 <div class="custom_Request_fields_half  Get-name-left">
                                     <label for="FirstName">First Name</label>
-                                    <input class="modify" type="text" required="" name="sender_first_name" id="FirstName" @if($sender_address != null) value="{{$sender_address->first_name}}" @endif placeholder="">
+                                    <input class="modify" type="text" required="" name="sender_first_name"  @if($sender_address != null) value="{{$sender_address->first_name}}" @endif placeholder="">
                                 </div>
                             </div>
                             <div class="custom_fields_half">
                                 <div class="custom_Request_fields_half Get-name-right">
                                     <label for="LastName">Last Name</label>
-                                    <input class="modify" type="text" required="" name="sender_last_name" id="LastName" @if($sender_address != null) value="{{$sender_address->last_name}}" @endif placeholder="">
+                                    <input class="modify" type="text" required="" name="sender_last_name"  @if($sender_address != null) value="{{$sender_address->last_name}}" @endif placeholder="">
                                 </div>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                         {{--                    <div class="custom_fields_half" style="display: none;">--}}
                         {{--                        <div class="custom_Request_fields_half">--}}
                         {{--                            <label for="Business">Business</label>--}}
-                        {{--                            <input class="modify" type="text"  name="sender_business" id="Business" @if($sender_address != null) value="{{$sender_address->business}}" @endif placeholder="">--}}
+                        {{--                            <input class="modify" type="text"  name="sender_business"  @if($sender_address != null) value="{{$sender_address->business}}" @endif placeholder="">--}}
                         {{--                        </div>--}}
                         {{--                    </div>--}}
                         <div class="custom_fields_half full_width_iput">
@@ -57,9 +57,9 @@
                                 <label for="Address1">Street Address</label>
                                 <input type="hidden" value="sender">
                                 <input  type="text" id="sender_address_autocomplete"  class="autocomplete modify" @if($sender_address != null) value="{{$sender_address->address1}}" @endif placeholder="Street and number, P.O. box, c/o.">
-                                <input class="modify" type="hidden" required="" name="sender_address1" id="Address1" @if($sender_address != null) value="{{$sender_address->address1}}" @endif placeholder="Street and number, P.O. box, c/o.">
+                                <input class="modify" type="hidden" required="" name="sender_address1"  @if($sender_address != null) value="{{$sender_address->address1}}" @endif placeholder="Street and number, P.O. box, c/o.">
                                 {{--<label for="Address2">Address2</label>--}}
-                                <input class="modify" style="margin-bottom:25px;margin-top:10px;" type="text"  name="sender_address2" id="Address2" @if($sender_address != null) value="{{$sender_address->address2}}" @endif placeholder="Apartment, suite, unit, building, floor, etc.">
+                                <input class="modify" style="margin-bottom:25px;margin-top:10px;" type="text"  name="sender_address2"  @if($sender_address != null) value="{{$sender_address->address2}}" @endif placeholder="Apartment, suite, unit, building, floor, etc.">
                             </div>
                         </div>
 
@@ -67,7 +67,7 @@
                             <div id="city_div" class="custom_fields_half full_width_iput">
                                 <div class="custom_Request_fields_half">
                                     <label for="City">City</label>
-                                    <input class="modify" type="text" required="" name="sender_city" id="City" @if($sender_address != null) value="{{$sender_address->city}}" @endif placeholder="">
+                                    <input class="modify" type="text" required="" name="sender_city"  @if($sender_address != null) value="{{$sender_address->city}}" @endif placeholder="">
                                 </div>
                             </div>
                             <div id="province_div" class="custom_fields_half full_width_iput">
@@ -84,7 +84,7 @@
                             <div id="postal_div" class="custom_fields_half full_width_iput">
                                 <div class="custom_Request_fields_half">
                                     <label for="PosteCode">Zip Code</label>
-                                    <input class="modify" type="text" required="" name="sender_postecode" id="PosteCode" @if($sender_address != null) value="{{$sender_address->postcode}}" @endif placeholder="">
+                                    <input class="modify" type="text" required="" name="sender_postecode"  @if($sender_address != null) value="{{$sender_address->postcode}}" @endif placeholder="">
                                 </div>
                             </div>
 
@@ -130,13 +130,13 @@
                             <div class="custom_fields_half">
                                 <div class="custom_Request_fields_half  Get-name-left">
                                     <label for="FirstName">First Name</label>
-                                    <input class="modify" type="text" required="" name="billing_first_name" id="FirstName" @if($billing_address != null) value="{{$billing_address->first_name}}" @endif placeholder="">
+                                    <input class="modify" type="text" required="" name="billing_first_name"  @if($billing_address != null) value="{{$billing_address->first_name}}" @endif placeholder="">
                                 </div>
                             </div>
                             <div class="custom_fields_half">
                                 <div class="custom_Request_fields_half Get-name-right">
                                     <label for="LastName">Last Name</label>
-                                    <input class="modify" type="text" required="" name="billing_last_name" id="LastName" @if($billing_address != null) value="{{$billing_address->last_name}}" @endif placeholder="">
+                                    <input class="modify" type="text" required="" name="billing_last_name"  @if($billing_address != null) value="{{$billing_address->last_name}}" @endif placeholder="">
                                 </div>
                             </div>
                         </div>
@@ -144,7 +144,7 @@
                         {{--                    <div class="custom_fields_half" style="display:none;">--}}
                         {{--                        <div class="custom_Request_fields_half">--}}
                         {{--                            <label for="Business">Business</label>--}}
-                        {{--                            <input  type="text"  name="billing_business" id="Business" @if($billing_address != null) value="{{$billing_address->business}}" @endif placeholder="">--}}
+                        {{--                            <input  type="text"  name="billing_business"  @if($billing_address != null) value="{{$billing_address->business}}" @endif placeholder="">--}}
                         {{--                        </div>--}}
                         {{--                    </div>--}}
                         <div class="custom_fields_half full_width_iput" >
@@ -153,8 +153,8 @@
                                 <input type="hidden" value="billing">
                                 <input type="text" id="billing_address_autocomplte" class="autocomplete modify" @if($billing_address != null) value="{{$billing_address->address1}}" @endif placeholder="Street and number, P.O. box, c/o.">
 
-                                <input class="modify" type="hidden" required="" name="billing_address1" id="Address1" @if($billing_address != null) value="{{$billing_address->address1}}" @endif placeholder="Street and number, P.O. box, c/o.">
-                                <input class="modify" style="margin-bottom: 25px;margin-top:10px;" type="text"  name="billing_address2" id="Address2" @if($billing_address != null) value="{{$billing_address->address2}}" @endif placeholder="Apartment, suite, unit, building, floor, etc.">
+                                <input class="modify" type="hidden" required="" name="billing_address1"  @if($billing_address != null) value="{{$billing_address->address1}}" @endif placeholder="Street and number, P.O. box, c/o.">
+                                <input class="modify" style="margin-bottom: 25px;margin-top:10px;" type="text"  name="billing_address2"  @if($billing_address != null) value="{{$billing_address->address2}}" @endif placeholder="Apartment, suite, unit, building, floor, etc.">
                             </div>
                         </div>
 
@@ -163,7 +163,7 @@
                             <div id="city_div" class="custom_fields_half full_width_iput">
                                 <div class="custom_Request_fields_half">
                                     <label for="City">City</label>
-                                    <input class="modify" type="text" required="" name="billing_city" id="City" @if($billing_address != null) value="{{$billing_address->city}}" @endif placeholder="">
+                                    <input class="modify" type="text" required="" name="billing_city"  @if($billing_address != null) value="{{$billing_address->city}}" @endif placeholder="">
                                 </div>
                             </div>
                             <div id="province_div" class="custom_fields_half full_width_iput">
@@ -180,7 +180,7 @@
                             <div id="postal_div" class="custom_fields_half full_width_iput">
                                 <div class="custom_Request_fields_half">
                                     <label for="PosteCode">Zip Code</label>
-                                    <input class="modify" type="text" required="" name="billing_postecode" id="PosteCode" @if($billing_address != null) value="{{$billing_address->postcode}}" @endif placeholder="">
+                                    <input class="modify" type="text" required="" name="billing_postecode"  @if($billing_address != null) value="{{$billing_address->postcode}}" @endif placeholder="">
                                 </div>
                             </div>
 
@@ -313,13 +313,13 @@
                             <div class="custom_fields_half">
                                 <div class="custom_Request_fields_half  Get-name-left">
                                     <label for="FirstName">First Name</label>
-                                    <input class="modify" type="text" required="" name="receipent_first_name" id="FirstName" @if($recipient_address != null) value="{{$recipient_address->first_name}}" @endif placeholder="">
+                                    <input class="modify" type="text" required="" name="receipent_first_name"  @if($recipient_address != null) value="{{$recipient_address->first_name}}" @endif placeholder="">
                                 </div>
                             </div>
                             <div class="custom_fields_half">
                                 <div class="custom_Request_fields_half Get-name-right">
                                     <label for="LastName">Last Name</label>
-                                    <input class="modify" type="text" required="" name="receipent_last_name" id="LastName" @if($recipient_address != null) value="{{$recipient_address->last_name}}" @endif placeholder="">
+                                    <input class="modify" type="text" required="" name="receipent_last_name"  @if($recipient_address != null) value="{{$recipient_address->last_name}}" @endif placeholder="">
                                 </div>
                             </div>
                         </div>
@@ -327,7 +327,7 @@
                         {{--                    <div class="custom_fields_half" style="display:none;">--}}
                         {{--                        <div class="custom_Request_fields_half">--}}
                         {{--                            <label for="Business">Business</label>--}}
-                        {{--                            <input class="modify" type="text" name="receipent_business" id="Business" @if($recipient_address != null) value="{{$recipient_address->business}}" @endif placeholder="">--}}
+                        {{--                            <input class="modify" type="text" name="receipent_business"  @if($recipient_address != null) value="{{$recipient_address->business}}" @endif placeholder="">--}}
                         {{--                        </div>--}}
                         {{--                    </div>--}}
                         <div class="custom_fields_half full_width_iput">
@@ -335,8 +335,8 @@
                                 <label for="Address1">Street Address</label>
                                 <input type="hidden" value="r">
                                 <input type="text" id="recipient_address_autocomplte"  class="autocomplete modify" @if($recipient_address != null) value="{{$recipient_address->address1}}" @endif placeholder="Street and number, P.O. box, c/o.">
-                                <input class="modify" type="hidden" required="" name="receipent_address1" id="Address1" @if($recipient_address != null) value="{{$recipient_address->address1}}" @endif placeholder="Street and number, P.O. box, c/o.">
-                                <input class="modify" style="margin-bottom:25px;margin-top:10px;" type="text"  name="receipent_address2" id="Address2" @if($recipient_address != null) value="{{$recipient_address->address2}}" @endif placeholder="Apartment, suite, unit, building, floor, etc.">
+                                <input class="modify" type="hidden" required="" name="receipent_address1"  @if($recipient_address != null) value="{{$recipient_address->address1}}" @endif placeholder="Street and number, P.O. box, c/o.">
+                                <input class="modify" style="margin-bottom:25px;margin-top:10px;" type="text"  name="receipent_address2"  @if($recipient_address != null) value="{{$recipient_address->address2}}" @endif placeholder="Apartment, suite, unit, building, floor, etc.">
                             </div>
                         </div>
 
@@ -344,7 +344,7 @@
                             <div id="city_div" class="custom_fields_half full_width_iput">
                                 <div class="custom_Request_fields_half">
                                     <label for="City">City</label>
-                                    <input class="modify" type="text" required="" name="receipent_city" id="City" @if($recipient_address != null) value="{{$recipient_address->city}}" @endif placeholder="">
+                                    <input class="modify" type="text" required="" name="receipent_city"  @if($recipient_address != null) value="{{$recipient_address->city}}" @endif placeholder="">
                                 </div>
                             </div>
                             <div id="province_div" class="custom_fields_half full_width_iput">
@@ -361,7 +361,7 @@
                             <div id="postal_div" class="custom_fields_half full_width_iput">
                                 <div class="custom_Request_fields_half">
                                     <label for="PosteCode">Zip Code</label>
-                                    <input class="modify" type="text" required="" name="receipent_postecode" id="PosteCode" @if($recipient_address != null) value="{{$recipient_address->postcode}}" @endif placeholder="">
+                                    <input class="modify" type="text" required="" name="receipent_postecode"  @if($recipient_address != null) value="{{$recipient_address->postcode}}" @endif placeholder="">
                                 </div>
                             </div>
 
@@ -504,7 +504,7 @@
                         <div class="custom_fields_half">
                             <div class="custom_Request_fields_half  ">
                                 <label for="Shape">Send to your recipient on <i class="tooltip far fa-question-circle"> <span style="width: 320px;padding: 10px" class="tooltiptext">This is the date that PostDelay will send the item to your recipient. It is not the date that the recipient will receive your item. Be sure to choose a date that is far enough in the future for postDelay to receive your incoming shipment</span></i></label>
-                                <input class="modify" type="date" required="" name="ship_out_date" id="Country" value="" placeholder="" min="{{now()->addDays(7)->format('Y-m-d')}}" max="{{now()->addDays(1825)->format('Y-m-d')}}">
+                                <input class="modify" type="date" required="" name="ship_out_date"  value="" placeholder="" min="{{now()->addDays(7)->format('Y-m-d')}}" max="{{now()->addDays(1825)->format('Y-m-d')}}">
                             </div>
                         </div>
 
@@ -518,19 +518,19 @@
                             <div class="custom_fields_half">
                                 <div class="custom_Request_fields_half tow-field-Row-left ">
                                     <label for="Order ID">Card Number</label>
-                                    <input type="text"  name="card_no" id="FirstName" value="" placeholder="">
+                                    <input type="text"  name="card_no"  value="" placeholder="">
                                 </div>
                             </div>
                             <div class="custom_fields_half">
                                 <div class="custom_Request_fields_half tow-field-Row-right">
                                     <label for="Order ID">Card Expiry</label>
-                                    <input type="text"  name="card_expires" id="FirstName" value="" placeholder="">
+                                    <input type="text"  name="card_expires"  value="" placeholder="">
                                 </div>
                             </div>
                             <div class="custom_fields_half">
                                 <div class="custom_Request_fields_half tow-field-Row-right">
                                     <label for="Order ID">Card CVV</label>
-                                    <input type="text"  name="card_cvv" id="FirstName" value="" placeholder="">
+                                    <input type="text"  name="card_cvv"  value="" placeholder="">
                                 </div>
                             </div>
                         </div>
