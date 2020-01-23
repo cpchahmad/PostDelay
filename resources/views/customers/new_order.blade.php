@@ -442,7 +442,7 @@
                         </div>
                         <div class="custom_fields_half" id="measures_input">
                             <div class="custom_Request_fields_half">
-                                <label for="unit_of_measures_weight">Unit of Measure (Weight)</label>
+                                <label for="unit_of_measures_weight">Unit of Measure </label>
                                 <select class="modify" name="unit_of_measures_weight">
                                     <option value="Metric">Metric</option>
                                     <option value="Standard">Standard</option>
