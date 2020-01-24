@@ -449,7 +449,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="custom_fields_half" id="weight_input" >
+                        <div class="custom_fields_half hide" id="weight_input" >
                             <div class="custom_Request_fields_half">
                                 <label for="Weight">Kilograms<i class="tooltip far fa-question-circle"> <span style="padding: 10px" class="tooltiptext"></span></i></label>
                                 <input class="modify" required type="number" step="any" name="weight"  value="" placeholder="">
@@ -462,7 +462,7 @@
                                     <input class="modify" type="number" required="" step="any" name="pounds"  value="" placeholder="">
                                 </div>
                             </div>
-                            <div class="custom_fields_half" id="ounches_input" >
+                            <div class="custom_fields_half " id="ounches_input" >
                                 <div class="custom_Request_fields_half tow-field-Row-right">
                                     <label for="Girth">Ounces <i class="tooltip far fa-question-circle"> <span style="padding: 10px" class="tooltiptext"></span></i></label>
                                     <input class="modify" type="number" required  name="ounches" step="any"  value="" placeholder="">
