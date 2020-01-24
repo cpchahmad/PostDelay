@@ -994,14 +994,14 @@ class OrdersController extends Controller
     {
         $rate = new Rate('021POSTD3725');
         $location = Location::all()->first();
-      if($location != null){
-          $origin_zip_code = $location->postcode;
-      }
-      else{
-          $origin_zip_code = 10008;
-      }
+        if($location != null){
+            $origin_zip_code = $location->postcode;
+        }
+        else{
+            $origin_zip_code = 10008;
+        }
 
-      $fee = PostDelayFee::where('type','primary')->where('default',1)->first();
+        $fee = PostDelayFee::where('type','primary')->where('default',1)->first();
         if($fee != null){
             $origin_fee = $fee->price;
         }
@@ -1009,50 +1009,50 @@ class OrdersController extends Controller
             $origin_fee = 200;
         }
 
-if($request->input('unit_of_measures_weight') == 'Metric'){
-    if($request->input('width')!= null){
-        $width = $request->input('width');
-    } else{
-        $width = 10;
-    }
-    if($request->input('length')!= null){
-        $length = $request->input('length');
-    } else{
-        $length = 15;
-    }
-    if($request->input('height')!= null){
-        $height = $request->input('height');
-    } else{
-        $height = 10;
-    }
-    if($request->input('girth')!= null){
-        $girth = $request->input('girth');
-    } else{
-        $girth = 0;
-    }
-}
-else{
-    if($request->input('width')!= null){
-        $width = $request->input('width')/2.54;
-    } else{
-        $width = 10;
-    }
-    if($request->input('length')!= null){
-        $length = $request->input('length')/2.54;
-    } else{
-        $length = 15;
-    }
-    if($request->input('height')!= null){
-        $height = $request->input('height')/2.54;
-    } else{
-        $height = 10;
-    }
-    if($request->input('girth')!= null){
-        $girth = $request->input('girth')/2.54;
-    } else{
-        $girth = 0;
-    }
-}
+        if($request->input('unit_of_measures_weight') == 'Metric'){
+            if($request->input('width')!= null){
+                $width = $request->input('width');
+            } else{
+                $width = 10;
+            }
+            if($request->input('length')!= null){
+                $length = $request->input('length');
+            } else{
+                $length = 15;
+            }
+            if($request->input('height')!= null){
+                $height = $request->input('height');
+            } else{
+                $height = 10;
+            }
+            if($request->input('girth')!= null){
+                $girth = $request->input('girth');
+            } else{
+                $girth = 0;
+            }
+        }
+        else{
+            if($request->input('width')!= null){
+                $width = $request->input('width')/2.54;
+            } else{
+                $width = 10;
+            }
+            if($request->input('length')!= null){
+                $length = $request->input('length')/2.54;
+            } else{
+                $length = 15;
+            }
+            if($request->input('height')!= null){
+                $height = $request->input('height')/2.54;
+            } else{
+                $height = 10;
+            }
+            if($request->input('girth')!= null){
+                $girth = $request->input('girth')/2.54;
+            } else{
+                $girth = 0;
+            }
+        }
 
 
         if($request->input('pounds') != null){
@@ -1166,8 +1166,8 @@ else{
                 $package->setService(RatePackage::SERVICE_PRIORITY);
             }
             else if($request->input('post_type') == 'LETTER'){
-                $package->setService(RatePackage::SERVICE_FIRST_CLASS);
-                $package->setFirstClassMailType(RatePackage::MAIL_TYPE_LETTER);
+                $package->setService(RatePackage::SERVICE_PRIORITY);
+//                $package->setFirstClassMailType(RatePackage::MAIL_TYPE_LETTER);
                 $weight_in_ounches = 0;
                 $weight_in_pounds = 0.21875;
             }
@@ -1255,16 +1255,16 @@ else{
             $rate->addPackage($package);
 
         }
-            $rate->getRate();
-            $rates = $rate->getArrayResponse();
-            if ($rate->isSuccess()) {
-                array_push($all_services, $rates['RateV4Response']['Package']['Postage']);
-                array_push($all_errors, []);
-            } else {
-                array_push($all_errors, $rate->getErrorMessage());
-                array_push($all_services, []);
-            }
-            dd($all_services, $all_errors);
+        $rate->getRate();
+        $rates = $rate->getArrayResponse();
+        if ($rate->isSuccess()) {
+            array_push($all_services, $rates['RateV4Response']['Package']['Postage']);
+            array_push($all_errors, []);
+        } else {
+            array_push($all_errors, $rate->getErrorMessage());
+            array_push($all_services, []);
+        }
+        dd($all_services, $all_errors);
     }
     public function USPS_Envolope($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds){
         $all_services = [];
@@ -1278,26 +1278,26 @@ else{
         ];
 
 //        foreach ($all_packages as $a) {
-            $rate = new Rate('021POSTD3725');
-            $package = new RatePackage();
-            $package->setService(RatePackage::SERVICE_ALL);
+        $rate = new Rate('021POSTD3725');
+        $package = new RatePackage();
+        $package->setService(RatePackage::SERVICE_ALL);
 //            $package->setFirstClassMailType(RatePackage::MAIL_TYPE_FLAT);
-            $package->setZipOrigination($origin_zip_code);
-            $package->setZipDestination($request->input('receipent_postecode'));
-            $package->setPounds($weight_in_pounds);
-            $package->setOunces($weight_in_ounches);
-            $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
-            $package->setField('Machinable', false);
-            $rate->addPackage($package);
-            $rate->getRate();
-            $rates = $rate->getArrayResponse();
-            if ($rate->isSuccess()) {
-                array_push($all_services, $rates['RateV4Response']['Package']['Postage']);
-                array_push($all_errors, []);
-            } else {
-                array_push($all_errors, $rate->getErrorMessage());
-                array_push($all_services, []);
-            }
+        $package->setZipOrigination($origin_zip_code);
+        $package->setZipDestination($request->input('receipent_postecode'));
+        $package->setPounds($weight_in_pounds);
+        $package->setOunces($weight_in_ounches);
+        $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+        $package->setField('Machinable', false);
+        $rate->addPackage($package);
+        $rate->getRate();
+        $rates = $rate->getArrayResponse();
+        if ($rate->isSuccess()) {
+            array_push($all_services, $rates['RateV4Response']['Package']['Postage']);
+            array_push($all_errors, []);
+        } else {
+            array_push($all_errors, $rate->getErrorMessage());
+            array_push($all_services, []);
+        }
 //        }
         dd($all_services, $all_errors);
     }
