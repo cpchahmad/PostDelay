@@ -32,6 +32,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Jasny\ISO\Countries;
 use Jasny\ISO\CountrySubdivisions;
+use SimpleXMLElement;
 use USPS\Rate;
 use USPS\RatePackage;
 
@@ -990,6 +991,319 @@ class OrdersController extends Controller
 
     }
 
+//    public function testusps(Request $request)
+//    {
+//        $rate = new Rate('021POSTD3725');
+//        $location = Location::all()->first();
+//        if($location != null){
+//            $origin_zip_code = $location->postcode;
+//        }
+//        else{
+//            $origin_zip_code = 10008;
+//        }
+//
+//        $fee = PostDelayFee::where('type','primary')->where('default',1)->first();
+//        if($fee != null){
+//            $origin_fee = $fee->price;
+//        }
+//        else{
+//            $origin_fee = 200;
+//        }
+//
+//        if($request->input('unit_of_measures_weight') == 'Metric'){
+//            if($request->input('width')!= null){
+//                $width = $request->input('width');
+//            } else{
+//                $width = 10;
+//            }
+//            if($request->input('length')!= null){
+//                $length = $request->input('length');
+//            } else{
+//                $length = 15;
+//            }
+//            if($request->input('height')!= null){
+//                $height = $request->input('height');
+//            } else{
+//                $height = 10;
+//            }
+//            if($request->input('girth')!= null){
+//                $girth = $request->input('girth');
+//            } else{
+//                $girth = 0;
+//            }
+//        }
+//        else{
+//            if($request->input('width')!= null){
+//                $width = $request->input('width')/2.54;
+//            } else{
+//                $width = 10;
+//            }
+//            if($request->input('length')!= null){
+//                $length = $request->input('length')/2.54;
+//            } else{
+//                $length = 15;
+//            }
+//            if($request->input('height')!= null){
+//                $height = $request->input('height')/2.54;
+//            } else{
+//                $height = 10;
+//            }
+//            if($request->input('girth')!= null){
+//                $girth = $request->input('girth')/2.54;
+//            } else{
+//                $girth = 0;
+//            }
+//        }
+//
+//
+//        if($request->input('pounds') != null){
+//            $weight_in_pounds =number_format($request->input('pounds'),2);
+//            $weight_in_ounches = number_format($request->input('ounches'),2);
+//        } else{
+//            $weight_in_ounches = 0;
+//            $weight_in_pounds  =0.21345678;
+//        }
+//
+//        if($request->input('receipent_country') != 'United States'){
+//
+//            $rate->setInternationalCall(true);
+//            $rate->addExtraOption('Revision', 2);
+//            $package = new RatePackage;
+//            $package->setPounds($weight_in_pounds);
+//            $package->setOunces($weight_in_ounches);
+//            $package->setField('Machinable', 'false');
+//            if($request->input('post_type') == 'POSTCARD' ){
+//                $package->setField('MailType', 'POSTCARD');
+//            }
+//            else if($request->input('post_type') == 'ENVELOPE'){
+//                $package->setField('MailType', 'ENVELOPE');
+//            }
+//            else if($request->input('post_type') == 'ENVELOPE'){
+//                $package->setField('MailType', 'LARGEENVELOPE');
+//            }
+//            else if($request->input('post_type') == 'LETTER'){
+//                $package->setField('MailType', 'LETTER');
+//            }
+//            else{
+//                $package->setField('MailType', 'PACKAGE');
+//            }
+//            if($request->input('special_holding') == 'yes'){
+//                $package->setField('GXG', array(
+//                    'POBoxFlag' => 'Y',
+//                    'GiftFlag' => 'Y'
+//                ));
+//            }
+//            $package->setField('ValueOfContents', $origin_fee);
+//            $package->setField('Country', $request->input('receipent_country'));
+//            if($request->input('post_type') == 'PACKAGE' || $request->input('post_type') == 'LARGE PACKAGE'){
+//                if($request->input('shape') == 'Rectangular'){
+//                    $package->setField('Container', RatePackage::CONTAINER_RECTANGULAR);
+//                }
+//                else{
+//                    $package->setField('Container', RatePackage::CONTAINER_NONRECTANGULAR);
+//                }
+//            }
+//            else if($request->input('post_type') == 'ENVELOPE'){
+//                $package->setField('Container', RatePackage::CONTAINER_FLAT_RATE_ENVELOPE);
+//            }
+//            else if($request->input('post_type') == 'LARGE ENVELOPE'){
+//                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+//            }
+//            else if($request->input('post_type') == 'POSTCARD'){
+//                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+//            }
+//            else{
+//                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+//            }
+//            if($request->input('post_type') == 'PACKAGE' || $request->input('post_type') == 'LARGE PACKAGE'){
+//                $package->setField('Width', $width);
+//                $package->setField('Length', $length);
+//                $package->setField('Height', $height);
+//                $package->setField('Girth', $girth);
+//            }
+//            $package->setField('OriginZip', $origin_zip_code);
+//            $date =now()->addDays(7)->format('Y-m-d\TH:i:s');
+//            $date = $date . '-06:00';
+////            '2020-01-01T13:15:00-06:00'
+//            $package->setField('AcceptanceDateTime',$date );
+//            $package->setField('DestinationPostalCode', $request->input('receipent_postecode'));
+//
+//            $rate->addPackage($package);
+//            $rate->getRate();
+//            $rates = $rate->getArrayResponse();
+//            if ($rate->isSuccess()) {
+//                $services = $rates['IntlRateV2Response']['Package']['Service'];
+//                $error = null;
+//
+//            } else {
+//                $services = null;
+//                $error = $rate->getErrorMessage();
+//            }
+//            return response()->json([
+//                'services' => $services,
+//                'error' => $error,
+//                'status' => 'international'
+//            ]);
+//
+//        } else{
+//
+////            foreach ($all_packages as $a){
+////
+////            }
+//            $package = new RatePackage();
+//            if($request->input('post_type') == 'POSTCARD'){
+////                $this->USPS_PostCard($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds);
+//
+//                $package->setService(RatePackage::SERVICE_FIRST_CLASS);
+//                $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
+//                $weight_in_ounches = 0;
+//                $weight_in_pounds = 0.21875;
+//            }
+//            else if($request->input('post_type') == 'ENVELOPE'){
+//                $package->setService(RatePackage::SERVICE_ALL);
+////            $this->USPS_Envolope($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds);
+//            }
+//            else if($request->input('post_type') == 'LARGE ENVELOPE'){
+//                $package->setService(RatePackage::SERVICE_PRIORITY);
+//            }
+//            else if($request->input('post_type') == 'LETTER'){
+//                $package->setService(RatePackage::SERVICE_PRIORITY);
+////                $package->setFirstClassMailType(RatePackage::MAIL_TYPE_LETTER);
+//                $weight_in_ounches = 0;
+//                $weight_in_pounds = 0.21875;
+//            }
+//            else{
+//                $package->setService(RatePackage::SERVICE_PRIORITY);
+//            }
+//
+//            $package->setZipOrigination($origin_zip_code);
+//            $package->setZipDestination($request->input('receipent_postecode'));
+//            $package->setPounds($weight_in_pounds);
+//            $package->setOunces($weight_in_ounches);
+//
+//
+//            if($request->input('post_type') == 'PACKAGE' || $request->input('post_type') == 'LARGE PACKAGE'){
+////                $package->setField('Width', $width);
+////                $package->setField('Length', $length);
+////                $package->setField('Height', $height);
+////                $package->setField('Girth', $girth);
+////                $package->setSize('LARGE');
+//                if($request->input('shape') == 'Rectangular'){
+//                    $package->setField('Container', RatePackage::CONTAINER_RECTANGULAR);
+//                }
+//                else{
+//                    $package->setField('Container', RatePackage::CONTAINER_NONRECTANGULAR);
+//                }
+//            }
+//            else if($request->input('post_type') == 'ENVELOPE'){
+//                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+//            }
+//            else if($request->input('post_type') == 'LARGE ENVELOPE'){
+//                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+//            }
+//            else if($request->input('post_type') == 'POSTCARD'){
+//                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+//            }
+//            else{
+//                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+//            }
+//
+//            $package->setField('Machinable', false);
+//
+//            $rate->addPackage($package);
+//
+//            $rate->getRate();
+//            $rates = $rate->getArrayResponse();
+//            if ($rate->isSuccess()) {
+//                $services = $rates['RateV4Response']['Package']['h'];
+//                $error = null;
+//            } else {
+//                $error = $rate->getErrorMessage();
+//                $services = null;
+//            }
+//            return response()->json([
+//                'services' => $services,
+//                'error' => $error,
+//                'status' => 'domestic'
+//            ]);
+//
+//        }
+//
+//    }
+
+    public function USPS_PostCard($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds){
+        $all_services = [];
+        $all_errors = [];
+
+        $all_packages = [
+            RatePackage::SERVICE_FIRST_CLASS,
+            RatePackage::SERVICE_PRIORITY,
+        ];
+
+        $rate = new Rate('021POSTD3725');
+        foreach ($all_packages as $a) {
+            $package = new RatePackage();
+            $package->setService($a);
+            $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
+            $weight_in_ounches = 0;
+            $weight_in_pounds = 0.21875;
+            $package->setZipOrigination($origin_zip_code);
+            $package->setZipDestination($request->input('receipent_postecode'));
+            $package->setPounds($weight_in_pounds);
+            $package->setOunces($weight_in_ounches);
+            $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+            $package->setField('Machinable', false);
+            $rate->addPackage($package);
+
+        }
+        $rate->getRate();
+        $rates = $rate->getArrayResponse();
+        if ($rate->isSuccess()) {
+            array_push($all_services, $rates['RateV4Response']['Package']['Postage']);
+            array_push($all_errors, []);
+        } else {
+            array_push($all_errors, $rate->getErrorMessage());
+            array_push($all_services, []);
+        }
+        dd($all_services, $all_errors);
+    }
+    public function USPS_Envolope($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds){
+        $all_services = [];
+        $all_errors = [];
+
+        $all_packages = [
+            RatePackage::SERVICE_FIRST_CLASS,
+            RatePackage::SERVICE_PRIORITY,
+            RatePackage::SERVICE_EXPRESS,
+            RatePackage::SERVICE_EXPRESS_HFP
+        ];
+
+//        foreach ($all_packages as $a) {
+        $rate = new Rate('021POSTD3725');
+        $package = new RatePackage();
+        $package->setService(RatePackage::SERVICE_ALL);
+//            $package->setFirstClassMailType(RatePackage::MAIL_TYPE_FLAT);
+        $package->setZipOrigination($origin_zip_code);
+        $package->setZipDestination($request->input('receipent_postecode'));
+        $package->setPounds($weight_in_pounds);
+        $package->setOunces($weight_in_ounches);
+        $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+        $package->setField('Machinable', false);
+        $rate->addPackage($package);
+        $rate->getRate();
+        $rates = $rate->getArrayResponse();
+        if ($rate->isSuccess()) {
+            array_push($all_services, $rates['RateV4Response']['Package']['Postage']);
+            array_push($all_errors, []);
+        } else {
+            array_push($all_errors, $rate->getErrorMessage());
+            array_push($all_services, []);
+        }
+//        }
+        dd($all_services, $all_errors);
+    }
+
+
     public function testusps(Request $request)
     {
         $rate = new Rate('021POSTD3725');
@@ -1146,83 +1460,110 @@ class OrdersController extends Controller
 
         } else{
 
-//            foreach ($all_packages as $a){
-//
-//            }
             $package = new RatePackage();
-            if($request->input('post_type') == 'POSTCARD'){
-//                $this->USPS_PostCard($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds);
 
-                $package->setService(RatePackage::SERVICE_FIRST_CLASS);
-                $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
-                $weight_in_ounches = 0;
-                $weight_in_pounds = 0.21875;
+            if($request->input('post_type') == 'POSTCARD'){
+                $s = $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),0,0.12,'VARIABLE',RatePackage::SERVICE_FIRST_CLASS,RatePackage::MAIL_TYPE_POSTCARD,'','','','');
+                $services = $s['Package']['Postage'];
             }
-            else if($request->input('post_type') == 'ENVELOPE'){
-                $package->setService(RatePackage::SERVICE_ALL);
-//            $this->USPS_Envolope($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds);
-            }
+
             else if($request->input('post_type') == 'LARGE ENVELOPE'){
-                $package->setService(RatePackage::SERVICE_PRIORITY);
+                $envelopes = [
+                    RatePackage::CONTAINER_FLAT_RATE_ENVELOPE,
+                    RatePackage::CONTAINER_GIFT_CARD_FLAT_RATE_ENVELOPE,
+                    RatePackage::CONTAINER_SM_FLAT_RATE_ENVELOPE,
+                    RatePackage::CONTAINER_LEGAL_FLAT_RATE_ENVELOPE,
+                    RatePackage::CONTAINER_PADDED_FLAT_RATE_ENVELOPE,
+                    RatePackage::CONTAINER_WINDOW_FLAT_RATE_ENVELOPE,
+                ];
+                $usps_services = [
+                    RatePackage::SERVICE_PRIORITY,
+                    RatePackage::SERVICE_EXPRESS,
+                ];
+
+                $services = [];
+                foreach ($usps_services as $usps){
+                    foreach ($envelopes as $en){
+                        $temp =  [];
+                        $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),$weight_in_pounds,$weight_in_ounches,$en,$usps,'','','','','');
+                        if(!array_key_exists('Error',$s['Package'])){
+                            array_push($temp,$s['Package']['Postage']);
+                            array_push($services,$temp[0]);
+                        }
+
+                    }
+                }
+
             }
             else if($request->input('post_type') == 'LETTER'){
-                $package->setService(RatePackage::SERVICE_PRIORITY);
-//                $package->setFirstClassMailType(RatePackage::MAIL_TYPE_LETTER);
-                $weight_in_ounches = 0;
-                $weight_in_pounds = 0.21875;
+                $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),0,0.12,'',RatePackage::SERVICE_FIRST_CLASS,RatePackage::MAIL_TYPE_LETTER,'','','','');
+                $services = $s['Package']['Postage'];
+            }
+            else if($request->input('post_type') == 'PACKAGE'){
+                $envelopes = [
+                    RatePackage::CONTAINER_LG_FLAT_RATE_BOX,
+                    RatePackage::CONTAINER_MD_FLAT_RATE_BOX,
+                    RatePackage::CONTAINER_SM_FLAT_RATE_BOX,
+                    RatePackage::CONTAINER_RECTANGULAR,
+
+                ];
+                $usps_services = [
+                    RatePackage::SERVICE_PRIORITY,
+                    RatePackage::SERVICE_EXPRESS,
+                ];
+
+                $services = [];
+                foreach ($usps_services as $usps){
+                    foreach ($envelopes as $en){
+                        $temp =  [];
+                        $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),$weight_in_pounds,$weight_in_ounches,$en,$usps,'','','','','');
+                        if(!array_key_exists('Error',$s['Package'])){
+                            array_push($temp,$s['Package']['Postage']);
+                            array_push($services,$temp[0]);
+                        }
+
+                    }
+                }
+
             }
             else{
-                $package->setService(RatePackage::SERVICE_PRIORITY);
-            }
-
-            $package->setZipOrigination($origin_zip_code);
-            $package->setZipDestination($request->input('receipent_postecode'));
-            $package->setPounds($weight_in_pounds);
-            $package->setOunces($weight_in_ounches);
-
-
-            if($request->input('post_type') == 'PACKAGE' || $request->input('post_type') == 'LARGE PACKAGE'){
-//                $package->setField('Width', $width);
-//                $package->setField('Length', $length);
-//                $package->setField('Height', $height);
-//                $package->setField('Girth', $girth);
-//                $package->setSize('LARGE');
                 if($request->input('shape') == 'Rectangular'){
-                    $package->setField('Container', RatePackage::CONTAINER_RECTANGULAR);
+                    $envelopes = [
+                        RatePackage::CONTAINER_RECTANGULAR,
+                    ];
                 }
                 else{
-                    $package->setField('Container', RatePackage::CONTAINER_NONRECTANGULAR);
+                    $envelopes = [
+                        RatePackage::CONTAINER_NONRECTANGULAR,
+                    ];
+                }
+
+                $usps_services = [
+                    RatePackage::SERVICE_PRIORITY,
+                    RatePackage::SERVICE_PRIORITY_HFP_COMMERCIAL,
+                    RatePackage::SERVICE_EXPRESS,
+                    RatePackage::SERVICE_EXPRESS_HFP_COMMERCIAL,
+                    RatePackage::SERVICE_MEDIA,
+
+                ];
+
+                $services = [];
+                foreach ($usps_services as $usps){
+                    foreach ($envelopes as $en){
+                        $temp =  [];
+                        $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),$weight_in_pounds,$weight_in_ounches,$en,$usps,'',$width,$length,$height,$girth);
+                        if(!array_key_exists('Error',$s['Package'])){
+                            array_push($temp,$s['Package']['Postage']);
+                            array_push($services,$temp[0]);
+                        }
+
+                    }
                 }
             }
-            else if($request->input('post_type') == 'ENVELOPE'){
-                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
-            }
-            else if($request->input('post_type') == 'LARGE ENVELOPE'){
-                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
-            }
-            else if($request->input('post_type') == 'POSTCARD'){
-                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
-            }
-            else{
-                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
-            }
 
-            $package->setField('Machinable', false);
-
-            $rate->addPackage($package);
-
-            $rate->getRate();
-            $rates = $rate->getArrayResponse();
-            if ($rate->isSuccess()) {
-                $services = $rates['RateV4Response']['Package']['Postage'];
-                $error = null;
-            } else {
-                $error = $rate->getErrorMessage();
-                $services = null;
-            }
             return response()->json([
                 'services' => $services,
-                'error' => $error,
+                'error' => null,
                 'status' => 'domestic'
             ]);
 
@@ -1230,76 +1571,49 @@ class OrdersController extends Controller
 
     }
 
-    public function USPS_PostCard($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds){
-        $all_services = [];
-        $all_errors = [];
+    public function DomesticShipping($zipOrigin,$zipDestination,$pounds,$ounches,$container,$service,$firstclassmailtype,$width,$length,$height,$girth){
+        $xml_data = '<RateV4Request USERID="021POSTD3725">'.
+            '<Revision>2</Revision>'.
+            '<Package ID="1ST">'.
+            '<Service>'.$service.'</Service>'.
+            '<FirstClassMailType>'.$firstclassmailtype.'</FirstClassMailType>'.
+            '<ZipOrigination>'.$zipOrigin.'</ZipOrigination>'.
+            '<ZipDestination>'.$zipDestination.'</ZipDestination>'.
+            '<Pounds>'.$pounds.'</Pounds>'.
+            '<Ounces>'.$ounches.'</Ounces>'.
+            '<Container>'.$container.'</Container>'.
+            '<Width>'.$width.'</Width>'.
+            '<Length>'.$length.'</Length>'.
+            '<Height>'.$height.'</Height>'.
+            '<Girth>'.$girth.'</Girth>'.
+            '<Machinable>false</Machinable>'.
+            '</Package>'.
+            '</RateV4Request>';
 
-        $all_packages = [
-            RatePackage::SERVICE_FIRST_CLASS,
-            RatePackage::SERVICE_PRIORITY,
-        ];
+        $url = "https://Secure.ShippingAPIs.com/ShippingAPI.dll";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_HEADER, 1);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        $data = "API=RateV4&XML=".$xml_data;
+        curl_setopt($ch, CURLOPT_POSTFIELDS,$data);
+        $result=curl_exec ($ch);
 
-        $rate = new Rate('021POSTD3725');
-        foreach ($all_packages as $a) {
-            $package = new RatePackage();
-            $package->setService($a);
-            $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
-            $weight_in_ounches = 0;
-            $weight_in_pounds = 0.21875;
-            $package->setZipOrigination($origin_zip_code);
-            $package->setZipDestination($request->input('receipent_postecode'));
-            $package->setPounds($weight_in_pounds);
-            $package->setOunces($weight_in_ounches);
-            $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
-            $package->setField('Machinable', false);
-            $rate->addPackage($package);
-
+        if (curl_errno($ch)){
+            dd(curl_error($ch));
+            curl_close($ch);
         }
-        $rate->getRate();
-        $rates = $rate->getArrayResponse();
-        if ($rate->isSuccess()) {
-            array_push($all_services, $rates['RateV4Response']['Package']['Postage']);
-            array_push($all_errors, []);
-        } else {
-            array_push($all_errors, $rate->getErrorMessage());
-            array_push($all_services, []);
+        else{
+            curl_close($ch);
+//            dd($result);
+            $data = strstr($result, '<?');
+            $xml = simplexml_load_string($data);
+            $json = json_encode($xml);
+            $array = json_decode($json,TRUE);
+//            dd($array);
+            return $array;
         }
-        dd($all_services, $all_errors);
-    }
-    public function USPS_Envolope($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds){
-        $all_services = [];
-        $all_errors = [];
-
-        $all_packages = [
-            RatePackage::SERVICE_FIRST_CLASS,
-            RatePackage::SERVICE_PRIORITY,
-            RatePackage::SERVICE_EXPRESS,
-            RatePackage::SERVICE_EXPRESS_HFP
-        ];
-
-//        foreach ($all_packages as $a) {
-        $rate = new Rate('021POSTD3725');
-        $package = new RatePackage();
-        $package->setService(RatePackage::SERVICE_ALL);
-//            $package->setFirstClassMailType(RatePackage::MAIL_TYPE_FLAT);
-        $package->setZipOrigination($origin_zip_code);
-        $package->setZipDestination($request->input('receipent_postecode'));
-        $package->setPounds($weight_in_pounds);
-        $package->setOunces($weight_in_ounches);
-        $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
-        $package->setField('Machinable', false);
-        $rate->addPackage($package);
-        $rate->getRate();
-        $rates = $rate->getArrayResponse();
-        if ($rate->isSuccess()) {
-            array_push($all_services, $rates['RateV4Response']['Package']['Postage']);
-            array_push($all_errors, []);
-        } else {
-            array_push($all_errors, $rate->getErrorMessage());
-            array_push($all_services, []);
-        }
-//        }
-        dd($all_services, $all_errors);
     }
 }
 

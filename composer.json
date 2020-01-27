@@ -19,7 +19,10 @@
         "oseintow/laravel-shopify": "^1.1",
         "rocket-code/shopify": "^2.0",
         "stripe/stripe-php": "^7.3",
-        "vinceg/usps-php-api": "^1.0"
+        "vinceg/usps-php-api": "^1.0",
+        "ext-xml": "*",
+        "ext-json": "*",
+        "ext-simplexml": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
