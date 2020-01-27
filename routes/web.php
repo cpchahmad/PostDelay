@@ -141,3 +141,4 @@ Route::get('/status/{id}', 'SettingsController@edit_status')->name('statuses.edi
 Route::POST('/status/update', 'SettingsController@update_status')->name('statuses.update_status');
 
 Route::get('/test/usps', 'OrdersController@testusps');
+Route::get('/xml', 'OrdersController@testUspsXML');
