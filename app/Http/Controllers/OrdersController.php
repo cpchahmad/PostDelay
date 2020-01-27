@@ -1496,8 +1496,33 @@ class OrdersController extends Controller
 
             }
             else if($request->input('post_type') == 'LETTER'){
+                $services = [];
                 $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),0,0.12,'',RatePackage::SERVICE_FIRST_CLASS,RatePackage::MAIL_TYPE_LETTER,'','','','');
-                $services = $s['Package']['Postage'];
+                array_push($services,$s['Package']['Postage']);
+                $envelopes = [
+                    RatePackage::CONTAINER_FLAT_RATE_ENVELOPE,
+                    RatePackage::CONTAINER_GIFT_CARD_FLAT_RATE_ENVELOPE,
+                    RatePackage::CONTAINER_SM_FLAT_RATE_ENVELOPE,
+                    RatePackage::CONTAINER_LEGAL_FLAT_RATE_ENVELOPE,
+                    RatePackage::CONTAINER_PADDED_FLAT_RATE_ENVELOPE,
+                    RatePackage::CONTAINER_WINDOW_FLAT_RATE_ENVELOPE,
+                ];
+                $usps_services = [
+                    RatePackage::SERVICE_PRIORITY,
+                    RatePackage::SERVICE_EXPRESS,
+                ];
+
+                foreach ($usps_services as $usps){
+                    foreach ($envelopes as $en){
+                        $temp =  [];
+                        $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),$weight_in_pounds,$weight_in_ounches,$en,$usps,'','','','','');
+                        if(!array_key_exists('Error',$s['Package'])){
+                            array_push($temp,$s['Package']['Postage']);
+                            array_push($services,$temp[0]);
+                        }
+
+                    }
+                }
             }
             else if($request->input('post_type') == 'PACKAGE'){
                 $envelopes = [
