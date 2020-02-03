@@ -1464,7 +1464,7 @@ class OrdersController extends Controller
 
             if($request->input('post_type') == 'POSTCARD'){
 
-                $s = $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),0,0.12,'VARIABLE',RatePackage::SERVICE_FIRST_CLASS,RatePackage::MAIL_TYPE_POSTCARD,'','','','');
+                $s = $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),0,0.12,'VARIABLE',RatePackage::SERVICE_FIRST_CLASS,RatePackage::MAIL_TYPE_POSTCARD,'','','','','False');
                 $services = $s['Package']['Postage'];
             }
 
@@ -1486,7 +1486,7 @@ class OrdersController extends Controller
                 foreach ($usps_services as $usps){
                     foreach ($envelopes as $en){
                         $temp =  [];
-                        $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),$weight_in_pounds,$weight_in_ounches,$en,$usps,'','','','','',false);
+                        $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),$weight_in_pounds,$weight_in_ounches,$en,$usps,'','','','','','False');
                         if(!array_key_exists('Error',$s['Package'])){
                             array_push($temp,$s['Package']['Postage']);
                             array_push($services,$temp[0]);
@@ -1499,10 +1499,10 @@ class OrdersController extends Controller
             else if($request->input('post_type') == 'LETTER'){
                 $services = [];
                 if($request->input('special_holding') == 'yes'){
-                    $machine = true;
+                    $machine = 'True';
                 }
                 else{
-                    $machine = false;
+                    $machine = 'False';
                 }
                 if($weight_in_pounds < 1){
                     $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),0,0.12,'',RatePackage::SERVICE_FIRST_CLASS,RatePackage::MAIL_TYPE_LETTER,'','','','',$machine);
@@ -1550,7 +1550,7 @@ class OrdersController extends Controller
                 foreach ($usps_services as $usps){
                     foreach ($envelopes as $en){
                         $temp =  [];
-                        $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),$weight_in_pounds,$weight_in_ounches,$en,$usps,'','','','','',false);
+                        $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),$weight_in_pounds,$weight_in_ounches,$en,$usps,'','','','','','False');
                         if(!array_key_exists('Error',$s['Package'])){
                             array_push($temp,$s['Package']['Postage']);
                             array_push($services,$temp[0]);
@@ -1585,7 +1585,7 @@ class OrdersController extends Controller
                 foreach ($usps_services as $usps){
                     foreach ($envelopes as $en){
                         $temp =  [];
-                        $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),$weight_in_pounds,$weight_in_ounches,$en,$usps,'',$width,$length,$height,$girth,false);
+                        $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),$weight_in_pounds,$weight_in_ounches,$en,$usps,'',$width,$length,$height,$girth,'False');
                         if(!array_key_exists('Error',$s['Package'])){
                             array_push($temp,$s['Package']['Postage']);
                             array_push($services,$temp[0]);
