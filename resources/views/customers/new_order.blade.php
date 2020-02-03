@@ -231,7 +231,7 @@
                                 </div>
                                 <div class="order-invoice-price">
                                     <input type="hidden" name="new_shipping_price" class="caclulated_amount">
-                                    <p class="invoice-Money">Select from Dropdown</p>
+                                    <p class="invoice-Money dropdown-rates">Select from Dropdown</p>
                                 </div>
                             </div>
 
@@ -251,7 +251,7 @@
                                 </div>
                                 <div class="order-invoice-Tax-money">
                                     <input type="hidden" class="caclulated_amount" name="new_tax_fee" value="0">
-                                    <p class="invoice-Money" style="text-align:right">Calculated on Checkout Page</p>
+                                    <p class="invoice-Money " style="text-align:right">Calculated on Checkout Page</p>
                                 </div>
                             </div>
 
@@ -406,8 +406,15 @@
                                 </select>
                             </div>
                         </div>
-
-
+                        <div class="custom_fields_half" id="postcard_size">
+                            <div class="custom_Request_fields_half">
+                                <label for="Special-Holding">Size</label>
+                                <select class="modify" id="postcard_size_select" name="postcard_size" >
+                                    <option value="regular">Regular</option>
+                                    <option value="large">Large</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="custom_fields_half" id="special_handling">
                             <div class="custom_Request_fields_half">
                                 <label for="Special-Holding">Special Handling</label>
