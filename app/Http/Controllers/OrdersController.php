@@ -1605,7 +1605,7 @@ class OrdersController extends Controller
 
     }
 
-    public function DomesticShipping($zipOrigin,$zipDestination,$pounds,$ounches,$container,$service,$firstclassmailtype,$width,$length,$height,$girth,$machinable){
+    public function DomesticShipping($zipOrigin,$zipDestination,$pounds,$ounches,$container,$service,$firstclassmailtype,$width,$length,$height,$girth,$machinable = false){
         $xml_data = '<RateV4Request USERID="021POSTD3725">'.
             '<Revision>2</Revision>'.
             '<Package ID="1ST">'.
