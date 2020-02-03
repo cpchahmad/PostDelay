@@ -415,8 +415,6 @@
                                 </select>
                             </div>
                         </div>
-
-
                         <div class="custom_fields_half" id="special_handling">
                             <div class="custom_Request_fields_half">
                                 <label for="Special-Holding">Special Handling</label>
