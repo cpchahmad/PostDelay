@@ -1464,7 +1464,7 @@ class OrdersController extends Controller
 
             if($request->input('post_type') == 'POSTCARD'){
 
-                $s = $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),0,0.12,'VARIABLE',RatePackage::SERVICE_FIRST_CLASS,RatePackage::MAIL_TYPE_POSTCARD,'','','','',true);
+                $s = $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),0,0.12,'VARIABLE',RatePackage::SERVICE_FIRST_CLASS,RatePackage::MAIL_TYPE_POSTCARD,'','','','',false);
                 $services = $s['Package']['Postage'];
             }
 
