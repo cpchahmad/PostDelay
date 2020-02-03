@@ -1463,7 +1463,8 @@ class OrdersController extends Controller
             $package = new RatePackage();
 
             if($request->input('post_type') == 'POSTCARD'){
-                $s = $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),0,0.12,'VARIABLE',RatePackage::SERVICE_FIRST_CLASS,RatePackage::MAIL_TYPE_POSTCARD,'','','','');
+
+                $s = $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),0,0.12,'VARIABLE',RatePackage::SERVICE_FIRST_CLASS,RatePackage::MAIL_TYPE_POSTCARD,'','','','',true);
                 $services = $s['Package']['Postage'];
             }
 
@@ -1485,7 +1486,7 @@ class OrdersController extends Controller
                 foreach ($usps_services as $usps){
                     foreach ($envelopes as $en){
                         $temp =  [];
-                        $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),$weight_in_pounds,$weight_in_ounches,$en,$usps,'','','','','');
+                        $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),$weight_in_pounds,$weight_in_ounches,$en,$usps,'','','','','',false);
                         if(!array_key_exists('Error',$s['Package'])){
                             array_push($temp,$s['Package']['Postage']);
                             array_push($services,$temp[0]);
@@ -1497,8 +1498,17 @@ class OrdersController extends Controller
             }
             else if($request->input('post_type') == 'LETTER'){
                 $services = [];
-                $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),0,0.12,'',RatePackage::SERVICE_FIRST_CLASS,RatePackage::MAIL_TYPE_LETTER,'','','','');
-                array_push($services,$s['Package']['Postage']);
+                if($request->input('special_holding') == 'yes'){
+                    $machine = true;
+                }
+                else{
+                    $machine = false;
+                }
+                if($weight_in_pounds < 1){
+                    $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),0,0.12,'',RatePackage::SERVICE_FIRST_CLASS,RatePackage::MAIL_TYPE_LETTER,'','','','',$machine);
+                    array_push($services,$s['Package']['Postage']);
+                }
+
                 $envelopes = [
                     RatePackage::CONTAINER_FLAT_RATE_ENVELOPE,
                     RatePackage::CONTAINER_GIFT_CARD_FLAT_RATE_ENVELOPE,
@@ -1511,11 +1521,10 @@ class OrdersController extends Controller
                     RatePackage::SERVICE_PRIORITY,
                     RatePackage::SERVICE_EXPRESS,
                 ];
-
                 foreach ($usps_services as $usps){
                     foreach ($envelopes as $en){
                         $temp =  [];
-                        $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),$weight_in_pounds,$weight_in_ounches,$en,$usps,'','','','','');
+                        $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),$weight_in_pounds,$weight_in_ounches,$en,$usps,'','','','','',$machine);
                         if(!array_key_exists('Error',$s['Package'])){
                             array_push($temp,$s['Package']['Postage']);
                             array_push($services,$temp[0]);
@@ -1541,7 +1550,7 @@ class OrdersController extends Controller
                 foreach ($usps_services as $usps){
                     foreach ($envelopes as $en){
                         $temp =  [];
-                        $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),$weight_in_pounds,$weight_in_ounches,$en,$usps,'','','','','');
+                        $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),$weight_in_pounds,$weight_in_ounches,$en,$usps,'','','','','',false);
                         if(!array_key_exists('Error',$s['Package'])){
                             array_push($temp,$s['Package']['Postage']);
                             array_push($services,$temp[0]);
@@ -1576,7 +1585,7 @@ class OrdersController extends Controller
                 foreach ($usps_services as $usps){
                     foreach ($envelopes as $en){
                         $temp =  [];
-                        $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),$weight_in_pounds,$weight_in_ounches,$en,$usps,'',$width,$length,$height,$girth);
+                        $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),$weight_in_pounds,$weight_in_ounches,$en,$usps,'',$width,$length,$height,$girth,false);
                         if(!array_key_exists('Error',$s['Package'])){
                             array_push($temp,$s['Package']['Postage']);
                             array_push($services,$temp[0]);
@@ -1596,7 +1605,7 @@ class OrdersController extends Controller
 
     }
 
-    public function DomesticShipping($zipOrigin,$zipDestination,$pounds,$ounches,$container,$service,$firstclassmailtype,$width,$length,$height,$girth){
+    public function DomesticShipping($zipOrigin,$zipDestination,$pounds,$ounches,$container,$service,$firstclassmailtype,$width,$length,$height,$girth,$machinable){
         $xml_data = '<RateV4Request USERID="021POSTD3725">'.
             '<Revision>2</Revision>'.
             '<Package ID="1ST">'.
@@ -1607,6 +1616,53 @@ class OrdersController extends Controller
             '<Pounds>'.$pounds.'</Pounds>'.
             '<Ounces>'.$ounches.'</Ounces>'.
             '<Container>'.$container.'</Container>'.
+            '<Width>'.$width.'</Width>'.
+            '<Length>'.$length.'</Length>'.
+            '<Height>'.$height.'</Height>'.
+            '<Girth>'.$girth.'</Girth>'.
+            '<Machinable>'.$machinable.'</Machinable>'.
+            '</Package>'.
+            '</RateV4Request>';
+
+        $url = "https://Secure.ShippingAPIs.com/ShippingAPI.dll";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_HEADER, 1);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        $data = "API=RateV4&XML=".$xml_data;
+        curl_setopt($ch, CURLOPT_POSTFIELDS,$data);
+        $result=curl_exec ($ch);
+
+        if (curl_errno($ch)){
+            dd(curl_error($ch));
+            curl_close($ch);
+        }
+        else{
+            curl_close($ch);
+//            dd($result);
+            $data = strstr($result, '<?');
+            $xml = simplexml_load_string($data);
+            $json = json_encode($xml);
+            $array = json_decode($json,TRUE);
+//            dd($array);
+            return $array;
+        }
+    }
+
+
+    public function DomesticPostcardShipping($zipOrigin,$zipDestination,$pounds,$ounches,$container,$service,$firstclassmailtype,$width,$length,$height,$girth,$size){
+        $xml_data = '<RateV4Request USERID="021POSTD3725">'.
+            '<Revision>2</Revision>'.
+            '<Package ID="1ST">'.
+            '<Service>'.$service.'</Service>'.
+            '<FirstClassMailType>'.$firstclassmailtype.'</FirstClassMailType>'.
+            '<ZipOrigination>'.$zipOrigin.'</ZipOrigination>'.
+            '<ZipDestination>'.$zipDestination.'</ZipDestination>'.
+            '<Pounds>'.$pounds.'</Pounds>'.
+            '<Ounces>'.$ounches.'</Ounces>'.
+            '<Container>'.$container.'</Container>'.
+            '<Size>'.$size.'</Size>'.
             '<Width>'.$width.'</Width>'.
             '<Length>'.$length.'</Length>'.
             '<Height>'.$height.'</Height>'.
