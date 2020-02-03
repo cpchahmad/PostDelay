@@ -1464,7 +1464,7 @@ class OrdersController extends Controller
 
             if($request->input('post_type') == 'POSTCARD'){
 
-                $s = $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),0,0.12,'VARIABLE',RatePackage::SERVICE_FIRST_CLASS,RatePackage::MAIL_TYPE_POSTCARD,'','','','',false);
+                $s = $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),0,0.12,'VARIABLE',RatePackage::SERVICE_FIRST_CLASS,RatePackage::MAIL_TYPE_POSTCARD,'','','','');
                 $services = $s['Package']['Postage'];
             }
 
@@ -1605,7 +1605,7 @@ class OrdersController extends Controller
 
     }
 
-    public function DomesticShipping($zipOrigin,$zipDestination,$pounds,$ounches,$container,$service,$firstclassmailtype,$width,$length,$height,$girth,$machinable = false){
+    public function DomesticShipping($zipOrigin,$zipDestination,$pounds,$ounches,$container,$service,$firstclassmailtype,$width,$length,$height,$girth,$machinable = null){
         $xml_data = '<RateV4Request USERID="021POSTD3725">'.
             '<Revision>2</Revision>'.
             '<Package ID="1ST">'.
