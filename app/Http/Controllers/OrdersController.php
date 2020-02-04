@@ -1463,8 +1463,14 @@ class OrdersController extends Controller
             $package = new RatePackage();
 
             if($request->input('post_type') == 'POSTCARD'){
+                if($request->input('postcard_size') == 'regular'){
+                    $size = 'REGULAR';
+                }
+                else{
+                    $size = 'LARGE';
+                }
 
-                $s = $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),0,0.12,'VARIABLE',RatePackage::SERVICE_FIRST_CLASS,RatePackage::MAIL_TYPE_POSTCARD,'','','','','False');
+                $s = $this->DomesticPostcardShipping($origin_zip_code,$request->input('receipent_postecode'),0,0.12,'POSTCARDS',RatePackage::SERVICE_FIRST_CLASS,RatePackage::MAIL_TYPE_POSTCARD,$size);
                 $services = $s['Package']['Postage'];
             }
 
@@ -1519,7 +1525,7 @@ class OrdersController extends Controller
                 ];
                 $usps_services = [
                     RatePackage::SERVICE_PRIORITY,
-                    RatePackage::SERVICE_EXPRESS,
+//                    RatePackage::SERVICE_EXPRESS,
                 ];
                 foreach ($usps_services as $usps){
                     foreach ($envelopes as $en){
@@ -1651,7 +1657,7 @@ class OrdersController extends Controller
     }
 
 
-    public function DomesticPostcardShipping($zipOrigin,$zipDestination,$pounds,$ounches,$container,$service,$firstclassmailtype,$width,$length,$height,$girth,$size){
+    public function DomesticPostcardShipping($zipOrigin,$zipDestination,$pounds,$ounches,$container,$service,$firstclassmailtype,$size){
         $xml_data = '<RateV4Request USERID="021POSTD3725">'.
             '<Revision>2</Revision>'.
             '<Package ID="1ST">'.
@@ -1663,10 +1669,6 @@ class OrdersController extends Controller
             '<Ounces>'.$ounches.'</Ounces>'.
             '<Container>'.$container.'</Container>'.
             '<Size>'.$size.'</Size>'.
-            '<Width>'.$width.'</Width>'.
-            '<Length>'.$length.'</Length>'.
-            '<Height>'.$height.'</Height>'.
-            '<Girth>'.$girth.'</Girth>'.
             '<Machinable>false</Machinable>'.
             '</Package>'.
             '</RateV4Request>';
