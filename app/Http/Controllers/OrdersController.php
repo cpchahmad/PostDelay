@@ -1461,7 +1461,7 @@ class OrdersController extends Controller
         } else{
 
             $package = new RatePackage();
-
+            $services = [];
             if($request->input('post_type') == 'POSTCARD'){
                 if($request->input('postcard_size') == 'regular'){
                     $size = 'REGULAR';
