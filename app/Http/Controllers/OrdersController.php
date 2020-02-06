@@ -1465,13 +1465,18 @@ class OrdersController extends Controller
             if($request->input('post_type') == 'POSTCARD'){
                 if($request->input('postcard_size') == 'regular'){
                     $size = 'REGULAR';
+                    $s = $this->DomesticPostcardShipping($origin_zip_code,$request->input('receipent_postecode'),0,0.12,'POSTCARDS',RatePackage::SERVICE_FIRST_CLASS,RatePackage::MAIL_TYPE_POSTCARD,$size);
+                    $services = $s['Package']['Postage'];
                 }
                 else{
                     $size = 'LARGE';
+                 array_push($services,[
+                     'Rate' => 0.55,
+                     'MailService' => 'First-Class Mail® Stamped Large Postcards',
+                 ]);
                 }
 
-                $s = $this->DomesticPostcardShipping($origin_zip_code,$request->input('receipent_postecode'),0,0.12,'POSTCARDS',RatePackage::SERVICE_FIRST_CLASS,RatePackage::MAIL_TYPE_POSTCARD,$size);
-                $services = $s['Package']['Postage'];
+
             }
 
             else if($request->input('post_type') == 'LARGE ENVELOPE'){
