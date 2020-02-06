@@ -1505,10 +1505,10 @@ class OrdersController extends Controller
             else if($request->input('post_type') == 'LETTER'){
                 $services = [];
                 if($request->input('special_holding') == 'yes'){
-                    $machine = 'False';
+                    $machine = 'True';
                 }
                 else{
-                    $machine = 'True';
+                    $machine = 'False';
                 }
                 if($weight_in_pounds < 1){
                     if($machine == 'False'){
