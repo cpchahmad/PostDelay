@@ -1511,6 +1511,12 @@ class OrdersController extends Controller
                     $machine = 'False';
                 }
                 if($weight_in_pounds < 1){
+                    if($machine == 'False'){
+                        $machine = 'True';
+                    }
+                    else{
+                        $machine = 'False';
+                    }
                     $s =  $this->DomesticShipping($origin_zip_code,$request->input('receipent_postecode'),0,0.12,'',RatePackage::SERVICE_FIRST_CLASS,RatePackage::MAIL_TYPE_LETTER,'','','','',$machine);
                     array_push($services,$s['Package']['Postage']);
                 }
