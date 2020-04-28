@@ -42,7 +42,7 @@ class AddressController extends Controller
         $address = Address::find($request->input('address_id'));
         $returnHTML = view('customers.addresses', ['address' => $address])->render();
 
-   /*     $this->helper->getShopify()->call([
+     $this->helper->getShopify()->call([
                 'METHOD' => 'PUT',
                 'URL' => 'admin/customers/' . $address->shopify_customer_id . '/addresses/'.$address->shopify_address_id.'.json',
                 'DATA' => [
@@ -60,7 +60,7 @@ class AddressController extends Controller
                         "zip" => $request->input('postcode'),
                     ]
                 ]
-            ]);*/
+            ]);
         if($request->input('source') == 'admin'){
             return redirect()->back();
         }else {
@@ -100,8 +100,11 @@ class AddressController extends Controller
         else{
             Address::find($request->input('address_id'))->delete();
         }*/
-        if(!$request->ajax()){
+        if(!\Illuminate\Support\Facades\Request::ajax()){
             return redirect()->back();
+        }
+        else{
+            return 0;
         }
 
 
