@@ -472,8 +472,10 @@ class OrdersController extends Controller
                                 "last_name" => $request->input('last_name'),
                                 "province" => $request->input('state'),
                                 "country" => $request->input('country'),
-                                "zip" => $request->input('postecode'),
+                                "zip" => $request->input('postcode'),
                                 "name" => $request->input('first_name') . ' ' . $request->input('last_name'),
+                                "country_code" => Countries::getCode($request->input('country')),
+                                "province_code" => CountrySubdivisions::getCode($request->input('country'), $request->input('state'))
                             ]
 
                         ]
@@ -508,8 +510,10 @@ class OrdersController extends Controller
                                 "last_name" => $request->input('last_name'),
                                 "province" => $request->input('state'),
                                 "country" => $request->input('country'),
-                                "zip" => $request->input('postecode'),
+                                "zip" => $request->input('postcode'),
                                 "name" => $request->input('first_name') . ' ' . $request->input('last_name'),
+                                "country_code" => Countries::getCode($request->input('country')),
+                                "province_code" => CountrySubdivisions::getCode($request->input('country'), $request->input('state'))
                             ]
 
                         ]
