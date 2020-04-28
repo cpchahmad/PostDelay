@@ -536,11 +536,9 @@ class OrdersController extends Controller
             $order->additional_payment_name = 'Request Form Payment';
         }
 
-
         $customer = Customer::where('shopify_customer_id', $request->input('customer-id'))->first();
         $order->customer_id = $customer->id;
         $order->shopify_customer_id = $request->input('customer-id');
-
         $billing_address = new BillingAddress();
         $billing_address->address1 = $request->input('address1');
         $billing_address->address2 = $request->input('address2');
@@ -552,11 +550,8 @@ class OrdersController extends Controller
         $billing_address->country = $request->input('country');
         $billing_address->postcode = $request->input('postecode');
         $billing_address->save();
-
         $order->billing_address_id = $billing_address->id;
-
         $order->save();
-
         return response()->json([
             "invoiceURL" => $invoiceURL,
         ]);
