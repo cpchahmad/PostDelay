@@ -100,7 +100,7 @@ class AddressController extends Controller
         else{
             Address::find($request->input('address_id'))->delete();
         }*/
-        if(!$request->ajax()){
+        if(!\Illuminate\Support\Facades\Request::ajax()){
             return redirect()->back();
         }
         else{
