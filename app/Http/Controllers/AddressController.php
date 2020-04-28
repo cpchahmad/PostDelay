@@ -118,7 +118,6 @@ class AddressController extends Controller
         }
 
         $fill_address = view('customers.request_form_billing_address', ['address' => $address])->render();
-
         $returnHTML = view('customers.inc.request_form_billing', ['addresses' => $billing_addresses])->render();
         return response()->json([
             "html" => $returnHTML,
