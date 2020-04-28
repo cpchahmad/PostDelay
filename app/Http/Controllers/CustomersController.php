@@ -33,94 +33,94 @@ class CustomersController extends Controller
     public function customer_create(Request $request)
     {
 //        dd($request);
-            $shop = Shop::where('shopify_domain', $request->input('shop'))->value('id');
-            $customer = Customer::where('email', $request->input('email'))->first();
-            $response = '';
+        $shop = Shop::where('shopify_domain', $request->input('shop'))->value('id');
+        $customer = Customer::where('email', $request->input('email'))->first();
+        $response = '';
 
-            if ($customer) {
-                    if($customer->status == 'invited'){
-                      $response = [
-                            'status' => 'invited',
-                            'msg' => 'Customer Already Invited, Please check your email address to verify or <a id="send_activation_link" data-shop="postdelay.myshopify.com" data-customer-id="'.$customer->shopify_customer_id.'">Click here</a> to resend the Invitation again.'
-                        ];
-                    }elseif ($customer->status == 'declined') {
-                        $response = [
-                            'status' => 'declined',
-                            'msg' => 'Customer Declined the Invitation, <a id="send_activation_link" data-shop="postdelay.myshopify.com" data-customer-id="'.$customer->shopify_customer_id.'">Click here</a> to resend the Invitation again.'
-                        ];
-                    }elseif($customer->status == 'enabled'){
-                        $response = [
-                            'status' => 'enabled',
-                            'msg' => 'Email Already Register, <a href="/account/login">Click here</a> to Login.'
-                        ];
-                    }elseif ($customer->status == 'disabled'){
-                        $response = [
-                            'status' => 'disabled',
-                            'msg' => 'Customer Account Disabled, Please contact customer support to enable the account.'
-                        ];
-                    }elseif ($customer->status == 'deleting'){
-                        $response = [
-                            'status' => 'deleting',
-                            'msg' => 'The Account associated with this email is in Deleting Process, Please contact customer support to enable the account.'
-                        ];
-                    } else{
-                        $response = [
-                            'status' => 'error',
-                            'msg' => 'Customer Already Invited, Please check your email address to verify or <a id="send_activation_link" data-shop="postdelay.myshopify.com" data-customer-id="'.$customer->shopify_customer_id.'">Click here</a> to resend the Invitation again.'
-                        ];
-                    }
-                }else {
+        if ($customer) {
+            if($customer->status == 'invited'){
+                $response = [
+                    'status' => 'invited',
+                    'msg' => 'Customer Already Invited, Please check your email address to verify or <a id="send_activation_link" data-shop="postdelay.myshopify.com" data-customer-id="'.$customer->shopify_customer_id.'">Click here</a> to resend the Invitation again.'
+                ];
+            }elseif ($customer->status == 'declined') {
+                $response = [
+                    'status' => 'declined',
+                    'msg' => 'Customer Declined the Invitation, <a id="send_activation_link" data-shop="postdelay.myshopify.com" data-customer-id="'.$customer->shopify_customer_id.'">Click here</a> to resend the Invitation again.'
+                ];
+            }elseif($customer->status == 'enabled'){
+                $response = [
+                    'status' => 'enabled',
+                    'msg' => 'Email Already Register, <a href="/account/login">Click here</a> to Login.'
+                ];
+            }elseif ($customer->status == 'disabled'){
+                $response = [
+                    'status' => 'disabled',
+                    'msg' => 'Customer Account Disabled, Please contact customer support to enable the account.'
+                ];
+            }elseif ($customer->status == 'deleting'){
+                $response = [
+                    'status' => 'deleting',
+                    'msg' => 'The Account associated with this email is in Deleting Process, Please contact customer support to enable the account.'
+                ];
+            } else{
+                $response = [
+                    'status' => 'error',
+                    'msg' => 'Customer Already Invited, Please check your email address to verify or <a id="send_activation_link" data-shop="postdelay.myshopify.com" data-customer-id="'.$customer->shopify_customer_id.'">Click here</a> to resend the Invitation again.'
+                ];
+            }
+        }else {
 
-                if($request->input('receve-mail')){
-                    $subscription = true;
-                    $accept_marketing = 1;
-                }else{
-                    $subscription = false;
-                    $accept_marketing = 0;
-                }
+            if($request->input('receve-mail')){
+                $subscription = true;
+                $accept_marketing = 1;
+            }else{
+                $subscription = false;
+                $accept_marketing = 0;
+            }
 
-                    $customer = $this->helper->getShopify()->call([
-                        'METHOD' => 'POST',
-                        'URL' => '/admin/customers.json',
-                        'DATA' => [
-                            "customer" => [
-                                "first_name" => $request->input("first_name"),
-                                "last_name" => $request->input("last_name"),
-                                "email" => $request->input("email"),
-                                "accepts_marketing" => $subscription,
-                                "send_email_welcome" => false,
-                                "verified_email" => false,
-                                "send_email_invite" => true,
+            $customer = $this->helper->getShopify()->call([
+                'METHOD' => 'POST',
+                'URL' => '/admin/customers.json',
+                'DATA' => [
+                    "customer" => [
+                        "first_name" => $request->input("first_name"),
+                        "last_name" => $request->input("last_name"),
+                        "email" => $request->input("email"),
+                        "accepts_marketing" => $subscription,
+                        "send_email_welcome" => false,
+                        "verified_email" => false,
+                        "send_email_invite" => true,
 
-                            ]
-                        ]
-                    ]);
+                    ]
+                ]
+            ]);
 
-                    if ($customer != null) {
-                        Customer::create([
-                            'first_name' => $request->input("first_name"),
-                            'last_name' => $request->input("last_name"),
-                            'email' => $request->input("email"),
-                            'business' => $request->input("business"),
-                            'phone' => $request->input('phone'),
-                            'address1' => $request->input('address1'),
-                            'address2' => $request->input('address2'),
-                            'city' => $request->input('city'),
-                            'state' => $request->input('province'),
-                            'country' => $request->input('country'),
-                            'postcode' => $request->input('postecode'),
-                            'accept_marketing' => $accept_marketing,
-                            'shop_id' => $shop,
-                            'status' => 'invited',
-                            'shopify_customer_id' => $customer->customer->id,
-                        ]);
-                        $response = [
-                            'status' => 'success',
-                            'customer_id' => $customer->customer->id
-                        ];
-                    }
-                }
-                return json_encode($response);
+            if ($customer != null) {
+                Customer::create([
+                    'first_name' => $request->input("first_name"),
+                    'last_name' => $request->input("last_name"),
+                    'email' => $request->input("email"),
+                    'business' => $request->input("business"),
+                    'phone' => $request->input('phone'),
+                    'address1' => $request->input('address1'),
+                    'address2' => $request->input('address2'),
+                    'city' => $request->input('city'),
+                    'state' => $request->input('province'),
+                    'country' => $request->input('country'),
+                    'postcode' => $request->input('postecode'),
+                    'accept_marketing' => $accept_marketing,
+                    'shop_id' => $shop,
+                    'status' => 'invited',
+                    'shopify_customer_id' => $customer->customer->id,
+                ]);
+                $response = [
+                    'status' => 'success',
+                    'customer_id' => $customer->customer->id
+                ];
+            }
+        }
+        return json_encode($response);
     }
 
     public function sendactivationlink(Request $request)
@@ -147,30 +147,30 @@ class CustomersController extends Controller
         $shop = Shop::where('shopify_domain', $request->input('shop'))->value('id');
         $customer = Customer::where('shopify_customer_id', $request->input('customer_id'))->first();
         if ($shop != null && $customer != null) {
- /*Shopify Add Address Code*/
-//            try{
-//                $address = $this->helper->getShopify()->call([
-//                    'METHOD' => 'POST',
-//                    'URL' => '/admin/customers/' . $customer->shopify_customer_id . '/addresses.json',
-//                    'DATA' => [
-//                        "address" => [
-//                            "address1" => $request->input('address1'),
-//                            "address2" => $request->input('address2'),
-//                            "city" => $request->input('city'),
-//                            "company" => $request->input('business'),
-//                            "first_name" => $request->input('first_name'),
-//                            "last_name" => $request->input('last_name'),
-//                            "province" => $request->input('province'),
-//                            "country" => $request->input('country'),
-//                            "phone" => $request->input('phone'),
-//                            "zip" => $request->input('postecode'),
-//                            "name" => $request->input('first_name') . ' ' . $request->input('last_name'),
-//                        ]
-//                    ]
-//                ]);
-//            }catch (\Exception $e){
-//                $address = null;
-//            }
+            /*Shopify Add Address Code*/
+            try{
+                $address = $this->helper->getShopify()->call([
+                    'METHOD' => 'POST',
+                    'URL' => '/admin/customers/' . $customer->shopify_customer_id . '/addresses.json',
+                    'DATA' => [
+                        "address" => [
+                            "address1" => $request->input('address1'),
+                            "address2" => $request->input('address2'),
+                            "city" => $request->input('city'),
+                            "company" => $request->input('business'),
+                            "first_name" => $request->input('first_name'),
+                            "last_name" => $request->input('last_name'),
+                            "province" => $request->input('province'),
+                            "country" => $request->input('country'),
+                            "phone" => $request->input('phone'),
+                            "zip" => $request->input('postecode'),
+                            "name" => $request->input('first_name') . ' ' . $request->input('last_name'),
+                        ]
+                    ]
+                ]);
+            }catch (\Exception $e){
+                $address = null;
+            }
 
             Address::create([
                 'first_name' => $request->input("first_name"),
@@ -188,51 +188,51 @@ class CustomersController extends Controller
                 'shop_id' => $shop,
                 'shopify_customer_id' => $customer->shopify_customer_id,
                 'customer_id' => $customer->id,
-                /*  'shopify_address_id' => $address->customer_address->id*/
+                'shopify_address_id' => $address->customer_address->id
             ]);
             return response()->json(['msg' => 'address_created'], 200);
 
-       /*  if ($address != null) {
+            /*  if ($address != null) {
 
-            }
-            else{
-                $old_record = Address::where('address_type', $request->input('address_type'))
-                    ->where('first_name', $request->input('first_name'))
-                    ->where('last_name', $request->input('last_name'))
-                    ->where('email', $request->input('email'))
-                    ->where('phone', $request->input('phone'))
-                    ->where('address1', $request->input('address1'))
-                    ->where('address2', $request->input('address2'))
-                    ->where('city', $request->input('city'))
-                    ->where('state', $request->input('province'))
-                    ->where('country', $request->input('country'))
-                    ->where('postcode', $request->input('postecode'))
-                    ->where('shop_id', $shop)
-                 ->exists();
-                if($old_record == false){
-                    Address::create([
-                        'first_name' => $request->input("first_name"),
-                        'last_name' => $request->input("last_name"),
-                        'email' => $request->input("email"),
-                        'address_type' => $request->input('address_type'),
-                        'business' => $request->input("business"),
-                        'phone' => $request->input('phone'),
-                        'address1' => $request->input('address1'),
-                        'address2' => $request->input('address2'),
-                        'city' => $request->input('city'),
-                        'state' => $request->input('province'),
-                        'country' => $request->input('country'),
-                        'postcode' => $request->input('postecode'),
-                        'shop_id' => $shop,
-                        'shopify_customer_id' => $customer->shopify_customer_id,
-                        'customer_id' => $customer->id,
-                    ]);
-                    return response()->json(['msg' => 'address_created'], 200);
-                }
-                else{
-                    return response()->json(['msg' => 'shop or customer not exists'], 500);
-                }
-            }*/
+                 }
+                 else{
+                     $old_record = Address::where('address_type', $request->input('address_type'))
+                         ->where('first_name', $request->input('first_name'))
+                         ->where('last_name', $request->input('last_name'))
+                         ->where('email', $request->input('email'))
+                         ->where('phone', $request->input('phone'))
+                         ->where('address1', $request->input('address1'))
+                         ->where('address2', $request->input('address2'))
+                         ->where('city', $request->input('city'))
+                         ->where('state', $request->input('province'))
+                         ->where('country', $request->input('country'))
+                         ->where('postcode', $request->input('postecode'))
+                         ->where('shop_id', $shop)
+                      ->exists();
+                     if($old_record == false){
+                         Address::create([
+                             'first_name' => $request->input("first_name"),
+                             'last_name' => $request->input("last_name"),
+                             'email' => $request->input("email"),
+                             'address_type' => $request->input('address_type'),
+                             'business' => $request->input("business"),
+                             'phone' => $request->input('phone'),
+                             'address1' => $request->input('address1'),
+                             'address2' => $request->input('address2'),
+                             'city' => $request->input('city'),
+                             'state' => $request->input('province'),
+                             'country' => $request->input('country'),
+                             'postcode' => $request->input('postecode'),
+                             'shop_id' => $shop,
+                             'shopify_customer_id' => $customer->shopify_customer_id,
+                             'customer_id' => $customer->id,
+                         ]);
+                         return response()->json(['msg' => 'address_created'], 200);
+                     }
+                     else{
+                         return response()->json(['msg' => 'shop or customer not exists'], 500);
+                     }
+                 }*/
 
         } else {
             return response()->json(['msg' => 'shop or customer not exists'], 500);
@@ -269,9 +269,9 @@ class CustomersController extends Controller
 //        if ($validate_data->fails()) {
 //            return response()->json($validate_data->messages(), 200);
 //        } else {
-            $shop = Shop::where('shopify_domain', $request->input('shop'))->value('id');
+        $shop = Shop::where('shopify_domain', $request->input('shop'))->value('id');
 
-            if ($shop != null) {
+        if ($shop != null) {
 //                $updated_customer = $this->helper->getShopify()->call([
 //                    'METHOD' => 'PUT',
 //                    'URL' => '/admin/customers/' . $request->input('customer_id') . '.json',
@@ -288,22 +288,22 @@ class CustomersController extends Controller
 //                        ]
 //                    ]
 //                ]);
-                    Customer::where('shopify_customer_id', $request->input('customer_id'))->update([
-                        'first_name' => $request->input("first_name"),
-                        'last_name' => $request->input("last_name"),
-                        'email' => $request->input("email"),
-                        'business' => $request->input("business"),
-                        'phone' => $request->input('phone'),
-                        'address1' => $request->input('address1'),
-                        'address2' => $request->input('address2'),
-                        'city' => $request->input('city'),
-                        'state' => $request->input('province'),
-                        'country' => $request->input('country'),
-                        'postcode' => $request->input('postecode'),
-                        'shop_id' => $shop,
-                        'shopify_customer_id' => $request->input('customer_id'),
-                    ]);
-                }
+            Customer::where('shopify_customer_id', $request->input('customer_id'))->update([
+                'first_name' => $request->input("first_name"),
+                'last_name' => $request->input("last_name"),
+                'email' => $request->input("email"),
+                'business' => $request->input("business"),
+                'phone' => $request->input('phone'),
+                'address1' => $request->input('address1'),
+                'address2' => $request->input('address2'),
+                'city' => $request->input('city'),
+                'state' => $request->input('province'),
+                'country' => $request->input('country'),
+                'postcode' => $request->input('postecode'),
+                'shop_id' => $shop,
+                'shopify_customer_id' => $request->input('customer_id'),
+            ]);
+        }
 
 
         if($request->input('source') == 'admin'){
@@ -313,29 +313,29 @@ class CustomersController extends Controller
         }
 //            }
 
-        }
+    }
 
     public function delete_all()
     {
         $customers = Customer::all();
 
-           $orders =  $this->helper->getShopify()->call([
-                'METHOD' => 'GET',
-                'URL' => 'admin/orders.json',
+        $orders =  $this->helper->getShopify()->call([
+            'METHOD' => 'GET',
+            'URL' => 'admin/orders.json',
+        ]);
+        if(count($orders->orders) > 0){
+            foreach ($orders->orders as $order){
+                $this->helper->getShopify()->call([
+                    'METHOD' => 'DELETE',
+                    'URL' => 'admin/orders/' .$order->id. '.json',
                 ]);
-           if(count($orders->orders) > 0){
-               foreach ($orders->orders as $order){
-                   $this->helper->getShopify()->call([
-                       'METHOD' => 'DELETE',
-                       'URL' => 'admin/orders/' .$order->id. '.json',
-                   ]);
-               }
-           }
+            }
+        }
 
-           $shopify_customer =  $this->helper->getShopify()->call([
-                'METHOD' => 'GET',
-                'URL' => 'admin/customers.json',
-            ]);
+        $shopify_customer =  $this->helper->getShopify()->call([
+            'METHOD' => 'GET',
+            'URL' => 'admin/customers.json',
+        ]);
 
 //           dd($shopify_customer);
         if(count($shopify_customer->customers) > 0) {
@@ -445,10 +445,10 @@ class CustomersController extends Controller
                 'email' => $customer->email,
                 'shop_id' => $shop
             ]);
-            }
         }
+    }
 
-        public function delete_account(Request $request){
+    public function delete_account(Request $request){
 
         $customer = Customer::where('shopify_customer_id',$request->input('customer'))->first();
         $customer->status = 'inactive';
@@ -473,63 +473,63 @@ class CustomersController extends Controller
 //            ]);
 //
 //            $customer_orders = Order::where('customer_id',$customer->id)->delete();
-            Mail::to($customer->email)->send(new AccountDeletionEmail($customer));
+        Mail::to($customer->email)->send(new AccountDeletionEmail($customer));
 //            $customer->delete();
 
 
-            if(!$request->ajax()){
-               return redirect()->back();
-            }
+        if(!$request->ajax()){
+            return redirect()->back();
         }
+    }
 
-        public function delete_account_confirmation(Request $request){
-            $customer = Customer::where('shopify_customer_id',$request->input('customer'))->first();
-            $customer->status = 'deleting';
-            $customer->save();
+    public function delete_account_confirmation(Request $request){
+        $customer = Customer::where('shopify_customer_id',$request->input('customer'))->first();
+        $customer->status = 'deleting';
+        $customer->save();
 
-            Mail::to($customer->email)->send(new SendAccountDeleteEmail($customer));
+        Mail::to($customer->email)->send(new SendAccountDeleteEmail($customer));
 
-        }
+    }
 
-        public function delete_account_from_email($id){
+    public function delete_account_from_email($id){
 
-        }
+    }
 
 
-        public function ResetAll(){
-            $customers = $this->helper->getShopify()->call([
+    public function ResetAll(){
+        $customers = $this->helper->getShopify()->call([
+            'METHOD' => 'GET',
+            'URL' => '/admin/customers.json'
+        ]);
+        foreach ($customers->customers as $customer){
+            $orders = $this->helper->getShopify()->call([
                 'METHOD' => 'GET',
-                'URL' => '/admin/customers.json'
+                'URL' => '/admin/customers/'.$customer->id.'/orders.json',
             ]);
-            foreach ($customers->customers as $customer){
-                $orders = $this->helper->getShopify()->call([
-                    'METHOD' => 'GET',
-                    'URL' => '/admin/customers/'.$customer->id.'/orders.json',
-                ]);
-                foreach ($orders->orders as $order){
-                    $this->helper->getShopify()->call([
-                        'METHOD' => 'DELETE',
-                        'URL' => 'admin/orders/' .$order->id. '.json',
-                    ]);
-                }
+            foreach ($orders->orders as $order){
                 $this->helper->getShopify()->call([
                     'METHOD' => 'DELETE',
-                    'URL' => 'admin/customers/' . $customer->id . '.json',
+                    'URL' => 'admin/orders/' .$order->id. '.json',
                 ]);
-
-                $customer_orders = Order::where('customer_id',$customer->id)->delete();
-
             }
-        }
-        public function getCustomer($id){
-
-            $customer = $this->helper->getShopify()->call([
-                'METHOD' => 'GET',
-                'URL' => '/admin/customers/'.$id.'.json',
+            $this->helper->getShopify()->call([
+                'METHOD' => 'DELETE',
+                'URL' => 'admin/customers/' . $customer->id . '.json',
             ]);
 
-            dd($customer);
+            $customer_orders = Order::where('customer_id',$customer->id)->delete();
+
         }
+    }
+    public function getCustomer($id){
+
+        $customer = $this->helper->getShopify()->call([
+            'METHOD' => 'GET',
+            'URL' => '/admin/customers/'.$id.'.json',
+        ]);
+
+        dd($customer);
+    }
 
     public function getWebhooks(){
         $APP_URL = 'https://postdelay.shopifyapplications.com';
