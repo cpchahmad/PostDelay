@@ -19,11 +19,11 @@ class CreatePackageDetailsTable extends Migration
             $table->text('special_holding')->nullable();
             $table->text('shape')->nullable();
             $table->text('scale')->nullable();
-            $table->integer('weight')->nullable();
-            $table->integer('height')->nullable();
-            $table->integer('width')->nullable();
-            $table->integer('length')->nullable();
-            $table->integer('girth')->nullable();
+            $table->double('weight')->nullable();
+            $table->double('height')->nullable();
+            $table->double('width')->nullable();
+            $table->double('length')->nullable();
+            $table->double('girth')->nullable();
             $table->timestamps();
         });
     }
