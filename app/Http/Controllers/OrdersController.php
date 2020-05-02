@@ -1510,6 +1510,7 @@ class OrdersController extends Controller
             $package->setField('DestinationPostalCode', $request->input('receipent_postecode'));
 
             $rate->addPackage($package);
+
             $rate->getRate();
             $rates = $rate->getArrayResponse();
             if ($rate->isSuccess()) {
