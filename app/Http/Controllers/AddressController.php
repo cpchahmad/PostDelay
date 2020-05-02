@@ -122,8 +122,16 @@ class AddressController extends Controller
     public function get_billing_addresses (Request $request){
         $order = Order::where('shopify_order_id',$request->input('order'))->first();
         if($request->input('type') == 'additional-fee'){
-            $address = $order->has_billing;
-            $billing_addresses = Address::where('address_type','Billing')->where('shopify_customer_id',$request->input('customer_id'))->get();
+            if($request->input('response') == '20'){
+                $address = $order->has_recepient;
+                $billing_addresses = Address::where('address_type','Recipients')->where('shopify_customer_id',$request->input('customer_id'))->get();
+            }
+            else{
+                $address = $order->has_sender;
+                $billing_addresses = Address::where('address_type','Sender')->where('shopify_customer_id',$request->input('customer_id'))->get();
+            }
+
+
         }else{
             $address = $order->has_sender;
             $billing_addresses = Address::where('address_type','Sender')->where('shopify_customer_id',$request->input('customer_id'))->get();
