@@ -239,29 +239,64 @@ class OrdersController extends Controller
                 $draft_order->status_id = 1;
                 $draft_order->token = $order->token;
 
-                if ($order->billing_address != null) {
-                    $draft_order->has_billing->first_name = $order->billing_address->first_name;
-                    $draft_order->has_billing->last_name = $order->billing_address->last_name;
-                    $draft_order->has_billing->address1 = $order->billing_address->address1;
-                    $draft_order->has_billing->address2 = $order->billing_address->address2;
-                    $draft_order->has_billing->city = $order->billing_address->city;
-                    $draft_order->has_billing->state = $order->billing_address->province;
-                    $draft_order->has_billing->country = $order->billing_address->country;
-                    $draft_order->has_billing->business = $order->billing_address->company;
-                    $draft_order->has_billing->postcode = $order->billing_address->zip;
-                    $draft_order->has_billing->save();
+                if (isset($order->billing_address)) {
+                    if($draft_order->has_billing != null){
+                        $draft_order->has_billing->first_name = $order->billing_address->first_name;
+                        $draft_order->has_billing->last_name = $order->billing_address->last_name;
+                        $draft_order->has_billing->address1 = $order->billing_address->address1;
+                        $draft_order->has_billing->address2 = $order->billing_address->address2;
+                        $draft_order->has_billing->city = $order->billing_address->city;
+                        $draft_order->has_billing->state = $order->billing_address->province;
+                        $draft_order->has_billing->country = $order->billing_address->country;
+                        $draft_order->has_billing->business = $order->billing_address->company;
+                        $draft_order->has_billing->postcode = $order->billing_address->zip;
+                        $draft_order->has_billing->save();
+                    }
+                    else{
+                        $billing = new BillingAddress();
+                        $billing->first_name = $order->billing_address->first_name;
+                        $billing->last_name = $order->billing_address->last_name;
+                        $billing->address1 = $order->billing_address->address1;
+                        $billing->address2 = $order->billing_address->address2;
+                        $billing->city = $order->billing_address->city;
+                        $billing->state = $order->billing_address->province;
+                        $billing->country = $order->billing_address->country;
+                        $billing->business = $order->billing_address->company;
+                        $billing->postcode = $order->billing_address->zip;
+                        $billing->save();
+                        $draft_order->billing_address_id = $billing->id;
+                        $draft_order->save();
+                    }
+
                 }
                 if (isset($order->shipping_address)) {
-                    $draft_order->has_recepient->first_name = $order->shipping_address->first_name;
-                    $draft_order->has_recepient->last_name = $order->billing_address->last_name;
-                    $draft_order->has_recepient->address1 = $order->shipping_address->address1;
-                    $draft_order->has_recepient->address2 = $order->shipping_address->address2;
-                    $draft_order->has_recepient->city = $order->shipping_address->city;
-                    $draft_order->has_recepient->state = $order->shipping_address->province;
-                    $draft_order->has_recepient->country = $order->shipping_address->country;
-                    $draft_order->has_recepient->business = $order->shipping_address->company;
-                    $draft_order->has_recepient->postcode = $order->shipping_address->zip;
-                    $draft_order->has_recepient->save();
+                    if($draft_order->has_recepient != null) {
+                        $draft_order->has_recepient->first_name = $order->shipping_address->first_name;
+                        $draft_order->has_recepient->last_name = $order->billing_address->last_name;
+                        $draft_order->has_recepient->address1 = $order->shipping_address->address1;
+                        $draft_order->has_recepient->address2 = $order->shipping_address->address2;
+                        $draft_order->has_recepient->city = $order->shipping_address->city;
+                        $draft_order->has_recepient->state = $order->shipping_address->province;
+                        $draft_order->has_recepient->country = $order->shipping_address->country;
+                        $draft_order->has_recepient->business = $order->shipping_address->company;
+                        $draft_order->has_recepient->postcode = $order->shipping_address->zip;
+                        $draft_order->has_recepient->save();
+                    }
+                    else{
+                        $recip = new RecipientAddress();
+                        $recip->first_name = $order->shipping_address->first_name;
+                        $recip->last_name = $order->shipping_address->last_name;
+                        $recip->address1 = $order->shipping_address->address1;
+                        $recip->address2 = $order->shipping_address->address2;
+                        $recip->city = $order->shipping_address->city;
+                        $recip->state = $order->shipping_address->province;
+                        $recip->country = $order->shipping_address->country;
+                        $recip->business = $order->shipping_address->company;
+                        $recip->postcode = $order->shipping_address->zip;
+                        $recip->save();
+                        $draft_order->recipient_address_id = $recip->id;
+                        $draft_order->save();
+                    }
                 }
 
                 $draft_order->save();
@@ -834,7 +869,6 @@ class OrdersController extends Controller
 //        ]);
 //    }
 
-
     public function get_checkout()
     {
         $checkout = $this->helper->getShopify()->call([
@@ -1337,8 +1371,6 @@ class OrdersController extends Controller
 //        }
         dd($all_services, $all_errors);
     }
-
-
     public function testusps(Request $request)
     {
         $rate = new Rate('021POSTD3725');
@@ -1656,7 +1688,6 @@ class OrdersController extends Controller
         }
 
     }
-
     public function DomesticShipping($zipOrigin,$zipDestination,$pounds,$ounches,$container,$service,$firstclassmailtype,$width,$length,$height,$girth,$machinable = null){
         $xml_data = '<RateV4Request USERID="021POSTD3725">'.
             '<Revision>2</Revision>'.
@@ -1701,8 +1732,6 @@ class OrdersController extends Controller
             return $array;
         }
     }
-
-
     public function DomesticPostcardShipping($zipOrigin,$zipDestination,$pounds,$ounches,$container,$service,$firstclassmailtype,$size){
         $xml_data = '<RateV4Request USERID="021POSTD3725">'.
             '<Revision>2</Revision>'.
