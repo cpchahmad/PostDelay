@@ -34,7 +34,7 @@
 <div class="custom_fields_half full_width_iput">
     <div class="custom_Request_fields_half">
         <label for="Address1">Address1</label>
-        <input type="text" id="aurocomplet" class="autocomplete" required="" name="address1" id="Address1" value="{{$address->address1}}" placeholder="">
+        <input type="text" id="autocomplete" class="autocomplete" required="" name="address1"  value="{{$address->address1}}" placeholder="">
         <input type="hidden" value="{{$address->address2}}" placeholder="">
         <input type="text"  name="address2" id="Address2" value="{{$address->address2}}" placeholder="">
     </div>

@@ -522,7 +522,6 @@ class OrdersController extends Controller
             ]);
         }
 
-
         $invoiceURL = $draft_orders->draft_order->invoice_url;
         $token = explode('/', $invoiceURL)[5];
         $order = new Order();
