@@ -20,6 +20,7 @@ Route::get('/customer/get/details', 'CustomersController@get_customer_details')-
 Route::get('/customer/update', 'CustomersController@update_customer_details')->name('customer.update');
 Route::get('/customer/address/default', 'AddressController@set_default_address')->name('address.set_default');
 Route::get('/customer/address/delete', 'AddressController@delete_address')->name('address.delete');
+Route::get('/customer/addresses/delete', 'AddressController@delete_customer_address')->name('customer.address.delete');
 
 Route::get('/delete_all', 'CustomersController@delete_all')->name('delete_all');
 Route::get('/draft', 'CustomersController@draft_orders')->name('draft_orders');
