@@ -444,6 +444,7 @@ class OrdersController extends Controller
     public function place_additional_payments(Request $request)
     {
 
+        $associate_order = Order::where('shopify_order_id', $request->input('order-id'))->first();
         $shop = Shop::where('shopify_domain', $request->input('shop'))->first();
         if ($request->input('type') == 'additional-fee') {
             $default = PostDelayFee::where('default', 1)->where('type', 'additional')->first();
@@ -496,12 +497,27 @@ class OrdersController extends Controller
                                     "title" => $default->name,
                                     "price" => $default->price,
                                     "quantity" => 1,
+                                    "requires_shipping" => true,
                                 ]
                             ],
                             "customer" => [
                                 "id" => $request->input('customer-id'),
                             ],
                             "billing_address" => [
+                                "address1" => $associate_order->has_billing->address1,
+                                "address2" =>  $associate_order->has_billing->address2,
+                                "city" =>  $associate_order->has_billing->city,
+                                "company" =>  $associate_order->has_billing->business,
+                                "first_name" =>  $associate_order->has_billing->first_name,
+                                "last_name" => $associate_order->has_billing->last_name,
+                                "province" =>  $associate_order->has_billing->state,
+                                "country" =>  $associate_order->has_billing->country,
+                                "zip" =>  $associate_order->has_billing->postcode,
+                                "name" => $associate_order->has_billing->first_name . ' ' .  $associate_order->has_billing->last_name,
+                                "country_code" => Countries::getCode( $associate_order->has_billing->country),
+                                "province_code" => CountrySubdivisions::getCode( $associate_order->has_billing->country,  $associate_order->has_billing->state)
+                            ],
+                            "shipping_address" => [
                                 "address1" => $request->input('address1'),
                                 "address2" => $request->input('address2'),
                                 "city" => $request->input('city'),
@@ -530,7 +546,7 @@ class OrdersController extends Controller
         $order->ship_out_date = $request->input('ship_out_date');
         $order->checkout_completed = 0;
 
-        $associate_order = Order::where('shopify_order_id', $request->input('order-id'))->first();
+
         $order->order_id = $associate_order->id;
         $order->additional_payment = 1;
         if ($request->input('type') == 'additional-fee') {
@@ -542,18 +558,37 @@ class OrdersController extends Controller
         $customer = Customer::where('shopify_customer_id', $request->input('customer-id'))->first();
         $order->customer_id = $customer->id;
         $order->shopify_customer_id = $request->input('customer-id');
-        $billing_address = new BillingAddress();
-        $billing_address->address1 = $request->input('address1');
-        $billing_address->address2 = $request->input('address2');
-        $billing_address->city = $request->input('city');
-        $billing_address->business = $request->input('business');
-        $billing_address->first_name = $request->input('first_name');
-        $billing_address->last_name = $request->input('last_name');
-        $billing_address->state = $request->input('state');
-        $billing_address->country = $request->input('country');
-        $billing_address->postcode = $request->input('postecode');
-        $billing_address->save();
-        $order->billing_address_id = $billing_address->id;
+        if ($request->input('type') != 'additional-fee') {
+
+            $recipient_address = new RecipientAddress();
+            $recipient_address->address1 = $request->input('address1');
+            $recipient_address->address2 = $request->input('address2');
+            $recipient_address->city = $request->input('city');
+            $recipient_address->business = $request->input('business');
+            $recipient_address->first_name = $request->input('first_name');
+            $recipient_address->last_name = $request->input('last_name');
+            $recipient_address->state = $request->input('state');
+            $recipient_address->country = $request->input('country');
+            $recipient_address->postcode = $request->input('postecode');
+            $recipient_address->save();
+            $order->recipient_address_id = $recipient_address->id;
+
+        }
+        else{
+            $billing_address = new BillingAddress();
+            $billing_address->address1 = $request->input('address1');
+            $billing_address->address2 = $request->input('address2');
+            $billing_address->city = $request->input('city');
+            $billing_address->business = $request->input('business');
+            $billing_address->first_name = $request->input('first_name');
+            $billing_address->last_name = $request->input('last_name');
+            $billing_address->state = $request->input('state');
+            $billing_address->country = $request->input('country');
+            $billing_address->postcode = $request->input('postecode');
+            $billing_address->save();
+            $order->billing_address_id = $billing_address->id;
+        }
+
         $order->save();
         return response()->json([
             "invoiceURL" => $invoiceURL,
