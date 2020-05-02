@@ -58,8 +58,9 @@
             <label for="Type">Shipping Method</label>
             <select id="shipping_method_select" name="shipping_method">
             </select>
-            <input type="hidden" name="shipping_price">
+            <input type="hidden" name="new_shipping_price">
         </div>
+        <div id="tempo" style="display: none"></div>
     </div>
 @endif
 

@@ -500,6 +500,20 @@ class OrdersController extends Controller
                                 "id" => $request->input('customer-id'),
                             ],
                             "billing_address" => [
+                                "address1" => $associate_order->has_billing->address1,
+                                "address2" =>  $associate_order->has_billing->address2,
+                                "city" =>  $associate_order->has_billing->city,
+                                "company" =>  $associate_order->has_billing->business,
+                                "first_name" =>  $associate_order->has_billing->first_name,
+                                "last_name" => $associate_order->has_billing->last_name,
+                                "province" =>  $associate_order->has_billing->state,
+                                "country" =>  $associate_order->has_billing->country,
+                                "zip" =>  $associate_order->has_billing->postcode,
+                                "name" => $associate_order->has_billing->first_name . ' ' .  $associate_order->has_billing->last_name,
+                                "country_code" => Countries::getCode( $associate_order->has_billing->country),
+                                "province_code" => CountrySubdivisions::getCode( $associate_order->has_billing->country,  $associate_order->has_billing->state)
+                            ],
+                            "shipping_address" => [
                                 "address1" => $request->input('address1'),
                                 "address2" => $request->input('address2'),
                                 "city" => $request->input('city'),
@@ -512,7 +526,12 @@ class OrdersController extends Controller
                                 "name" => $request->input('first_name') . ' ' . $request->input('last_name'),
                                 "country_code" => Countries::getCode($request->input('country')),
                                 "province_code" => CountrySubdivisions::getCode($request->input('country'), $request->input('state'))
-                            ]
+                            ],
+                            "shipping_line" => [
+                                "custom" => true,
+                                "price" => $request->input('new_shipping_price'),
+                                "title" => $request->input('shipping_method')
+                            ],
 
                         ]
 
@@ -595,36 +614,22 @@ class OrdersController extends Controller
         $customer = Customer::where('shopify_customer_id', $request->input('customer-id'))->first();
         $order->customer_id = $customer->id;
         $order->shopify_customer_id = $request->input('customer-id');
-        if ($request->input('type') != 'additional-fee') {
 
-            $recipient_address = new RecipientAddress();
-            $recipient_address->address1 = $request->input('address1');
-            $recipient_address->address2 = $request->input('address2');
-            $recipient_address->city = $request->input('city');
-            $recipient_address->business = $request->input('business');
-            $recipient_address->first_name = $request->input('first_name');
-            $recipient_address->last_name = $request->input('last_name');
-            $recipient_address->state = $request->input('state');
-            $recipient_address->country = $request->input('country');
-            $recipient_address->postcode = $request->input('postecode');
-            $recipient_address->save();
-            $order->recipient_address_id = $recipient_address->id;
+        $recipient_address = new RecipientAddress();
+        $recipient_address->address1 = $request->input('address1');
+        $recipient_address->address2 = $request->input('address2');
+        $recipient_address->city = $request->input('city');
+        $recipient_address->business = $request->input('business');
+        $recipient_address->first_name = $request->input('first_name');
+        $recipient_address->last_name = $request->input('last_name');
+        $recipient_address->state = $request->input('state');
+        $recipient_address->country = $request->input('country');
+        $recipient_address->postcode = $request->input('postecode');
+        $recipient_address->save();
+        $order->recipient_address_id = $recipient_address->id;
+        /*Order Billing Address */
+        $order->billing_address_id = $associate_order->billing_address_id;
 
-        }
-        else{
-            $billing_address = new BillingAddress();
-            $billing_address->address1 = $request->input('address1');
-            $billing_address->address2 = $request->input('address2');
-            $billing_address->city = $request->input('city');
-            $billing_address->business = $request->input('business');
-            $billing_address->first_name = $request->input('first_name');
-            $billing_address->last_name = $request->input('last_name');
-            $billing_address->state = $request->input('state');
-            $billing_address->country = $request->input('country');
-            $billing_address->postcode = $request->input('postecode');
-            $billing_address->save();
-            $order->billing_address_id = $billing_address->id;
-        }
 
         $order->save();
         return response()->json([
@@ -1539,10 +1544,10 @@ class OrdersController extends Controller
                 }
                 else{
                     $size = 'LARGE';
-                 array_push($services,[
-                     'Rate' => 0.55,
-                     'MailService' => 'First-Class Mail® Stamped Large Postcards',
-                 ]);
+                    array_push($services,[
+                        'Rate' => 0.55,
+                        'MailService' => 'First-Class Mail® Stamped Large Postcards',
+                    ]);
                 }
 
 
