@@ -6,8 +6,8 @@
     <input type="hidden" name="receipent_address2" value="{{$sender['address2']}}">
     <input type="hidden" name="receipent_city" value="{{$sender['city']}}">
     <input type="hidden"   name="receipent_state" value="{{$sender['state']}}">
-    <input type="hidden" name="receipent_postecode" value="{{$sender['postecode']}}">
-    <input type="hidden" name="receipent_phone" value="{{$sender['phone']}}">
+    <input type="hidden" name="receipent_postecode" value="{{$sender['postcode']}}">
+
     <input type="hidden" name="post_type" value="{{$order->has_package_detail->type}}">
     <input type="hidden" name="postcard_size" value="REGULAR">
     <input type="hidden" name="special_holding" value="{{$order->has_package_detail->special_holding}}">
