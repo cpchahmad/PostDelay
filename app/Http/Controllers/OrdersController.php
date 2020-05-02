@@ -1776,7 +1776,17 @@ class OrdersController extends Controller
     }
 
     public function get_re_calculate_form(Request $request){
-        dd($request);
+        $sender  = $request->all();
+        $associate_order = Order::where('shopify_order_id', $request->input('order-id'))->first();
+        $returnHTML = view('inc.re-calculate-form', [
+            'sender' => $sender,
+            'order' => $associate_order
+        ])->render();
+        return response()->json([
+            'message' => 'success',
+            'html' => $returnHTML
+        ]);
+
     }
 }
 
