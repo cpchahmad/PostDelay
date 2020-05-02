@@ -3,7 +3,7 @@
 
         <label for="AddressCountryNew">Country</label>
         <select required class="AddressCountryNew country_select" name="country" @if($address != null) data-country-select="{{ $address->country }}"  data-province-select="{{$address->state}}" @endif>
-                @include('customers.inc.countries')
+            @include('customers.inc.countries')
         </select>
     </div>
     <div id="country-status"></div>
@@ -53,8 +53,14 @@
     </div>
 </div>
 @if($response != null)
-<div id="additional_payment_section">
-</div>
+    <div id="additional_payment_section" data-quote="no" style="display: none">
+        <div class="custom_fields_half full_width_iput">
+            <label for="Type">Shipping Method</label>
+            <select id="shipping_method_select" required name="shipping_method">
+            </select>
+            <input type="hidden" name="shipping_price">
+        </div>
+    </div>
 @endif
 
 
