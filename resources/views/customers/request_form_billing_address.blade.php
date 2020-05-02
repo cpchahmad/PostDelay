@@ -54,9 +54,9 @@
 </div>
 @if($response != null)
     <div id="additional_payment_section" data-quote="no" style="display: none">
-        <div class="custom_fields_half full_width_iput">
+        <div class="custom_Request_fields_half">
             <label for="Type">Shipping Method</label>
-            <select id="shipping_method_select" required name="shipping_method">
+            <select id="shipping_method_select" name="shipping_method">
             </select>
             <input type="hidden" name="shipping_price">
         </div>
