@@ -13,7 +13,7 @@
     <input type="hidden" name="special_holding" value="{{$order->has_package_detail->special_holding}}">
     <input type="hidden" name="shape" value="{{$order->has_package_detail->shape}}">
     <input type="hidden" name="unit_of_measures" value="{{$order->has_package_detail->scale}}">
-    <input type="hidden" name="unit_of_measures_weight" value="METRIC">
+    <input type="hidden" name="unit_of_measures_weight" value="Metric">
     <input type="hidden" name="weight" value="{{$order->has_package_detail->weight}}">
     <input type="hidden" name="pounds" value="{{$order->has_package_detail->weight * 2.205 }} ">
     <input type="hidden" name="ounches" value="0.12">
