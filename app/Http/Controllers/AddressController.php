@@ -111,6 +111,14 @@ class AddressController extends Controller
 
 //        return redirect()->back();
     }
+
+    public function delete_customer_address(Request $request){
+        Address::find($request->input('address_id'))->delete();
+        return response()->json([
+            'message' => 'success'
+        ]);
+    }
+
     public function get_billing_addresses (Request $request){
         $order = Order::where('shopify_order_id',$request->input('order'))->first();
         if($request->input('type') == 'additional-fee'){
