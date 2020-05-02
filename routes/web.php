@@ -141,5 +141,6 @@ Route::get('/setting/statuses', 'SettingsController@show_statuses')->name('statu
 Route::get('/status/{id}', 'SettingsController@edit_status')->name('statuses.edit_status');
 Route::POST('/status/update', 'SettingsController@update_status')->name('statuses.update_status');
 
-Route::get('/test/usps', 'OrdersController@testusps');
+Route::get('/test/usps', 'OrdersController@testusps')->name('app.calculate_shipping');
+Route::get('/get/re-calculate-form','OrdersController@get_re_calculate_form');
 Route::get('/xml', 'OrdersController@testUspsXML');

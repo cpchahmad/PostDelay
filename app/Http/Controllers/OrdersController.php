@@ -1774,5 +1774,9 @@ class OrdersController extends Controller
             return $array;
         }
     }
+
+    public function get_re_calculate_form(Request $request){
+        dd($request);
+    }
 }
 
