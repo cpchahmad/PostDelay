@@ -497,7 +497,6 @@ class OrdersController extends Controller
                                     "title" => $default->name,
                                     "price" => $default->price,
                                     "quantity" => 1,
-                                    "requires_shipping" => true,
                                 ]
                             ],
                             "customer" => [
