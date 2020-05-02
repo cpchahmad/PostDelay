@@ -529,7 +529,12 @@ class OrdersController extends Controller
                                 "name" => $request->input('first_name') . ' ' . $request->input('last_name'),
                                 "country_code" => Countries::getCode($request->input('country')),
                                 "province_code" => CountrySubdivisions::getCode($request->input('country'), $request->input('state'))
-                            ]
+                            ],
+                            "shipping_line" => [
+                                "custom" => true,
+                                "price" => '0.00',
+                                "title" => 'FREE SHIPPING - POSTDELAY'
+                            ],
 
                         ]
 
@@ -544,8 +549,6 @@ class OrdersController extends Controller
         $order->checkout_token = $token;
         $order->ship_out_date = $request->input('ship_out_date');
         $order->checkout_completed = 0;
-
-
         $order->order_id = $associate_order->id;
         $order->additional_payment = 1;
         if ($request->input('type') == 'additional-fee') {
