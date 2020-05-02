@@ -54,24 +54,6 @@
 </div>
 @if($response != null)
 <div id="additional_payment_section">
-    <div class="Form-field-contaner shipping_calculations" style="display:none;">
-        <div class="Form-content-name" >
-            <p>Shipping Quotes</p>
-        </div>
-        <div class="Form-content-detail">
-            <div class="order-Invoice">
-                <div class="order-id-field" >
-                    <div class="custom_fields_half">
-                        <div class="custom_Request_fields_half ">
-                            <label for="Type">Shipping Methods</label>
-                            <select id="shipping_method_select" name="shipping_method">
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 @endif
 
