@@ -123,21 +123,24 @@ class AddressController extends Controller
         $order = Order::where('shopify_order_id',$request->input('order'))->first();
         if($request->input('type') == 'additional-fee'){
             if($request->input('response') == '20'){
+                $response = '20';
                 $address = $order->has_recepient;
                 $billing_addresses = Address::where('address_type','Recipients')->where('shopify_customer_id',$request->input('customer_id'))->get();
             }
             else{
+                $response = '21';
                 $address = $order->has_sender;
                 $billing_addresses = Address::where('address_type','Sender')->where('shopify_customer_id',$request->input('customer_id'))->get();
             }
 
 
         }else{
+            $response = null;
             $address = $order->has_sender;
             $billing_addresses = Address::where('address_type','Sender')->where('shopify_customer_id',$request->input('customer_id'))->get();
         }
 
-        $fill_address = view('customers.request_form_billing_address', ['address' => $address])->render();
+        $fill_address = view('customers.request_form_billing_address', ['address' => $address,'response' => $response])->render();
         $returnHTML = view('customers.inc.request_form_billing', ['addresses' => $billing_addresses])->render();
         return response()->json([
             "html" => $returnHTML,
@@ -148,7 +151,14 @@ class AddressController extends Controller
     public function get_billing_form(Request $request)
     {
         $address = Address::find($request->input('address'));
-        $returnHTML = view('customers.request_form_billing_address', ['address' => $address])->render();
+        if($request->input('response') != null){
+            $response = "21";
+        }
+        else{
+            $response = null;
+        }
+        $returnHTML = view('customers.request_form_billing_address', ['address' => $address,'response' => $response])->render();
+
         return response()->json([
             "html" => $returnHTML,
         ]);
