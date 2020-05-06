@@ -418,7 +418,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                    @if($order->has_package_detail->postcard_size != null)
+                                        @if($order->has_package_detail->postcard_size != null && in_array($order->has_package_detail->type,['POSTCARD']))
                                         <div class="col-md-12">
                                             <div class="form-group row">
                                                 <label for="example-text-input" class="col-sm-12 col-form-label">Postcard Size</label>
@@ -430,7 +430,8 @@
                                             </div>
                                         </div>
                                     @endif
-                                    @if($order->has_package_detail->special_holding != null)
+                                        @if($order->has_package_detail->special_holding != null && in_array($order->has_package_detail->type,['LETTER']))
+
 
                                         <div class="col-md-12">
                                             <div class="form-group row">
@@ -441,7 +442,8 @@
                                             </div>
                                         </div>
                                     @endif
-                                    @if($order->has_package_detail->shape != null)
+                                        @if($order->has_package_detail->shape != null && in_array($order->has_package_detail->type,['LARGE PACKAGE']))
+
 
                                         <div class="col-md-12">
                                             <div class="form-group row">
@@ -454,7 +456,8 @@
                                             </div>
                                         </div>
                                     @endif
-                                    @if($order->has_package_detail->unit_of_measures_weight != null)
+                                        @if($order->has_package_detail->unit_of_measures_weight != null && !in_array($order->has_package_detail->type,['POSTCARD']))
+
                                         <div class="col-md-12">
                                             <div class="form-group row">
                                                 <label for="example-text-input" class="col-sm-12 col-form-label">Unit of Measure</label>
@@ -466,7 +469,8 @@
                                             </div>
                                         </div>
                                     @endif
-                                    @if($order->has_package_detail->pounds != null)
+                                        @if($order->has_package_detail->pounds != null && !in_array($order->has_package_detail->type,['POSTCARD']))
+
 
                                         <div class="col-md-6">
                                             <div class="form-group row">
@@ -477,7 +481,8 @@
                                             </div>
                                         </div>
                                     @endif
-                                    @if($order->has_package_detail->ounches != null)
+                                        @if($order->has_package_detail->ounches != null && !in_array($order->has_package_detail->type,['POSTCARD']))
+
 
                                         <div class="col-md-6">
                                             <div class="form-group row">
@@ -488,7 +493,8 @@
                                             </div>
                                         </div>
                                     @endif
-                                    @if($order->has_package_detail->weight != null)
+                                        @if($order->has_package_detail->weight != null && !in_array($order->has_package_detail->type,['POSTCARD']))
+
 
                                         <div class="col-md-4">
                                             <div class="form-group row">
@@ -499,7 +505,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                    @if($order->has_package_detail->height != null)
+                                    @if($order->has_package_detail->height != null && !in_array($order->has_package_detail->type,['POSTCARD','LETTER','LARGE ENVELOPE','PACKAGE']))
 
                                         <div class="col-md-4">
                                             <div class="form-group row">
@@ -510,7 +516,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                    @if($order->has_package_detail->length != null)
+                                    @if($order->has_package_detail->length != null && !in_array($order->has_package_detail->type,['POSTCARD','LETTER','LARGE ENVELOPE','PACKAGE']))
 
                                         <div class="col-md-4">
                                             <div class="form-group row">
@@ -521,7 +527,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                    @if($order->has_package_detail->width != null)
+                                    @if($order->has_package_detail->width != null && !in_array($order->has_package_detail->type,['POSTCARD','LETTER','LARGE ENVELOPE','PACKAGE']))
 
                                         <div class="col-md-6">
                                             <div class="form-group row">
@@ -532,7 +538,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                    @if($order->has_package_detail->girth != null)
+                                    @if($order->has_package_detail->girth != null && !in_array($order->has_package_detail->type,['POSTCARD','LETTER','LARGE ENVELOPE','PACKAGE']))
 
                                         <div class="col-md-6">
                                             <div class="form-group row">

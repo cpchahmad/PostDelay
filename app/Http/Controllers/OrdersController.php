@@ -316,6 +316,28 @@ class OrdersController extends Controller
                         $assosiate_order = Order::find($draft_order->order_id);
                         if($res->response == 20){
                             $assosiate_order->recipient_address_id = $draft_order->recipient_address_id;
+                            $this->helper->getShopify()->call([
+                                'METHOD' => 'PUT',
+                                'URL' => '/admin/orders/'.$assosiate_order->shopify_order_id.'.json',
+                                'DATA' => [
+                                    "order" => [
+                                        "shipping_address" => [
+                                            "address1" => $draft_order->has_recepient->address1,
+                                            "address2" =>  $draft_order->has_recepient->address2,
+                                            "city" =>  $draft_order->has_recepient->city,
+                                            "company" =>  $draft_order->has_recepient->business,
+                                            "first_name" =>  $draft_order->has_recepient->first_name,
+                                            "last_name" => $draft_order->has_recepient->last_name,
+                                            "province" =>  $draft_order->has_recepient->state,
+                                            "country" =>  $draft_order->has_recepient->country,
+                                            "zip" =>  $draft_order->has_recepient->postcode,
+                                            "name" => $draft_order->has_recepient->first_name . ' ' .  $draft_order->has_recepient->last_name,
+                                            "country_code" => Countries::getCode( $draft_order->has_recepient->country),
+                                            "province_code" => CountrySubdivisions::getCode( $draft_order->has_recepient->country,  $draft_order->has_recepient->state)
+                                        ]
+                                    ]
+                                ]
+                            ]);
                         }
                         $assosiate_order->status_id = $res->response;
                         $assosiate_order->save();
