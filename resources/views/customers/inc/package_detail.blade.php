@@ -1,4 +1,4 @@
-@if($order->has_package_detail->type != null)
+@if($order->has_package_detail->type )
     <div class="custom_fields_half">
         <div class="custom_Request_fields_half  ">
             <label for="Type">Type</label>
@@ -9,7 +9,7 @@
         </div>
     </div>
 @endif
-@if($order->has_package_detail->postcard_size != null)
+@if($order->has_package_detail->postcard_size != null && in_array($order->has_package_detail->type,['POSTCARD']))
     <div class="custom_fields_half">
         <div class="custom_Request_fields_half  ">
             <label for="Type">Postcard Size</label>
@@ -20,7 +20,7 @@
     </div>
 @endif
 
-@if($order->has_package_detail->special_holding != null)
+@if($order->has_package_detail->special_holding != null && in_array($order->has_package_detail->type,['LETTER']))
 
     <div class="custom_fields_half">
         <div class="custom_Request_fields_half">
@@ -30,7 +30,7 @@
     </div>
 @endif
 
-@if($order->has_package_detail->shape != null)
+@if($order->has_package_detail->shape != null && in_array($order->has_package_detail->type,['LARGE PACKAGE']))
 
     <div class="custom_fields_half">
         <div class="custom_Request_fields_half  ">
@@ -42,7 +42,7 @@
     </div>
 @endif
 
-@if($order->has_package_detail->unit_of_measures_weight != null)
+@if($order->has_package_detail->unit_of_measures_weight != null && !in_array($order->has_package_detail->type,['POSTCARD']))
     <div class="custom_fields_half">
         <div class="custom_Request_fields_half  ">
             <label for="Shape">Unit of Measure</label>
@@ -54,7 +54,7 @@
 @endif
 
 <div class="tow-field-Row">
-    @if($order->has_package_detail->pounds != null)
+    @if($order->has_package_detail->pounds != null && !in_array($order->has_package_detail->type,['POSTCARD']))
         <div class="custom_fields_half">
             <div class="custom_Request_fields_half tow-field-Row-left">
                 <label for="width">Pounds</label>
@@ -62,7 +62,7 @@
             </div>
         </div>
     @endif
-    @if($order->has_package_detail->ounches != null)
+    @if($order->has_package_detail->ounches != null && !in_array($order->has_package_detail->type,['POSTCARD']))
         <div class="custom_fields_half">
             <div class="custom_Request_fields_half tow-field-Row-right">
                 <label for="Girth">Ounces</label>
@@ -73,7 +73,7 @@
 </div>
 
 <div class="three-field-Row">
-    @if($order->has_package_detail->weight != null)
+    @if($order->has_package_detail->weight != null && !in_array($order->has_package_detail->type,['POSTCARD']))
         <div class="custom_fields_half">
             <div class="custom_Request_fields_half">
                 <label for="Weight">Weight (Kg)</label>
@@ -81,7 +81,7 @@
             </div>
         </div>
     @endif
-    @if($order->has_package_detail->height != null)
+    @if($order->has_package_detail->height != null && !in_array($order->has_package_detail->type,['POSTCARD','LETTER','LARGE ENVELOPE','PACKAGE']))
 
         <div class="custom_fields_half">
             <div class="custom_Request_fields_half adj">
@@ -90,7 +90,7 @@
             </div>
         </div>
     @endif
-    @if($order->has_package_detail->length != null)
+    @if($order->has_package_detail->length != null && !in_array($order->has_package_detail->type,['POSTCARD','LETTER','LARGE ENVELOPE','PACKAGE']))
 
         <div class="custom_fields_half">
             <div class="custom_Request_fields_half">
@@ -102,7 +102,7 @@
 </div>
 
 <div class="tow-field-Row">
-    @if($order->has_package_detail->width != null)
+    @if($order->has_package_detail->width != null && !in_array($order->has_package_detail->type,['POSTCARD','LETTER','LARGE ENVELOPE','PACKAGE']))
 
         <div class="custom_fields_half">
             <div class="custom_Request_fields_half tow-field-Row-left">
@@ -111,7 +111,7 @@
             </div>
         </div>
     @endif
-    @if($order->has_package_detail->girth != null)
+    @if($order->has_package_detail->girth != null  && !in_array($order->has_package_detail->type,['POSTCARD','LETTER','LARGE ENVELOPE','PACKAGE']))
 
         <div class="custom_fields_half">
             <div class="custom_Request_fields_half tow-field-Row-right">
