@@ -9,6 +9,7 @@ use App\KeyDate;
 use App\Location;
 use App\Mail\MailingFormEmail;
 use App\Mail\NotificationEmail;
+use App\Mail\RequestFormAdminEmail;
 use App\Mail\RequestFormEmail;
 use App\Order;
 use App\OrderResponse;
@@ -151,6 +152,10 @@ class OrdersController extends Controller
         $package_detail->girth = $request->input('girth');
         $package_detail->width = $request->input('width');
         $package_detail->height = $request->input('height');
+        $package_detail->postcard_size =  $request->input('postcard_size');
+        $package_detail->unit_of_measures_weight =  $request->input('unit_of_measures_weight');
+        $package_detail->pounds =  $request->input('pounds');
+        $package_detail->ounches =  $request->input('ounches');
         $package_detail->setUpdatedAt(now());
         $package_detail->setCreatedAt(now());
         $package_detail->save();
@@ -306,8 +311,12 @@ class OrdersController extends Controller
                         $res = OrderResponse::where('order_id', $draft_order->order_id)
                             ->where('fulfill', 0)->first();
                         $res->fulfill = 1;
+
                         $res->save();
                         $assosiate_order = Order::find($draft_order->order_id);
+                        if($res->response == 20){
+                            $assosiate_order->recipient_address_id = $draft_order->recipient_address_id;
+                        }
                         $assosiate_order->status_id = $res->response;
                         $assosiate_order->save();
                         $this->status_log($assosiate_order);
@@ -316,6 +325,9 @@ class OrdersController extends Controller
                     } else {
                         $assosiate_order = Order::find($draft_order->order_id);
                         $customer = Customer::find($assosiate_order->customer_id);
+                        Mail::to('papercopy@postdelay.com')->send(new RequestFormAdminEmail($assosiate_order,$draft_order,$customer));
+
+
 //                        Mail::to($customer->email)->send(new RequestFormEmail($customer, $assosiate_order));
 //
 //                        $name = now()->format('Ymd').'_mailing_form.pdf';
@@ -478,7 +490,6 @@ class OrdersController extends Controller
 
     public function place_additional_payments(Request $request)
     {
-
         $associate_order = Order::where('shopify_order_id', $request->input('order-id'))->first();
         $shop = Shop::where('shopify_domain', $request->input('shop'))->first();
         if ($request->input('type') == 'additional-fee') {
@@ -672,7 +683,7 @@ class OrdersController extends Controller
         $this->status_log($order);
 
         $customer = Customer::find($order->customer_id);
-        Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
+//        Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
 
         return response()->json([
             'status' => 'changed'

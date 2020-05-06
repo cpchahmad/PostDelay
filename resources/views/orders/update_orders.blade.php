@@ -406,94 +406,155 @@
                             <div class="tab-pane  p-3" id="shipment" role="tabpanel">
                                 <h6>Shipment Details</h6>
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Type</label>
-                                            <div class="col-sm-12">
-                                                <select class="form-control" disabled="true">
-                                                    <option>{{$order->has_package_detail->type}}</option>
-                                                </select>
+                                    @if($order->has_package_detail->type != null)
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Type</label>
+                                                <div class="col-sm-12">
+                                                    <select class="form-control" disabled="true">
+                                                        <option>{{$order->has_package_detail->type}}</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Special Holding</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_package_detail->special_holding}}" disabled>
+                                    @endif
+                                    @if($order->has_package_detail->postcard_size != null)
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Postcard Size</label>
+                                                <div class="col-sm-12">
+                                                    <select class="form-control" disabled="true">
+                                                        <option>{{$order->has_package_detail->postcard_size}}</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Shape</label>
-                                            <div class="col-sm-12">
-                                                <select class="form-control" disabled="true">
-                                                    <option>{{$order->has_package_detail->shape}}</option>
-                                                </select>
+                                    @endif
+                                    @if($order->has_package_detail->special_holding != null)
+
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Special Holding</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_package_detail->special_holding}}" disabled>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Unit of Measure</label>
-                                            <div class="col-sm-12">
-                                                <select class="form-control" disabled="true">
-                                                    <option>{{$order->has_package_detail->scale}}</option>
-                                                </select>
+                                    @endif
+                                    @if($order->has_package_detail->shape != null)
+
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Shape</label>
+                                                <div class="col-sm-12">
+                                                    <select class="form-control" disabled="true">
+                                                        <option>{{$order->has_package_detail->shape}}</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Weight</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_package_detail->weight}}" disabled>
+                                    @endif
+                                    @if($order->has_package_detail->unit_of_measures_weight != null)
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Unit of Measure</label>
+                                                <div class="col-sm-12">
+                                                    <select class="form-control" disabled="true">
+                                                        <option>{{$order->has_package_detail->unit_of_measures_weight}}</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Height</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_package_detail->height}}" disabled>
+                                    @endif
+                                    @if($order->has_package_detail->pounds != null)
+
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Pounds </label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_package_detail->pounds}}" disabled>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Length</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_package_detail->length}}" disabled>
+                                    @endif
+                                    @if($order->has_package_detail->ounches != null)
+
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Ounces</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_package_detail->ounches}}" disabled>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Width</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_package_detail->width}}" disabled>
+                                    @endif
+                                    @if($order->has_package_detail->weight != null)
+
+                                        <div class="col-md-4">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Weight (kg)</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_package_detail->weight}}" disabled>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Girth</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value="{{$order->has_package_detail->girth}}" disabled>
+                                    @endif
+                                    @if($order->has_package_detail->height != null)
+
+                                        <div class="col-md-4">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Height</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_package_detail->height}}" disabled>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Payement Method</label>
-                                            <div class="col-sm-12">
-                                                <select class="form-control" disabled="true">
-                                                    <option>{{$order->payment_gateway}}</option>
-                                                </select>
+                                    @endif
+                                    @if($order->has_package_detail->length != null)
+
+                                        <div class="col-md-4">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Length</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_package_detail->length}}" disabled>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endif
+                                    @if($order->has_package_detail->width != null)
+
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Width</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_package_detail->width}}" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if($order->has_package_detail->girth != null)
+
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Girth</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="text" value="{{$order->has_package_detail->girth}}" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if($order->payment_gateway != null)
+
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Payement Method</label>
+                                                <div class="col-sm-12">
+                                                    <select class="form-control" disabled="true">
+                                                        <option>{{$order->payment_gateway}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>@endif
                                 </div>
                             </div>
                             <div class="tab-pane  p-3" id="invoice" role="tabpanel">
@@ -518,15 +579,15 @@
                                     </div>
                                     <?php
                                     $items = json_decode($order->items, true);
-//                                    dd($items);
+                                    //                                    dd($items);
                                     ?>
                                     @foreach($items as $item)
-                                    <div class="col-md-6">
-                                        <p>{{ $item['title'] }}</p>
-                                    </div>
-                                    <div class="col-md-6 text-right">
-                                        <p>${{ number_format($item['price'], 2) }} USD</p>
-                                    </div>
+                                        <div class="col-md-6">
+                                            <p>{{ $item['title'] }}</p>
+                                        </div>
+                                        <div class="col-md-6 text-right">
+                                            <p>${{ number_format($item['price'], 2) }} USD</p>
+                                        </div>
                                     @endforeach
                                     <div class="col-md-4">
                                         <p>Tax</p>
@@ -552,8 +613,8 @@
                                     </div>
                                     <div class="col-md-4">
                                         @if(!in_array($order->status_id, [6,7,8,9,10,11,12,13,14]))
-                                        <p><button type="button" class="btn btn-secondary waves-effect">Cancel Order</button></p>
-                                            @endif
+                                            <p><button type="button" class="btn btn-secondary waves-effect">Cancel Order</button></p>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
