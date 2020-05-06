@@ -9,14 +9,14 @@
     <input type="hidden" name="receipent_postecode" value="{{$sender['postcode']}}">
 
     <input type="hidden" name="post_type" value="{{$order->has_package_detail->type}}">
-    <input type="hidden" name="postcard_size" value="REGULAR">
+    <input type="hidden" name="postcard_size" value="{{$order->has_package_detail->postcard_size}}">
     <input type="hidden" name="special_holding" value="{{$order->has_package_detail->special_holding}}">
     <input type="hidden" name="shape" value="{{$order->has_package_detail->shape}}">
     <input type="hidden" name="unit_of_measures" value="{{$order->has_package_detail->scale}}">
-    <input type="hidden" name="unit_of_measures_weight" value="Metric">
+    <input type="hidden" name="unit_of_measures_weight" value="{{$order->has_package_detail->unit_of_measures_weight}}">
     <input type="hidden" name="weight" value="{{$order->has_package_detail->weight}}">
-    <input type="hidden" name="pounds" value="{{$order->has_package_detail->weight * 2.205 }} ">
-    <input type="hidden" name="ounches" value="0.12">
+    <input type="hidden" name="pounds" value="{{$order->has_package_detail->pounds}}">
+    <input type="hidden" name="ounches" value="{{$order->has_package_detail->pounds}}">
     <input type="hidden" name="weight" value="{{$order->has_package_detail->weight}}">
     <input type="hidden" name="height" value="{{$order->has_package_detail->height}}">
     <input type="hidden" name="width" value="{{$order->has_package_detail->width}}">

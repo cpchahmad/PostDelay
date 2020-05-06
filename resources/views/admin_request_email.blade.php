@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PostDelay</title>
     <style>
         .section{
@@ -183,42 +182,6 @@
             border-spacing: 0;
             border-collapse: collapse;
         }
-
-        .main_button{
-            text-align: center;
-            display: block;
-            background: #0000FF;
-            color: white !important;
-            text-transform: uppercase;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 20px;
-            margin: 0;
-            padding: 10px 20px;
-            line-height: 1;
-            height: 43px;
-            letter-spacing: 0px;
-            border-radius: 12px;
-            margin-top: 25px;
-            cursor: pointer
-        }
-
-        @media only screen and (max-width: 768px) {
-            .main_button{
-                text-align: center !important;
-                display: block !important;
-                background: #0000FF !important;
-                color: white !important;
-                text-transform: uppercase !important;
-                text-decoration: none !important;
-                font-weight: bold !important;
-                font-size: 13px !important;
-                margin: 0 !important;
-                height: 27px !important;
-                border-radius: 12px !important;
-                cursor: pointer !important;
-            }
-        }
     </style>
 </head>
 <body>
@@ -247,45 +210,13 @@
     font-family: Arial;
 ">
             <p>
-                Order : {{$order->order_name}}
+                Requested Mailing Label for Order {{$associate->order_name}}
             </p>
-            <p>Hello <b>{{$customer->first_name}}</b>, @if(in_array($order->status_id,[3])) {{$order->has_status->message}} which is {{date_create($order->ship_out_date)->format('d M, Y')}} " @else  {{$order->has_status->message}}  @endif</p>
+            <p>Hello Admin, <b>{{$customer->first_name}}</b> requested mailing label for order {{$associate->order_name}} for further processing.
+            </p>
 
         </div>
-        @if(!in_array($order->status_id,[7,10]))
-        <div class="email_btn">
-            <a href="https://postdelay.myshopify.com/account/orders/{{$order->token}}" class="main_button">{{$order->has_status->button_text}}</a>
-        </div>
-            @else
-            <form action="{{route('response_from_user')}}" method="post">
-                <input type="hidden" name="order-id" value="{{$order->shopify_order_id}}">
-                @if(in_array($order->status_id , [7]))
-                <input type="radio" name="response" value="9"> Return my shipment <br>
-                <input type="radio" name="response" value="8"> Dispose my shipment <br>
-                @endif
 
-                @if(in_array($order->status_id , [10]))
-                    <input type="radio" name="response" value="12"> Return my shipment <br>
-                    <input type="radio" name="response" value="11"> Dispose my shipment <br>
-                @endif
-
-{{--                @if(in_array($order->status_id , [15]))--}}
-{{--                    <input type="radio" name="response" value="16"> Ready to pay extra to continue shipment <br>--}}
-{{--                    <input type="radio" name="response" value="17"> Charge Extra and Return my shipment <br>--}}
-{{--                    <input type="radio" name="response" value="18"> Dispose my shipment <br>--}}
-{{--                @endif--}}
-
-{{--                @if(in_array($order->status_id , [19]))--}}
-{{--                    <input type="radio" name="response" value="20"> Charge Extra and Re-attempt Delivery Process <br>--}}
-{{--                    <input type="radio" name="response" value="21"> Charge Extra and Return my shipment <br>--}}
-{{--                    <input type="radio" name="response" value="22"> Dispose my shipment <br>--}}
-{{--                @endif--}}
-
-
-                <input class="main_button" type="submit" value="Send Response">
-
-            </form>
-        @endif
     </div>
     <div class="men_icon_wrapper" style="
     width: 25%;
@@ -297,7 +228,7 @@
         </div>
     </div>
 </div>
- @if(in_array($order->status_id , [6,9,16,17,20,21]))
+
 <div class="additiona_text" style="
     max-width: 767px;
     margin: auto;
@@ -322,7 +253,7 @@
                                     <tr>
                                         <td class="customer-info__item">
                                             <h4>Future Ship-Out-Date</h4>
-                                            <p>{{\Carbon\Carbon::parse($order->ship_out_date)->format('Y-m-d')}}</p>
+                                            <p>{{\Carbon\Carbon::parse($associate->ship_out_date)->format('Y-m-d')}}</p>
                                         </td>
                                     </tr>
                                     <tr>
@@ -338,7 +269,7 @@
                                             </td>
                                         @endif
 
-                                        @if($order->has_billing != null)
+                                        @if($associate->has_billing != null)
                                             <td class="customer-info__item">
                                                 <h4>Billing address</h4>
                                                 <p>{{$order->has_billing->firstname}} {{$order->has_billing->last_name}}</p>
@@ -354,12 +285,6 @@
                                 </table>
                                 <table class="row">
                                     <tr>
-                                        @if($order->shipping_method_title != null)
-                                            <td class="customer-info__item">
-                                                <h4>Shipping method</h4>
-                                                <p>{{$order->shipping_method_title}}</p>
-                                            </td>
-                                        @endif
                                         @if($order->payment_gateway != null)
                                             <td class="customer-info__item">
                                                 <h4>Payment method</h4>
@@ -379,6 +304,5 @@
         </tr>
     </table>
 </div>
-    @endif
 </body>
 </html>
