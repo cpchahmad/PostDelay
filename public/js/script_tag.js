@@ -73,7 +73,7 @@
                                   "          <div class='Form-wraper'> \n" +
                                   "            <div class='Form-contaner'> \n" +
                                   "              <div class='Custom-message'>\n" +
-                                  "                <p class='Custom-message-desp'>Your payment has been received and your shipping label is on its way. </p>\n" +
+                                  "                <p class='Custom-message-desp'>Your payment has been received </p>\n" +
                                   // "                <p class='Custom-message-desp'>The order ID for this payment is "+ shopifyorderid+"</p>\n" +
                                   "                <p class='Custom-message-desp'><a href='https://postdelay.myshopify.com/account?view=existing-orders'>Click here</a> to view the details of your order</p>\n" +
                                   "              </div>\n" +
