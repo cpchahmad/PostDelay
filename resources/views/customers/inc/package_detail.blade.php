@@ -123,9 +123,9 @@
 </div>
 
 
-<div class="custom_fields_half">
-    <div class="custom_Request_fields_half  ">
-        <label for="Shape">Ship Out Date</label>
-        <input disabled type="text" value="{{$order->ship_out_date}}">
-    </div>
-</div>
+{{--<div class="custom_fields_half">--}}
+{{--    <div class="custom_Request_fields_half  ">--}}
+{{--        <label for="Shape">Ship Out Date</label>--}}
+{{--        <input disabled type="text" value="{{$order->ship_out_date}}">--}}
+{{--    </div>--}}
+{{--</div>--}}
