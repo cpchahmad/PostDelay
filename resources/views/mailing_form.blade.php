@@ -186,7 +186,7 @@
     </style>
 </head>
 <body>
-<div style="max-width: 767px;margin: auto;border: 1px solid black;border-radius: 84px;overflow: hidden;font-size: 0;padding: 25px;">
+<div style="max-width: 767px;margin: auto;overflow: hidden;font-size: 0;padding: 25px;">
     <div class="content_area" style="width: 70%;display: inline-block;font-size: 16px;padding: 0 2.5%;">
         <div class="email_logo">
             <img src="https://cdn.shopify.com/s/files/1/0120/3106/6193/files/email_logo.jpg" style="width: 100%; max-width: 330px;margin-top: 80px">
