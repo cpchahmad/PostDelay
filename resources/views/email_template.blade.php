@@ -225,8 +225,8 @@
 <div style="
     max-width: 767px;
     margin: auto;
-    border: 1px solid black;
-    border-radius: 84px;
+    /*border: 1px solid black;*/
+    /*border-radius: 84px;*/
     overflow: hidden;
     font-size: 0;
     padding: 25px;
