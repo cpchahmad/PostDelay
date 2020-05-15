@@ -512,6 +512,7 @@ class OrdersController extends Controller
 
     public function place_additional_payments(Request $request)
     {
+
         $associate_order = Order::where('shopify_order_id', $request->input('order-id'))->first();
         $shop = Shop::where('shopify_domain', $request->input('shop'))->first();
         if ($request->input('type') == 'additional-fee') {
