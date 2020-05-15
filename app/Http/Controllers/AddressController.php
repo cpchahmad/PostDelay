@@ -127,6 +127,16 @@ class AddressController extends Controller
                 $address = $order->has_recepient;
                 $billing_addresses = Address::where('address_type','Recipients')->where('shopify_customer_id',$request->input('customer_id'))->get();
             }
+            elseif ($request->input('response') == '16'){
+                $response = '16';
+                $address = $order->has_billing;
+                $billing_addresses = Address::where('address_type','Billing')->where('shopify_customer_id',$request->input('customer_id'))->get();
+            }
+            elseif ($request->input('response') == '17'){
+                $response = '17';
+                $address = $order->has_sender;
+                $billing_addresses = Address::where('address_type','Sender')->where('shopify_customer_id',$request->input('customer_id'))->get();
+            }
             else{
                 $response = '21';
                 $address = $order->has_sender;
@@ -152,7 +162,7 @@ class AddressController extends Controller
     {
         $address = Address::find($request->input('address'));
         if($request->input('response') != null){
-            $response = "21";
+            $response = $request->input('response');
         }
         else{
             $response = null;
