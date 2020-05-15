@@ -207,10 +207,7 @@
     line-height: 25px;
     font-family: Arial;
 ">
-{{--            <p>--}}
-{{--             Request Mailing Label for Order {{$order->order_name}}--}}
-{{--            </p>--}}
-            <p>Hello <b>{{$customer->first_name}}</b>, You have requested that PostDelay mail you the shipping label that will allow us to link your incoming package to your order. You will receive it in the mail in the next few days. Remember, you can always print the label yourself by going to 'Manage Mailings' and clicking 'Print Incoming Shipment Label'.
+            <p>Hello <b>{{$customer->first_name}}</b>, You have requested that POSTDELAY mail you the shipping label that will allow us to link your incoming package to your order. You will receive it in the mail in the next few days. Remember, you can always print the label yourself by going to 'Manage Mailings' and clicking 'Print Incoming Shipment Label'.
             </p>
 
         </div>
