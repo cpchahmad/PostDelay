@@ -52,7 +52,7 @@
         </div>
     </div>
 </div>
-@if($response != null)
+@if(in_array($response,[20,21,17]))
     <div id="additional_payment_section" data-quote="no" style="display: none">
         <div class="custom_Request_fields_half">
             <label for="Type">Shipping Method</label>
