@@ -1557,79 +1557,96 @@ class OrdersController extends Controller
             $package->setPounds($weight_in_pounds);
             $package->setOunces($weight_in_ounches);
             $package->setField('Machinable', 'false');
-            if($request->input('post_type') == 'POSTCARD' ){
-                $package->setField('MailType', 'POSTCARD');
-            }
-            else if($request->input('post_type') == 'ENVELOPE'){
-                $package->setField('MailType', 'ENVELOPE');
-            }
-            else if($request->input('post_type') == 'ENVELOPE'){
-                $package->setField('MailType', 'LARGEENVELOPE');
-            }
-            else if($request->input('post_type') == 'LETTER'){
-                $package->setField('MailType', 'LETTER');
-            }
-            else{
-                $package->setField('MailType', 'PACKAGE');
-            }
-            if($request->input('special_holding') == 'yes'){
-                $package->setField('GXG', array(
-                    'POBoxFlag' => 'Y',
-                    'GiftFlag' => 'Y'
-                ));
-            }
-            $package->setField('ValueOfContents', $origin_fee);
-            $package->setField('Country', $request->input('receipent_country'));
-            if($request->input('post_type') == 'PACKAGE' || $request->input('post_type') == 'LARGE PACKAGE'){
-                if($request->input('shape') == 'Rectangular'){
-                    $package->setField('Container', RatePackage::CONTAINER_RECTANGULAR);
+            if($request->input('post_type') != 'POSTCARD' ){
+                if($request->input('post_type') == 'POSTCARD' ){
+                    $package->setField('MailType','POSTCARDS');
+                }
+                else if($request->input('post_type') == 'ENVELOPE'){
+                    $package->setField('MailType', 'ENVELOPE');
+                }
+                else if($request->input('post_type') == 'ENVELOPE'){
+                    $package->setField('MailType', 'LARGEENVELOPE');
+                }
+                else if($request->input('post_type') == 'LETTER'){
+                    $package->setField('MailType', 'LETTER');
                 }
                 else{
-                    $package->setField('Container', RatePackage::CONTAINER_NONRECTANGULAR);
+                    $package->setField('MailType', 'PACKAGE');
                 }
-            }
-            else if($request->input('post_type') == 'ENVELOPE'){
-                $package->setField('Container', RatePackage::CONTAINER_FLAT_RATE_ENVELOPE);
-            }
-            else if($request->input('post_type') == 'LARGE ENVELOPE'){
-                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
-            }
-            else if($request->input('post_type') == 'POSTCARD'){
-                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+                if($request->input('special_holding') == 'yes'){
+                    $package->setField('GXG', array(
+                        'POBoxFlag' => 'Y',
+                        'GiftFlag' => 'Y'
+                    ));
+                }
+                $package->setField('ValueOfContents', $origin_fee);
+                $package->setField('Country', $request->input('receipent_country'));
+                if($request->input('post_type') == 'PACKAGE' || $request->input('post_type') == 'LARGE PACKAGE'){
+                    if($request->input('shape') == 'Rectangular'){
+                        $package->setField('Container', RatePackage::CONTAINER_RECTANGULAR);
+                    }
+                    else{
+                        $package->setField('Container', RatePackage::CONTAINER_NONRECTANGULAR);
+                    }
+                }
+                else if($request->input('post_type') == 'ENVELOPE'){
+                    $package->setField('Container', RatePackage::CONTAINER_FLAT_RATE_ENVELOPE);
+                }
+                else if($request->input('post_type') == 'LARGE ENVELOPE'){
+                    $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+                }
+                else if($request->input('post_type') == 'POSTCARD'){
+                    $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+                }
+                else{
+                    $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+                }
+                if($request->input('post_type') == 'PACKAGE' || $request->input('post_type') == 'LARGE PACKAGE'){
+                    $package->setField('Width', $width);
+                    $package->setField('Length', $length);
+                    $package->setField('Height', $height);
+                    $package->setField('Girth', $girth);
+                }
+                $package->setField('OriginZip', $origin_zip_code);
+                $date =now()->addDays(7)->format('Y-m-d\TH:i:s');
+                $date = $date . '-06:00';
+//            '2020-01-01T13:15:00-06:00'
+                $package->setField('AcceptanceDateTime',$date );
+                $package->setField('DestinationPostalCode', $request->input('receipent_postecode'));
+
+                $rate->addPackage($package);
+
+                $rate->getRate();
+                $rates = $rate->getArrayResponse();
+                if ($rate->isSuccess()) {
+                    $services = $rates['IntlRateV2Response']['Package']['Service'];
+                    $error = null;
+
+                } else {
+                    $services = null;
+                    $error = $rate->getErrorMessage();
+                }
+                return response()->json([
+                    'services' => $services,
+                    'error' => $error,
+                    'status' => 'international'
+                ]);
             }
             else{
-                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
-            }
-            if($request->input('post_type') == 'PACKAGE' || $request->input('post_type') == 'LARGE PACKAGE'){
-                $package->setField('Width', $width);
-                $package->setField('Length', $length);
-                $package->setField('Height', $height);
-                $package->setField('Girth', $girth);
-            }
-            $package->setField('OriginZip', $origin_zip_code);
-            $date =now()->addDays(7)->format('Y-m-d\TH:i:s');
-            $date = $date . '-06:00';
-//            '2020-01-01T13:15:00-06:00'
-            $package->setField('AcceptanceDateTime',$date );
-            $package->setField('DestinationPostalCode', $request->input('receipent_postecode'));
-
-            $rate->addPackage($package);
-
-            $rate->getRate();
-            $rates = $rate->getArrayResponse();
-            if ($rate->isSuccess()) {
-                $services = $rates['IntlRateV2Response']['Package']['Service'];
+                $services = [];
+                array_push($services,[
+                    'Postage' => '1.20',
+                    'SvcDescription' =>  'First-Class Mail® International Postcard',
+                    'SvcCommitments' => ''
+                ]);
                 $error = null;
-
-            } else {
-                $services = null;
-                $error = $rate->getErrorMessage();
+                return response()->json([
+                    'services' => $services,
+                    'error' => $error,
+                    'status' => 'international'
+                ]);
             }
-            return response()->json([
-                'services' => $services,
-                'error' => $error,
-                'status' => 'international'
-            ]);
+
 
         } else{
 
