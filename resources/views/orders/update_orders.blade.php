@@ -673,7 +673,7 @@
                                                 <div class="col-sm-12 d-flex">
                                                     <input  class="form-control" name="received_post_date" type="date"
                                                             @if($order->has_key_dates != null) value="{{\Carbon\Carbon::parse($order->has_key_dates->received_post_date)->format('Y-m-d')}}" @else value='' @endif>
-                                                    <a href="{{route('clear_received_post_date')}}" class="btn btn-danger" style="margin-left: 10px"> Clear </a>
+                                                    <a href="{{route('clear_received_post_date')}}?order_id={{$order->id}}" class="btn btn-danger" style="margin-left: 10px"> Clear </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -691,7 +691,7 @@
                                                 <div class="col-sm-12 d-flex">
                                                     <input name="completion_date" class="form-control" type="date"
                                                            @if($order->has_key_dates != null) value="{{\Carbon\Carbon::parse($order->has_key_dates->completion_date)->format('Y-m-d')}}" @else value='' @endif >
-                                                    <a href="{{route('clear_completion_date')}}" class="btn btn-danger" style="margin-left: 10px"> Clear </a>
+                                                    <a href="{{route('clear_completion_date')}}?order_id={{$order->id}}" class="btn btn-danger" style="margin-left: 10px"> Clear </a>
                                                 </div>
                                             </div>
                                         </div>
