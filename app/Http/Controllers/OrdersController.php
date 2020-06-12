@@ -766,6 +766,22 @@ class OrdersController extends Controller
         return redirect()->back();
     }
 
+    public function clear_received_post_date(Request $request)
+    {
+        $keydate = KeyDate::where('order_id',$request->input('order_id'))->first();
+        $keydate->received_post_date = null;
+        $keydate->save();
+        return redirect()->back();
+    }
+
+    public function clear_completion_date(Request $request)
+    {
+        $keydate = KeyDate::where('order_id',$request->input('order_id'))->first();
+        $keydate->completion_date = null;
+        $keydate->save();
+        return redirect()->back();
+    }
+
     public function shipment_to_postdelay(Request $request)
     {
         Order::where('order_name', $request->input('order_name'))->update([
