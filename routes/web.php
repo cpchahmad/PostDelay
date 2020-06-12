@@ -110,7 +110,7 @@ Route::GET('/update/order/recipient-details', 'OrdersController@update_order_rec
 Route::GET('/update/order/billing-details', 'OrdersController@order_update_billing_details')->name('order_update_billing_details');
 Route::GET('/update/order/outbound-tracking', 'OrdersController@update_tracking')->name('update_tracking');
 Route::GET('/clear/order/received_post_date', 'OrdersController@clear_received_post_date')->name('clear_received_post_date');
-Route::GET('/clear/order/received_post_date', 'OrdersController@clear_completion_date')->name('clear_completion_date');
+Route::GET('/clear/order/completion_date', 'OrdersController@clear_completion_date')->name('clear_completion_date');
 Route::GET('/checkout', 'OrdersController@get_checkout')->name('get_checkout');
 
 Route::GET('/cancel/order', 'OrdersController@cancel_order')->name('cancel_order');
