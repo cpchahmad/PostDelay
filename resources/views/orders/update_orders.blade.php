@@ -120,7 +120,7 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div class="tab-pane p-3" id="outbound" role="tabpanel">
-                                <h6>OutBound Tracking Details</h6>
+                                <h6>Outbound Tracking Details</h6>
                                 <form action="{{route('update_tracking')}}" method="get">
                                     <input type="hidden" value="{{$order->id}}" name="id">
                                     <div class="row">
@@ -672,7 +672,7 @@
                                                 <label class="col-sm-12 col-form-label">Received Post by Post Delay</label>
                                                 <div class="col-sm-12 d-flex">
                                                     <input  class="form-control" name="received_post_date" type="date"
-                                                            @if($order->has_key_dates != null) value="{{\Carbon\Carbon::parse($order->has_key_dates->received_post_date)->format('Y-m-d')}}" @else value='' @endif>
+                                                            @if($order->has_key_dates != null)  @if($order->has_key_dates->received_post_date != null)  value="{{\Carbon\Carbon::parse($order->has_key_dates->received_post_date)->format('Y-m-d')}}" @endif @else value='' @endif>
                                                     <a href="{{route('clear_received_post_date')}}?order_id={{$order->id}}" class="btn btn-danger" style="margin-left: 10px"> Clear </a>
                                                 </div>
                                             </div>
@@ -690,7 +690,7 @@
                                                 <label for="example-text-input" class="col-sm-12 col-form-label">@if(in_array($order->status_id,['9' ,'17','21','23','24']))Return Date @else Delivery Date @endif</label>
                                                 <div class="col-sm-12 d-flex">
                                                     <input name="completion_date" class="form-control" type="date"
-                                                           @if($order->has_key_dates != null) value="{{\Carbon\Carbon::parse($order->has_key_dates->completion_date)->format('Y-m-d')}}" @else value='' @endif >
+                                                           @if($order->has_key_dates != null) @if @if($order->has_key_dates->completion_date != null) value="{{\Carbon\Carbon::parse($order->has_key_dates->completion_date)->format('Y-m-d')}}" @endif @else value='' @endif >
                                                     <a href="{{route('clear_completion_date')}}?order_id={{$order->id}}" class="btn btn-danger" style="margin-left: 10px"> Clear </a>
                                                 </div>
                                             </div>
