@@ -838,6 +838,7 @@ class OrdersController extends Controller
     {
         $order = Order::find($request->input('id'));
         $order->outbound_tracking_id = $request->input('outbound_tracking_id');
+        $order->save();
         return redirect()->back();
     }
 
