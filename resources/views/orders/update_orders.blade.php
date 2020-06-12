@@ -75,13 +75,18 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link " data-toggle="tab" href="#outbound" role="tab">
+                                    <span class="d-none d-md-block">Outbound Tracking</span><span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link " data-toggle="tab" href="#invoice" role="tab">
                                     <span class="d-none d-md-block">Invoice Details</span><span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link " data-toggle="tab" href="#key-notes" role="tab">
-                                    <span class="d-none d-md-block">Key Notes</span><span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
+                                    <span class="d-none d-md-block">Important Dates</span><span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -114,6 +119,30 @@
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
+                            <div class="tab-pane active p-3" id="outbound" role="tabpanel">
+                                <h6>OutBound Tracking Details</h6>
+                                <form action="{{route('update_order_sender_details')}}" method="get">
+                                    <input type="hidden" value="{{$order->id}}" name="id">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Outbound Tracking ID</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" name="outbound_tracking_id" type="text" value="{{$order->outbound_tracking_id}}" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <div class="col-sm-2">
+                                                    <input class="form-control btn btn-primary " type="submit" value="Save">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
                             <div class="tab-pane active p-3" id="sender" role="tabpanel">
 
                                 <h6>Sender Details</h6>
@@ -640,10 +669,11 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group row">
-                                                <label class="col-sm-12 col-form-label">Recieved Post by Post Delay</label>
+                                                <label class="col-sm-12 col-form-label">Received Post by Post Delay</label>
                                                 <div class="col-sm-12">
                                                     <input  class="form-control" name="received_post_date" type="date"
                                                             @if($order->has_key_dates != null) value="{{\Carbon\Carbon::parse($order->has_key_dates->received_post_date)->format('Y-m-d')}}" @else value='' @endif>
+                                                    <a href="" class="btn btn-sm btn-danger"> Clear </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -657,10 +687,11 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group row">
-                                                <label for="example-text-input" class="col-sm-12 col-form-label">Completion Date</label>
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">@if(in_array($order->status_id,['9' ,'17','21','23','24']))Return Date @else Delivery Date @endif</label>
                                                 <div class="col-sm-12">
                                                     <input name="completion_date" class="form-control" type="date"
                                                            @if($order->has_key_dates != null) value="{{\Carbon\Carbon::parse($order->has_key_dates->completion_date)->format('Y-m-d')}}" @else value='' @endif >
+                                                    <a href="" class="btn btn-sm btn-danger"> Clear </a>
                                                 </div>
                                             </div>
                                         </div>
