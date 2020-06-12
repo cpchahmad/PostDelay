@@ -748,13 +748,21 @@ class OrdersController extends Controller
     public function set_key_dates(Request $request)
     {
 //        dd($request);
-        KeyDate::UpdateOrcreate([
-            "order_id" => $request->input('order_id'),
-        ], [
-            "received_post_date" => $request->input('received_post_date'),
-            "completion_date" => $request->input('completion_date'),
-        ]);
+//        KeyDate::UpdateOrcreate([
+//            "order_id" => $request->input('order_id'),
+//        ], [
+//            "received_post_date" => $request->input('received_post_date'),
+//            "completion_date" => $request->input('completion_date'),
+//        ]);
 
+        $keydate = KeyDate::where('order_id',$request->input('order_id'))->first();
+        if($keydate == null){
+            $keydate =  new KeyDate();
+        }
+        $keydate->order_id = $request->input('order_id');
+        $keydate->received_post_date = $request->input('received_post_date');
+        $keydate->completion_date = $request->input('completion_date');
+        $keydate->save();
         return redirect()->back();
     }
 
@@ -807,6 +815,13 @@ class OrdersController extends Controller
     public function update_order_sender_details(Request $request)
     {
         SenderAddress::find($request->input('id'))->update($request->all());
+        return redirect()->back();
+    }
+
+    public function update_tracking(Request $request)
+    {
+        $order = Order::find($request->input('id'));
+        $order->outbound_tracking_id = $request->input('outbound_tracking_id');
         return redirect()->back();
     }
 
