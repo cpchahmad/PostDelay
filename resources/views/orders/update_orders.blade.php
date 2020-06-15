@@ -447,7 +447,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                        @if($order->has_package_detail->postcard_size != null && in_array($order->has_package_detail->type,['POSTCARD']))
+                                    @if($order->has_package_detail->postcard_size != null && in_array($order->has_package_detail->type,['POSTCARD']))
                                         <div class="col-md-12">
                                             <div class="form-group row">
                                                 <label for="example-text-input" class="col-sm-12 col-form-label">Postcard Size</label>
@@ -459,7 +459,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                        @if($order->has_package_detail->special_holding != null && in_array($order->has_package_detail->type,['LETTER']))
+                                    @if($order->has_package_detail->special_holding != null && in_array($order->has_package_detail->type,['LETTER']))
 
 
                                         <div class="col-md-12">
@@ -471,7 +471,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                        @if($order->has_package_detail->shape != null && in_array($order->has_package_detail->type,['LARGE PACKAGE']))
+                                    @if($order->has_package_detail->shape != null && in_array($order->has_package_detail->type,['LARGE PACKAGE']))
 
 
                                         <div class="col-md-12">
@@ -485,7 +485,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                        @if($order->has_package_detail->unit_of_measures_weight != null && !in_array($order->has_package_detail->type,['POSTCARD']))
+                                    @if($order->has_package_detail->unit_of_measures_weight != null && !in_array($order->has_package_detail->type,['POSTCARD']))
 
                                         <div class="col-md-12">
                                             <div class="form-group row">
@@ -498,7 +498,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                        @if($order->has_package_detail->pounds != null && !in_array($order->has_package_detail->type,['POSTCARD']))
+                                    @if($order->has_package_detail->pounds != null && !in_array($order->has_package_detail->type,['POSTCARD']))
 
 
                                         <div class="col-md-6">
@@ -510,7 +510,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                        @if($order->has_package_detail->ounches != null && !in_array($order->has_package_detail->type,['POSTCARD']))
+                                    @if($order->has_package_detail->ounches != null && !in_array($order->has_package_detail->type,['POSTCARD']))
 
 
                                         <div class="col-md-6">
@@ -522,7 +522,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                        @if($order->has_package_detail->weight != null && !in_array($order->has_package_detail->type,['POSTCARD']))
+                                    @if($order->has_package_detail->weight != null && !in_array($order->has_package_detail->type,['POSTCARD']))
 
 
                                         <div class="col-md-4">
@@ -735,57 +735,59 @@
 
                             <div class="tab-pane p-3" id="messages" role="tabpanel">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Future Ship Date</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="datetime-local" value="" id="example-datetime-local-input">
+                                    <form action="{{route('order.modify.date')}}" method="get">
+                                        <input type="hidden" name="order_id" value="{{$order->id}}">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Future Ship Date</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" type="date" value="{{\Carbon\Carbon::parse($order->ship_out_date)->format('Y-m-d')}}">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-12 col-form-label">Modify Future Ship Date</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="datetime-local" value="" id="example-datetime-local-input">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Modify Future Ship Date</label>
+                                                <div class="col-sm-12">
+                                                    <input required class="form-control" name="ship_out_date" min="{{now()->addDays((int)$settings->max_threshold_for_modify_ship_out_date)->format('Y-m-d')}}" max="{{now()->addDays(365)->format('Y-m-d')}}" type="date" >
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <button type="button" class="btn btn-secondary waves-effect">Save</button>
-                                    </div>
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-secondary waves-effect">Modify</button>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="row">
+                                <div class="row" style="margin-top: 20px">
                                     <h6>Modification Date Logs</h6>
                                     @if(count($order->has_logs) > 0)
-                                    <table class="table table-hover table_custom">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Modification Date</th>
-                                            <th scope="col">Previous Date </th>
-                                            <th scope="col">New Date </th>
-
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($order->has_logs()->orderBy('created_at','DESC')->get() as $index => $log)
+                                        <table class="table table-hover table_custom">
+                                            <thead>
                                             <tr>
-                                                <th>{{$index+1}}</th>
-                                                <td>
-                                                    {{date_create($log->modification_date)->format('Y-m-d h:i a')}}
-                                                </td>
-                                                <td>
-                                                    {{date_create($log->previous_date)->format('Y-m-d h:i a')}}
-                                                </td>
-                                                <td>
-                                                    {{date_create($log->new_date)->format('Y-m-d h:i a')}}
-                                                </td>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Modification Date</th>
+                                                <th scope="col">Previous Date </th>
+                                                <th scope="col">New Date </th>
                                             </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                        @else
+                                            </thead>
+                                            <tbody>
+                                            @foreach($order->has_logs()->orderBy('created_at','DESC')->get() as $index => $log)
+                                                <tr>
+                                                    <th>{{$index+1}}</th>
+                                                    <td>
+                                                        {{date_create($log->modification_date)->format('Y-m-d h:i a')}}
+                                                    </td>
+                                                    <td>
+                                                        {{date_create($log->previous_date)->format('Y-m-d')}}
+                                                    </td>
+                                                    <td>
+                                                        {{date_create($log->new_date)->format('Y-m-d')}}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    @else
                                         <p class="text-center">
                                             No Modification Logs Founds
                                         </p>
