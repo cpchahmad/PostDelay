@@ -113,7 +113,7 @@ Route::GET('/clear/order/received_post_date', 'OrdersController@clear_received_p
 Route::GET('/clear/order/completion_date', 'OrdersController@clear_completion_date')->name('clear_completion_date');
 Route::GET('/checkout', 'OrdersController@get_checkout')->name('get_checkout');
 
-Route::GET('/cancel/order', 'OrdersContsettingsroller@cancel_order')->name('cancel_order');
+Route::GET('/cancel/order', 'OrdersController@cancel_order')->name('cancel_order');
 Route::GET('/delete/account/confirmation', 'CustomersController@delete_account_confirmation')->name('delete_account');
 Route::GET('/delete/account', 'CustomersController@delete_account')->name('delete_account');
 Route::GET('customer/{id}/delete', 'CustomersController@delete_account_from_email')->name('delete_account.from.email');
