@@ -26,6 +26,7 @@ use App\Shape;
 use App\Shop;
 use App\Status;
 use Barryvdh\DomPDF\PDF;
+use Carbon\Carbon;
 use Doctrine\DBAL\Schema\AbstractAsset;
 use http\Env\Response;
 use Illuminate\Http\Request;
@@ -1058,61 +1059,81 @@ class OrdersController extends Controller
     public function cancel_order(Request $request)
     {
         $order = Order::where('token', $request->input('order_token'))->first();
-
-        $cancelledd_refund = $this->helper->getShopify()->call([
-            'METHOD' => 'POST',
-            'URL' => '/admin/api/2019-10/orders/' . $order->shopify_order_id . '/cancel.json',
-//            'DATA' => [
-//                "refund" => [
-//                    "notify"=> true,
-//                    "note" => "Customer Cancelled",
-//                    "shipping" => [
-//                        "full_refund"=> true
-//                    ]
-//                ],
-//
-//            ]
-        ]);
-        $status = $order->status_id;
-        if ($status == 1) {
-            $order->status_id = 6;
-            $order->save();
-            $this->status_log($order);
-            $customer = Customer::find($order->customer_id);
-            Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
-        }
-
-        if ($status == 2) {
-            if (count($order->has_additional_payments) > 0) {
-                $order->status_id = 7;
-                $order->save();
-                $this->status_log($order);
+        $settings = Settings::all()->first();
+        if (strtotime(now()) > strtotime(Carbon::parse($order->ship_out_date)->addDays($settings->min_threshold_in_cancellation))) {
+            return \redirect()->json([
+                'status' => 'error',
+                'message' => ' Your order cannot be cancelled because the ship-out date is in fewer than ' . $settings->min_threshold_in_cancellation . ' days'
+            ]);
+        } else {
+            if ($order->ship_to_postdelay_date != null) {
+                return $this->cancelled_with_processing($order);
             } else {
-                $order->status_id = 9;
-                $order->save();
-                $this->status_log($order);
+                if ($order->has_key_dates != null) {
+                    if ($order->has_key_dates->received_post_date != null) {
+                        return $this->cancelled_with_processing($order);
+                    } else {
+                        $this->cancel_and_refund($order);
+                        return \redirect()->json([
+                            'status' => 'success',
+                            'message' => 'Your mailing has been cancelled and refunded. ',
+                            'response' => 6,
+                        ]);
+                    }
+                } else {
+                    $this->cancel_and_refund($order);
+                    return \redirect()->json([
+                        'status' => 'success',
+                        'message' => 'Your mailing has been cancelled and refunded. ',
+                        'response' => 6,
+                    ]);
+
+                }
             }
-
-            $customer = Customer::find($order->customer_id);
-            Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
         }
-
-        if ($status == 3) {
-            if (count($order->has_additional_payments) > 0) {
-                $order->status_id = 10;
-                $order->save();
-                $this->status_log($order);
-            } else {
-                $order->status_id = 12;
-                $order->save();
-                $this->status_log($order);
-            }
-
-            $customer = Customer::find($order->customer_id);
-            Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
-        }
-
     }
+
+
+//        $status = $order->status_id;
+//        if ($status == 1) {
+//            $order->status_id = 6;
+//            $order->save();
+//            $this->status_log($order);
+//            $customer = Customer::find($order->customer_id);
+//            Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
+//        }
+//
+//        if ($status == 2) {
+//            if (count($order->has_additional_payments) > 0) {
+//                $order->status_id = 7;
+//                $order->save();
+//                $this->status_log($order);
+//            } else {
+//                $order->status_id = 9;
+//                $order->save();
+//                $this->status_log($order);
+//            }
+//
+//            $customer = Customer::find($order->customer_id);
+//            Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
+//        }
+//
+//        if ($status == 3) {
+//            if (count($order->has_additional_payments) > 0) {
+//                $order->status_id = 10;
+//                $order->save();
+//                $this->status_log($order);
+//            } else {
+//                $order->status_id = 12;
+//                $order->save();
+//                $this->status_log($order);
+//            }
+//
+//            $customer = Customer::find($order->customer_id);
+//            Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
+//        }
+
+//    }
 
     public function delete_order(Request $request)
     {
@@ -2063,6 +2084,60 @@ class OrdersController extends Controller
         }
         else{
             return \redirect()->back();
+        }
+    }
+
+    /**
+     * @param $order
+     * @return mixed
+     */
+    public function cancel_and_refund($order)
+    {
+        $cancelledd_refund = $this->helper->getShopify()->call([
+            'METHOD' => 'POST',
+            'URL' => '/admin/api/2019-10/orders/' . $order->shopify_order_id . '/cancel.json',
+            'DATA' => [
+                "amount" => $order->order_total,
+                "currency" => 'USD'
+            ]
+        ]);
+        $order->status_id = 6;
+        $order->save();
+        $this->status_log($order);
+        $customer = Customer::find($order->customer_id);
+        Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
+        return $customer;
+    }
+
+    /**
+     * @param $order
+     * @return mixed
+     */
+    public function cancelled_with_processing($order)
+    {
+        if (in_array($order->status_id, [8, 9, 11, 12, 13, 17, 18, 21, 22, 23, 24])) {
+            return \redirect()->json([
+                'status' => 'error',
+                'message' => 'Your mailing cannot be cancelled; check your order status for more information or contact customerservice@postdelay.com '
+            ]);
+        } else {
+            if (in_array($order->status_id, [7, 15, 19])) {
+                return \redirect()->json([
+                    'status' => 'error',
+                    'message' => 'Your mailing cannot be cancelled because we are waiting for information from you. Check the ‘Attention Needed for Further Processing’ section in ‘Order Details’'
+                ]);
+            } else {
+                $order->status_id = 7;
+                $order->save();
+                $this->status_log($order);
+                $customer = Customer::find($order->customer_id);
+                Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
+                return \redirect()->json([
+                    'status' => 'success',
+                    'message' => 'Your order has been cancelled. Check the ‘Attention Needed for Further Processing’ section in order details',
+                    'response' => 7
+                ]);
+            }
         }
     }
 }
