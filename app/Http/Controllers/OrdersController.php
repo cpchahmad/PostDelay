@@ -1264,11 +1264,9 @@ class OrdersController extends Controller
             $order->checkout_completed = 0;
             $order->order_id = $associate_order->id;
             $order->additional_payment = 1;
-            if ($request->input('type') == 'additional-fee') {
-                $order->additional_payment_name = 'Additional PostDelay Charges Payment';
-            } else {
-                $order->additional_payment_name = 'Request Form Payment';
-            }
+
+            $order->additional_payment_name = 'Additional PostDelay Charges Payment';
+
 
             $customer = Customer::where('shopify_customer_id', $associate_order->has_customer->shopify_customer_id)->first();
             $order->customer_id = $customer->id;
