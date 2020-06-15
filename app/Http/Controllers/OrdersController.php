@@ -311,7 +311,7 @@ class OrdersController extends Controller
                 if ($draft_order->additional_payment == 1) {
                     if ($draft_order->additional_payment_name == 'Additional PostDelay Charges Payment') {
                         $res = OrderResponse::where('order_id', $draft_order->order_id)
-                            ->where('fulfill', 0)->orderBy('created_at','DESC')->first();
+                            ->where('fulfill', 0)->whereNotNull('response')->orderBy('created_at','DESC')->first();
                         $res->fulfill = 1;
                         $res->save();
                         $assosiate_order = Order::find($draft_order->order_id);
