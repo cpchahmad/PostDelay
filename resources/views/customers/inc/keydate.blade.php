@@ -32,7 +32,7 @@
             <input disabled type="text"  name="account[first_name]" id="FirstName" @if($order->has_key_dates != null) value="{{\Carbon\Carbon::parse($order->has_key_dates->received_post_date)->format('F j ,Y')}}" @else value="" @endif placeholder="">
         </div>
     </div>
-    @if(strtotime(now()->addDays($settings->min_threshold_for_modify_ship_out_date)) > strtotime($order->ship_out_date))
+    @if(strtotime(now()->addDays($settings->min_threshold_for_modify_ship_out_date)) < strtotime($order->ship_out_date))
         <div class="custom_fields_half">
             <div class="custom_Request_fields_half ">
                 <label for="Order ID">Ship Out Date</label>
@@ -44,7 +44,7 @@
             <div class="custom_fields_half">
                 <div class="custom_Request_fields_half ">
                     <label for="Order ID">Ship Out Date</label>
-                    <input  required type="date"  name="ship_out_date"  min="{{now()->addDays((int)$settings->max_threshold_for_modify_ship_out_date)->format('Y-m-d')}}" max="{{now()->addDays(365)->format('Y-m-d')}}"  value="{{\Carbon\Carbon::parse($order->ship_out_date)->format('F j ,Y')}}" placeholder="">
+                    <input  required type="date"  name="ship_out_date"  min="{{\Carbon\Carbon::parse($order->ship_out_date)->addDays((int)$settings->max_threshold_for_modify_ship_out_date)->format('Y-m-d')}}" max="{{now()->addDays(365)->format('Y-m-d')}}"  value="{{\Carbon\Carbon::parse($order->ship_out_date)->format('Y-m-d')}}" placeholder="">
                 </div>
             </div>
             <input type="submit" class="Same-button" value="Modify Date">
