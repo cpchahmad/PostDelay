@@ -5,7 +5,7 @@
             <div class="page-title-box">
                 <div class="row align-items-center">
                     <div class="col-md-8">
-                        <h4 class="page-title m-0">Update Orders <a class="btn btn-primary" style="margin-left: 20px" href="{{route('download_pdf')}}?order-id={{$order->shopify_order_id}}"></a></h4>
+                        <h4 class="page-title m-0">Update Orders <a class="btn btn-primary" style="margin-left: 20px" href="{{route('download_pdf')}}?order={{$order->shopify_order_id}}">Download Order PDF</a></h4>
                     </div>
                     <div class="col-md-4" style="display: none">
                         <div class="float-right d-none d-md-block">
