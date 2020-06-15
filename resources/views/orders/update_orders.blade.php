@@ -139,7 +139,7 @@
                                             <div class="form-group row">
                                                 <label for="example-text-input" class="col-sm-12 col-form-label">Additional cost would be to ship</label>
                                                 <div class="col-sm-12">
-                                                    <input class="form-control" name="additional_cost_to_ship" type="text" value="{{$order->additional_cost_to_ship}}" >
+                                                    <input required class="form-control" name="additional_cost_to_ship" step="any" type="number" value="{{$order->additional_cost_to_ship}}" >
                                                 </div>
                                             </div>
                                         </div>
@@ -147,7 +147,7 @@
                                             <div class="form-group row">
                                                 <label for="example-text-input" class="col-sm-12 col-form-label">Additional cost would be to return</label>
                                                 <div class="col-sm-12">
-                                                    <input class="form-control" name="additional_cost_to_return" type="text" value="{{$order->additional_cost_to_return}}" >
+                                                    <input required class="form-control" name="additional_cost_to_return" step="any" type="number" value="{{$order->additional_cost_to_return}}" >
                                                 </div>
                                             </div>
                                         </div>
