@@ -172,8 +172,7 @@ $('body').on('submit','#location_update_form',function (e) {
 
 $('body').on('change','#change_order_status',function (e) {
     e.preventDefault();
-
-    var value = $(this).val();
+    const value = $(this).val();
     $.ajax(
         {
             type:'GET',
@@ -183,7 +182,7 @@ $('body').on('change','#change_order_status',function (e) {
                 order:$(this).data('order-id'),
             },
             success:function(data){
-                if(value === 15){
+                if(value === '15'){
                     alertify.success('Order Status Updated - Please go to "Set Additional Charges" Tab to set additional charges');
                     location.reload();
                 }
