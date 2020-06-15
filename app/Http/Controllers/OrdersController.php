@@ -460,9 +460,16 @@ class OrdersController extends Controller
 
         if ($request->input('customer_url') != null) {
             $token = explode('/', $request->input('customer_url'))[5];
-
             $order = Order::where('token', $token)->first();
             $response = OrderResponse::where('order_id', $order->id)->where('fulfill', 0)->first();
+            $settings = Settings::all()->first();
+            if($settings == null){
+                $settings =  new Settings();
+                $settings->min_threshold_ship_out_date = 7;
+                $settings->min_threshold_for_modify_ship_out_date = 5;
+                $settings->max_threshold_for_modify_ship_out_date = 5;
+                $settings->save();
+            }
             if ($order != null) {
                 $sender_form = view('customers.inc.sender_detail_form', ['order' => $order])->render();
                 $order_status = view('customers.inc.order_status', ['order' => $order])->render();
@@ -470,7 +477,7 @@ class OrdersController extends Controller
                 $billing_email = view('customers.inc.billing_email', ['order' => $order])->render();
                 $recepient_email = view('customers.inc.recepient_email', ['order' => $order])->render();
                 $additional_fee = view('customers.inc.additional_fee', ['order' => $order, 'response' => $response])->render();
-                $keydate = view('customers.inc.keydate', ['order' => $order])->render();
+                $keydate = view('customers.inc.keydate', ['order' => $order,'settings'=>$settings])->render();
                 $shipment_to_postdelay = view('customers.inc.shipment_to_postdelay', ['order' => $order])->render();
                 if (in_array($order->status_id, [7, 10, 15, 19])) {
                     $response_form_status = 'yes';
