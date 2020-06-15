@@ -32,7 +32,7 @@
             <input disabled type="text"  name="account[first_name]" id="FirstName" @if($order->has_key_dates != null) value="{{\Carbon\Carbon::parse($order->has_key_dates->received_post_date)->format('F j ,Y')}}" @else value="" @endif placeholder="">
         </div>
     </div>
-    @if(strtotime(now()->addDays($settings->min_threshold_for_modify_ship_out_date)) < strtotime($order->ship_out_date))
+    @if(strtotime(now()) > strtotime(\Carbon\Carbon::parse($order->ship_out_date)->addDays($settings->min_threshold_for_modify_ship_out_date)))
         <div class="custom_fields_half">
             <div class="custom_Request_fields_half ">
                 <label for="Order ID">Ship Out Date</label>
@@ -40,7 +40,7 @@
             </div>
         </div>
     @else
-        <form id="modify_ship_out_date_form" action="" method="get">
+        <form style="margin-top: 10px;margin-bottom: 10px" id="modify_ship_out_date_form" action="" method="get">
             <div class="custom_fields_half">
                 <div class="custom_Request_fields_half ">
                     <label for="Order ID">Ship Out Date</label>
