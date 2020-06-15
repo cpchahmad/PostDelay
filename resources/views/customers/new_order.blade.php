@@ -388,7 +388,8 @@
 
                         <div class="custom_fields_half">
                             <div class="custom_Request_fields_half  ">
-                                <label for="TypeSelect">Type</label>
+                                <label for="TypeSelect">Type <i class="tooltip far fa-question-circle"> <span style="width: 320px;padding: 10px" class="tooltiptext">
+                                            <a target="_blank" href="{{asset('image1.jpg')}}"> Click to understand shipment types. </a> </span></i> </label>
                                 <select class="modify" required id="TypeSelect" name="post_type">
                                     @foreach($types as $type)
                                         @if($recipient_address != null)
