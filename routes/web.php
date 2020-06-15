@@ -113,7 +113,7 @@ Route::GET('/clear/order/received_post_date', 'OrdersController@clear_received_p
 Route::GET('/clear/order/completion_date', 'OrdersController@clear_completion_date')->name('clear_completion_date');
 Route::GET('/checkout', 'OrdersController@get_checkout')->name('get_checkout');
 
-Route::GET('/cancel/order', 'OrdersController@cancel_order')->name('cancel_order');
+Route::GET('/cancel/order', 'OrdersContsettingsroller@cancel_order')->name('cancel_order');
 Route::GET('/delete/account/confirmation', 'CustomersController@delete_account_confirmation')->name('delete_account');
 Route::GET('/delete/account', 'CustomersController@delete_account')->name('delete_account');
 Route::GET('customer/{id}/delete', 'CustomersController@delete_account_from_email')->name('delete_account.from.email');
@@ -142,6 +142,12 @@ Route::GET('/update/status', 'CustomersController@customer_status')->name('updat
 Route::get('/setting/statuses', 'SettingsController@show_statuses')->name('statuses.index');
 Route::get('/status/{id}', 'SettingsController@edit_status')->name('statuses.edit_status');
 Route::POST('/status/update', 'SettingsController@update_status')->name('statuses.update_status');
+
+
+Route::get('/setting/threshold', 'SettingsController@show_threshold')->name('threshold.index');
+Route::post('/setting/threshold/update', 'SettingsController@update_threshold')->name('threshold.update');
+
+
 
 Route::get('/test/usps', 'OrdersController@testusps')->name('app.calculate_shipping');
 Route::get('/get/re-calculate-form','OrdersController@get_re_calculate_form');

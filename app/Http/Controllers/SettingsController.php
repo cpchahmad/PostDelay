@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\PostDelayFee;
 use App\PostType;
 use App\Scale;
+use App\Settings;
 use App\Shape;
 
 use App\State;
@@ -22,6 +23,42 @@ class SettingsController extends Controller
             "shapes" =>$shapes,
         ]);
 
+    }
+
+    public function show_threshold(){
+        $settings = Settings::all()->first();
+        if($settings == null){
+            $settings =  new Settings();
+            $settings->min_threshold_ship_out_date = 7;
+            $settings->min_threshold_for_modify_ship_out_date = 5;
+            $settings->max_threshold_for_modify_ship_out_date = 5;
+            $settings->save();
+        }
+
+        return view('settings.threshold.index')->with([
+            "settings" =>$settings,
+        ]);
+
+    }
+
+    public function update_threshold(Request $request){
+        $settings = Settings::find($request->id);
+        if($settings != null){
+            if($request->has('min_threshold_ship_out_date')){
+                $settings->min_threshold_ship_out_date = $request->input('min_threshold_ship_out_date');
+            }
+            if($request->has('min_threshold_for_modify_ship_out_date')){
+                $settings->min_threshold_for_modify_ship_out_date = $request->input('min_threshold_for_modify_ship_out_date');
+            }
+            if($request->has('max_threshold_for_modify_ship_out_date')){
+                $settings->max_threshold_for_modify_ship_out_date = $request->input('max_threshold_for_modify_ship_out_date');
+            }
+            $settings->save();
+            return redirect()->back();
+        }
+        else{
+            return redirect()->route('threshold.index');
+        }
     }
 
     public function update_shape(Request $request){
