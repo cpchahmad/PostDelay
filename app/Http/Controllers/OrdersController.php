@@ -1972,14 +1972,25 @@ class OrdersController extends Controller
             $order_log->save();
             $order->ship_out_date = $request->input('ship_out_date');
             $order->save();
-            return \response()->json([
-                'message' => 'success'
-            ]);
+            if($request->ajax()){
+                return \response()->json([
+                    'message' => 'success'
+                ]);
+            }
+            else{
+                return \redirect()->back();
+            }
+
         }
         else{
-            return \response()->json([
-               'message' => 'error'
-            ]);
+            if($request->ajax()){
+                return \response()->json([
+                    'message' => 'error'
+                ]);
+            }
+        else{
+                return \redirect()->back();
+            }
         }
     }
 }
