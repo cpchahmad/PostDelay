@@ -734,8 +734,8 @@
                             </div>
 
                             <div class="tab-pane p-3" id="messages" role="tabpanel">
-                                <div class="row">
-                                    <form action="{{route('order.modify.date')}}" method="get">
+                                <form class="row" action="{{route('order.modify.date')}}" method="post">
+                                    @csrf
                                         <input type="hidden" name="order_id" value="{{$order->id}}">
                                         <div class="col-md-6">
                                             <div class="form-group row">
@@ -757,7 +757,7 @@
                                             <button type="submit" class="btn btn-secondary waves-effect">Modify</button>
                                         </div>
                                     </form>
-                                </div>
+
                                 <div class="row" style="margin-top: 20px">
                                     <h6>Modification Date Logs</h6>
                                     @if(count($order->has_logs) > 0)
