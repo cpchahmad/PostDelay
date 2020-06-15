@@ -1279,14 +1279,14 @@ class OrdersController extends Controller
         }
         else if(in_array($request->input('response'),[8,9])){
             if($request->input('response') == 8){
-//                $cancelledd_refund = $this->helper->getShopify()->call([
-//                    'METHOD' => 'POST',
-//                    'URL' => '/admin/api/2019-10/orders/' . $order->shopify_order_id . '/cancel.json',
+                $cancelledd_refund = $this->helper->getShopify()->call([
+                    'METHOD' => 'POST',
+                    'URL' => '/admin/api/2019-10/orders/' . $order->shopify_order_id . '/cancel.json',
 //                    'DATA' => [
 //                        "amount" => $order->shipping_method_price,
 //                        "currency" => 'USD'
 //                    ]
-//                ]);
+                ]);
                 $order->status_id = 8;
                 $order->save();
                 $this->status_log($order);
@@ -1425,14 +1425,14 @@ class OrdersController extends Controller
                     if($error != null){
                         $shipping_price = $services[0]['Postage'];
                         $shipping_method = $services[0]['SvcDescription'];
-//                        $cancelledd_refund = $this->helper->getShopify()->call([
-//                            'METHOD' => 'POST',
-//                            'URL' => '/admin/api/2019-10/orders/' . $order->shopify_order_id . '/cancel.json',
+                        $cancelledd_refund = $this->helper->getShopify()->call([
+                            'METHOD' => 'POST',
+                            'URL' => '/admin/api/2019-10/orders/' . $order->shopify_order_id . '/cancel.json',
 //                            'DATA' => [
 //                                "amount" => $order->shipping_method_price,
 //                                "currency" => 'USD'
 //                            ]
-//                        ]);
+                        ]);
                         $order->status_id = 9;
                         $order->save();
                         $this->status_log($order);
@@ -1684,14 +1684,14 @@ class OrdersController extends Controller
                             $shipping_method = $services['MailService'];
                         }
 
-//                        $cancelledd_refund = $this->helper->getShopify()->call([
-//                            'METHOD' => 'POST',
-//                            'URL' => '/admin/api/2019-10/orders/' . $order->shopify_order_id . '/cancel.json',
+                        $cancelledd_refund = $this->helper->getShopify()->call([
+                            'METHOD' => 'POST',
+                            'URL' => '/admin/api/2019-10/orders/' . $order->shopify_order_id . '/cancel.json',
 //                            'DATA' => [
 //                                "amount" => $order->shipping_method_price,
 //                                "currency" => 'USD'
 //                            ]
-//                        ]);
+                        ]);
                         $order->status_id = 9;
                         $order->save();
                         $this->status_log($order);
