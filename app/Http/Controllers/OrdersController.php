@@ -1205,7 +1205,7 @@ class OrdersController extends Controller
 
             return Redirect::to('https://postdelay.myshopify.com/account?view=additional-fee&&order-id=' . $order->shopify_order_id . '&&response=' . $response->response);
         }
-        if (in_array($request->input('response'), [16, 17])) {
+        else if (in_array($request->input('response'), [16, 17])) {
             $shop = Shop::where('shopify_domain', 'postdelay.myshopify.com')->first();
             $price = 0;
             if($request->input('response') == 16){
@@ -1276,6 +1276,506 @@ class OrdersController extends Controller
             $order->save();
             return Redirect::to($invoiceURL);
 
+        }
+        else if(in_array($request->input('response'),[8,9])){
+            if($request->input('response') == 8){
+                $cancelledd_refund = $this->helper->getShopify()->call([
+                    'METHOD' => 'POST',
+                    'URL' => '/admin/api/2019-10/orders/' . $order->shopify_order_id . '/cancel.json',
+                    'DATA' => [
+                        "amount" => $order->shipping_method_price,
+                        "currency" => 'USD'
+                    ]
+                ]);
+                $order->status_id = 8;
+                $order->save();
+                $this->status_log($order);
+                $customer = Customer::find($order->customer_id);
+                Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
+                return Redirect::to('https://postdelay.myshopify.com/account/orders/' . $order->token);
+
+            }
+            else{
+                $rate = new Rate('021POSTD3725');
+                $location = Location::all()->first();
+                if($location != null){
+                    $origin_zip_code = $location->postcode;
+                }
+                else{
+                    $origin_zip_code = 10008;
+                }
+
+                $fee = PostDelayFee::where('type','primary')->where('default',1)->first();
+                if($fee != null){
+                    $origin_fee = $fee->price;
+                }
+                else{
+                    $origin_fee = 200;
+                }
+
+                if($order->has_package_detail->unit_of_measures_weight == 'Metric'){
+                    $width = $order->has_package_detail->width;
+                    $length = $order->has_package_detail->length;
+                    $height = $order->has_package_detail->height;
+                    $girth = $order->has_package_detail->girth;
+                }
+                else{
+                    $width = $order->has_package_detail->width/2.54;
+                    $length = $order->has_package_detail->length/2.54;
+                    $height = $order->has_package_detail->height/2.54;
+                    $girth = $order->has_package_detail->girth/2.54;
+                }
+
+
+                if($order->has_package_detail->pounds != null){
+                    $weight_in_pounds =number_format($order->has_package_detail->pounds,2);
+                    $weight_in_ounches = number_format($order->has_package_detail->ounches,2);
+                } else{
+                    $weight_in_ounches = 0;
+                    $weight_in_pounds  =0.21345678;
+                }
+
+                if($order->has_sender->country != 'United States'){
+
+                    $rate->setInternationalCall(true);
+                    $rate->addExtraOption('Revision', 2);
+                    $package = new RatePackage;
+                    $package->setPounds($weight_in_pounds);
+                    $package->setOunces($weight_in_ounches);
+                    $package->setField('Machinable', 'false');
+                    if($order->has_package_detail->type != 'POSTCARD' ){
+                        if($order->has_package_detail->type == 'POSTCARD' ){
+                            $package->setField('MailType','POSTCARDS');
+                        }
+                        else if($order->has_package_detail->type == 'ENVELOPE'){
+                            $package->setField('MailType', 'ENVELOPE');
+                        }
+                        else if($order->has_package_detail->type == 'ENVELOPE'){
+                            $package->setField('MailType', 'LARGEENVELOPE');
+                        }
+                        else if($order->has_package_detail->type == 'LETTER'){
+                            $package->setField('MailType', 'LETTER');
+                        }
+                        else{
+                            $package->setField('MailType', 'PACKAGE');
+                        }
+                        if($order->has_package_detail->special_holding == 'yes'){
+                            $package->setField('GXG', array(
+                                'POBoxFlag' => 'Y',
+                                'GiftFlag' => 'Y'
+                            ));
+                        }
+                        $package->setField('ValueOfContents', $origin_fee);
+                        $package->setField('Country', $order->has_sender->country);
+                        if($order->has_package_detail->type == 'PACKAGE' || $order->has_package_detail->type == 'LARGE PACKAGE'){
+                            if($order->has_package_detail->type == 'Rectangular'){
+                                $package->setField('Container', RatePackage::CONTAINER_RECTANGULAR);
+                            }
+                            else{
+                                $package->setField('Container', RatePackage::CONTAINER_NONRECTANGULAR);
+                            }
+                        }
+                        else if($order->has_package_detail->type == 'ENVELOPE'){
+                            $package->setField('Container', RatePackage::CONTAINER_FLAT_RATE_ENVELOPE);
+                        }
+                        else if($order->has_package_detail->type == 'LARGE ENVELOPE'){
+                            $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+                        }
+                        else if($order->has_package_detail->type == 'POSTCARD'){
+                            $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+                        }
+                        else{
+                            $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+                        }
+                        if($order->has_package_detail->type == 'PACKAGE' || $order->has_package_detail->type == 'LARGE PACKAGE'){
+                            $package->setField('Width', $width);
+                            $package->setField('Length', $length);
+                            $package->setField('Height', $height);
+                            $package->setField('Girth', $girth);
+                        }
+                        $package->setField('OriginZip', $origin_zip_code);
+                        $date =now()->addDays(7)->format('Y-m-d\TH:i:s');
+                        $date = $date . '-06:00';
+//            '2020-01-01T13:15:00-06:00'
+                        $package->setField('AcceptanceDateTime',$date );
+                        $package->setField('DestinationPostalCode', $order->has_sender->country);
+
+                        $rate->addPackage($package);
+
+                        $rate->getRate();
+                        $rates = $rate->getArrayResponse();
+                        if ($rate->isSuccess()) {
+                            $services = $rates['IntlRateV2Response']['Package']['Service'];
+                            $error = null;
+
+                        } else {
+                            $services = null;
+                            $error = $rate->getErrorMessage();
+                        }
+                    }
+                    else{
+                        $services = [];
+                        array_push($services,[
+                            'Postage' => '1.20',
+                            'SvcDescription' =>  'First-Class Mail® International Postcard',
+                            'SvcCommitments' => ''
+                        ]);
+                        $error = null;
+                    }
+                    if($error != null){
+                        $shipping_price = $services[0]['Postage'];
+                        $shipping_method = $services[0]['SvcDescription'];
+                        $cancelledd_refund = $this->helper->getShopify()->call([
+                            'METHOD' => 'POST',
+                            'URL' => '/admin/api/2019-10/orders/' . $order->shopify_order_id . '/cancel.json',
+                            'DATA' => [
+                                "amount" => $order->shipping_method_price,
+                                "currency" => 'USD'
+                            ]
+                        ]);
+                        $order->status_id = 9;
+                        $order->save();
+                        $this->status_log($order);
+                        $customer = Customer::find($order->customer_id);
+                        Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
+                        $default = PostDelayFee::where('default', 1)->where('type', 'additional')->first();
+                        $draft_orders = $this->helper->getShopify()->call([
+                            'METHOD' => 'POST',
+                            'URL' => '/admin/draft_orders.json',
+                            'DATA' =>
+                                [
+                                    "draft_order" => [
+                                        'line_items' => [
+                                            [
+                                                "title" => $default->name,
+                                                "price" => $default->price,
+                                                "quantity" => 1,
+                                                "properties" => [
+                                                    [
+                                                        "name" => 'Response',
+                                                        "value" => $request->input('response'),
+                                                    ],
+                                                ]
+                                            ]
+                                        ],
+                                        "customer" => [
+                                            "id" => $request->input('customer-id'),
+                                        ],
+                                        "billing_address" => [
+                                            "address1" => $order->has_billing->address1,
+                                            "address2" =>  $order->has_billing->address2,
+                                            "city" =>  $order->has_billing->city,
+                                            "company" =>  $order->has_billing->business,
+                                            "first_name" =>  $order->has_billing->first_name,
+                                            "last_name" => $order->has_billing->last_name,
+                                            "province" =>  $order->has_billing->state,
+                                            "country" =>  $order->has_billing->country,
+                                            "zip" =>  $order->has_billing->postcode,
+                                            "name" => $order->has_billing->first_name . ' ' .  $order->has_billing->last_name,
+                                            "country_code" => Countries::getCode( $order->has_billing->country),
+                                            "province_code" => CountrySubdivisions::getCode( $order->has_billing->country,  $order->has_billing->state)
+                                        ],
+                                        "shipping_address" => [
+                                            "address1" => $order->has_sender->address1,
+                                            "address2" =>  $order->has_sender->address2,
+                                            "city" =>  $order->has_sender->city,
+                                            "company" =>  $order->has_sender->business,
+                                            "first_name" =>  $order->has_sender->first_name,
+                                            "last_name" => $order->has_sender->last_name,
+                                            "province" =>  $order->has_sender->state,
+                                            "country" =>  $order->has_sender->country,
+                                            "zip" =>  $order->has_sender->postcode,
+                                            "name" => $order->has_sender->first_name . ' ' .  $order->has_sender->last_name,
+                                            "country_code" => Countries::getCode( $order->has_sender->country),
+                                            "province_code" => CountrySubdivisions::getCode( $order->has_sender->country,  $order->has_sender->state)
+                                        ],
+                                        "shipping_line" => [
+                                            "custom" => true,
+                                            "price" => $shipping_price,
+                                            "title" => $shipping_method
+                                        ],
+
+                                    ]
+
+                                ]
+                        ]);
+                        $associate_order = $order;
+                        $invoiceURL = $draft_orders->draft_order->invoice_url;
+                        $token = explode('/', $invoiceURL)[5];
+                        $order = new Order();
+                        $order->draft_order_id = $draft_orders->draft_order->id;
+                        $order->checkout_token = $token;
+                        $order->checkout_completed = 0;
+                        $order->order_id = $associate_order->id;
+                        $order->additional_payment = 1;
+                        $order->additional_payment_name = 'Additional PostDelay Charges Payment';
+                        $customer = Customer::where('shopify_customer_id', $associate_order->has_customer->shopify_customer_id)->first();
+                        $order->customer_id = $customer->id;
+                        $order->shopify_customer_id = $associate_order->has_customer->shopify_customer_id;
+                        $order->billing_address_id = $associate_order->billing_address_id;
+                        $order->save();
+                        return Redirect::to($invoiceURL);
+                    }
+                    else{
+                        return \redirect()->back();
+                    }
+
+                }
+                else{
+
+                    $package = new RatePackage();
+                    $services = [];
+                    if($order->has_package_detail->type == 'POSTCARD'){
+                        if($order->has_package_detail->postcard_size == 'regular'){
+                            $size = 'REGULAR';
+                            $s = $this->DomesticPostcardShipping($origin_zip_code,$order->has_sender->postcode,0,0.12,'POSTCARDS',RatePackage::SERVICE_FIRST_CLASS,RatePackage::MAIL_TYPE_POSTCARD,$size);
+                            $services = $s['Package']['Postage'];
+                        }
+                        else{
+                            $size = 'LARGE';
+                            array_push($services,[
+                                'Rate' => 0.55,
+                                'MailService' => 'First-Class Mail® Stamped Large Postcards',
+                            ]);
+                        }
+
+
+                    }
+
+                    else if($order->has_package_detail->type == 'LARGE ENVELOPE'){
+                        $envelopes = [
+                            RatePackage::CONTAINER_FLAT_RATE_ENVELOPE,
+                            RatePackage::CONTAINER_GIFT_CARD_FLAT_RATE_ENVELOPE,
+                            RatePackage::CONTAINER_SM_FLAT_RATE_ENVELOPE,
+                            RatePackage::CONTAINER_LEGAL_FLAT_RATE_ENVELOPE,
+                            RatePackage::CONTAINER_PADDED_FLAT_RATE_ENVELOPE,
+                            RatePackage::CONTAINER_WINDOW_FLAT_RATE_ENVELOPE,
+                        ];
+                        $usps_services = [
+                            RatePackage::SERVICE_PRIORITY,
+                            RatePackage::SERVICE_EXPRESS,
+                        ];
+
+                        $services = [];
+                        foreach ($usps_services as $usps){
+                            foreach ($envelopes as $en){
+                                $temp =  [];
+                                $s =  $this->DomesticShipping($origin_zip_code,$order->has_sender->postcode,$weight_in_pounds,$weight_in_ounches,$en,$usps,'','','','','','False');
+                                if(!array_key_exists('Error',$s['Package'])){
+                                    array_push($temp,$s['Package']['Postage']);
+                                    array_push($services,$temp[0]);
+                                }
+
+                            }
+                        }
+
+                    }
+                    else if($order->has_package_detail->type == 'LETTER'){
+                        $services = [];
+                        if($order->has_package_detail->special_holding == 'yes'){
+                            $machine = 'True';
+                        }
+                        else{
+                            $machine = 'False';
+                        }
+                        if($weight_in_pounds < 1){
+                            if($machine == 'False'){
+                                $machine = 'True';
+                            }
+                            else{
+                                $machine = 'False';
+                            }
+                            $s =  $this->DomesticShipping($origin_zip_code,$order->has_sender->postcode,0,0.12,'',RatePackage::SERVICE_FIRST_CLASS,RatePackage::MAIL_TYPE_LETTER,'','','','',$machine);
+                            array_push($services,$s['Package']['Postage']);
+                        }
+
+                        $envelopes = [
+                            RatePackage::CONTAINER_FLAT_RATE_ENVELOPE,
+                            RatePackage::CONTAINER_GIFT_CARD_FLAT_RATE_ENVELOPE,
+                            RatePackage::CONTAINER_SM_FLAT_RATE_ENVELOPE,
+                            RatePackage::CONTAINER_LEGAL_FLAT_RATE_ENVELOPE,
+                            RatePackage::CONTAINER_PADDED_FLAT_RATE_ENVELOPE,
+                            RatePackage::CONTAINER_WINDOW_FLAT_RATE_ENVELOPE,
+                        ];
+                        $usps_services = [
+                            RatePackage::SERVICE_PRIORITY,
+//                    RatePackage::SERVICE_EXPRESS,
+                        ];
+                        foreach ($usps_services as $usps){
+                            foreach ($envelopes as $en){
+                                $temp =  [];
+                                $s =  $this->DomesticShipping($origin_zip_code,$order->has_sender->postcode,$weight_in_pounds,$weight_in_ounches,$en,$usps,'','','','','',$machine);
+                                if(!array_key_exists('Error',$s['Package'])){
+                                    array_push($temp,$s['Package']['Postage']);
+                                    array_push($services,$temp[0]);
+                                }
+
+                            }
+                        }
+                    }
+                    else if($order->has_package_detail->type == 'PACKAGE'){
+                        $envelopes = [
+                            RatePackage::CONTAINER_LG_FLAT_RATE_BOX,
+                            RatePackage::CONTAINER_MD_FLAT_RATE_BOX,
+                            RatePackage::CONTAINER_SM_FLAT_RATE_BOX,
+                            RatePackage::CONTAINER_RECTANGULAR,
+
+                        ];
+                        $usps_services = [
+                            RatePackage::SERVICE_PRIORITY,
+                            RatePackage::SERVICE_EXPRESS,
+                        ];
+
+                        $services = [];
+                        foreach ($usps_services as $usps){
+                            foreach ($envelopes as $en){
+                                $temp =  [];
+                                $s =  $this->DomesticShipping($origin_zip_code,$order->has_sender->postcode,$weight_in_pounds,$weight_in_ounches,$en,$usps,'','','','','','False');
+                                if(!array_key_exists('Error',$s['Package'])){
+                                    array_push($temp,$s['Package']['Postage']);
+                                    array_push($services,$temp[0]);
+                                }
+
+                            }
+                        }
+
+                    }
+                    else{
+                        if($order->has_package_detail->shape == 'Rectangular'){
+                            $envelopes = [
+                                RatePackage::CONTAINER_RECTANGULAR,
+                            ];
+                        }
+                        else{
+                            $envelopes = [
+                                RatePackage::CONTAINER_NONRECTANGULAR,
+                            ];
+                        }
+
+                        $usps_services = [
+                            RatePackage::SERVICE_PRIORITY,
+                            RatePackage::SERVICE_PRIORITY_HFP_COMMERCIAL,
+                            RatePackage::SERVICE_EXPRESS,
+                            RatePackage::SERVICE_EXPRESS_HFP_COMMERCIAL,
+                            RatePackage::SERVICE_MEDIA,
+
+                        ];
+
+                        $services = [];
+                        foreach ($usps_services as $usps){
+                            foreach ($envelopes as $en){
+                                $temp =  [];
+                                $s =  $this->DomesticShipping($origin_zip_code,$order->has_sender->postcode,$weight_in_pounds,$weight_in_ounches,$en,$usps,'',$width,$length,$height,$girth,'False');
+                                if(!array_key_exists('Error',$s['Package'])){
+                                    array_push($temp,$s['Package']['Postage']);
+                                    array_push($services,$temp[0]);
+                                }
+
+                            }
+                        }
+                    }
+                    if(count($services) > 0){
+                        $shipping_price = $services[0]['Rate'];
+                        $shipping_method = $services[0]['MailService'];
+                        $cancelledd_refund = $this->helper->getShopify()->call([
+                            'METHOD' => 'POST',
+                            'URL' => '/admin/api/2019-10/orders/' . $order->shopify_order_id . '/cancel.json',
+                            'DATA' => [
+                                "amount" => $order->shipping_method_price,
+                                "currency" => 'USD'
+                            ]
+                        ]);
+                        $order->status_id = 9;
+                        $order->save();
+                        $this->status_log($order);
+                        $customer = Customer::find($order->customer_id);
+                        Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
+                        $default = PostDelayFee::where('default', 1)->where('type', 'additional')->first();
+                        $draft_orders = $this->helper->getShopify()->call([
+                            'METHOD' => 'POST',
+                            'URL' => '/admin/draft_orders.json',
+                            'DATA' =>
+                                [
+                                    "draft_order" => [
+                                        'line_items' => [
+                                            [
+                                                "title" => $default->name,
+                                                "price" => $default->price,
+                                                "quantity" => 1,
+                                                "properties" => [
+                                                    [
+                                                        "name" => 'Response',
+                                                        "value" => $request->input('response'),
+                                                    ],
+                                                ]
+                                            ]
+                                        ],
+                                        "customer" => [
+                                            "id" => $request->input('customer-id'),
+                                        ],
+                                        "billing_address" => [
+                                            "address1" => $order->has_billing->address1,
+                                            "address2" =>  $order->has_billing->address2,
+                                            "city" =>  $order->has_billing->city,
+                                            "company" =>  $order->has_billing->business,
+                                            "first_name" =>  $order->has_billing->first_name,
+                                            "last_name" => $order->has_billing->last_name,
+                                            "province" =>  $order->has_billing->state,
+                                            "country" =>  $order->has_billing->country,
+                                            "zip" =>  $order->has_billing->postcode,
+                                            "name" => $order->has_billing->first_name . ' ' .  $order->has_billing->last_name,
+                                            "country_code" => Countries::getCode( $order->has_billing->country),
+                                            "province_code" => CountrySubdivisions::getCode( $order->has_billing->country,  $order->has_billing->state)
+                                        ],
+                                        "shipping_address" => [
+                                            "address1" => $order->has_sender->address1,
+                                            "address2" =>  $order->has_sender->address2,
+                                            "city" =>  $order->has_sender->city,
+                                            "company" =>  $order->has_sender->business,
+                                            "first_name" =>  $order->has_sender->first_name,
+                                            "last_name" => $order->has_sender->last_name,
+                                            "province" =>  $order->has_sender->state,
+                                            "country" =>  $order->has_sender->country,
+                                            "zip" =>  $order->has_sender->postcode,
+                                            "name" => $order->has_sender->first_name . ' ' .  $order->has_sender->last_name,
+                                            "country_code" => Countries::getCode( $order->has_sender->country),
+                                            "province_code" => CountrySubdivisions::getCode( $order->has_sender->country,  $order->has_sender->state)
+                                        ],
+                                        "shipping_line" => [
+                                            "custom" => true,
+                                            "price" => $shipping_price,
+                                            "title" => $shipping_method
+                                        ],
+
+                                    ]
+
+                                ]
+                        ]);
+                        $associate_order = $order;
+                        $invoiceURL = $draft_orders->draft_order->invoice_url;
+                        $token = explode('/', $invoiceURL)[5];
+                        $order = new Order();
+                        $order->draft_order_id = $draft_orders->draft_order->id;
+                        $order->checkout_token = $token;
+                        $order->checkout_completed = 0;
+                        $order->order_id = $associate_order->id;
+                        $order->additional_payment = 1;
+                        $order->additional_payment_name = 'Additional PostDelay Charges Payment';
+                        $customer = Customer::where('shopify_customer_id', $associate_order->has_customer->shopify_customer_id)->first();
+                        $order->customer_id = $customer->id;
+                        $order->shopify_customer_id = $associate_order->has_customer->shopify_customer_id;
+                        $order->billing_address_id = $associate_order->billing_address_id;
+                        $order->save();
+                        return Redirect::to($invoiceURL);
+                    }
+                    else{
+                        return \redirect()->back();
+                    }
+
+
+                }
+
+            }
         }
         else {
             $order->status_id = $request->input('response');
@@ -1778,7 +2278,8 @@ class OrdersController extends Controller
             }
 
 
-        } else{
+        }
+        else{
 
             $package = new RatePackage();
             $services = [];

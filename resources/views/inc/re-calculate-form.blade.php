@@ -16,7 +16,7 @@
     <input type="hidden" name="unit_of_measures_weight" value="{{$order->has_package_detail->unit_of_measures_weight}}">
     <input type="hidden" name="weight" value="{{$order->has_package_detail->weight}}">
     <input type="hidden" name="pounds" value="{{$order->has_package_detail->pounds}}">
-    <input type="hidden" name="ounches" value="{{$order->has_package_detail->pounds}}">
+    <input type="hidden" name="ounches" value="{{$order->has_package_detail->ounches}}">
     <input type="hidden" name="weight" value="{{$order->has_package_detail->weight}}">
     <input type="hidden" name="height" value="{{$order->has_package_detail->height}}">
     <input type="hidden" name="width" value="{{$order->has_package_detail->width}}">
