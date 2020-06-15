@@ -1965,6 +1965,7 @@ class OrdersController extends Controller
         $order = Order::find($request->input('order_id'));
         if($order != null){
             $order_log = new OrderLog();
+            $order_log->order_id = $order->id;
             $order_log->modification_date = now();
             $order_log->previous_date = $order->ship_out_date;
             $order_log->new_date = $request->input('ship_out_date');
