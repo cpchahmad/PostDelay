@@ -41,6 +41,7 @@
         </div>
     @else
         <form style="margin-top: 10px;margin-bottom: 10px" id="modify_ship_out_date_form" action="" method="get">
+            <input type="hidden" name="order_id" value="{{$order->id}}">
             <div class="custom_fields_half">
                 <div class="custom_Request_fields_half ">
                     <label for="Order ID">Ship Out Date</label>

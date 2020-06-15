@@ -146,6 +146,9 @@ Route::POST('/status/update', 'SettingsController@update_status')->name('statuse
 
 Route::get('/setting/threshold', 'SettingsController@show_threshold')->name('threshold.index');
 Route::post('/setting/threshold/update', 'SettingsController@update_threshold')->name('threshold.update');
+\
+Route::post('/update/order/modify-date', 'OrdersController@update_modify_date')->name('order.modify.date');
+
 
 
 

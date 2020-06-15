@@ -12,6 +12,7 @@ use App\Mail\NotificationEmail;
 use App\Mail\RequestFormAdminEmail;
 use App\Mail\RequestFormEmail;
 use App\Order;
+use App\OrderLog;
 use App\OrderResponse;
 use App\OrderStatusHistory;
 use App\PackageDetail;
@@ -1958,6 +1959,27 @@ class OrdersController extends Controller
             'html' => $returnHTML
         ]);
 
+    }
+
+    public function update_modify_date(Request $request){
+        $order = Order::find($request->input('order_id'));
+        if($order != null){
+            $order_log = new OrderLog();
+            $order_log->modification_date = now();
+            $order_log->previous_date = $order->ship_out_date;
+            $order_log->new_date = $request->input('ship_out_date');
+            $order_log->save();
+            $order->ship_out_date = $request->input('ship_out_date');
+            $order->save();
+            return \response()->json([
+                'message' => 'success'
+            ]);
+        }
+        else{
+            return \response()->json([
+               'message' => 'error'
+            ]);
+        }
     }
 }
 
