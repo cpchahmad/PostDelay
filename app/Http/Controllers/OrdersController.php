@@ -1209,10 +1209,10 @@ class OrdersController extends Controller
             $shop = Shop::where('shopify_domain', 'postdelay.myshopify.com')->first();
             $price = 0;
             if($request->input('response') == 16){
-                $price =16;
+                $price = $order->additional_cost_to_ship;
             }
             else{
-                $price =17;
+                $price = $order->additional_cost_to_return;
             }
             $associate_order = $order;
 
