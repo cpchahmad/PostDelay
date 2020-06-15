@@ -44,7 +44,7 @@
             <div class="custom_fields_half">
                 <div class="custom_Request_fields_half ">
                     <label for="Order ID">Ship Out Date</label>
-                    <input  required type="date"  name="ship_out_date"  min="{{\Carbon\Carbon::parse($order->ship_out_date)->addDays((int)$settings->max_threshold_for_modify_ship_out_date)->format('Y-m-d')}}" max="{{now()->addDays(365)->format('Y-m-d')}}"  value="{{\Carbon\Carbon::parse($order->ship_out_date)->format('Y-m-d')}}" placeholder="">
+                    <input  required type="date"  name="ship_out_date"  min="{{now()->addDays((int)$settings->max_threshold_for_modify_ship_out_date)->format('Y-m-d')}}" max="{{now()->addDays(365)->format('Y-m-d')}}"  value="{{\Carbon\Carbon::parse($order->ship_out_date)->format('Y-m-d')}}" placeholder="">
                 </div>
             </div>
             <input type="submit" class="Same-button" value="Modify Date">
