@@ -1675,8 +1675,15 @@ class OrdersController extends Controller
                         }
                     }
                     if(count($services) > 0){
-                        $shipping_price = $services[0]['Rate'];
-                        $shipping_method = $services[0]['MailService'];
+                        if($order->has_package_detail->postcard_size == 'regular'){
+                            $shipping_price = $services[0]['Rate'];
+                            $shipping_method = $services[0]['MailService'];
+                        }
+                        else{
+                            $shipping_price = $services['Rate'];
+                            $shipping_method = $services['MailService'];
+                        }
+
                         $cancelledd_refund = $this->helper->getShopify()->call([
                             'METHOD' => 'POST',
                             'URL' => '/admin/api/2019-10/orders/' . $order->shopify_order_id . '/cancel.json',
