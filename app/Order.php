@@ -46,4 +46,7 @@ class Order extends Model
     public function has_key_dates(){
         return $this->hasOne('App\KeyDate','order_id');
     }
+    public function has_logs(){
+        return $this->hasMany('App\OrderLog','order_id');
+    }
 }

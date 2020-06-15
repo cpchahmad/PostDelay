@@ -732,56 +732,7 @@
 
                                 </div>
                             </div>
-                            {{--                                    <div class="tab-pane  p-3" id="additional-fee" role="tabpanel">--}}
-                            {{--                                        <h6>Additional Fee Details</h6>--}}
-                            {{--                                        <div class="row">--}}
-                            {{--                                            <div class="col-md-6">--}}
-                            {{--                                                <div class="form-group row">--}}
-                            {{--                                                    <label for="example-text-input" class="col-sm-12 col-form-label">Addational Fee details</label>--}}
-                            {{--                                                    <div class="col-sm-12">--}}
-                            {{--                                                        <input class="form-control" type="text" value="Further Details">--}}
-                            {{--                                                    </div>--}}
-                            {{--                                                </div>--}}
-                            {{--                                            </div>--}}
-                            {{--                                            <div class="col-md-6">--}}
-                            {{--                                                <div class="form-group row">--}}
-                            {{--                                                    <label for="example-text-input" class="col-sm-12 col-form-label">Request Amount</label>--}}
-                            {{--                                                    <div class="col-sm-12">--}}
-                            {{--                                                        <input class="form-control" type="text" value="Amount">--}}
-                            {{--                                                    </div>--}}
-                            {{--                                                </div>--}}
-                            {{--                                            </div>--}}
-                            {{--                                            <div class="col-md-12">--}}
-                            {{--                                                <div class="form-group row">--}}
-                            {{--                                                    <label for="example-text-input" class="col-sm-12 col-form-label">Request Date</label>--}}
-                            {{--                                                    <div class="col-sm-12">--}}
-                            {{--                                                        <input class="form-control" type="text" value="Date">--}}
-                            {{--                                                    </div>--}}
-                            {{--                                                </div>--}}
-                            {{--                                            </div>--}}
 
-                            {{--                                            <div class="col-md-6">--}}
-                            {{--                                                <div class="form-group row">--}}
-                            {{--                                                    <label for="example-text-input" class="col-sm-12 col-form-label">Payment Link</label>--}}
-                            {{--                                                    <div class="col-sm-12">--}}
-                            {{--                                                        <input class="form-control" type="text" value="Payment Link">--}}
-                            {{--                                                    </div>--}}
-                            {{--                                                </div>--}}
-                            {{--                                            </div>--}}
-                            {{--                                            <div class="col-md-6">--}}
-                            {{--                                                <div class="form-group row">--}}
-                            {{--                                                    <label for="example-text-input" class="col-sm-12 col-form-label">Payment Receipt</label>--}}
-                            {{--                                                    <div class="col-sm-12">--}}
-                            {{--                                                        <input class="form-control" type="text" value="Payment Receipt">--}}
-                            {{--                                                    </div>--}}
-                            {{--                                                </div>--}}
-                            {{--                                            </div>--}}
-                            {{--                                            <div class="col-md-12">--}}
-                            {{--                                                <button type="button" class="btn btn-secondary waves-effect">Save</button>--}}
-                            {{--                                            </div>--}}
-
-                            {{--                                        </div>--}}
-                            {{--                                    </div>--}}
                             <div class="tab-pane p-3" id="messages" role="tabpanel">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -803,6 +754,42 @@
                                     <div class="col-md-12">
                                         <button type="button" class="btn btn-secondary waves-effect">Save</button>
                                     </div>
+                                </div>
+                                <div class="row">
+                                    <h6>Modification Date Logs</h6>
+                                    @if(count($order->has_logs) > 0)
+                                    <table class="table table-hover table_custom">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Modification Date</th>
+                                            <th scope="col">Previous Date </th>
+                                            <th scope="col">New Date </th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($order->has_logs()->orderBy('created_at','DESC')->get() as $index => $log)
+                                            <tr>
+                                                <th>{{$index+1}}</th>
+                                                <td>
+                                                    {{date_create($log->modification_date)->format('Y-m-d h:i a')}}
+                                                </td>
+                                                <td>
+                                                    {{date_create($log->previous_date)->format('Y-m-d h:i a')}}
+                                                </td>
+                                                <td>
+                                                    {{date_create($log->new_date)->format('Y-m-d h:i a')}}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                        @else
+                                        <p class="text-center">
+                                            No Modification Logs Founds
+                                        </p>
+                                    @endif
                                 </div>
                             </div>
                             <div class="tab-pane  p-3" id="home" role="tabpanel">
