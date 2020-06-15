@@ -1194,10 +1194,85 @@ class OrdersController extends Controller
         $response->save();
 
 
-        if (in_array($request->input('response'), [16, 17, 20, 21])) {
+        if (in_array($request->input('response'), [20, 21])) {
 
             return Redirect::to('https://postdelay.myshopify.com/account?view=additional-fee&&order-id=' . $order->shopify_order_id . '&&response=' . $response->response);
-        } else {
+        }
+        if (in_array($request->input('response'), [16, 17])) {
+            $shop = Shop::where('shopify_domain', 'postdelay.myshopify.com')->first();
+            $price = 0;
+            if($request->input('response') == 16){
+                $price =16;
+            }
+            else{
+                $price =17;
+            }
+            $associate_order = $order;
+
+            $draft_orders = $this->helper->getShopify()->call([
+                'METHOD' => 'POST',
+                'URL' => '/admin/draft_orders.json',
+                'DATA' =>
+                    [
+                        "draft_order" => [
+                            'line_items' => [
+                                [
+                                    "title" => 'PostDelay Additional Fee',
+                                    "price" => $price,
+                                    "quantity" => 1,
+                                    "requires_shipping" => false,
+                                    "properties" => [
+                                        [
+                                            "name" => 'Response',
+                                            "value" => $request->input('response'),
+                                        ],
+                                    ]
+                                ]
+                            ],
+                            "customer" => [
+                                "id" => $order->has_customer->shopify_customer_id,
+                            ],
+                            "billing_address" => [
+                                "address1" => $order->has_billing->address1,
+                                "address2" =>  $order->has_billing->address2,
+                                "city" =>  $order->has_billing->city,
+                                "company" =>  $order->has_billing->business,
+                                "first_name" =>  $order->has_billing->first_name,
+                                "last_name" => $order->has_billing->last_name,
+                                "province" =>  $order->has_billing->state,
+                                "country" =>  $order->has_billing->country,
+                                "zip" =>  $order->has_billing->postcode,
+                                "name" => $order->has_billing->first_name . ' ' .  $order->has_billing->last_name,
+                                "country_code" => Countries::getCode( $order->has_billing->country),
+                                "province_code" => CountrySubdivisions::getCode( $order->has_billing->country,  $order->has_billing->state)
+                            ],
+                        ]
+
+                    ]
+            ]);
+            $invoiceURL = $draft_orders->draft_order->invoice_url;
+            $token = explode('/', $invoiceURL)[5];
+            $order = new Order();
+            $order->draft_order_id = $draft_orders->draft_order->id;
+            $order->checkout_token = $token;
+            $order->checkout_completed = 0;
+            $order->order_id = $associate_order->id;
+            $order->additional_payment = 1;
+            if ($request->input('type') == 'additional-fee') {
+                $order->additional_payment_name = 'Additional PostDelay Charges Payment';
+            } else {
+                $order->additional_payment_name = 'Request Form Payment';
+            }
+
+            $customer = Customer::where('shopify_customer_id', $associate_order->has_customer->shopify_customer_id)->first();
+            $order->customer_id = $customer->id;
+            $order->shopify_customer_id = $associate_order->has_customer->shopify_customer_id;
+            $order->billing_address_id = $associate_order->billing_address_id;
+            $order->save();
+            return Redirect::to($invoiceURL);
+
+        }
+        else {
             $order->status_id = $request->input('response');
             $order->save();
             $this->status_log($order);
