@@ -114,11 +114,55 @@
                                     <span class="d-none d-md-block">Additional Fees</span><span class="d-block d-md-none"><i class="mdi mdi-account h5"></i></span>
                                 </a>
                             </li>
+                            @if($order->status_id == 15)
+
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#extra_charge" role="tab">
+                                    <span class="d-none d-md-block">Set Additional Price Charges</span><span class="d-block d-md-none"><i class="mdi mdi-account h5"></i></span>
+                                </a>
+                            </li>
+
+                                @endif
 
 
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
+                            @if($order->status_id == 15)
+                            <div class="tab-pane p-3" id="extra_charge" role="tabpanel">
+                                <h6>Additional Price Charges</h6>
+                                <form action="{{route('update_order_extra_charges')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" value="{{$order->id}}" name="id">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Additional cost would be to ship</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" name="additional_cost_to_ship" type="text" value="{{$order->additional_cost_to_ship}}" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="example-text-input" class="col-sm-12 col-form-label">Additional cost would be to return</label>
+                                                <div class="col-sm-12">
+                                                    <input class="form-control" name="additional_cost_to_return" type="text" value="{{$order->additional_cost_to_return}}" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <div class="col-sm-2">
+                                                    <input class="form-control btn btn-primary " type="submit" value="Save">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                            @endif
                             <div class="tab-pane p-3" id="outbound" role="tabpanel">
                                 <h6>Outbound Tracking Details</h6>
                                 <form action="{{route('update_tracking')}}" method="get">
@@ -732,7 +776,6 @@
 
                                 </div>
                             </div>
-
                             <div class="tab-pane p-3" id="messages" role="tabpanel">
                                 <form class="row" action="{{route('order.modify.date')}}" method="post">
                                     @csrf
@@ -855,8 +898,6 @@
                                     @endif
                                 </div>
                             </div>
-
-
                         </div>
 
                     </div>
@@ -864,6 +905,8 @@
             </div>
         </div>
     </div>
+
+
 
 
 
