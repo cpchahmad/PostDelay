@@ -35,8 +35,6 @@
                                     <td><input required type="number" class="form-control" name="min_threshold_ship_out_date" value="{{$settings->min_threshold_ship_out_date}}"></td>
                                     <td><input type="submit" class="btn btn-success btn-sm" value="Save"></td>
                                 </form>
-
-
                             </tr>
                             <tr>
                                 <form action="{{route('threshold.update')}}" method="post">
@@ -46,8 +44,6 @@
                                     <td><input required type="number" class="form-control" name="min_threshold_for_modify_ship_out_date" value="{{$settings->min_threshold_for_modify_ship_out_date}}"></td>
                                     <td><input type="submit" class="btn btn-success btn-sm" value="Save"></td>
                                 </form>
-
-
                             </tr>
                             <tr>
                                 <form action="{{route('threshold.update')}}" method="post">
@@ -56,9 +52,16 @@
                                     <td>Minimum number of days in the future for modified ship-out date</td>
                                     <td><input required type="number" class="form-control" name="max_threshold_for_modify_ship_out_date" value="{{$settings->max_threshold_for_modify_ship_out_date}}"></td>
                                     <td><input type="submit" class="btn btn-success btn-sm" value="Save"></td>
-
                                 </form>
-
+                            </tr>
+                            <tr>
+                                <form action="{{route('threshold.update')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{$settings->id}}">
+                                    <td>Minimum number of days before ship-out date to allow cancellation</td>
+                                    <td><input required type="number" class="form-control" name="min_threshold_in_cancellation" value="{{$settings->min_threshold_in_cancellation}}"></td>
+                                    <td><input type="submit" class="btn btn-success btn-sm" value="Save"></td>
+                                </form>
                             </tr>
                             </tbody>
                         </table>
