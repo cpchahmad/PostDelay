@@ -2077,7 +2077,7 @@ class OrdersController extends Controller
     }
 
     public function update_order_extra_charges(Request $request){
-        $order = Order::find($request->input('order_id'));
+        $order = Order::find($request->input('id'));
         if($order != null){
             $order->additional_cost_to_ship = $request->input('additional_cost_to_ship');
             $order->additional_cost_to_return = $request->input('additional_cost_to_return');
