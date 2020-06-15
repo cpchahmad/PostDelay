@@ -118,5 +118,5 @@
             <span class="checkmark"></span>
         </label>
     @endif
-    <input style="margin-top: 10px" id="send_response_button" class="Same-button" type="submit" value="Send Response">
+    <input style="margin-top: 10px" id="send_response_button" class="Same-button" type="submit" value="Proceed">
 </form>

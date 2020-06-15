@@ -509,8 +509,15 @@ class OrdersController extends Controller
             'status_id' => $request->input('status')
         ]);
 
+
+
         $order = Order::find($request->input('order'));
         $this->status_log($order);
+        if($request->input('status') == 15){
+            $order->additional_cost_to_ship = 10;
+            $order->additional_cost_to_return = 10;
+            $order->save();
+        }
 
         $customer = Customer::find($order->customer_id);
         Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
@@ -2063,9 +2070,22 @@ class OrdersController extends Controller
                     'message' => 'error'
                 ]);
             }
-        else{
+            else{
                 return \redirect()->back();
             }
+        }
+    }
+
+    public function update_order_extra_charges(Request $request){
+        $order = Order::find($request->input('order_id'));
+        if($order != null){
+            $order->additional_cost_to_ship = $request->input('additional_cost_to_ship');
+            $order->additional_cost_to_return = $request->input('additional_cost_to_return');
+            $order->save();
+            return \redirect()->back();
+        }
+        else{
+            return \redirect()->back();
         }
     }
 }
