@@ -1112,26 +1112,6 @@ class OrdersController extends Controller
             Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
         }
 
-////        if($cancelledd_refund != null){
-//            $refund = $this->helper->getShopify()->call([
-//                'METHOD' => 'POST',
-//                'URL' => '/admin/api/2019-10/orders/'.$order->shopify_order_id.'/refunds.json',
-//
-//                'DATA' => [
-//                    "refund" => [
-//                    "currency"=> "USD",
-//                    "notify"=> true,
-//                    "note" => "Customer Cancelled",
-//                    "shipping" => [
-//                        "full_refund"=> true
-//                    ]
-//                ],
-//
-//            ]
-//                ]);
-////        }
-//        dd($refund);
-
     }
 
     public function delete_order(Request $request)

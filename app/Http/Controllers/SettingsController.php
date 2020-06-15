@@ -53,6 +53,9 @@ class SettingsController extends Controller
             if($request->has('max_threshold_for_modify_ship_out_date')){
                 $settings->max_threshold_for_modify_ship_out_date = $request->input('max_threshold_for_modify_ship_out_date');
             }
+            if($request->has('min_threshold_in_cancellation')){
+                $settings->min_threshold_in_cancellation = $request->input('min_threshold_in_cancellation');
+            }
             $settings->save();
             return redirect()->back();
         }
