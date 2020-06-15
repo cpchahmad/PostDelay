@@ -10,7 +10,7 @@ class Order extends Model
         'draft_order_id','checkout_token','ship_out_date','checkout_completed','shopify_order_id',
         'shopify_customer_id','order_name','order_total','payment_gateway','shipping_method_title','shipping_method_id',
         'shipping_method_price','shipping_method_source','status_id','customer_id','package_detail_id','billing_address_id',
-        'sender_address_id','recipient_address_id','token','ship_to_postdelay_date','ship_method','tracking_id','outbound_tracking_id'
+        'sender_address_id','recipient_address_id','token','ship_to_postdelay_date','ship_method','tracking_id','outbound_tracking_id','additional_cost_to_ship','additional_cost_to_return'
     ];
 
     public function has_status(){
