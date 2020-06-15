@@ -1282,10 +1282,10 @@ class OrdersController extends Controller
                 $cancelledd_refund = $this->helper->getShopify()->call([
                     'METHOD' => 'POST',
                     'URL' => '/admin/api/2019-10/orders/' . $order->shopify_order_id . '/cancel.json',
-                    'DATA' => [
-                        "amount" => $order->shipping_method_price,
-                        "currency" => 'USD'
-                    ]
+//                    'DATA' => [
+//                        "amount" => $order->shipping_method_price,
+//                        "currency" => 'USD'
+//                    ]
                 ]);
                 $order->status_id = 8;
                 $order->save();
@@ -1428,10 +1428,10 @@ class OrdersController extends Controller
                         $cancelledd_refund = $this->helper->getShopify()->call([
                             'METHOD' => 'POST',
                             'URL' => '/admin/api/2019-10/orders/' . $order->shopify_order_id . '/cancel.json',
-                            'DATA' => [
-                                "amount" => $order->shipping_method_price,
-                                "currency" => 'USD'
-                            ]
+//                            'DATA' => [
+//                                "amount" => $order->shipping_method_price,
+//                                "currency" => 'USD'
+//                            ]
                         ]);
                         $order->status_id = 9;
                         $order->save();
@@ -1687,10 +1687,10 @@ class OrdersController extends Controller
                         $cancelledd_refund = $this->helper->getShopify()->call([
                             'METHOD' => 'POST',
                             'URL' => '/admin/api/2019-10/orders/' . $order->shopify_order_id . '/cancel.json',
-                            'DATA' => [
-                                "amount" => $order->shipping_method_price,
-                                "currency" => 'USD'
-                            ]
+//                            'DATA' => [
+//                                "amount" => $order->shipping_method_price,
+//                                "currency" => 'USD'
+//                            ]
                         ]);
                         $order->status_id = 9;
                         $order->save();
