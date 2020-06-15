@@ -1061,7 +1061,7 @@ class OrdersController extends Controller
         $order = Order::where('token', $request->input('order_token'))->first();
         $settings = Settings::all()->first();
         if (strtotime(now()) > strtotime(Carbon::parse($order->ship_out_date)->addDays($settings->min_threshold_in_cancellation))) {
-            return \redirect()->json([
+            return response()->json([
                 'status' => 'error',
                 'message' => ' Your order cannot be cancelled because the ship-out date is in fewer than ' . $settings->min_threshold_in_cancellation . ' days'
             ]);
@@ -1074,7 +1074,7 @@ class OrdersController extends Controller
                         return $this->cancelled_with_processing($order);
                     } else {
                         $this->cancel_and_refund($order);
-                        return \redirect()->json([
+                        return response()->json([
                             'status' => 'success',
                             'message' => 'Your mailing has been cancelled and refunded. ',
                             'response' => 6,
@@ -1082,7 +1082,7 @@ class OrdersController extends Controller
                     }
                 } else {
                     $this->cancel_and_refund($order);
-                    return \redirect()->json([
+                    return response()->json([
                         'status' => 'success',
                         'message' => 'Your mailing has been cancelled and refunded. ',
                         'response' => 6,
@@ -2053,23 +2053,23 @@ class OrdersController extends Controller
             $order->ship_out_date = $request->input('ship_out_date');
             $order->save();
             if($request->ajax()){
-                return \response()->json([
+                return response()->json([
                     'message' => 'success'
                 ]);
             }
             else{
-                return \redirect()->back();
+                return redirect()->back();
             }
 
         }
         else{
             if($request->ajax()){
-                return \response()->json([
+                return response()->json([
                     'message' => 'error'
                 ]);
             }
             else{
-                return \redirect()->back();
+                return redirect()->back();
             }
         }
     }
@@ -2116,13 +2116,13 @@ class OrdersController extends Controller
     public function cancelled_with_processing($order)
     {
         if (in_array($order->status_id, [8, 9, 11, 12, 13, 17, 18, 21, 22, 23, 24])) {
-            return \redirect()->json([
+            return response()->json([
                 'status' => 'error',
                 'message' => 'Your mailing cannot be cancelled; check your order status for more information or contact customerservice@postdelay.com '
             ]);
         } else {
             if (in_array($order->status_id, [7, 15, 19])) {
-                return \redirect()->json([
+                return response()->json([
                     'status' => 'error',
                     'message' => 'Your mailing cannot be cancelled because we are waiting for information from you. Check the ‘Attention Needed for Further Processing’ section in ‘Order Details’'
                 ]);
@@ -2132,7 +2132,7 @@ class OrdersController extends Controller
                 $this->status_log($order);
                 $customer = Customer::find($order->customer_id);
                 Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
-                return \redirect()->json([
+                return response()->json([
                     'status' => 'success',
                     'message' => 'Your order has been cancelled. Check the ‘Attention Needed for Further Processing’ section in order details',
                     'response' => 7
