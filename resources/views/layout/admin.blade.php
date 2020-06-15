@@ -201,6 +201,10 @@
                             <a href="{{route('statuses.index')}}"><i class="dripicons-link"></i> Statuses </a>
                         </li>
 
+                        <li>
+                            <a href="{{route('threshold.index')}}"><i class="dripicons-link"></i> Threshold Settings </a>
+                        </li>
+
                     </ul>
                     <!-- End navigation menu -->
                 </div> <!-- end #navigation -->
