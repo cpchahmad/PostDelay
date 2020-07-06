@@ -419,7 +419,15 @@
                         </div>
                         <div class="custom_fields_half" id="postcard_size">
                             <div class="custom_Request_fields_half">
-                                <label for="Special-Holding">Size</label>
+                                <label for="Special-Holding">Size
+                                    <i class="tooltip far fa-question-circle"> <span style="width: 620px;padding: 10px" class="tooltiptext">
+                                            <ul>
+                                                <li>Maximum size for regular postcard: 6 inches long by 4-1/4 inches high by .016 inch thick</li>
+                                                <li>Maximum size for large postcard: 11-1/2 inches long by 6-1/8 inches high by 1/4 inch thick</li>
+                                            </ul>
+                                        </span>
+                                    </i>
+                                </label>
                                 <select class="modify" id="postcard_size_select" name="postcard_size" >
                                     <option value="regular">Regular</option>
                                     <option value="large">Large</option>
@@ -428,7 +436,9 @@
                         </div>
                         <div class="custom_fields_half" id="special_handling">
                             <div class="custom_Request_fields_half">
-                                <label for="Special-Holding">Special Handling</label>
+                                <label for="Special-Holding">Special Handling <i class="tooltip far fa-question-circle"> <span style="width: 320px;padding: 10px" class="tooltiptext">
+                                            <a target="_blank" style="color: white" href="https://postdelay.myshopify.com/pages/faq"> Click here to understand when special handling is required. </a> </span></i>
+                                </label>
                                 <select class="modify" id="Special-Holding" name="special_holding" >
                                     <option value="yes">Yes</option>
                                     <option value="no">No</option>
@@ -439,7 +449,10 @@
 
                         <div class="custom_fields_half" id="shape_input">
                             <div class="custom_Request_fields_half  ">
-                                <label for="Shape">Shape</label>
+                                <label for="Shape">Shape
+                                    <i class="tooltip far fa-question-circle"> <span style="width: 320px;padding: 10px" class="tooltiptext">
+                                            <a target="_blank" style="color: white" href="{{asset('image2.jpg')}}"> Click to understand measurements for large packages. </a> </span></i>
+                                </label>
                                 <select class="modify" name="shape" >
                                     @foreach($shapes as $shape)
                                         <option value="{{$shape->name}}">{{$shape->name}}</option>
