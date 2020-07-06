@@ -420,7 +420,7 @@
                         <div class="custom_fields_half" id="postcard_size">
                             <div class="custom_Request_fields_half">
                                 <label for="Special-Holding">Size
-                                    <i class="tooltip far fa-question-circle"> <span style="width: 620px;padding: 10px" class="tooltiptext">
+                                    <i class="tooltip far fa-question-circle"> <span style="width: 500px;padding: 10px" class="tooltiptext">
                                             <ul>
                                                 <li>Maximum size for regular postcard: 6 inches long by 4-1/4 inches high by .016 inch thick</li>
                                                 <li>Maximum size for large postcard: 11-1/2 inches long by 6-1/8 inches high by 1/4 inch thick</li>
