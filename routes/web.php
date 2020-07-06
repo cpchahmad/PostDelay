@@ -150,6 +150,9 @@ Route::post('/setting/threshold/update', 'SettingsController@update_threshold')-
 Route::post('/update/order/modify-date', 'OrdersController@update_modify_date')->name('order.modify.date');
 Route::post('/update/order/additional-charges', 'OrdersController@update_order_extra_charges')->name('update_order_extra_charges');
 
+Route::post('/update/order/modify-date/ajax', 'OrdersController@update_modify_date_ajax')->name('order.modify.date.ajax');
+
+
 
 Route::get('/test/usps', 'OrdersController@testusps')->name('app.calculate_shipping');
 Route::get('/get/re-calculate-form','OrdersController@get_re_calculate_form');

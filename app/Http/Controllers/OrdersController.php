@@ -2657,5 +2657,44 @@ class OrdersController extends Controller
             }
         }
     }
+
+
+    public function update_modify_date_ajax(Request $request){
+        $order = Order::find($request->input('order_id'));
+        if($order != null){
+            $order_log = new OrderLog();
+            $order_log->order_id = $order->id;
+            $order_log->modification_date = now();
+            $order_log->previous_date = $order->ship_out_date;
+            $order_log->new_date = $request->input('ship_out_date');
+            $order_log->save();
+            $order->ship_out_date = $request->input('ship_out_date');
+            $order->save();
+            if($request->ajax()){
+                return response()->json([
+                    'message' => 'success'
+                ]);
+            }
+            else{
+                return response()->json([
+                    'message' => 'error'
+                ]);
+            }
+
+        }
+        else{
+            if($request->ajax()){
+                return response()->json([
+                    'message' => 'error'
+                ]);
+            }
+            else{
+                return response()->json([
+                    'message' => 'error'
+                ]);
+            }
+        }
+    }
+
 }
 
