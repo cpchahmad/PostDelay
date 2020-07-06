@@ -428,6 +428,14 @@ class OrdersController extends Controller
         $types = PostType::all();
         $scales = Scale::all();
         $fee = PostDelayFee::where('default', 1)->where('type', 'primary')->first();
+        $settings = Settings::all()->first();
+        if($settings == null){
+            $settings =  new Settings();
+            $settings->min_threshold_ship_out_date = 7;
+            $settings->min_threshold_for_modify_ship_out_date = 5;
+            $settings->max_threshold_for_modify_ship_out_date = 5;
+            $settings->save();
+        }
         $returnHTML = view('customers.new_order', [
             'customer_id' => $request->input('customer_id'),
             'addresses' => $customer_addresses,
@@ -437,7 +445,8 @@ class OrdersController extends Controller
             'shapes' => $shapes,
             'types' => $types,
             'scales' => $scales,
-            'fee' => $fee
+            'fee' => $fee,
+            'settings' => $settings
         ])->render();
         return response()->json([
             "html" => $returnHTML,

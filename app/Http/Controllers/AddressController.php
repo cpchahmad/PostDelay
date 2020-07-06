@@ -42,25 +42,25 @@ class AddressController extends Controller
         $address = Address::find($request->input('address_id'));
         $returnHTML = view('customers.addresses', ['address' => $address])->render();
 
-     $this->helper->getShopify()->call([
-                'METHOD' => 'PUT',
-                'URL' => 'admin/customers/' . $address->shopify_customer_id . '/addresses/'.$address->shopify_address_id.'.json',
-                'DATA' => [
-                    "address" => [
-                        "id" => $address->shopify_address_id,
-                        "address1" => $request->input('address1'),
-                        "address2" => $request->input('address2'),
-                        "city" => $request->input('city'),
-                        "company" => $request->input('business'),
-                        "first_name" => $request->input('first_name'),
-                        "last_name" => $request->input('last_name'),
-                        "province" => $request->input('state'),
-                        "country" => $request->input('country'),
-                        "phone" => $request->input('phone'),
-                        "zip" => $request->input('postcode'),
-                    ]
-                ]
-            ]);
+//     $this->helper->getShopify()->call([
+//                'METHOD' => 'PUT',
+//                'URL' => 'admin/customers/' . $address->shopify_customer_id . '/addresses/'.$address->shopify_address_id.'.json',
+//                'DATA' => [
+//                    "address" => [
+//                        "id" => $address->shopify_address_id,
+//                        "address1" => $request->input('address1'),
+//                        "address2" => $request->input('address2'),
+//                        "city" => $request->input('city'),
+//                        "company" => $request->input('business'),
+//                        "first_name" => $request->input('first_name'),
+//                        "last_name" => $request->input('last_name'),
+//                        "province" => $request->input('state'),
+//                        "country" => $request->input('country'),
+//                        "phone" => $request->input('phone'),
+//                        "zip" => $request->input('postcode'),
+//                    ]
+//                ]
+//            ]);
         if($request->input('source') == 'admin'){
             return redirect()->back();
         }else {
