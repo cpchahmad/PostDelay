@@ -11,7 +11,9 @@
                 <div class="Form-field-contaner">
                     <div class="Form-content-detail">
                         <div class="Form-content-name">
-                            <p> Sender Details <a href="/account/addresses?view=new&&type=Sender" style="margin-left:10px;padding:10px 10px;line-height: 1" class="Same-button" >Add Sender Address</a>  </p>
+                            <p> Sender Details <i class="tooltip far fa-question-circle"> <span style="width: 320px;padding: 10px" class="tooltiptext">
+                                           PostDelay can ship to USA, Canada, and Mexico. We accept sender addresses from any country.
+                                             </span></i> <a href="/account/addresses?view=new&&type=Sender" style="margin-left:10px;padding:10px 10px;line-height: 1" class="Same-button" >Add Sender Address</a>  </p>
 
                             <select class="addresses_select modify" id="sender_address_select"  name="sender-addresses" >
                                 <option value="---">Select Sender Address</option>
@@ -106,7 +108,11 @@
                 <div class="Form-field-contaner">
                     <div class="Form-content-detail">
                         <div class="Form-content-name">
-                            <p>Billing Details <a href="/account/addresses?view=new&&type=Billing" style="margin-left:10px;padding:10px 10px;line-height: 1" class="Same-button" >Add Billing Address</a></p>
+                            <p>Billing Details
+                                <i class="tooltip far fa-question-circle"> <span style="width: 320px;padding: 10px" class="tooltiptext">
+                                           PostDelay can ship to USA, Canada, and Mexico. We accept billing addresses from any country.
+                                             </span></i>
+                                <a href="/account/addresses?view=new&&type=Billing" style="margin-left:10px;padding:10px 10px;line-height: 1" class="Same-button" >Add Billing Address</a></p>
 
                             <select class="addresses_select modify" id="billing_address_select" name="billing-addresses">
                                 <option value="---">Select Billing Address</option>
@@ -288,7 +294,11 @@
                 <div class="Form-field-contaner">
                     <div class="Form-content-detail">
                         <div class="Form-content-name">
-                            <p>Recipient Details<a href="/account/addresses?view=new&&type=Recipients" style="margin-left:10px;padding:10px 10px;line-height: 1" class="Same-button" >Add Recipient Address</a> </p>
+                            <p>Recipient Details
+                                <i class="tooltip far fa-question-circle"> <span style="width: 320px;padding: 10px" class="tooltiptext">
+                                         PostDelay can ship to USA, Canada, and Mexico. We accept recipient addresses from any country.
+                                             </span></i>
+                                <a href="/account/addresses?view=new&&type=Recipients" style="margin-left:10px;padding:10px 10px;line-height: 1" class="Same-button" >Add Recipient Address</a> </p>
                             <select class="addresses_select modify" id="receipent_address_select" name="receipent-addresses" >
                                 <option value="---">Select Recipient Address</option>
                                 @foreach($addresses as $address)
@@ -389,7 +399,7 @@
                         <div class="custom_fields_half">
                             <div class="custom_Request_fields_half  ">
                                 <label for="TypeSelect">Type <i class="tooltip far fa-question-circle"> <span style="width: 320px;padding: 10px" class="tooltiptext">
-                                            <a target="_blank" href="{{asset('image1.jpg')}}"> Click to understand shipment types. </a> </span></i> </label>
+                                            <a target="_blank" style="color: white" href="{{asset('image1.jpg')}}"> Click to understand shipment types. </a> </span></i> </label>
                                 <select class="modify" required id="TypeSelect" name="post_type">
                                     @foreach($types as $type)
                                         @if($recipient_address != null)
