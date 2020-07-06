@@ -148,29 +148,29 @@ class CustomersController extends Controller
         $customer = Customer::where('shopify_customer_id', $request->input('customer_id'))->first();
         if ($shop != null && $customer != null) {
             /*Shopify Add Address Code*/
-            try{
-                $address = $this->helper->getShopify()->call([
-                    'METHOD' => 'POST',
-                    'URL' => '/admin/customers/' . $customer->shopify_customer_id . '/addresses.json',
-                    'DATA' => [
-                        "address" => [
-                            "address1" => $request->input('address1'),
-                            "address2" => $request->input('address2'),
-                            "city" => $request->input('city'),
-                            "company" => $request->input('business'),
-                            "first_name" => $request->input('first_name'),
-                            "last_name" => $request->input('last_name'),
-                            "province" => $request->input('province'),
-                            "country" => $request->input('country'),
-                            "phone" => $request->input('phone'),
-                            "zip" => $request->input('postecode'),
-                            "name" => $request->input('first_name') . ' ' . $request->input('last_name'),
-                        ]
-                    ]
-                ]);
-            }catch (\Exception $e){
-                $address = null;
-            }
+//            try{
+//                $address = $this->helper->getShopify()->call([
+//                    'METHOD' => 'POST',
+//                    'URL' => '/admin/customers/' . $customer->shopify_customer_id . '/addresses.json',
+//                    'DATA' => [
+//                        "address" => [
+//                            "address1" => $request->input('address1'),
+//                            "address2" => $request->input('address2'),
+//                            "city" => $request->input('city'),
+//                            "company" => $request->input('business'),
+//                            "first_name" => $request->input('first_name'),
+//                            "last_name" => $request->input('last_name'),
+//                            "province" => $request->input('province'),
+//                            "country" => $request->input('country'),
+//                            "phone" => $request->input('phone'),
+//                            "zip" => $request->input('postecode'),
+//                            "name" => $request->input('first_name') . ' ' . $request->input('last_name'),
+//                        ]
+//                    ]
+//                ]);
+//            }catch (\Exception $e){
+//                $address = null;
+//            }
 
             Address::create([
                 'first_name' => $request->input("first_name"),
@@ -188,7 +188,7 @@ class CustomersController extends Controller
                 'shop_id' => $shop,
                 'shopify_customer_id' => $customer->shopify_customer_id,
                 'customer_id' => $customer->id,
-                'shopify_address_id' => $address->customer_address->id
+//                'shopify_address_id' => $address->customer_address->id
             ]);
             return response()->json(['msg' => 'address_created'], 200);
 
