@@ -1087,13 +1087,13 @@ class OrdersController extends Controller
                     } else {
                         return response()->json([
                             'status' => 'permission',
-                            'message-status' => '7'
+                            'message_status' => '6'
                         ]);
                     }
                 } else {
                     return response()->json([
                         'status' => 'permission',
-                        'message-status' => '7'
+                        'message_status' => '6'
                     ]);
 
                 }
@@ -2358,7 +2358,7 @@ class OrdersController extends Controller
             } else {
                 return response()->json([
                     'status' => 'permission',
-                    'message-status' => '7'
+                    'message_status' => '7'
                 ]);
             }
         }
