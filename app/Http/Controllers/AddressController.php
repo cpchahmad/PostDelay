@@ -137,7 +137,12 @@ class AddressController extends Controller
                 $address = $order->has_sender;
                 $billing_addresses = Address::where('address_type','Sender')->where('shopify_customer_id',$request->input('customer_id'))->get();
             }
-            else{
+            elseif ($request->input('response') == '9'){
+                $response = '9';
+                $address = $order->has_sender;
+                $billing_addresses = [];
+            }
+            elseif ($request->input('response') == '21'){
                 $response = '21';
                 $address = $order->has_sender;
                 $billing_addresses = Address::where('address_type','Sender')->where('shopify_customer_id',$request->input('customer_id'))->get();

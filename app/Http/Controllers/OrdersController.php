@@ -551,7 +551,7 @@ class OrdersController extends Controller
         $shop = Shop::where('shopify_domain', $request->input('shop'))->first();
         if ($request->input('type') == 'additional-fee') {
             $default = PostDelayFee::where('default', 1)->where('type', 'additional')->first();
-            if(in_array($request->input('response'),[20,21,17])){
+            if(in_array($request->input('response'),[20,21,17,9])){
                 $draft_orders = $this->helper->getShopify()->call([
                     'METHOD' => 'POST',
                     'URL' => '/admin/draft_orders.json',
