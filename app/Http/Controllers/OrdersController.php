@@ -2322,7 +2322,7 @@ class OrdersController extends Controller
      */
     public function cancel_and_refund($order)
     {
-        if($order->payment_method != "Cash on Delivery (COD)"){
+        if($order->payment_gateway != "Cash on Delivery (COD)"){
             $cancelledd_refund = $this->helper->getShopify()->call([
                 'METHOD' => 'POST',
                 'URL' => '/admin/api/2019-10/orders/' . $order->shopify_order_id . '/cancel.json',
