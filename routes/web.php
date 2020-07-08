@@ -157,3 +157,6 @@ Route::post('/update/order/modify-date/ajax', 'OrdersController@update_modify_da
 Route::get('/test/usps', 'OrdersController@testusps')->name('app.calculate_shipping');
 Route::get('/get/re-calculate-form','OrdersController@get_re_calculate_form');
 Route::get('/xml', 'OrdersController@testUspsXML');
+
+Route::POST('/cancel/order/process', 'OrdersController@set_status_cancellation')->name('set_status_cancellation');
+
