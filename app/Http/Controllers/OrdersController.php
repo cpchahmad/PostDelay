@@ -341,6 +341,24 @@ class OrdersController extends Controller
                                 ]
                             ]);
                         }
+                        else if(($res->response == 9)){
+                            if($assosiate_order->payment_gateway != "Cash on Delivery (COD)"){
+                                $this->helper->getShopify()->call([
+                                    'METHOD' => 'POST',
+                                    'URL' => '/admin/api/2019-10/orders/' . $assosiate_order->shopify_order_id . '/cancel.json',
+                                    'DATA' => [
+                                        "amount" => $assosiate_order->shipping_method_price,
+                                        "currency" => 'USD'
+                                    ]
+                                ]);
+                            }
+                            else{
+                                $this->helper->getShopify()->call([
+                                    'METHOD' => 'POST',
+                                    'URL' => '/admin/api/2019-10/orders/' . $assosiate_order->shopify_order_id . '/cancel.json',
+                                ]);
+                            }
+                        }
                         $assosiate_order->status_id = $res->response;
                         $assosiate_order->save();
                         $this->status_log($assosiate_order);
@@ -350,19 +368,6 @@ class OrdersController extends Controller
                         $assosiate_order = Order::find($draft_order->order_id);
                         $customer = Customer::find($assosiate_order->customer_id);
                         Mail::to('papercopy@postdelay.com')->send(new RequestFormAdminEmail($assosiate_order,$draft_order,$customer));
-
-
-//                        Mail::to($customer->email)->send(new RequestFormEmail($customer, $assosiate_order));
-//
-//                        $name = now()->format('Ymd').'_mailing_form.pdf';
-//                        $pdf = App::make('dompdf.wrapper');
-//                        $pdf = $pdf->loadView('mailing_form',[
-//                            'customer' => $customer,
-//                            'order' => $assosiate_order,
-//                        ]);
-//                        $content = $pdf->download()->getOriginalContent();
-//                        Storage::put($name,$content) ;
-//                        Mail::to($customer->email)->send(new MailingFormEmail($customer, $assosiate_order,$name));
 
                     }
 
