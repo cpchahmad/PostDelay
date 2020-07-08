@@ -1,10 +1,14 @@
 <div class="custom_fields_half">
     <div class="custom_Request_fields_half">
-
-        <label for="AddressCountryNew">Country</label>
-        <select required @if(in_array($response,[9])) readonly=""  @endif class="AddressCountryNew country_select" name="country" @if($address != null) data-country-select="{{ $address->country }}"  data-province-select="{{$address->state}}" @endif>
-            @include('customers.inc.countries')
-        </select>
+        @if(in_array($response,[9]))
+            <label for="AddressCountryNew">Country</label>
+            <input class="AddressCountryNew country_select" type="text" name="country" @if($address != null) data-country-select="{{ $address->country }}"  data-province-select="{{$address->state}}" @endif readonly value="{{ $address->country }}">
+        @else
+            <label for="AddressCountryNew">Country</label>
+            <select required  readonly=""  class="AddressCountryNew country_select" name="country" @if($address != null) data-country-select="{{ $address->country }}"  data-province-select="{{$address->state}}" @endif>
+                @include('customers.inc.countries')
+            </select>
+        @endif
     </div>
     <div id="country-status"></div>
 </div>
