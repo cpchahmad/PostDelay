@@ -156,10 +156,17 @@ class AddressController extends Controller
         }
 
         $fill_address = view('customers.request_form_billing_address', ['address' => $address,'response' => $response])->render();
-        $returnHTML = view('customers.inc.request_form_billing', ['addresses' => $billing_addresses])->render();
+        if($response != "9"){
+            $returnHTML = view('customers.inc.request_form_billing', ['addresses' => $billing_addresses])->render();
+
+        }
+        else{
+            $returnHTML = '';
+
+        }
         return response()->json([
             "html" => $returnHTML,
-            "fill_address" => $fill_address
+            "fill_address" => $fill_address,
         ]);
     }
 
