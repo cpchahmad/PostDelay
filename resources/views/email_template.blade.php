@@ -250,22 +250,22 @@
             <p>Hello <b>{{$customer->first_name}}</b>, @if(in_array($order->status_id,[3])) {{$order->has_status->message}} which is {{date_create($order->ship_out_date)->format('d M, Y')}} " @else  {{$order->has_status->message}}  @endif</p>
 
         </div>
-        @if(!in_array($order->status_id,[7,10]))
+{{--        @if(!in_array($order->status_id,[7,10]))--}}
         <div class="email_btn">
             <a href="https://postdelay.myshopify.com/account/orders/{{$order->token}}" class="main_button">{{$order->has_status->button_text}}</a>
         </div>
-            @else
-            <form action="{{route('response_from_user')}}" method="post">
-                <input type="hidden" name="order-id" value="{{$order->shopify_order_id}}">
-                @if(in_array($order->status_id , [7]))
-                <input type="radio" name="response" value="9"> Return my shipment <br>
-                <input type="radio" name="response" value="8"> Dispose my shipment <br>
-                @endif
+{{--            @else--}}
+{{--            <form action="{{route('response_from_user')}}" method="post">--}}
+{{--                <input type="hidden" name="order-id" value="{{$order->shopify_order_id}}">--}}
+{{--                @if(in_array($order->status_id , [7]))--}}
+{{--                <input type="radio" name="response" value="9"> Return my shipment <br>--}}
+{{--                <input type="radio" name="response" value="8"> Dispose my shipment <br>--}}
+{{--                @endif--}}
 
-                @if(in_array($order->status_id , [10]))
-                    <input type="radio" name="response" value="12"> Return my shipment <br>
-                    <input type="radio" name="response" value="11"> Dispose my shipment <br>
-                @endif
+{{--                @if(in_array($order->status_id , [10]))--}}
+{{--                    <input type="radio" name="response" value="12"> Return my shipment <br>--}}
+{{--                    <input type="radio" name="response" value="11"> Dispose my shipment <br>--}}
+{{--                @endif--}}
 
 {{--                @if(in_array($order->status_id , [15]))--}}
 {{--                    <input type="radio" name="response" value="16"> Ready to pay extra to continue shipment <br>--}}
@@ -280,10 +280,10 @@
 {{--                @endif--}}
 
 
-                <input class="main_button" type="submit" value="Send Response">
+{{--                <input class="main_button" type="submit" value="Send Response">--}}
 
-            </form>
-        @endif
+{{--            </form>--}}
+{{--        @endif--}}
     </div>
     <div class="men_icon_wrapper" style="
     width: 25%;

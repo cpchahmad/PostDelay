@@ -1069,32 +1069,31 @@ class OrdersController extends Controller
     {
         $order = Order::where('token', $request->input('order_token'))->first();
         $settings = Settings::all()->first();
-        if (strtotime(now()) > strtotime(Carbon::parse($order->ship_out_date)->addDays($settings->min_threshold_in_cancellation))) {
+        if (strtotime(now()) > strtotime(Carbon::parse($order->ship_out_date)->addDays($settings->min_threshold_in_cancellation)))
+        {
             return response()->json([
                 'status' => 'error',
                 'message' => ' Your order cannot be cancelled because the ship-out date is in fewer than ' . $settings->min_threshold_in_cancellation . ' days'
             ]);
-        } else {
+        }
+        else {
             if ($order->ship_to_postdelay_date != null) {
                 return $this->cancelled_with_processing($order);
-            } else {
+            }
+            else {
                 if ($order->has_key_dates != null) {
                     if ($order->has_key_dates->received_post_date != null) {
                         return $this->cancelled_with_processing($order);
                     } else {
-                        $this->cancel_and_refund($order);
                         return response()->json([
-                            'status' => 'success',
-                            'message' => 'Your mailing has been cancelled and refunded. ',
-                            'response' => 6,
+                            'status' => 'permission',
+                            'message-status' => '7'
                         ]);
                     }
                 } else {
-                    $this->cancel_and_refund($order);
                     return response()->json([
-                        'status' => 'success',
-                        'message' => 'Your mailing has been cancelled and refunded. ',
-                        'response' => 6,
+                        'status' => 'permission',
+                        'message-status' => '7'
                     ]);
 
                 }
@@ -1102,47 +1101,6 @@ class OrdersController extends Controller
         }
     }
 
-
-//        $status = $order->status_id;
-//        if ($status == 1) {
-//            $order->status_id = 6;
-//            $order->save();
-//            $this->status_log($order);
-//            $customer = Customer::find($order->customer_id);
-//            Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
-//        }
-//
-//        if ($status == 2) {
-//            if (count($order->has_additional_payments) > 0) {
-//                $order->status_id = 7;
-//                $order->save();
-//                $this->status_log($order);
-//            } else {
-//                $order->status_id = 9;
-//                $order->save();
-//                $this->status_log($order);
-//            }
-//
-//            $customer = Customer::find($order->customer_id);
-//            Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
-//        }
-//
-//        if ($status == 3) {
-//            if (count($order->has_additional_payments) > 0) {
-//                $order->status_id = 10;
-//                $order->save();
-//                $this->status_log($order);
-//            } else {
-//                $order->status_id = 12;
-//                $order->save();
-//                $this->status_log($order);
-//            }
-//
-//            $customer = Customer::find($order->customer_id);
-//            Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
-//        }
-
-//    }
 
     public function delete_order(Request $request)
     {
@@ -1197,8 +1155,6 @@ class OrdersController extends Controller
         $product_id = $product->product->variants[0]->id;
         echo $product_id;
     }
-
-
     public function response_from_user(Request $request)
     {
         $order = Order::where('shopify_order_id', $request->input('order-id'))->first();
@@ -1810,246 +1766,6 @@ class OrdersController extends Controller
 
     }
 
-//    public function testusps(Request $request)
-//    {
-//        $rate = new Rate('021POSTD3725');
-//        $location = Location::all()->first();
-//        if($location != null){
-//            $origin_zip_code = $location->postcode;
-//        }
-//        else{
-//            $origin_zip_code = 10008;
-//        }
-//
-//        $fee = PostDelayFee::where('type','primary')->where('default',1)->first();
-//        if($fee != null){
-//            $origin_fee = $fee->price;
-//        }
-//        else{
-//            $origin_fee = 200;
-//        }
-//
-//        if($request->input('unit_of_measures_weight') == 'Metric'){
-//            if($request->input('width')!= null){
-//                $width = $request->input('width');
-//            } else{
-//                $width = 10;
-//            }
-//            if($request->input('length')!= null){
-//                $length = $request->input('length');
-//            } else{
-//                $length = 15;
-//            }
-//            if($request->input('height')!= null){
-//                $height = $request->input('height');
-//            } else{
-//                $height = 10;
-//            }
-//            if($request->input('girth')!= null){
-//                $girth = $request->input('girth');
-//            } else{
-//                $girth = 0;
-//            }
-//        }
-//        else{
-//            if($request->input('width')!= null){
-//                $width = $request->input('width')/2.54;
-//            } else{
-//                $width = 10;
-//            }
-//            if($request->input('length')!= null){
-//                $length = $request->input('length')/2.54;
-//            } else{
-//                $length = 15;
-//            }
-//            if($request->input('height')!= null){
-//                $height = $request->input('height')/2.54;
-//            } else{
-//                $height = 10;
-//            }
-//            if($request->input('girth')!= null){
-//                $girth = $request->input('girth')/2.54;
-//            } else{
-//                $girth = 0;
-//            }
-//        }
-//
-//
-//        if($request->input('pounds') != null){
-//            $weight_in_pounds =number_format($request->input('pounds'),2);
-//            $weight_in_ounches = number_format($request->input('ounches'),2);
-//        } else{
-//            $weight_in_ounches = 0;
-//            $weight_in_pounds  =0.21345678;
-//        }
-//
-//        if($request->input('receipent_country') != 'United States'){
-//
-//            $rate->setInternationalCall(true);
-//            $rate->addExtraOption('Revision', 2);
-//            $package = new RatePackage;
-//            $package->setPounds($weight_in_pounds);
-//            $package->setOunces($weight_in_ounches);
-//            $package->setField('Machinable', 'false');
-//            if($request->input('post_type') == 'POSTCARD' ){
-//                $package->setField('MailType', 'POSTCARD');
-//            }
-//            else if($request->input('post_type') == 'ENVELOPE'){
-//                $package->setField('MailType', 'ENVELOPE');
-//            }
-//            else if($request->input('post_type') == 'ENVELOPE'){
-//                $package->setField('MailType', 'LARGEENVELOPE');
-//            }
-//            else if($request->input('post_type') == 'LETTER'){
-//                $package->setField('MailType', 'LETTER');
-//            }
-//            else{
-//                $package->setField('MailType', 'PACKAGE');
-//            }
-//            if($request->input('special_holding') == 'yes'){
-//                $package->setField('GXG', array(
-//                    'POBoxFlag' => 'Y',
-//                    'GiftFlag' => 'Y'
-//                ));
-//            }
-//            $package->setField('ValueOfContents', $origin_fee);
-//            $package->setField('Country', $request->input('receipent_country'));
-//            if($request->input('post_type') == 'PACKAGE' || $request->input('post_type') == 'LARGE PACKAGE'){
-//                if($request->input('shape') == 'Rectangular'){
-//                    $package->setField('Container', RatePackage::CONTAINER_RECTANGULAR);
-//                }
-//                else{
-//                    $package->setField('Container', RatePackage::CONTAINER_NONRECTANGULAR);
-//                }
-//            }
-//            else if($request->input('post_type') == 'ENVELOPE'){
-//                $package->setField('Container', RatePackage::CONTAINER_FLAT_RATE_ENVELOPE);
-//            }
-//            else if($request->input('post_type') == 'LARGE ENVELOPE'){
-//                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
-//            }
-//            else if($request->input('post_type') == 'POSTCARD'){
-//                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
-//            }
-//            else{
-//                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
-//            }
-//            if($request->input('post_type') == 'PACKAGE' || $request->input('post_type') == 'LARGE PACKAGE'){
-//                $package->setField('Width', $width);
-//                $package->setField('Length', $length);
-//                $package->setField('Height', $height);
-//                $package->setField('Girth', $girth);
-//            }
-//            $package->setField('OriginZip', $origin_zip_code);
-//            $date =now()->addDays(7)->format('Y-m-d\TH:i:s');
-//            $date = $date . '-06:00';
-////            '2020-01-01T13:15:00-06:00'
-//            $package->setField('AcceptanceDateTime',$date );
-//            $package->setField('DestinationPostalCode', $request->input('receipent_postecode'));
-//
-//            $rate->addPackage($package);
-//            $rate->getRate();
-//            $rates = $rate->getArrayResponse();
-//            if ($rate->isSuccess()) {
-//                $services = $rates['IntlRateV2Response']['Package']['Service'];
-//                $error = null;
-//
-//            } else {
-//                $services = null;
-//                $error = $rate->getErrorMessage();
-//            }
-//            return response()->json([
-//                'services' => $services,
-//                'error' => $error,
-//                'status' => 'international'
-//            ]);
-//
-//        } else{
-//
-////            foreach ($all_packages as $a){
-////
-////            }
-//            $package = new RatePackage();
-//            if($request->input('post_type') == 'POSTCARD'){
-////                $this->USPS_PostCard($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds);
-//
-//                $package->setService(RatePackage::SERVICE_FIRST_CLASS);
-//                $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
-//                $weight_in_ounches = 0;
-//                $weight_in_pounds = 0.21875;
-//            }
-//            else if($request->input('post_type') == 'ENVELOPE'){
-//                $package->setService(RatePackage::SERVICE_ALL);
-////            $this->USPS_Envolope($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds);
-//            }
-//            else if($request->input('post_type') == 'LARGE ENVELOPE'){
-//                $package->setService(RatePackage::SERVICE_PRIORITY);
-//            }
-//            else if($request->input('post_type') == 'LETTER'){
-//                $package->setService(RatePackage::SERVICE_PRIORITY);
-////                $package->setFirstClassMailType(RatePackage::MAIL_TYPE_LETTER);
-//                $weight_in_ounches = 0;
-//                $weight_in_pounds = 0.21875;
-//            }
-//            else{
-//                $package->setService(RatePackage::SERVICE_PRIORITY);
-//            }
-//
-//            $package->setZipOrigination($origin_zip_code);
-//            $package->setZipDestination($request->input('receipent_postecode'));
-//            $package->setPounds($weight_in_pounds);
-//            $package->setOunces($weight_in_ounches);
-//
-//
-//            if($request->input('post_type') == 'PACKAGE' || $request->input('post_type') == 'LARGE PACKAGE'){
-////                $package->setField('Width', $width);
-////                $package->setField('Length', $length);
-////                $package->setField('Height', $height);
-////                $package->setField('Girth', $girth);
-////                $package->setSize('LARGE');
-//                if($request->input('shape') == 'Rectangular'){
-//                    $package->setField('Container', RatePackage::CONTAINER_RECTANGULAR);
-//                }
-//                else{
-//                    $package->setField('Container', RatePackage::CONTAINER_NONRECTANGULAR);
-//                }
-//            }
-//            else if($request->input('post_type') == 'ENVELOPE'){
-//                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
-//            }
-//            else if($request->input('post_type') == 'LARGE ENVELOPE'){
-//                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
-//            }
-//            else if($request->input('post_type') == 'POSTCARD'){
-//                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
-//            }
-//            else{
-//                $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
-//            }
-//
-//            $package->setField('Machinable', false);
-//
-//            $rate->addPackage($package);
-//
-//            $rate->getRate();
-//            $rates = $rate->getArrayResponse();
-//            if ($rate->isSuccess()) {
-//                $services = $rates['RateV4Response']['Package']['h'];
-//                $error = null;
-//            } else {
-//                $error = $rate->getErrorMessage();
-//                $services = null;
-//            }
-//            return response()->json([
-//                'services' => $services,
-//                'error' => $error,
-//                'status' => 'domestic'
-//            ]);
-//
-//        }
-//
-//    }
-
     public function USPS_PostCard($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds){
         $all_services = [];
         $all_errors = [];
@@ -2121,7 +1837,6 @@ class OrdersController extends Controller
 //        }
         dd($all_services, $all_errors);
     }
-
     public function testusps(Request $request)
     {
         $rate = new Rate('021POSTD3725');
@@ -2543,7 +2258,6 @@ class OrdersController extends Controller
             return $array;
         }
     }
-
     public function get_re_calculate_form(Request $request){
         $sender  = $request->all();
         $associate_order = Order::where('shopify_order_id', $request->input('order-id'))->first();
@@ -2557,7 +2271,6 @@ class OrdersController extends Controller
         ]);
 
     }
-
     public function update_modify_date(Request $request){
         $order = Order::find($request->input('order_id'));
         if($order != null){
@@ -2590,7 +2303,6 @@ class OrdersController extends Controller
             }
         }
     }
-
     public function update_order_extra_charges(Request $request){
         $order = Order::find($request->input('id'));
         if($order != null){
@@ -2644,15 +2356,9 @@ class OrdersController extends Controller
                     'message' => 'Your mailing cannot be cancelled because we are waiting for information from you. Check the ‘Attention Needed for Further Processing’ section in ‘Order Details’'
                 ]);
             } else {
-                $order->status_id = 7;
-                $order->save();
-                $this->status_log($order);
-                $customer = Customer::find($order->customer_id);
-                Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
                 return response()->json([
-                    'status' => 'success',
-                    'message' => 'Your order has been cancelled. Check the ‘Attention Needed for Further Processing’ section in order details',
-                    'response' => 7
+                    'status' => 'permission',
+                    'message-status' => '7'
                 ]);
             }
         }
@@ -2673,17 +2379,53 @@ class OrdersController extends Controller
             return response()->json([
                 'message' => 'success'
             ]);
-
         }
         else{
-
             return response()->json([
                 'message' => 'error'
             ]);
-
-
         }
     }
 
+    /**
+     * @param $order
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function order_cancellation_with_status_seven($order): \Illuminate\Http\JsonResponse
+    {
+        $order->status_id = 7;
+        $order->save();
+        $this->status_log($order);
+        $customer = Customer::find($order->customer_id);
+        Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Your order has been cancelled. Check the ‘Attention Needed for Further Processing’ section in order details',
+            'response' => 7
+        ]);
+    }
+
+    public function set_status_cancellation(Request $request){
+        $order = Order::where('token', $request->input('order_token'))->first();
+        if($order != null){
+            if($request->input('permission') == '6'){
+                $this->cancel_and_refund($order);
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Your mailing has been cancelled and refunded.',
+                    'response' => 6
+                ]);
+            }
+            else{
+              return $this->order_cancellation_with_status_seven($order);
+            }
+        }
+        else{
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Internal Server Error'
+            ]);
+        }
+    }
 }
 
