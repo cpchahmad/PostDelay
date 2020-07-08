@@ -1254,6 +1254,12 @@ class OrdersController extends Controller
                         ]
                     ]);
                 }
+                else{
+                    $cancelledd_refund = $this->helper->getShopify()->call([
+                        'METHOD' => 'POST',
+                        'URL' => '/admin/api/2019-10/orders/' . $order->shopify_order_id . '/cancel.json',
+                    ]);
+                }
                 $order->status_id = 8;
                 $order->save();
                 $this->status_log($order);
@@ -1850,6 +1856,12 @@ class OrdersController extends Controller
                     "amount" => $order->order_total,
                     "currency" => 'USD'
                 ]
+            ]);
+        }
+        else{
+            $cancelledd_refund = $this->helper->getShopify()->call([
+                'METHOD' => 'POST',
+                'URL' => '/admin/api/2019-10/orders/' . $order->shopify_order_id . '/cancel.json',
             ]);
         }
 
