@@ -11,9 +11,7 @@
                 <div class="Form-field-contaner">
                     <div class="Form-content-detail">
                         <div class="Form-content-name">
-                            <p> Sender Details <i class="tooltip far fa-question-circle"> <span style="width: 320px;padding: 10px" class="tooltiptext">
-                                           PostDelay can ship to USA, Canada, and Mexico. We accept sender addresses from any country.
-                                             </span></i> <a href="/account/addresses?view=new&&type=Sender" style="margin-left:10px;padding:10px 10px;line-height: 1" class="Same-button" >Add Sender Address</a>  </p>
+                            <p> Sender Details  <a href="/account/addresses?view=new&&type=Sender" style="margin-left:10px;padding:10px 10px;line-height: 1" class="Same-button" >Add Sender Address</a>  </p>
 
                             <select class="addresses_select modify" id="sender_address_select"  name="sender-addresses" >
                                 <option value="---">Select Sender Address</option>
@@ -109,9 +107,6 @@
                     <div class="Form-content-detail">
                         <div class="Form-content-name">
                             <p>Billing Details
-                                <i class="tooltip far fa-question-circle"> <span style="width: 320px;padding: 10px" class="tooltiptext">
-                                           PostDelay can ship to USA, Canada, and Mexico. We accept billing addresses from any country.
-                                             </span></i>
                                 <a href="/account/addresses?view=new&&type=Billing" style="margin-left:10px;padding:10px 10px;line-height: 1" class="Same-button" >Add Billing Address</a></p>
 
                             <select class="addresses_select modify" id="billing_address_select" name="billing-addresses">
@@ -296,7 +291,7 @@
                         <div class="Form-content-name">
                             <p>Recipient Details
                                 <i class="tooltip far fa-question-circle"> <span style="width: 320px;padding: 10px" class="tooltiptext">
-                                         PostDelay can ship to USA, Canada, and Mexico. We accept recipient addresses from any country.
+                                       PostDelay can ship to USA, Canada, and Mexico. We accept sender addresses and billing addresses from any country.
                                              </span></i>
                                 <a href="/account/addresses?view=new&&type=Recipients" style="margin-left:10px;padding:10px 10px;line-height: 1" class="Same-button" >Add Recipient Address</a> </p>
                             <select class="addresses_select modify" id="receipent_address_select" name="receipent-addresses" >
@@ -333,13 +328,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        {{--                    <div class="custom_fields_half" style="display:none;">--}}
-                        {{--                        <div class="custom_Request_fields_half">--}}
-                        {{--                            <label for="Business">Business</label>--}}
-                        {{--                            <input class="modify" type="text" name="receipent_business"  @if($recipient_address != null) value="{{$recipient_address->business}}" @endif placeholder="">--}}
-                        {{--                        </div>--}}
-                        {{--                    </div>--}}
                         <div class="custom_fields_half full_width_iput">
                             <div class="custom_Request_fields_half">
                                 <label for="Address1">Street Address</label>
@@ -360,9 +348,6 @@
                             <div id="province_div" class="custom_fields_half full_width_iput">
                                 <div class="custom_Request_fields_half adj">
                                     <label for="AddressProvinceNew">Province or State</label>
-                                    {{--                                <select class="AddressProvinceNew2 modify" name="receipent_state" autocomplete="address-level1">--}}
-                                    {{--                                @include('customers.inc.usa_states')--}}
-                                    {{--                                </select>--}}
                                     <input type="text" class="AddressProvinceNew2" name="receipent_state" id="administrative_area_level_1" autocomplete="address-level1">
                                 </div>
                             </div>
@@ -534,7 +519,10 @@
 
                         <div class="custom_fields_half">
                             <div class="custom_Request_fields_half  ">
-                                <label for="Shape">Send to your recipient on <i class="tooltip far fa-question-circle"> <span style="width: 320px;padding: 10px" class="tooltiptext">This is the date that PostDelay will send the item to your recipient. It is not the date that the recipient will receive your item. Be sure to choose a date that is far enough in the future for postDelay to receive your incoming shipment</span></i></label>
+                                <label for="Shape">Send to your recipient on
+                                    <i class="tooltip far fa-question-circle">
+                                        <span style="width: 320px;padding: 10px" class="tooltiptext">This is the date that PostDelay will send the item to your recipient; it is not the day that the item will be received by the recipient. Choose a date far enough in advance that you item can be received and processed by PostDelay before the mail-out date. The minimum time between placing an order and the mail-out date is {{$settings->min_threshold_ship_out_date}} days.
+                                             <a target="_blank" style="color: white" href="https://www.usps.com/ship/"> Click to understand U.S. Postal Service shipping times.</a></span></i></label>
                                 <input class="modify" type="date" required="" name="ship_out_date"  value="" placeholder="" min="{{now()->addDays((int)$settings->min_threshold_ship_out_date)->format('Y-m-d')}}" max="{{now()->addDays(365)->format('Y-m-d')}}">
                             </div>
                         </div>
