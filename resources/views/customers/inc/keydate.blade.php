@@ -34,7 +34,7 @@
     <div class="custom_fields_half">
         <div class="custom_Request_fields_half ">
             <label for="Order ID">Receipt by PostDelay</label>
-            <input disabled type="text"  name="account[first_name]" id="FirstName" @if($order->has_key_dates != null) value="{{\Carbon\Carbon::parse($order->has_key_dates->received_post_date)->format('F j ,Y')}}" @else value="" @endif placeholder="">
+            <input disabled type="text"  name="account[first_name]" id="FirstName" @if($order->has_key_dates != null) @if($order->has_key_dates->received_post_date != null) value="{{\Carbon\Carbon::parse($order->has_key_dates->received_post_date)->format('F j ,Y')}}" @endif @else value="" @endif placeholder="">
         </div>
     </div>
     @if(strtotime(now()) > strtotime(\Carbon\Carbon::parse($order->ship_out_date)->addDays($settings->min_threshold_for_modify_ship_out_date)))
@@ -66,7 +66,7 @@
             </span></i>
 
             </label>
-            <input disabled type="text"  name="account[first_name]" id="FirstName" @if($order->has_key_dates != null) value="{{\Carbon\Carbon::parse($order->has_key_dates->completion_date)->format('F j ,Y')}}"  @else value="" @endif placeholder="">
+            <input disabled type="text"  name="account[first_name]" id="FirstName" @if($order->has_key_dates != null) @if($order->has_key_dates->completion_date != null) value="{{\Carbon\Carbon::parse($order->has_key_dates->completion_date)->format('F j ,Y')}}" @endif  @else value="" @endif placeholder="">
         </div>
     </div>
 </div>
