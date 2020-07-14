@@ -70,3 +70,10 @@
         </div>
     </div>
 </div>
+
+@if(strtotime(now()) > strtotime(Carbon::parse($order->ship_out_date)->addDays($settings->min_threshold_in_cancellation)))
+    <div id="cancellation" data-show="0"></div>
+    @else
+    <div id="cancellation" data-show="1"></div>
+
+@endif
