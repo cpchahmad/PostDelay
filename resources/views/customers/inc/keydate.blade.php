@@ -11,7 +11,12 @@
 
     <div class="custom_fields_half">
         <div class="custom_Request_fields_half ">
-            <label for="Order ID"> @if(in_array($order->status_id,['9' ,'17','21','23','24'])) Return Tracking ID @else Mailing Tracking ID @endif </label>
+            <label for="Order ID"> @if(in_array($order->status_id,['9' ,'17','21','23','24'])) Return Tracking ID @else Mailing Tracking ID  @endif
+                <i class="tooltip far fa-question-circle">
+            <span style="width: 320px;padding: 10px" class="tooltiptext">
+                When your mailing is sent to the recipient on the ship-out date, the tracking ID will appear here
+            </span></i>
+            </label>
             <input disabled type="text"  name="account[first_name]" id="FirstName" value="{{$order->outbound_tracking_id}}" placeholder="">
         </div>
     </div>
