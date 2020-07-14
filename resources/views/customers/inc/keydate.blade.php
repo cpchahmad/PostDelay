@@ -60,7 +60,7 @@
     <div class="custom_fields_half">
         <div class="custom_Request_fields_half ">
             <label for="Order ID">@if(in_array($order->status_id,['9' ,'17','21','23','24'])) Return Date @else Delivery Date @endif
-                <i href="https://www.usps.com/ship/" class="tooltip far fa-question-circle">
+                <i class="tooltip far fa-question-circle">
             <span style="width: 320px;padding: 10px" class="tooltiptext">
                 <a target="_blank" style="color: white" href="https://www.usps.com/ship/"> Click to understand U.S. Postal Service shipping times.</a>
             </span></i>
