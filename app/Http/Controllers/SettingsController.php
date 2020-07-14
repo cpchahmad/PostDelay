@@ -56,6 +56,12 @@ class SettingsController extends Controller
             if($request->has('min_threshold_in_cancellation')){
                 $settings->min_threshold_in_cancellation = $request->input('min_threshold_in_cancellation');
             }
+            if($request->has('max_days_storage_for_letters_postcards')){
+                $settings->max_days_storage_for_letters_postcards = $request->input('max_days_storage_for_letters_postcards');
+            }
+            if($request->has('max_days_storage_for_packages')){
+                $settings->max_days_storage_for_packages = $request->input('max_days_storage_for_packages');
+            }
             $settings->save();
             return redirect()->back();
         }

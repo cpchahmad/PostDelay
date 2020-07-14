@@ -63,6 +63,24 @@
                                     <td><input type="submit" class="btn btn-success btn-sm" value="Save"></td>
                                 </form>
                             </tr>
+                            <tr>
+                                <form action="{{route('threshold.update')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{$settings->id}}">
+                                    <td> Maximum days storage period for postcard/letter/large envelope</td>
+                                    <td><input required type="number" class="form-control" name="max_days_storage_for_letters_postcards" value="{{$settings->max_days_storage_for_letters_postcards}}"></td>
+                                    <td><input type="submit" class="btn btn-success btn-sm" value="Save"></td>
+                                </form>
+                            </tr>
+                            <tr>
+                                <form action="{{route('threshold.update')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{$settings->id}}">
+                                    <td> Maximum days storage period for packages</td>
+                                    <td><input required type="number" class="form-control" name="max_days_storage_for_packages" value="{{$settings->max_days_storage_for_packages}}"></td>
+                                    <td><input type="submit" class="btn btn-success btn-sm" value="Save"></td>
+                                </form>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
