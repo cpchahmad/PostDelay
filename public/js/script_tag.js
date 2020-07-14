@@ -18,6 +18,7 @@
             var orderDetails = Shopify.checkout;
             if(orderDetails != null ){
                 var shopifyorderid = orderDetails.order_id;
+                console.log(orderDetails);
                 var checkouttoken = orderDetails.token;
                 var shopdomain = Shopify.shop;
             }
