@@ -16,9 +16,10 @@
             // var APP_URL ="http://127.0.0.1:8000"
 
             var orderDetails = Shopify.checkout;
+            console.log(orderDetails);
             if(orderDetails != null ){
                 var shopifyorderid = orderDetails.order_id;
-                console.log(orderDetails);
+
                 var checkouttoken = orderDetails.token;
                 var shopdomain = Shopify.shop;
             }
