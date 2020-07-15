@@ -556,6 +556,7 @@ class OrdersController extends Controller
         $shop = Shop::where('shopify_domain', $request->input('shop'))->first();
         if ($request->input('type') == 'additional-fee') {
             $default = PostDelayFee::where('default', 1)->where('type', 'additional')->first();
+
             $product = $this->helper->getShopify()->call([
                 'METHOD' => 'POST',
                 'URL' => '/admin/api/2019-10/products.json',
@@ -570,7 +571,6 @@ class OrdersController extends Controller
                     ],
                 ]
             ]);
-
             $image = $this->helper->getShopify()->call([
                 'METHOD' => 'POST',
                 'URL' => '/admin/api/2019-10/products/' . $product->product->id . '/images.json',
@@ -580,10 +580,9 @@ class OrdersController extends Controller
                     ]
                 ]
             ]);
-
-
             $product_id = $product->product->variants[0]->id;
-            if(in_array($request->input('response'),[20,21,17,9])){
+
+            if(in_array($request->input('response'),[17,9])){
                 $draft_orders = $this->helper->getShopify()->call([
                     'METHOD' => 'POST',
                     'URL' => '/admin/draft_orders.json',
@@ -639,6 +638,87 @@ class OrdersController extends Controller
                                     "title" => $request->input('shipping_method')
                                 ],
 
+                            ]
+
+                        ]
+                ]);
+            }
+            else if(in_array($request->input('response'),[20,21])){
+
+                $product = $this->helper->getShopify()->call([
+                    'METHOD' => 'POST',
+                    'URL' => '/admin/api/2019-10/products.json',
+                    'DATA' => [
+                        "product" => [
+                            "title" =>  $request->input('new_shipping_price'),
+                            "variants" => [
+                                [
+                                    "price" =>  $request->input('shipping_method'),
+                                ]
+                            ]
+                        ],
+                    ]
+                ]);
+                $image = $this->helper->getShopify()->call([
+                    'METHOD' => 'POST',
+                    'URL' => '/admin/api/2019-10/products/' . $product->product->id . '/images.json',
+                    'DATA' => [
+                        'image' => [
+                            'src' => 'https://cdn.shopify.com/s/files/1/0120/3106/6193/files/Screenshot_36.png'
+                        ]
+                    ]
+                ]);
+                $product_id = $product->product->variants[0]->id;
+                $draft_orders = $this->helper->getShopify()->call([
+
+                    'METHOD' => 'POST',
+                    'URL' => '/admin/draft_orders.json',
+                    'DATA' =>
+                        [
+                            "draft_order" => [
+                                'line_items' => [
+                                    [
+                                        "variant_id" => $product_id,
+                                        "quantity" => 1,
+                                        "properties" => [
+                                            [
+                                                "name" => 'Response',
+                                                "value" => $request->input('response'),
+                                            ],
+                                        ]
+                                    ]
+                                ],
+                                "customer" => [
+                                    "id" => $request->input('customer-id'),
+                                ],
+                                "billing_address" => [
+                                    "address1" => $associate_order->has_billing->address1,
+                                    "address2" =>  $associate_order->has_billing->address2,
+                                    "city" =>  $associate_order->has_billing->city,
+                                    "company" =>  $associate_order->has_billing->business,
+                                    "first_name" =>  $associate_order->has_billing->first_name,
+                                    "last_name" => $associate_order->has_billing->last_name,
+                                    "province" =>  $associate_order->has_billing->state,
+                                    "country" =>  $associate_order->has_billing->country,
+                                    "zip" =>  $associate_order->has_billing->postcode,
+                                    "name" => $associate_order->has_billing->first_name . ' ' .  $associate_order->has_billing->last_name,
+                                    "country_code" => Countries::getCode( $associate_order->has_billing->country),
+                                    "province_code" => CountrySubdivisions::getCode( $associate_order->has_billing->country,  $associate_order->has_billing->state)
+                                ],
+                                "shipping_address" => [
+                                    "address1" => $request->input('address1'),
+                                    "address2" => $request->input('address2'),
+                                    "city" => $request->input('city'),
+                                    "company" => $request->input('business'),
+                                    "first_name" => $request->input('first_name'),
+                                    "last_name" => $request->input('last_name'),
+                                    "province" => $request->input('state'),
+                                    "country" => $request->input('country'),
+                                    "zip" => $request->input('postcode'),
+                                    "name" => $request->input('first_name') . ' ' . $request->input('last_name'),
+                                    "country_code" => Countries::getCode($request->input('country')),
+                                    "province_code" => CountrySubdivisions::getCode($request->input('country'), $request->input('state'))
+                                ],
                             ]
 
                         ]
