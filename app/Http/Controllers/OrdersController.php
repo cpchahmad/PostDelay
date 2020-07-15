@@ -1329,10 +1329,11 @@ class OrdersController extends Controller
                 'DATA' => [
                     "product" => [
                         "title" => 'PostDelay Additional Fee',
-                        "requires_shipping" => false,
+
                         "variants" => [
                             [
                                 "price" => $price,
+                                "requires_shipping" => false,
                             ]
                         ]
                     ],
