@@ -11,7 +11,7 @@
         var $ = window.jQuery;
         $(document).ready(function() {
 
-            $('body').find('.product__description__property .order-summary__small-text').hide();
+            $('body').find('.product__description__property').hide();
 
                 var APP_URL = "https://postdelay.shopifyapplications.com";
 
