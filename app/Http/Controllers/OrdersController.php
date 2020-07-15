@@ -1329,6 +1329,7 @@ class OrdersController extends Controller
                 'DATA' => [
                     "product" => [
                         "title" => 'PostDelay Additional Fee',
+                        "requires_shipping" => false,
                         "variants" => [
                             [
                                 "price" => $price,
@@ -1358,7 +1359,7 @@ class OrdersController extends Controller
                                 [
                                     "variant_id" => $product_id,
                                     "quantity" => 1,
-                                    "requires_shipping" => false,
+
                                     "properties" => [
                                         [
                                             "name" => 'Response',
