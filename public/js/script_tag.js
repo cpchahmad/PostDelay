@@ -16,6 +16,7 @@
             // var APP_URL ="http://127.0.0.1:8000"
 
             var orderDetails = Shopify.checkout;
+            let response;
             console.log(orderDetails);
             if(orderDetails != null ){
                 var shopifyorderid = orderDetails.order_id;
@@ -23,7 +24,7 @@
                 var checkouttoken = orderDetails.token;
                 var shopdomain = Shopify.shop;
                 var line_items = orderDetails.line_items;
-                let response;
+
                 $.each(line_items,function (key,item) {
                     if(item.title === 'PostDelay Additional Fee'){
                         var properties = item.properties;
@@ -34,7 +35,7 @@
                         })
                     }
                 });
-                console.log(response);
+
             }
 
 
@@ -74,22 +75,25 @@
                       }
                       else{
                           if ($('body .section__content').length > 0) {
+                              if(response === '9'){
+                                  $(".section__content .content-box").eq(0).after("<div class='content-box'>\n" +
+                                      "  <div class='content-box__row text-container'>\n" +
+                                      " <h2 class='heading-2 os-step__title' id='main-header' tabindex='-1' >Your Payment Has Been Received </h2>\n" +
+                                      "        <div class='page-width-1'> \n" +
+                                      "          <div class='Form-wraper'> \n" +
+                                      "            <div class='Form-contaner'> \n" +
+                                      "              <div class='Custom-message'>\n" +
+                                      "                <p class='Custom-message-desp'><b>What's Next?</b> PostDelay will send your item back to you on the next business day.</p>\n" +
+                                      "                <p class='Custom-message-desp'><a href='https://postdelay.myshopify.com/account?view=existing-orders'>Click here</a> to view the details of your order</p>\n" +
+                                      "              </div>\n" +
+                                      "            </div>\n" +
+                                      "          </div>\n" +
+                                      "        </div>\n"+
+                                      "  </div>\n" +
+                                      "</div> ");
+                              }
 
-                              $(".section__content .content-box").eq(0).after("<div class='content-box'>\n" +
-                                  "  <div class='content-box__row text-container'>\n" +
-                                  " <h2 class='heading-2 os-step__title' id='main-header' tabindex='-1' >PostDelay Message</h2>\n" +
-                                  "        <div class='page-width-1'> \n" +
-                                  "          <div class='Form-wraper'> \n" +
-                                  "            <div class='Form-contaner'> \n" +
-                                  "              <div class='Custom-message'>\n" +
-                                  "                <p class='Custom-message-desp'>Your payment has been received </p>\n" +
-                                  "                <p class='Custom-message-desp'><a href='https://postdelay.myshopify.com/account?view=existing-orders'>Click here</a> to view the details of your order</p>\n" +
-                                  "              </div>\n" +
-                                  "            </div>\n" +
-                                  "          </div>\n" +
-                                  "        </div>\n"+
-                                  "  </div>\n" +
-                                  "</div> ");
+
 
                           }
                       }
