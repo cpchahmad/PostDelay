@@ -556,7 +556,6 @@ class OrdersController extends Controller
         $shop = Shop::where('shopify_domain', $request->input('shop'))->first();
         if ($request->input('type') == 'additional-fee') {
             $default = PostDelayFee::where('default', 1)->where('type', 'additional')->first();
-
             $product = $this->helper->getShopify()->call([
                 'METHOD' => 'POST',
                 'URL' => '/admin/api/2019-10/products.json',
@@ -571,6 +570,7 @@ class OrdersController extends Controller
                     ],
                 ]
             ]);
+
             $image = $this->helper->getShopify()->call([
                 'METHOD' => 'POST',
                 'URL' => '/admin/api/2019-10/products/' . $product->product->id . '/images.json',
@@ -580,8 +580,9 @@ class OrdersController extends Controller
                     ]
                 ]
             ]);
-            $product_id = $product->product->variants[0]->id;
 
+
+            $product_id = $product->product->variants[0]->id;
             if(in_array($request->input('response'),[17,9])){
                 $draft_orders = $this->helper->getShopify()->call([
                     'METHOD' => 'POST',
@@ -650,15 +651,16 @@ class OrdersController extends Controller
                     'URL' => '/admin/api/2019-10/products.json',
                     'DATA' => [
                         "product" => [
-                            "title" =>  $request->input('new_shipping_price'),
+                            "title" =>   $default->name,
                             "variants" => [
                                 [
-                                    "price" =>  $request->input('shipping_method'),
+                                    "price" =>  0,
                                 ]
                             ]
                         ],
                     ]
                 ]);
+
                 $image = $this->helper->getShopify()->call([
                     'METHOD' => 'POST',
                     'URL' => '/admin/api/2019-10/products/' . $product->product->id . '/images.json',
@@ -668,6 +670,8 @@ class OrdersController extends Controller
                         ]
                     ]
                 ]);
+
+
                 $product_id = $product->product->variants[0]->id;
                 $draft_orders = $this->helper->getShopify()->call([
 
@@ -719,6 +723,12 @@ class OrdersController extends Controller
                                     "country_code" => Countries::getCode($request->input('country')),
                                     "province_code" => CountrySubdivisions::getCode($request->input('country'), $request->input('state'))
                                 ],
+                                "shipping_line" => [
+                                    "custom" => true,
+                                    "price" => $request->input('new_shipping_price'),
+                                    "title" => $request->input('shipping_method')
+                                ],
+
                             ]
 
                         ]
