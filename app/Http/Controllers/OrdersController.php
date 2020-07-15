@@ -556,6 +556,33 @@ class OrdersController extends Controller
         $shop = Shop::where('shopify_domain', $request->input('shop'))->first();
         if ($request->input('type') == 'additional-fee') {
             $default = PostDelayFee::where('default', 1)->where('type', 'additional')->first();
+            $product = $this->helper->getShopify()->call([
+                'METHOD' => 'POST',
+                'URL' => '/admin/api/2019-10/products.json',
+                'DATA' => [
+                    "product" => [
+                        "title" => $default->name,
+                        "variants" => [
+                            [
+                                "price" => $default->price,
+                            ]
+                        ]
+                    ],
+                ]
+            ]);
+
+            $image = $this->helper->getShopify()->call([
+                'METHOD' => 'POST',
+                'URL' => '/admin/api/2019-10/products/' . $product->product->id . '/images.json',
+                'DATA' => [
+                    'image' => [
+                        'src' => 'https://cdn.shopify.com/s/files/1/0120/3106/6193/files/Screenshot_36.png'
+                    ]
+                ]
+            ]);
+
+
+            $product_id = $product->product->variants[0]->id;
             if(in_array($request->input('response'),[20,21,17,9])){
                 $draft_orders = $this->helper->getShopify()->call([
                     'METHOD' => 'POST',
@@ -565,8 +592,7 @@ class OrdersController extends Controller
                             "draft_order" => [
                                 'line_items' => [
                                     [
-                                        "title" => $default->name,
-                                        "price" => $default->price,
+                                        "variant_id" => $product_id,
                                         "quantity" => 1,
                                         "properties" => [
                                             [
@@ -627,7 +653,7 @@ class OrdersController extends Controller
                             "draft_order" => [
                                 'line_items' => [
                                     [
-                                        "title" => $default->name,
+                                        "variant_id" => $product_id,
                                         "price" => $default->price,
                                         "quantity" => 1,
                                         "properties" => [
@@ -677,7 +703,33 @@ class OrdersController extends Controller
 
         } else {
             $default = PostDelayFee::where('default', 1)->where('type', 'request_form')->first();
+            $product = $this->helper->getShopify()->call([
+                'METHOD' => 'POST',
+                'URL' => '/admin/api/2019-10/products.json',
+                'DATA' => [
+                    "product" => [
+                        "title" => $default->name,
+                        "variants" => [
+                            [
+                                "price" => $default->price,
+                            ]
+                        ]
+                    ],
+                ]
+            ]);
 
+            $image = $this->helper->getShopify()->call([
+                'METHOD' => 'POST',
+                'URL' => '/admin/api/2019-10/products/' . $product->product->id . '/images.json',
+                'DATA' => [
+                    'image' => [
+                        'src' => 'https://cdn.shopify.com/s/files/1/0120/3106/6193/files/Screenshot_36.png'
+                    ]
+                ]
+            ]);
+
+
+            $product_id = $product->product->variants[0]->id;
             $draft_orders = $this->helper->getShopify()->call([
                 'METHOD' => 'POST',
                 'URL' => '/admin/draft_orders.json',
@@ -686,8 +738,7 @@ class OrdersController extends Controller
                         "draft_order" => [
                             'line_items' => [
                                 [
-                                    "title" => $default->name,
-                                    "price" => $default->price,
+                                   "variant_id" => $product_id,
                                     "quantity" => 1,
                                 ]
                             ],
