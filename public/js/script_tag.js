@@ -163,6 +163,23 @@
                                       "  </div>\n" +
                                       "</div> ");
                               }
+                              else{
+                                  $(".section__content .content-box").eq(0).after("<div class='content-box'>\n" +
+                                      "  <div class='content-box__row text-container'>\n" +
+                                      " <h2 class='heading-2 os-step__title' id='main-header' tabindex='-1' >Your Payment Has Been Received </h2>\n" +
+                                      "        <div class='page-width-1'> \n" +
+                                      "          <div class='Form-wraper'> \n" +
+                                      "            <div class='Form-contaner'> \n" +
+                                      "              <div class='Custom-message'>\n" +
+                                      "                <p class='Custom-message-desp'><b>What's Next?</b> PostDelay will send your shipping label to you on the next business day.</p>\n" +
+                                      "                <p class='Custom-message-desp'><a href='https://postdelay.myshopify.com/account?view=existing-orders'>Click here</a> to view the details of your order</p>\n" +
+                                      "              </div>\n" +
+                                      "            </div>\n" +
+                                      "          </div>\n" +
+                                      "        </div>\n"+
+                                      "  </div>\n" +
+                                      "</div> ");
+                              }
 
 
 
