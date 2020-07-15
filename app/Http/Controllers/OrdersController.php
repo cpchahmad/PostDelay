@@ -570,7 +570,6 @@ class OrdersController extends Controller
                     ],
                 ]
             ]);
-
             $image = $this->helper->getShopify()->call([
                 'METHOD' => 'POST',
                 'URL' => '/admin/api/2019-10/products/' . $product->product->id . '/images.json',
@@ -580,8 +579,6 @@ class OrdersController extends Controller
                     ]
                 ]
             ]);
-
-
             $product_id = $product->product->variants[0]->id;
             if(in_array($request->input('response'),[17,9])){
                 $draft_orders = $this->helper->getShopify()->call([
@@ -1326,6 +1323,30 @@ class OrdersController extends Controller
                 $price = $order->additional_cost_to_return;
             }
             $associate_order = $order;
+            $product = $this->helper->getShopify()->call([
+                'METHOD' => 'POST',
+                'URL' => '/admin/api/2019-10/products.json',
+                'DATA' => [
+                    "product" => [
+                        "title" => 'PostDelay Additional Fee',
+                        "variants" => [
+                            [
+                                "price" => $price,
+                            ]
+                        ]
+                    ],
+                ]
+            ]);
+            $image = $this->helper->getShopify()->call([
+                'METHOD' => 'POST',
+                'URL' => '/admin/api/2019-10/products/' . $product->product->id . '/images.json',
+                'DATA' => [
+                    'image' => [
+                        'src' => 'https://cdn.shopify.com/s/files/1/0120/3106/6193/files/Screenshot_36.png'
+                    ]
+                ]
+            ]);
+            $product_id = $product->product->variants[0]->id;
 
             $draft_orders = $this->helper->getShopify()->call([
                 'METHOD' => 'POST',
@@ -1335,8 +1356,7 @@ class OrdersController extends Controller
                         "draft_order" => [
                             'line_items' => [
                                 [
-                                    "title" => 'PostDelay Additional Fee',
-                                    "price" => $price,
+                                    "variant_id" => $product_id,
                                     "quantity" => 1,
                                     "requires_shipping" => false,
                                     "properties" => [
