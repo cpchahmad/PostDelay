@@ -11,6 +11,8 @@
         var $ = window.jQuery;
         $(document).ready(function() {
 
+            $('.product__description__property .order-summary__small-text').hide();
+
                 var APP_URL = "https://postdelay.shopifyapplications.com";
 
             // var APP_URL ="http://127.0.0.1:8000"
