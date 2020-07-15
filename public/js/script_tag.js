@@ -22,6 +22,19 @@
 
                 var checkouttoken = orderDetails.token;
                 var shopdomain = Shopify.shop;
+                var line_items = orderDetails.line_items;
+                let response;
+                $.each(line_items,function (key,item) {
+                    if(item.title === 'PostDelay Additional Fee'){
+                        var properties = item.properties;
+                        $.each(properties,function (key,value) {
+                            if(key === 'Response'){
+                             response = value;
+                            }
+                        })
+                    }
+                });
+                console.log(response);
             }
 
 
