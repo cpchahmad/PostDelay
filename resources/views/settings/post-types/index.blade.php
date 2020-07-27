@@ -28,7 +28,7 @@
                                 <th scope="col">Type </th>
                                 <th scope="col">Commision Type</th>
                                 <th scope="col">Commision</th>
-                                <th scope="col">Weight (grams)</th>
+{{--                                <th scope="col">Weight (grams)</th>--}}
                                 <th scope="col">Action</th>
                             </tr>
                             </thead>
@@ -57,13 +57,13 @@
                                             <input class="form-control commision_change" name="commision" data-id="{{$type->id}}" type="text" value="{{ $type->commision }}">
                                         </div>
                                     </td>
-                                    <td>
-                                        <div class="form-group row">
-                                            <div class="col-md-10">
-                                                <input class="form-control weight-input" data-id="{{$type->id}}" type="number" value="{{$type->weight}}">
-                                            </div>
-                                        </div>
-                                    </td>
+{{--                                    <td>--}}
+{{--                                        <div class="form-group row">--}}
+{{--                                            <div class="col-md-10">--}}
+{{--                                                <input class="form-control weight-input" data-id="{{$type->id}}" type="number" value="{{$type->weight}}">--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </td>--}}
 
                                     <td>
                                         <button data-id="{{$type->id}}" class="type_delete_button btn btn-danger waves-effect waves-light btn-sm">Delete</button>
