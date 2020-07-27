@@ -55,17 +55,17 @@
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs nav-justified" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#sender" role="tab">
+                                <a class="nav-link @if(session('action') == 'sender') active @elseif(session('action') == null) active @endif" data-toggle="tab" href="#sender" role="tab">
                                     <span class="d-none d-md-block">Sender Details</span><span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " data-toggle="tab" href="#recipients" role="tab">
+                                <a class="nav-link @if(session('action') == 'recipients') active @endif " data-toggle="tab" href="#recipients" role="tab">
                                     <span class="d-none d-md-block">Recipients Details</span><span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " data-toggle="tab" href="#billing" role="tab">
+                                <a class="nav-link @if(session('action') == 'billing') active @endif  " data-toggle="tab" href="#billing" role="tab">
                                     <span class="d-none d-md-block">Billing Details</span><span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
                                 </a>
                             </li>
@@ -75,7 +75,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " data-toggle="tab" href="#outbound" role="tab">
+                                <a class="nav-link @if(session('action') == 'tracking') active @endif  " data-toggle="tab" href="#outbound" role="tab">
                                     <span class="d-none d-md-block">Outbound Tracking</span><span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
                                 </a>
                             </li>
@@ -85,7 +85,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " data-toggle="tab" href="#key-notes" role="tab">
+                                <a class="nav-link @if(session('action') == 'important-dates') active @endif  " data-toggle="tab" href="#key-notes" role="tab">
                                     <span class="d-none d-md-block">Important Dates</span><span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
                                 </a>
                             </li>
@@ -94,13 +94,8 @@
                                     <span class="d-none d-md-block">Shipment to PostDelay</span><span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
                                 </a>
                             </li>
-                            {{--                                    <li class="nav-item">--}}
-                            {{--                                        <a class="nav-link " data-toggle="tab" href="#additional-fee" role="tab">--}}
-                            {{--                                            <span class="d-none d-md-block">Additional Fee</span><span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>--}}
-                            {{--                                        </a>--}}
-                            {{--                                    </li>--}}
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#messages" role="tab">
+                                <a class="nav-link @if(session('action') == 'modify-ship-out-date') active @endif " data-toggle="tab" href="#messages" role="tab">
                                     <span class="d-none d-md-block">Ship Out Date</span><span class="d-block d-md-none"><i class="mdi mdi-email h5"></i></span>
                                 </a>
                             </li>
@@ -117,7 +112,7 @@
                             @if($order->status_id == 15)
 
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#extra_charge" role="tab">
+                                <a class="nav-link @if(session('action') == 'update-additional-charges') active @endif " data-toggle="tab" href="#extra_charge" role="tab">
                                     <span class="d-none d-md-block">Set Additional Price Charges</span><span class="d-block d-md-none"><i class="mdi mdi-account h5"></i></span>
                                 </a>
                             </li>
@@ -129,7 +124,7 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                             @if($order->status_id == 15)
-                            <div class="tab-pane p-3" id="extra_charge" role="tabpanel">
+                            <div class="tab-pane p-3 @if(session('action') == 'update-additional-charges') active @endif " id="extra_charge" role="tabpanel">
                                 <h6>Additional Price Charges</h6>
                                 <form action="{{route('update_order_extra_charges')}}" method="post">
                                     @csrf
@@ -163,7 +158,7 @@
 
                             </div>
                             @endif
-                            <div class="tab-pane p-3" id="outbound" role="tabpanel">
+                            <div class="tab-pane p-3 @if(session('action') == 'tracking') active @endif" id="outbound" role="tabpanel">
                                 <h6>Outbound Tracking Details</h6>
                                 <form action="{{route('update_tracking')}}" method="get">
                                     <input type="hidden" value="{{$order->id}}" name="id">
@@ -187,7 +182,7 @@
                                 </form>
 
                             </div>
-                            <div class="tab-pane active p-3" id="sender" role="tabpanel">
+                            <div class="tab-pane @if(session('action') == 'sender') active @elseif(session('action') == null) active @endif p-3" id="sender" role="tabpanel">
 
                                 <h6>Sender Details</h6>
                                 <form action="{{route('update_order_sender_details')}}" method="get">
@@ -284,7 +279,7 @@
                                 </form>
 
                             </div>
-                            <div class="tab-pane  p-3" id="recipients" role="tabpanel">
+                            <div class="tab-pane @if(session('action') == 'recipients') active @endif  p-3" id="recipients" role="tabpanel">
                                 <h6>Receipt Details</h6>
                                 <form action="{{route('update_order_recipient_details')}}" method="get">
                                     <input type="hidden" value="{{$order->has_recepient->id}}" name="id">
@@ -380,7 +375,7 @@
                                 </form>
 
                             </div>
-                            <div class="tab-pane  p-3" id="billing" role="tabpanel">
+                            <div class="tab-pane @if(session('action') == 'billing') active @endif  p-3" id="billing" role="tabpanel">
                                 <h6>Billing Details</h6>
                                 <form action="{{route('order_update_billing_details')}}" method="get">
                                     <input type="hidden" name="id" value="{{$order->has_billing->id}}">
@@ -697,7 +692,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane  p-3" id="key-notes" role="tabpanel">
+                            <div class="tab-pane @if(session('action') == 'important-dates') active @endif  p-3" id="key-notes" role="tabpanel">
                                 <h6>Key Date</h6>
                                 <form action="{{route('set_key_dates')}}" method="get">
                                     <div class="row">
@@ -776,7 +771,7 @@
 
                                 </div>
                             </div>
-                            <div class="tab-pane p-3" id="messages" role="tabpanel">
+                            <div class="tab-pane @if(session('action') == 'modify-ship-out-date') active @endif p-3" id="messages" role="tabpanel">
                                 <form class="row" action="{{route('order.modify.date')}}" method="post">
                                     @csrf
                                         <input type="hidden" name="order_id" value="{{$order->id}}">
