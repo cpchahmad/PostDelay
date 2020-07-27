@@ -1028,7 +1028,7 @@ class OrdersController extends Controller
         $keydate->received_post_date = $request->input('received_post_date');
         $keydate->completion_date = $request->input('completion_date');
         $keydate->save();
-        return redirect()->back();
+        return redirect()->back()->with('action','important-dates');
     }
 
     public function clear_received_post_date(Request $request)
@@ -1036,7 +1036,7 @@ class OrdersController extends Controller
         $keydate = KeyDate::where('order_id',$request->input('order_id'))->first();
         $keydate->received_post_date = null;
         $keydate->save();
-        return redirect()->back();
+        return redirect()->back()->with('action','important-dates');
     }
 
     public function clear_completion_date(Request $request)
@@ -1044,7 +1044,7 @@ class OrdersController extends Controller
         $keydate = KeyDate::where('order_id',$request->input('order_id'))->first();
         $keydate->completion_date = null;
         $keydate->save();
-        return redirect()->back();
+        return redirect()->back()->with('action','important-dates');
     }
 
     public function shipment_to_postdelay(Request $request)
@@ -1096,7 +1096,7 @@ class OrdersController extends Controller
     public function update_order_sender_details(Request $request)
     {
         SenderAddress::find($request->input('id'))->update($request->all());
-        return redirect()->back();
+        return redirect()->back()->with('action','sender');
     }
 
     public function update_tracking(Request $request)
@@ -1104,171 +1104,20 @@ class OrdersController extends Controller
         $order = Order::find($request->input('id'));
         $order->outbound_tracking_id = $request->input('outbound_tracking_id');
         $order->save();
-        return redirect()->back();
+        return redirect()->back()->with('action','tracking');
     }
 
     public function update_order_recipient_details(Request $request)
     {
         RecipientAddress::find($request->input('id'))->update($request->all());
-        return redirect()->back();
+        return redirect()->back()->with('action','recipients');
     }
 
     public function order_update_billing_details(Request $request)
     {
         BillingAddress::find($request->input('id'))->update($request->all());
-        return redirect()->back();
+        return redirect()->back()->with('action','billing');
     }
-
-
-//    public function place_order(Request $request){
-//
-//
-//        if($request->input('weight') == null){
-//            $post_type = PostType::where('name',$request->input('post_type'))->first();
-//            if($post_type != null){
-//                if($post_type->weight == null){
-//                    $weight = 1000;
-//                }else{
-//                    $weight = $post_type->weight;
-//                }
-//
-//            }
-//            else{
-//                $weight = 1000;
-//            }
-//        }
-//        else{
-//            $weight = $request->input('weight');
-//        }
-//        $default =  PostDelayFee::where('default',1)->where('type','primary')->first();
-////        dd($default->price);
-//
-//        $product = $this->helper->getShopify()->call([
-//            'METHOD' => 'POST',
-//            'URL' => '/admin/api/2019-10/products.json',
-//            'DATA' =>[
-//                "product"=>[
-//                    "title"=> $default->name,
-//                    "requires_shipping" => true,
-//                    "variants" => [
-//                        [
-//                            "price" =>  $default->price,
-//                            "grams" =>$weight,
-//                            "inventory_quantity" => 20
-//
-//                        ]
-//
-//                    ]
-//                ],
-//            ]]);
-////
-////dd($product);
-//        $variant_id = $product->product->variants[0]->id;
-////        dd($variant_id);
-//        $product_listing = $this->helper->getShopify()->call([
-//            'METHOD' => 'GET',
-//            'URL' => '/admin/api/2019-10/product_listings.json',
-//        ]);
-//
-//        dd($product_listing);
-//
-//        $checkout = $this->helper->getShopify()->call([
-//            'METHOD' => 'POST',
-//            'URL' => '/admin/checkouts.json',
-//            'DATA' =>
-//                [
-//                    "checkout" => [
-//                        'line_items' => [
-//                            [
-//                                "variant_id" => $variant_id,
-//                                "quantity"=> 1,
-//                            ]
-//                        ],
-//
-//                    ]
-//
-//                ]
-//        ]);
-//        dd($checkout);
-//        $invoiceURL = $draft_orders->draft_order->invoice_url;
-//        $token = explode('/',$invoiceURL)[5];
-//        $order =  new Order();
-//        $order->draft_order_id =  $draft_orders->draft_order->id;
-//        $order->checkout_token = $token;
-//        $order->ship_out_date = $request->input('ship_out_date');
-//        $order->checkout_completed = 0;
-//
-//        $customer = Customer::where('shopify_customer_id',$request->input('customer_id'))->first();
-//
-//        $order->customer_id = $customer->id;
-//        $order->shopify_customer_id = $request->input('customer_id');
-//
-//        $package_detail  = new PackageDetail();
-//        $package_detail->type = $request->input('post_type');
-//        $package_detail->special_holding = $request->input('special_holding');
-//        $package_detail->shape = $request->input('shape');
-//        $package_detail->scale = $request->input('unit_of_measures');
-//        $package_detail->weight = $weight;
-//        $package_detail->length = $request->input('length');
-//        $package_detail->girth = $request->input('girth');
-//        $package_detail->width = $request->input('width');
-//        $package_detail->height = $request->input('height');
-//        $package_detail->setUpdatedAt(now());
-//        $package_detail->setCreatedAt(now());
-//        $package_detail->save();
-//
-//        $order->package_detail_id = $package_detail->id;
-//
-//        $billing_address = new BillingAddress();
-//        $billing_address->address1 = $request->input('billing_address1');
-//        $billing_address->  address2 =  $request->input('billing_address2');
-//        $billing_address ->city =  $request->input('billing_city');
-//        $billing_address->business =  $request->input('billing_business');
-//        $billing_address->first_name =  $request->input('billing_first_name');
-//        $billing_address -> last_name =  $request->input('billing_last_name');
-//        $billing_address->state =  $request->input('billing_state');
-//        $billing_address->country =  $request->input('billing_country');
-//        $billing_address->postcode =  $request->input('billing_postecode');
-//        $billing_address->email =   $request->input('billing_phone');
-//        $billing_address->save();
-//
-//        $order->billing_address_id = $billing_address->id;
-//
-//        $sender_address = new SenderAddress();
-//        $sender_address->address1 = $request->input('sender_address1');
-//        $sender_address->  address2 =  $request->input('sender_address2');
-//        $sender_address ->city =  $request->input('sender_city');
-//        $sender_address->business =  $request->input('sender_business');
-//        $sender_address->first_name =  $request->input('sender_first_name');
-//        $sender_address -> last_name =  $request->input('sender_last_name');
-//        $sender_address->state =  $request->input('sender_state');
-//        $sender_address->country =  $request->input('sender_country');
-//        $sender_address->postcode =  $request->input('sender_postecode');
-//        $sender_address->phone =   $request->input('sender_phone');
-//        $sender_address->save();
-//
-//        $order->sender_address_id = $sender_address->id;
-//
-//        $recipient_address = new RecipientAddress();
-//        $recipient_address->address1 = $request->input('receipent_address1');
-//        $recipient_address->  address2 =  $request->input('receipent_address2');
-//        $recipient_address ->city =  $request->input('receipent_city');
-//        $recipient_address->business =  $request->input('receipent_business');
-//        $recipient_address->first_name =  $request->input('receipent_first_name');
-//        $recipient_address -> last_name =  $request->input('receipent_last_name');
-//        $recipient_address->state =  $request->input('receipent_state');
-//        $recipient_address->country =  $request->input('receipent_country');
-//        $recipient_address->postcode =  $request->input('receipent_postecode');
-//        $recipient_address->phone =   $request->input('receipent_phone');
-//        $recipient_address->save();
-//
-//        $order->recipient_address_id = $recipient_address->id;
-//        $order->save();
-//
-//        return response()->json([
-//            "invoiceURL" => $invoiceURL,
-//        ]);
-//    }
 
     public function get_checkout()
     {
@@ -2069,7 +1918,7 @@ class OrdersController extends Controller
                 ]);
             }
             else{
-                return redirect()->back();
+                return redirect()->back()->with('action','modify-ship-out-date');
             }
 
         }
@@ -2090,7 +1939,7 @@ class OrdersController extends Controller
             $order->additional_cost_to_ship = $request->input('additional_cost_to_ship');
             $order->additional_cost_to_return = $request->input('additional_cost_to_return');
             $order->save();
-            return \redirect()->back();
+            return \redirect()->back()->with('action','update-additional-charges');
         }
         else{
             return \redirect()->back();
