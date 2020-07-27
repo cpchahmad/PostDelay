@@ -23,6 +23,7 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Status </th>
+                                <th scope="col">Email </th>
                                 <th scope="col">Action</th>
                             </tr>
                             </thead>
@@ -33,6 +34,15 @@
                                     <td>
                                         {{$status->name}}
                                     </td>
+                                    <td>
+                                        @if(in_array($status->id,[1,9,16,17,20,21]))
+                                            <span class="badge badge-danger">Disabled</span>
+                                        @else
+                                            <span class="badge badge-success">Enabled</span>
+
+                                        @endif
+                                    </td>
+
                                     <td>
                                         <button onclick="window.location.href='{{route('statuses.edit_status',['id' =>$status->id ])}}'" class="btn btn-info waves-effect waves-light btn-sm">View</button>
                                     </td>

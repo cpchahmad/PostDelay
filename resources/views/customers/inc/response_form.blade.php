@@ -94,15 +94,15 @@
     @endif
 
     @if(in_array($order->status_id , [15]))
-        <label class="container">Ready to pay extra to continue shipment - ${{number_format($order->additional_cost_to_ship,2)}}
+        <label class="container">Pay additional cost to continue shipment - ${{number_format($order->additional_cost_to_ship,2)}}
             <input required type="radio" name="response" value="16">
             <span class="checkmark"></span>
         </label>
-        <label class="container">Charge Extra and Return my shipment - ${{number_format($order->additional_cost_to_return,2)}}
+        <label class="container">Return item to me - ${{number_format($order->additional_cost_to_return,2)}}
             <input required type="radio" name="response" value="17">
             <span class="checkmark"></span>
         </label>
-        <label class="container">Dispose my shipment
+        <label class="container">Dispose of item - $0.00
             <input required type="radio" name="response" value="18">
             <span class="checkmark"></span>
         </label>
