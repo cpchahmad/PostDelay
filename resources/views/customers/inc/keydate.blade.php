@@ -37,7 +37,7 @@
             <input disabled type="text"  name="account[first_name]" id="FirstName" @if($order->has_key_dates != null) @if($order->has_key_dates->received_post_date != null) value="{{\Carbon\Carbon::parse($order->has_key_dates->received_post_date)->format('F j ,Y')}}" @endif @else value="" @endif placeholder="">
         </div>
     </div>
-    @if(strtotime(now()) > strtotime(\Carbon\Carbon::parse($order->created_at)->addDays($settings->min_threshold_for_modify_ship_out_date)))
+    @if(strtotime(now()) < strtotime(\Carbon\Carbon::parse($order->created_at)->addDays($settings->min_threshold_for_modify_ship_out_date)))
         <div class="custom_fields_half">
             <div class="custom_Request_fields_half ">
                 <label for="Order ID">Ship Out Date</label>
@@ -71,7 +71,7 @@
     </div>
 </div>
 
-@if(strtotime(now()) > strtotime(Carbon\Carbon::parse($order->created_at)->addDays($settings->min_threshold_in_cancellation)))
+@if(strtotime(now()) < strtotime(Carbon\Carbon::parse($order->created_at)->addDays($settings->min_threshold_in_cancellation)))
     <div id="cancellation" data-show="0"></div>
 @else
     <div id="cancellation" data-show="1"></div>
