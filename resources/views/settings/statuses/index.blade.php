@@ -36,10 +36,13 @@
                                     </td>
                                     <td>
                                         @if(in_array($status->id,[1,9,16,17,20,21]))
-                                            <span class="badge badge-danger">Disabled</span>
+                                            <h3>
+                                                <span class="badge badge-danger">Disabled</span>
+                                            </h3>
                                         @else
-                                            <span class="badge badge-success">Enabled</span>
-
+                                            <h3>
+                                                <span class="badge badge-success">Enabled</span>
+                                            </h3>
                                         @endif
                                     </td>
 
