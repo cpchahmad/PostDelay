@@ -523,7 +523,7 @@
                                     <i class="tooltip far fa-question-circle">
                                         <span style="width: 320px;padding: 10px" class="tooltiptext">This is the date that PostDelay will send the item to your recipient; it is not the day that the item will be received by the recipient. Choose a date far enough in advance that you item can be received and processed by PostDelay before the mail-out date. The minimum time between placing an order and the mail-out date is {{$settings->min_threshold_ship_out_date}} days.
                                              <a target="_blank" style="color: white" href="https://postdelay.myshopify.com/pages/how-do-i-select-a-ship-out-date"> Click to understand U.S. Postal Service shipping times.</a></span></i></label>
-                                <input class="modify" type="date" required="" name="ship_out_date"  value="" placeholder="" min="{{now()->addDays((int)$settings->min_threshold_ship_out_date)->format('Y-m-d')}}" max="{{now()->addDays(365)->format('Y-m-d')}}">
+                                <input class="modify" type="date" required="" name="ship_out_date" data-letters="{{(int)$settings->max_days_storage_for_letters_postcards}}"  data-packages="{{(int)$settings->max_days_storage_for_packages}}" value="" placeholder="" min="{{now()->addDays((int)$settings->min_threshold_ship_out_date)->format('Y-m-d')}}" max="{{now()->addDays((int)$settings->max_days_storage_for_letters_postcards)->format('Y-m-d')}}">
                             </div>
                         </div>
 
