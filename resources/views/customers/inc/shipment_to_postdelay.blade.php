@@ -18,8 +18,5 @@
         <input type="text" required="" name="tracking_id" @if($order->status_id == 2) disabled @endif  value="{{$order->tracking_id}}" placeholder="">
     </div>
 </div>
-@if($order->status_id == 2)
-    <input type="button" class="Same-button" value="Save" disabled>
-    @else
+
 <input type="submit" class="Same-button" value="Save">
-    @endif
