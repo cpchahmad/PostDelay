@@ -18,7 +18,7 @@
 {{--<script src="{{asset('assets/pages/dashboard.int.js')}}"></script>--}}
 
 <!-- App js -->
-<script src="{{asset('assets/js/app.js')}}"></script>
+<script src="{{asset('assets/js/app.js')}}?v={{time()}}"></script>
 
-<script src="{{asset('js/postdelay.js')}}"></script>
+<script src="{{asset('js/postdelay.js')}}?v={{time()}}"></script>
 
