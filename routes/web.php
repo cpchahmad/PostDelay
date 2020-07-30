@@ -159,4 +159,12 @@ Route::get('/get/re-calculate-form','OrdersController@get_re_calculate_form');
 Route::get('/xml', 'OrdersController@testUspsXML');
 
 Route::POST('/cancel/order/process', 'OrdersController@set_status_cancellation')->name('set_status_cancellation');
+Route::get('/seed','OrdersController@seedData');
+
+Route::get('/setting/api', 'SettingsController@api_credentials')->name('api_credentials.index');
+Route::POST('/setting/api/usps/update', 'SettingsController@update_usps_credentials')->name('api_credentials.usps.update');
+
+
+Route::get('/setting/app/messages', 'SettingsController@app_messages')->name('app_messages.index');
+Route::POST('/setting/app/messages/update', 'SettingsController@update_app_messages')->name('app_messages.update');
 

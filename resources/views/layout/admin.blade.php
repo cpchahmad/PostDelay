@@ -205,6 +205,14 @@
                             <a href="{{route('threshold.index')}}"><i class="dripicons-link"></i> Threshold Settings </a>
                         </li>
 
+                        <li>
+                            <a href="{{route('api_credentials.index')}}"><i class="dripicons-link"></i> Api Settings </a>
+                        </li>
+
+                        <li>
+                            <a href="{{route('app_messages.index')}}"><i class="dripicons-link"></i> App Messages </a>
+                        </li>
+
                     </ul>
                     <!-- End navigation menu -->
                 </div> <!-- end #navigation -->
@@ -217,11 +225,9 @@
 
 <div class="wrapper">
 
-
+    @include('flash_message.message')
     <div class="container-fluid">
-
         @yield('content')
-
     </div>
 </div>
 

@@ -46,10 +46,19 @@ require_once 'library/ISO/Countries.php';
 class OrdersController extends Controller
 {
     protected $helper;
+    protected $api;
 
     public function __construct()
     {
         $this->helper = new HelperController();
+        $settings = Settings::all()->first();
+        if($settings != null){
+            $this->api = $settings->usps_username;
+        }
+        else{
+            $this->api = '021POSTD3725';
+        }
+
     }
 
     public function index()
@@ -483,6 +492,16 @@ class OrdersController extends Controller
                 $settings->min_threshold_ship_out_date = 7;
                 $settings->min_threshold_for_modify_ship_out_date = 5;
                 $settings->max_threshold_for_modify_ship_out_date = 5;
+                $settings->usps_username = '021POSTD3725';
+                $settings->status_7_option_1 = 'Return my mailing to me.';
+                $settings->status_7_option_2 = 'Dispose of my mailing.';
+                $settings->status_7_option_3 = 'Uncancel the order';
+                $settings->status_15_option_1 = 'Pay additional cost to continue shipment.';
+                $settings->status_15_option_2 = 'Return item to me.';
+                $settings->status_15_option_3 = 'Dispose of item. - $0.00';
+                $settings->status_19_option_1 = 'Charge Extra and Re-attempt Delivery Process';
+                $settings->status_19_option_2 = 'Charge Extra and Return my shipment';
+                $settings->status_19_option_3 = 'Dispose my shipment';
                 $settings->save();
             }
             if ($order != null) {
@@ -496,7 +515,7 @@ class OrdersController extends Controller
                 $shipment_to_postdelay = view('customers.inc.shipment_to_postdelay', ['order' => $order])->render();
                 if (in_array($order->status_id, [7, 10, 15, 19])) {
                     $response_form_status = 'yes';
-                    $response_form = view('customers.inc.response_form', ['order' => $order])->render();
+                    $response_form = view('customers.inc.response_form', ['order' => $order,'settings'=>$settings])->render();
                 } else {
                     $response_form_status = 'no';
                     $response_form = null;
@@ -1395,81 +1414,9 @@ class OrdersController extends Controller
         }
 
     }
-
-    public function USPS_PostCard($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds){
-        $all_services = [];
-        $all_errors = [];
-
-        $all_packages = [
-            RatePackage::SERVICE_FIRST_CLASS,
-            RatePackage::SERVICE_PRIORITY,
-        ];
-
-        $rate = new Rate('021POSTD3725');
-        foreach ($all_packages as $a) {
-            $package = new RatePackage();
-            $package->setService($a);
-            $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
-            $weight_in_ounches = 0;
-            $weight_in_pounds = 0.21875;
-            $package->setZipOrigination($origin_zip_code);
-            $package->setZipDestination($request->input('receipent_postecode'));
-            $package->setPounds($weight_in_pounds);
-            $package->setOunces($weight_in_ounches);
-            $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
-            $package->setField('Machinable', false);
-            $rate->addPackage($package);
-
-        }
-        $rate->getRate();
-        $rates = $rate->getArrayResponse();
-        if ($rate->isSuccess()) {
-            array_push($all_services, $rates['RateV4Response']['Package']['Postage']);
-            array_push($all_errors, []);
-        } else {
-            array_push($all_errors, $rate->getErrorMessage());
-            array_push($all_services, []);
-        }
-        dd($all_services, $all_errors);
-    }
-    public function USPS_Envolope($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds){
-        $all_services = [];
-        $all_errors = [];
-
-        $all_packages = [
-            RatePackage::SERVICE_FIRST_CLASS,
-            RatePackage::SERVICE_PRIORITY,
-            RatePackage::SERVICE_EXPRESS,
-            RatePackage::SERVICE_EXPRESS_HFP
-        ];
-
-//        foreach ($all_packages as $a) {
-        $rate = new Rate('021POSTD3725');
-        $package = new RatePackage();
-        $package->setService(RatePackage::SERVICE_ALL);
-//            $package->setFirstClassMailType(RatePackage::MAIL_TYPE_FLAT);
-        $package->setZipOrigination($origin_zip_code);
-        $package->setZipDestination($request->input('receipent_postecode'));
-        $package->setPounds($weight_in_pounds);
-        $package->setOunces($weight_in_ounches);
-        $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
-        $package->setField('Machinable', false);
-        $rate->addPackage($package);
-        $rate->getRate();
-        $rates = $rate->getArrayResponse();
-        if ($rate->isSuccess()) {
-            array_push($all_services, $rates['RateV4Response']['Package']['Postage']);
-            array_push($all_errors, []);
-        } else {
-            array_push($all_errors, $rate->getErrorMessage());
-            array_push($all_services, []);
-        }
-//        }
-        dd($all_services, $all_errors);
-    }
     public function testusps(Request $request)
     {
-        $rate = new Rate('021POSTD3725');
+        $rate = new Rate($this->api);
         $location = Location::all()->first();
         if($location != null){
             $origin_zip_code = $location->postcode;
@@ -1803,8 +1750,80 @@ class OrdersController extends Controller
         }
 
     }
+    public function USPS_PostCard($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds){
+        $all_services = [];
+        $all_errors = [];
+
+        $all_packages = [
+            RatePackage::SERVICE_FIRST_CLASS,
+            RatePackage::SERVICE_PRIORITY,
+        ];
+
+        $rate = new Rate($this->api);
+        foreach ($all_packages as $a) {
+            $package = new RatePackage();
+            $package->setService($a);
+            $package->setFirstClassMailType(RatePackage::MAIL_TYPE_POSTCARD);
+            $weight_in_ounches = 0;
+            $weight_in_pounds = 0.21875;
+            $package->setZipOrigination($origin_zip_code);
+            $package->setZipDestination($request->input('receipent_postecode'));
+            $package->setPounds($weight_in_pounds);
+            $package->setOunces($weight_in_ounches);
+            $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+            $package->setField('Machinable', false);
+            $rate->addPackage($package);
+
+        }
+        $rate->getRate();
+        $rates = $rate->getArrayResponse();
+        if ($rate->isSuccess()) {
+            array_push($all_services, $rates['RateV4Response']['Package']['Postage']);
+            array_push($all_errors, []);
+        } else {
+            array_push($all_errors, $rate->getErrorMessage());
+            array_push($all_services, []);
+        }
+        dd($all_services, $all_errors);
+    }
+    public function USPS_Envolope($request, $origin_zip_code, $weight_in_ounches, $weight_in_pounds){
+        $all_services = [];
+        $all_errors = [];
+
+        $all_packages = [
+            RatePackage::SERVICE_FIRST_CLASS,
+            RatePackage::SERVICE_PRIORITY,
+            RatePackage::SERVICE_EXPRESS,
+            RatePackage::SERVICE_EXPRESS_HFP
+        ];
+
+//        foreach ($all_packages as $a) {
+        $rate = new Rate($this->api);
+        $package = new RatePackage();
+        $package->setService(RatePackage::SERVICE_ALL);
+//            $package->setFirstClassMailType(RatePackage::MAIL_TYPE_FLAT);
+        $package->setZipOrigination($origin_zip_code);
+        $package->setZipDestination($request->input('receipent_postecode'));
+        $package->setPounds($weight_in_pounds);
+        $package->setOunces($weight_in_ounches);
+        $package->setField('Container', RatePackage::CONTAINER_VARIABLE);
+        $package->setField('Machinable', false);
+        $rate->addPackage($package);
+        $rate->getRate();
+        $rates = $rate->getArrayResponse();
+        if ($rate->isSuccess()) {
+            array_push($all_services, $rates['RateV4Response']['Package']['Postage']);
+            array_push($all_errors, []);
+        } else {
+            array_push($all_errors, $rate->getErrorMessage());
+            array_push($all_services, []);
+        }
+//        }
+        dd($all_services, $all_errors);
+    }
+
     public function DomesticShipping($zipOrigin,$zipDestination,$pounds,$ounches,$container,$service,$firstclassmailtype,$width,$length,$height,$girth,$machinable = null){
-        $xml_data = '<RateV4Request USERID="021POSTD3725">'.
+        $xml_data = '<RateV4Request USERID="'.$this->api.'">'.
             '<Revision>2</Revision>'.
             '<Package ID="1ST">'.
             '<Service>'.$service.'</Service>'.
@@ -1848,7 +1867,7 @@ class OrdersController extends Controller
         }
     }
     public function DomesticPostcardShipping($zipOrigin,$zipDestination,$pounds,$ounches,$container,$service,$firstclassmailtype,$size){
-        $xml_data = '<RateV4Request USERID="021POSTD3725">'.
+        $xml_data = '<RateV4Request USERID="'.$this->api.'">'.
             '<Revision>2</Revision>'.
             '<Package ID="1ST">'.
             '<Service>'.$service.'</Service>'.
@@ -1888,6 +1907,7 @@ class OrdersController extends Controller
             return $array;
         }
     }
+
     public function get_re_calculate_form(Request $request){
         $sender  = $request->all();
         $associate_order = Order::where('shopify_order_id', $request->input('order-id'))->first();
@@ -1901,6 +1921,7 @@ class OrdersController extends Controller
         ]);
 
     }
+
     public function update_modify_date(Request $request){
         $order = Order::find($request->input('order_id'));
         if($order != null){
@@ -2066,5 +2087,23 @@ class OrdersController extends Controller
             ]);
         }
     }
+
+    public function seedData(){
+
+        $settings = Settings::all()->first();
+        $settings->usps_username = '021POSTD3725';
+        $settings->status_7_option_1 = 'Return my mailing to me.';
+        $settings->status_7_option_2 = 'Dispose of my mailing.';
+        $settings->status_7_option_3 = 'Uncancel the order';
+        $settings->status_15_option_1 = 'Pay additional cost to continue shipment.';
+        $settings->status_15_option_2 = 'Return item to me.';
+        $settings->status_15_option_3 = 'Dispose of item. - $0.00';
+        $settings->status_19_option_1 = 'Charge Extra and Re-attempt Delivery Process';
+        $settings->status_19_option_2 = 'Charge Extra and Return my shipment';
+        $settings->status_19_option_3 = 'Dispose my shipment';
+        $settings->save();
+
+    }
+
 }
 
