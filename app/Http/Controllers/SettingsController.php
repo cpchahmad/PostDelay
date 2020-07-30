@@ -13,6 +13,7 @@ use App\State;
 use App\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use USPS\RatePackage;
 
 class SettingsController extends Controller
 {
@@ -283,4 +284,97 @@ class SettingsController extends Controller
        Status::find($request->input('id'))->update($request->all());
        return redirect()->back();
     }
+
+    public function api_credentials(Request $request){
+        $settings = Settings::all()->first();
+        return view('settings.api.index')->with([
+            'settings' => $settings
+        ]);
+    }
+    public function update_usps_credentials(Request $request){
+       $user_name =  $request->input('usps_username');
+        $xml_data = '<RateV4Request USERID="'.$user_name.'">'.
+            '<Revision>2</Revision>'.
+            '<Package ID="1ST">'.
+            '<Service>'.RatePackage::SERVICE_FIRST_CLASS.'</Service>'.
+            '<FirstClassMailType>'.RatePackage::MAIL_TYPE_POSTCARD.'</FirstClassMailType>'.
+            '<ZipOrigination>10001</ZipOrigination>'.
+            '<ZipDestination>10007</ZipDestination>'.
+            '<Pounds>0</Pounds>'.
+            '<Ounces>0.12</Ounces>'.
+            '<Container>POSTCARDS</Container>'.
+            '<Size>regular</Size>'.
+            '<Machinable>false</Machinable>'.
+            '</Package>'.
+            '</RateV4Request>';
+
+        $url = "https://Secure.ShippingAPIs.com/ShippingAPI.dll";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_HEADER, 1);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        $data = "API=RateV4&XML=".$xml_data;
+        curl_setopt($ch, CURLOPT_POSTFIELDS,$data);
+        $result=curl_exec ($ch);
+
+        if (curl_errno($ch)){
+            return redirect()->back()->with('error','USPS Credentials cannot be verified. Try Later!');
+        }
+        else{
+            curl_close($ch);
+//            dd($result);
+            $data = strstr($result, '<?');
+            $xml = simplexml_load_string($data);
+            $json = json_encode($xml);
+            $array = json_decode($json,TRUE);
+            if(array_key_exists('Source',$array)){
+                 return redirect()->back()->with('error','Provided USPS credentials are not valid!');
+            }
+            else{
+              $settings = Settings::find($request->input('setting_id'));
+              if($settings != null){
+                  $settings->usps_username = $user_name;
+                  $settings->save();
+                  return redirect()->back()->with('success','USPS Credentials Updated!');
+
+              }
+              else{
+                  return redirect()->back()->with('error','Settings Not Found. Please Refresh the Page!');
+
+              }
+            }
+
+        }
+    }
+
+    public function app_messages(Request $request){
+        $settings = Settings::all()->first();
+        return view('settings.messages.index')->with([
+            'settings' => $settings
+        ]);
+    }
+
+    public function update_app_messages(Request $request){
+        $settings = Settings::find($request->input('setting_id'));
+        if($settings != null){
+            $settings->status_19_option_3 = $request->input('status_19_option_3');
+            $settings->status_19_option_2 = $request->input('status_19_option_2');
+            $settings->status_19_option_1 = $request->input('status_19_option_1');
+            $settings->status_15_option_3 = $request->input('status_15_option_3');
+            $settings->status_15_option_2 = $request->input('status_15_option_2');
+            $settings->status_15_option_1 = $request->input('status_15_option_1');
+            $settings->status_7_option_3 = $request->input('status_7_option_3');
+            $settings->status_7_option_2 = $request->input('status_7_option_2');
+            $settings->status_7_option_1 = $request->input('status_7_option_1');
+            $settings->save();
+            return redirect()->back()->with('success','App Messages Updated!');
+
+        }
+        else{
+            return redirect()->back()->with('error','Settings Not Found. Please Refresh the Page!');
+
+        }
+    }
+
 }

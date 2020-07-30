@@ -67,15 +67,15 @@
 <form action="{{route('response_from_user')}}" method="post" style="margin-top: 20px">
     <input type="hidden" name="order-id" value="{{$order->shopify_order_id}}">
     @if(in_array($order->status_id , [7]))
-        <label class="container">Return my mailing to me.
+        <label class="container">{{$settings->status_7_option_1}}
             <input required type="radio" name="response" value="9">
             <span class="checkmark"></span>
         </label>
-        <label class="container">Dispose of my mailing
+        <label class="container">{{$settings->status_7_option_2}}
             <input required type="radio" name="response" value="8">
             <span class="checkmark"></span>
         </label>
-        <label class="container"> Uncancel the order
+        <label class="container">{{$settings->status_7_option_3}}
             <input required type="radio" name="response" value="3">
             <span class="checkmark"></span>
         </label>
@@ -94,30 +94,30 @@
     @endif
 
     @if(in_array($order->status_id , [15]))
-        <label class="container">Pay additional cost to continue shipment - ${{number_format($order->additional_cost_to_ship,2)}}
+        <label class="container">{{$settings->status_15_option_1}} - ${{number_format($order->additional_cost_to_ship,2)}}
             <input required type="radio" name="response" value="16">
             <span class="checkmark"></span>
         </label>
-        <label class="container">Return item to me - ${{number_format($order->additional_cost_to_return,2)}}
+        <label class="container">{{$settings->status_15_option_2}} - ${{number_format($order->additional_cost_to_return,2)}}
             <input required type="radio" name="response" value="17">
             <span class="checkmark"></span>
         </label>
-        <label class="container">Dispose of item - $0.00
+        <label class="container">{{$settings->status_15_option_3}}
             <input required type="radio" name="response" value="18">
             <span class="checkmark"></span>
         </label>
     @endif
 
     @if(in_array($order->status_id , [19]))
-        <label class="container">Charge Extra and Re-attempt Delivery Process
+        <label class="container">{{$settings->status_19_option_1}}
             <input required type="radio" name="response" value="20">
             <span class="checkmark"></span>
         </label>
-        <label class="container">Charge Extra and Return my shipment
+        <label class="container">{{$settings->status_19_option_2}}
             <input required type="radio" name="response" value="21">
             <span class="checkmark"></span>
         </label>
-        <label class="container">Dispose my shipment
+        <label class="container">{{$settings->status_19_option_3}}
             <input required type="radio" name="response" value="22">
             <span class="checkmark"></span>
         </label>

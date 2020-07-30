@@ -433,4 +433,17 @@ $('body').on('change','#customer_status',function () {
 
 $('.delete_customer_class').click(function () {
     $(this).next().submit();
-})
+});
+
+$('.copy-credentials').click(function () {
+    var copyText = document.getElementById("google-address-api");
+
+    /* Select the text field */
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+    alertify.success('Google Api Credentials Copied to Clipboard');
+
+});
