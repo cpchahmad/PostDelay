@@ -29,7 +29,7 @@
                         <div class="row" style="margin: 10px 4px">
                             <div class="col-md-12">
                                 <label  for="status_description">Description</label>
-                                <textarea id="status_description" name="description" class="form-control" maxlength="225" rows="3" >{{$status->description}}</textarea>
+                                <textarea id="status_description" name="description" class="form-control" maxlength="1000" rows="3" >{{$status->description}}</textarea>
 {{--                                <input type="text" id="status_description" class="form-control" name="description" value="{{$status->description}}">--}}
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                         <div class="row" style="margin: 10px 4px">
                             <div class="col-md-12">
                                 <label for="status_message">Email Message</label>
-                                <textarea id="status_message" name="message" class="form-control" maxlength="225" rows="3" >{{$status->message}}</textarea>
+                                <textarea id="status_message" name="message" class="form-control" maxlength="1000" rows="3" >{{$status->message}}</textarea>
 {{--                                <input type="textarea" id="status_message" class="form-control" name="message" value="">--}}
                             </div>
                         </div>
