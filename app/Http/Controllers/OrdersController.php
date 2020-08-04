@@ -1392,7 +1392,12 @@ class OrdersController extends Controller
 
             }
             else{
-                return Redirect::to('https://postdelay.myshopify.com/account?view=additional-fee&&order-id=' . $order->shopify_order_id . '&&response=' . $response->response);
+                $order->status_id = 14;
+                $order->save();
+                $this->status_log($order);
+                return Redirect::to('https://postdelay.myshopify.com/account/orders/' . $order->token);
+
+//                return Redirect::to('https://postdelay.myshopify.com/account?view=additional-fee&&order-id=' . $order->shopify_order_id . '&&response=' . $response->response);
             }
 
             }
