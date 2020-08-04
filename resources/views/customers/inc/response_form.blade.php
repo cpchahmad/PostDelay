@@ -65,7 +65,7 @@
 </style>
 
 <form action="{{route('response_from_user')}}" method="post" style="margin-top: 20px">
-    <div class="status_wrapper">
+    <div class="status_wrapper" style="margin-bottom: 10px">
 
 
     </div>
