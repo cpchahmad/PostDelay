@@ -245,14 +245,18 @@
     font-family: Arial;
 ">
             <p>
-                Order : {{$order->order_name}}
+                Order {{$order->order_name}}
+
             </p>
-            <p>Hello <b>{{$customer->first_name}}</b>, @if(in_array($order->status_id,[3])) {{$order->has_status->message}} which is {{date_create($order->ship_out_date)->format('d M, Y')}} " @else  {{$order->has_status->message}}  @endif</p>
+            <p>Hello <b>Admin</b>. Customer tell us to disposed the order and wants its shipping cost refund.  </p>
+            <p>
+                Status: <span style="color:{{$order->has_status->color}} ">{{$order->has_status->name}}</span>
+            </p>
 
         </div>
 
         <div class="email_btn">
-            <a href="https://postdelay.myshopify.com/account/orders/{{$order->token}}" class="main_button">{{$order->has_status->button_text}}</a>
+            <a href="{{route('order_update',$order->id)}}" class="main_button">Manage Order</a>
         </div>
 
     </div>
@@ -266,7 +270,6 @@
         </div>
     </div>
 </div>
- @if(in_array($order->status_id , [6,9,16,17,20,21]))
 <div class="additiona_text" style="
     max-width: 767px;
     margin: auto;
@@ -348,6 +351,6 @@
         </tr>
     </table>
 </div>
-    @endif
+
 </body>
 </html>

@@ -160,6 +160,9 @@ Route::get('/xml', 'OrdersController@testUspsXML');
 
 Route::POST('/cancel/order/process', 'OrdersController@set_status_cancellation')->name('set_status_cancellation');
 Route::get('/seed','OrdersController@seedData');
+Route::get('/test/emails','OrdersController@test_emails');
+
+
 
 Route::get('/setting/api', 'SettingsController@api_credentials')->name('api_credentials.index');
 Route::POST('/setting/api/usps/update', 'SettingsController@update_usps_credentials')->name('api_credentials.usps.update');
