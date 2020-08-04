@@ -65,6 +65,10 @@
 </style>
 
 <form action="{{route('response_from_user')}}" method="post" style="margin-top: 20px">
+    <div class="status_wrapper">
+
+
+    </div>
     <input type="hidden" name="order-id" value="{{$order->shopify_order_id}}">
     @if(in_array($order->status_id , [7]))
         <label class="container">{{$settings->status_7_option_1}}
