@@ -388,18 +388,6 @@
                                 <select class="modify" required id="TypeSelect" name="post_type">
                                     @foreach($types as $type)
                                         <option data-weight="{{ $type->weight }}" data-commission="{{ $type->commision_type }}" data-commission-type="{{ $type->commision }}" value="{{$type->name}}">{{ucwords(strtolower($type->name))}}</option>
-
-                                        {{--                                        @if($recipient_address != null)--}}
-                                        {{--                                            @if($recipient_address->country != 'United States')--}}
-                                        {{--                                                @if($type->name != 'POSTCARD')--}}
-                                        {{--                                                    <option data-weight="{{ $type->weight }}" data-commission="{{ $type->commision_type }}" data-commission-type="{{ $type->commision }}" value="{{$type->name}}">{{ucwords(strtolower($type->name))}}</option>--}}
-                                        {{--                                                @endif--}}
-                                        {{--                                            @else--}}
-                                        {{--                                                <option data-weight="{{ $type->weight }}" data-commission="{{ $type->commision_type }}" data-commission-type="{{ $type->commision }}" value="{{$type->name}}">{{ucwords(strtolower($type->name))}}</option>--}}
-                                        {{--                                            @endif--}}
-                                        {{--                                        @else--}}
-                                        {{--                                            <option data-weight="{{ $type->weight }}" data-commission="{{ $type->commision_type }}" data-commission-type="{{ $type->commision }}" value="{{$type->name}}">{{ucwords(strtolower($type->name))}}</option>--}}
-                                        {{--                                        @endif--}}
                                     @endforeach
                                 </select>
                             </div>

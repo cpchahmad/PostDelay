@@ -9,6 +9,13 @@
     <input type="hidden" name="receipent_postecode" value="{{$sender['postcode']}}">
 
     <input type="hidden" name="post_type" value="{{$order->has_package_detail->type}}">
+
+    <select id="TypeSelect" style="display: none">
+        @foreach($types as $type)
+            <option @if($type->name === $order->has_package_detail->type) selected @endif data-weight="{{ $type->weight }}" data-commission="{{ $type->commision_type }}" data-commission-type="{{ $type->commision }}" value="{{$type->name}}">{{ucwords(strtolower($type->name))}}</option>
+        @endforeach
+    </select>
+
     <input type="hidden" name="postcard_size" value="{{$order->has_package_detail->postcard_size}}">
     <input type="hidden" name="special_holding" value="{{$order->has_package_detail->special_holding}}">
     <input type="hidden" name="shape" value="{{$order->has_package_detail->shape}}">
