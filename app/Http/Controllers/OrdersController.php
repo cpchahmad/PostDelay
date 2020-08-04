@@ -7,10 +7,20 @@ use App\BillingAddress;
 use App\Customer;
 use App\KeyDate;
 use App\Location;
+use App\Mail\AfterCancellationItemDisposed;
+use App\Mail\AfterCancellationReturnPaymentReceived;
+use App\Mail\CheckCostOrRefund;
+use App\Mail\DisposeOrderAfterPriceIncrease;
+use App\Mail\DisposeOrderAfterUndeliverable;
+use App\Mail\FullManualRefund;
 use App\Mail\MailingFormEmail;
 use App\Mail\NotificationEmail;
+use App\Mail\OrderMailOutLate;
 use App\Mail\RequestFormAdminEmail;
 use App\Mail\RequestFormEmail;
+use App\Mail\ReturnOrderAfterPriceIncrease;
+use App\Mail\ReturnOrderAfterUndeliverable;
+use App\Mail\SendManualInvoice;
 use App\Order;
 use App\OrderLog;
 use App\OrderResponse;
@@ -372,6 +382,28 @@ class OrdersController extends Controller
                         $assosiate_order->save();
                         $this->status_log($assosiate_order);
                         $customer = Customer::find($assosiate_order->customer_id);
+
+                        if(in_array($assosiate_order->status_id,[3,16,20])){
+                            $date = new DateTime($order->ship_out_date);
+                            $now = new DateTime();
+                            if($date < $now) {
+                                Mail::to('admin@postdelay.com')->send(new OrderMailOutLate($customer, $assosiate_order));
+                            }
+                        }
+
+                        if(in_array($assosiate_order->status_id,[9])){
+                            Mail::to('admin@postdelay.com')->send(new AfterCancellationReturnPaymentReceived($customer, $assosiate_order));
+                        }
+
+                        if(in_array($assosiate_order->status_id,[17])){
+                            Mail::to('admin@postdelay.com')->send(new ReturnOrderAfterPriceIncrease($customer, $assosiate_order));
+                        }
+
+                        if(in_array($assosiate_order->status_id,[21])){
+                            Mail::to('admin@postdelay.com')->send(new ReturnOrderAfterUndeliverable($customer, $assosiate_order));
+                        }
+
+
 //                        Mail::to($customer->email)->send(new NotificationEmail($customer, $assosiate_order));
                     } else {
                         $assosiate_order = Order::find($draft_order->order_id);
@@ -554,6 +586,52 @@ class OrdersController extends Controller
 
         $customer = Customer::find($order->customer_id);
         Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
+
+        /*Email to Admin*/
+        /*Order Mail Out Late Email to PostDelay*/
+        if(in_array($order->status_id,[3,16,20])){
+            $date = new DateTime($order->ship_out_date);
+            $now = new DateTime();
+            if($date < $now) {
+                Mail::to('admin@postdelay.com')->send(new OrderMailOutLate($customer, $order));
+            }
+        }
+
+        if(in_array($order->status_id,[8])){
+            Mail::to('admin@postdelay.com')->send(new AfterCancellationItemDisposed($customer, $order));
+        }
+
+        if(in_array($order->status_id,[9])){
+            Mail::to('admin@postdelay.com')->send(new AfterCancellationReturnPaymentReceived($customer, $order));
+        }
+
+        if(in_array($order->status_id,[17])){
+            Mail::to('admin@postdelay.com')->send(new ReturnOrderAfterPriceIncrease($customer, $order));
+        }
+
+        if(in_array($order->status_id,[18])){
+            Mail::to('admin@postdelay.com')->send(new DisposeOrderAfterPriceIncrease($customer, $order));
+        }
+
+        if(in_array($order->status_id,[21])){
+            Mail::to('admin@postdelay.com')->send(new ReturnOrderAfterUndeliverable($customer, $order));
+        }
+
+        if(in_array($order->status_id,[22])){
+            Mail::to('admin@postdelay.com')->send(new DisposeOrderAfterUndeliverable($customer, $order));
+        }
+
+        if(in_array($order->status_id,[6])){
+            Mail::to('admin@postdelay.com')->send(new FullManualRefund($customer, $order));
+        }
+
+        if(in_array($order->status_id,[14])){
+            Mail::to('admin@postdelay.com')->send(new CheckCostOrRefund($customer, $order));
+        }
+
+        if(in_array($order->status_id,[10])){
+            Mail::to('admin@postdelay.com')->send(new SendManualInvoice($customer, $order));
+        }
 
         return response()->json([
             'status' => 'changed'
@@ -1388,6 +1466,9 @@ class OrdersController extends Controller
                 $this->status_log($order);
                 $customer = Customer::find($order->customer_id);
                 Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
+                if(in_array($order->status_id,[8])){
+                    Mail::to('admin@postdelay.com')->send(new AfterCancellationItemDisposed($customer, $order));
+                }
                 return Redirect::to('https://postdelay.myshopify.com/account/orders/' . $order->token);
 
             }
@@ -1395,13 +1476,17 @@ class OrdersController extends Controller
                 $order->status_id = 14;
                 $order->save();
                 $this->status_log($order);
+                $customer = Customer::find($order->customer_id);
+
+                if(in_array($order->status_id,[14])){
+                    Mail::to('admin@postdelay.com')->send(new CheckCostOrRefund($customer, $order));
+                }
+
                 return Redirect::to('https://postdelay.myshopify.com/account/orders/' . $order->token);
 
 //                return Redirect::to('https://postdelay.myshopify.com/account?view=additional-fee&&order-id=' . $order->shopify_order_id . '&&response=' . $response->response);
             }
-
             }
-
         else {
             $order->status_id = $request->input('response');
             $order->save();
@@ -1410,6 +1495,23 @@ class OrdersController extends Controller
             if($order->status_id != '3'){
                 Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
             }
+            else{
+                if(in_array($order->status_id,[3,16,20])){
+                    $date = new DateTime($order->ship_out_date);
+                    $now = new DateTime();
+                    if($date < $now) {
+                        Mail::to('admin@postdelay.com')->send(new OrderMailOutLate($customer, $order));
+                    }
+                }
+            }
+
+            if(in_array($order->status_id,[18])){
+                Mail::to('admin@postdelay.com')->send(new DisposeOrderAfterPriceIncrease($customer, $order));
+            }
+            if(in_array($order->status_id,[22])){
+                Mail::to('admin@postdelay.com')->send(new DisposeOrderAfterUndeliverable($customer, $order));
+            }
+
             $res = OrderResponse::where('order_id', $order->id)
                 ->where('response', $request->input('response'))->where('fulfill', 0)->first();
             $res->fulfill = 1;
@@ -2001,6 +2103,7 @@ class OrdersController extends Controller
         $order->save();
         $this->status_log($order);
         $customer = Customer::find($order->customer_id);
+        Mail::to('admin@postdelay.com')->send(new FullManualRefund($customer, $order));
         Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
         return $customer;
     }
@@ -2108,8 +2211,22 @@ class OrdersController extends Controller
         $settings->status_19_option_1 = 'Charge Extra and Re-attempt Delivery Process';
         $settings->status_19_option_2 = 'Charge Extra and Return my shipment';
         $settings->status_19_option_3 = 'Dispose my shipment';
+
+        $settings->verify_shipping_cost_threshold = '7';
+        $settings->wait_for_response_for_status_7 = '7';
+        $settings->wait_for_response_for_status_15 = '7';
+        $settings->wait_for_response_for_status_19 = '7';
+        $settings->wait_for_response_for_status_10 = '7';
+
+
         $settings->save();
 
+    }
+
+    public function test_emails(){
+        $order = Order::find(141);
+        $customer = Customer::find($order->customer_id);
+        Mail::to($customer->email)->send(new AfterCancellationReturnPaymentReceived($customer, $order));
     }
 
 }

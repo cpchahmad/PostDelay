@@ -49,4 +49,7 @@ class Order extends Model
     public function has_logs(){
         return $this->hasMany('App\OrderLog','order_id');
     }
+    public function has_status_history(){
+        return $this->hasMany(OrderStatusHistory::class,'order_id');
+    }
 }

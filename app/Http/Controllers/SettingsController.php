@@ -63,6 +63,21 @@ class SettingsController extends Controller
             if($request->has('max_days_storage_for_packages')){
                 $settings->max_days_storage_for_packages = $request->input('max_days_storage_for_packages');
             }
+            if($request->has('verify_shipping_cost_threshold')){
+                $settings->verify_shipping_cost_threshold = $request->input('verify_shipping_cost_threshold');
+            }
+            if($request->has('wait_for_response_for_status_7')){
+                $settings->wait_for_response_for_status_7 = $request->input('wait_for_response_for_status_7');
+            }
+            if($request->has('wait_for_response_for_status_15')){
+                $settings->wait_for_response_for_status_15 = $request->input('wait_for_response_for_status_15');
+            }
+            if($request->has('wait_for_response_for_status_19')){
+                $settings->wait_for_response_for_status_19 = $request->input('wait_for_response_for_status_19');
+            }
+            if($request->has('wait_for_response_for_status_10')){
+                $settings->wait_for_response_for_status_10 = $request->input('wait_for_response_for_status_10');
+            }
             $settings->save();
             return redirect()->back();
         }

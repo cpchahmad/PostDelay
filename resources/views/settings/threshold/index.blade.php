@@ -81,6 +81,51 @@
                                     <td><input type="submit" class="btn btn-success btn-sm" value="Save"></td>
                                 </form>
                             </tr>
+                            <tr>
+                                <form action="{{route('threshold.update')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{$settings->id}}">
+                                    <td>Verify Shipping Cost Before YYY Days</td>
+                                    <td><input required type="number" class="form-control" name="verify_shipping_cost_threshold" value="{{$settings->verify_shipping_cost_threshold}}"></td>
+                                    <td><input type="submit" class="btn btn-success btn-sm" value="Save"></td>
+                                </form>
+                            </tr>
+                            <tr>
+                                <form action="{{route('threshold.update')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{$settings->id}}">
+                                    <td>Wait NNN Days to set NO INSTRUCTIONS AFTER CANCELLATION</td>
+                                    <td><input required type="number" class="form-control" name="wait_for_response_for_status_7" value="{{$settings->wait_for_response_for_status_7}}"></td>
+                                    <td><input type="submit" class="btn btn-success btn-sm" value="Save"></td>
+                                </form>
+                            </tr>
+                            <tr>
+                                <form action="{{route('threshold.update')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{$settings->id}}">
+                                    <td>Wait NNN Days to set NO INSTRUCTIONS AFTER PRICE CHANGE</td>
+                                    <td><input required type="number" class="form-control" name="wait_for_response_for_status_15" value="{{$settings->wait_for_response_for_status_15}}"></td>
+                                    <td><input type="submit" class="btn btn-success btn-sm" value="Save"></td>
+                                </form>
+                            </tr>
+                            <tr>
+                                <form action="{{route('threshold.update')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{$settings->id}}">
+                                    <td>Wait NNN Days to set NO INSTRUCTIONS AFTER UNDELIVERABLE</td>
+                                    <td><input required type="number" class="form-control" name="wait_for_response_for_status_19" value="{{$settings->wait_for_response_for_status_19}}"></td>
+                                    <td><input type="submit" class="btn btn-success btn-sm" value="Save"></td>
+                                </form>
+                            </tr>
+                            <tr>
+                                <form action="{{route('threshold.update')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{$settings->id}}">
+                                    <td>Wait NNN Days to set DID NOT MAKE PAYMENT TO RETURN ITEM AFTER CANCELLATION</td>
+                                    <td><input required type="number" class="form-control" name="wait_for_response_for_status_10" value="{{$settings->wait_for_response_for_status_10}}"></td>
+                                    <td><input type="submit" class="btn btn-success btn-sm" value="Save"></td>
+                                </form>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
