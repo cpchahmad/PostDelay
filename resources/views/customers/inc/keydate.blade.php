@@ -71,7 +71,7 @@
     </div>
 </div>
 
-@if(strtotime(now()) < strtotime(Carbon\Carbon::parse($order->created_at)->addDays($settings->min_threshold_in_cancellation)))
+@if(strtotime(now()) < strtotime(Carbon\Carbon::parse($order->ship_out_date)->subDays($settings->min_threshold_in_cancellation)))
     <div id="cancellation" data-show="0"></div>
 @else
     @if(in_array($order->status_id,[6,7,8,9,10,11,12,13,14]))
