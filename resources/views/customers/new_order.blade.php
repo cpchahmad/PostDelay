@@ -241,7 +241,7 @@
                                     <p class="invoice-text " >PostDelay Cost</p>
                                 </div>
                                 <div class="order-invoice-price">
-                                    <input type="hidden" class="caclulated_amount" name="new_postdelay_fee" value="{{ number_format($fee->price,2) }}">
+                                    <input type="hidden" class="caclulated_amount" data-price="{{$fee->price}}" name="new_postdelay_fee" value="{{ number_format($fee->price,2) }}">
                                     <p class="invoice-Money ">${{ number_format($fee->price,2) }}</p>
                                 </div>
                             </div>

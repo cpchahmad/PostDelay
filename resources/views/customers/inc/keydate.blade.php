@@ -76,3 +76,4 @@
 @else
     <div id="cancellation" data-show="0"></div>
 @endif
+
