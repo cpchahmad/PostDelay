@@ -570,6 +570,7 @@ class OrdersController extends Controller
 
     public function update_order_status(Request $request)
     {
+        $order_old_status = Order::find($request->input('order'));
         Order::find($request->input('order'))->update([
             'status_id' => $request->input('status')
         ]);
@@ -584,8 +585,17 @@ class OrdersController extends Controller
             $order->save();
         }
 
-        $customer = Customer::find($order->customer_id);
-        Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
+        if($order->status_id == 9){
+            if($order_old_status->status_id == 10){
+                $customer = Customer::find($order->customer_id);
+                Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
+            }
+        }
+        else{
+            $customer = Customer::find($order->customer_id);
+            Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
+        }
+
 
         /*Email to Admin*/
         /*Order Mail Out Late Email to PostDelay*/
@@ -1010,7 +1020,7 @@ class OrdersController extends Controller
                         "draft_order" => [
                             'line_items' => [
                                 [
-                                   "variant_id" => $product_id,
+                                    "variant_id" => $product_id,
                                     "quantity" => 1,
                                 ]
                             ],
@@ -1486,7 +1496,7 @@ class OrdersController extends Controller
 
 //                return Redirect::to('https://postdelay.myshopify.com/account?view=additional-fee&&order-id=' . $order->shopify_order_id . '&&response=' . $response->response);
             }
-            }
+        }
         else {
             $order->status_id = $request->input('response');
             $order->save();
