@@ -633,7 +633,7 @@ class OrdersController extends Controller
         }
 
         if(in_array($order->status_id,[6])){
-            Mail::to('djtauros789@gmail.com')->send(new FullManualRefund($customer, $order));
+            Mail::to('admin@postdelay.com')->send(new FullManualRefund($customer, $order));
         }
 
         if(in_array($order->status_id,[14])){
