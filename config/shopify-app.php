@@ -282,34 +282,39 @@ return [
     */
 
     'webhooks' => [
-            [
-                'topic' => 'customers/create',
-                'address' => 'https://postdelay.shopifyapplications.com/webhook/customers-create'
-            ],
-            [
-                'topic' => 'customers/disable',
-                'address' => 'https://postdelay.shopifyapplications.com/webhook/customer-disable'
-            ],
-            [
-                'topic' => 'customers/enable',
-                'address' => 'https://postdelay.shopifyapplications.com/webhook/customer-enable'
-            ],
-            [
-                'topic' => 'customers/update',
-                'address' => 'https://postdelay.shopifyapplications.com/webhook/customer-update'
-            ],
-            [
-                'topic' => 'customers/delete',
-                'address' => 'https://postdelay.shopifyapplications.com/webhook/customer-delete'
-            ],
-            [
-                'topic' => 'orders/create',
-                'address' => 'https://postdelay.shopifyapplications.com/webhook/orders-create'
-            ],
-            [
-                'topic' => 'orders/update',
-                'address' => 'https://postdelay.shopifyapplications.com/webhook/orders-update'
-            ]
+        [
+            'topic' => 'customers/create',
+            'address' => 'https://postdelay.shopifyapplications.com/webhook/customers-create'
+        ],
+        [
+            'topic' => 'customers/disable',
+            'address' => 'https://postdelay.shopifyapplications.com/webhook/customer-disable'
+        ],
+        [
+            'topic' => 'customers/enable',
+            'address' => 'https://postdelay.shopifyapplications.com/webhook/customer-enable'
+        ],
+        [
+            'topic' => 'customers/update',
+            'address' => 'https://postdelay.shopifyapplications.com/webhook/customer-update'
+        ],
+        [
+            'topic' => 'customers/delete',
+            'address' => 'https://postdelay.shopifyapplications.com/webhook/customer-delete'
+        ],
+        [
+            'topic' => 'orders/create',
+            'address' => 'https://postdelay.shopifyapplications.com/webhook/orders-create'
+        ],
+        [
+            'topic' => 'orders/update',
+            'address' => 'https://postdelay.shopifyapplications.com/webhook/orders-update'
+        ],
+        [
+            'topic' => 'draft_orders/update',
+            'address' => 'https://postdelay.shopifyapplications.com/webhook/draft-orders-update'
+        ]
+
     ],
 
 //    'webhooks' => [
