@@ -12,6 +12,7 @@ use App\Mail\AfterCancellationReturnPaymentReceived;
 use App\Mail\CheckCostOrRefund;
 use App\Mail\DisposeOrderAfterPriceIncrease;
 use App\Mail\DisposeOrderAfterUndeliverable;
+use App\Mail\DraftOrderComplete;
 use App\Mail\FullManualRefund;
 use App\Mail\MailingFormEmail;
 use App\Mail\NotificationEmail;
@@ -2235,9 +2236,19 @@ class OrdersController extends Controller
     }
 
     public function test_emails(){
-        $order = Order::find(141);
-        $customer = Customer::find($order->customer_id);
-        Mail::to($customer->email)->send(new AfterCancellationReturnPaymentReceived($customer, $order));
+//        $order = Order::find(141);
+//        $customer = Customer::find($order->customer_id);
+//
+//
+//        Mail::to($customer->email)->send(new AfterCancellationReturnPaymentReceived($customer, $order));
+
+//        $response  = $this->helper->getShopify()->call([
+//            'METHOD' => 'GET',
+//            'URL' => '/admin/draft_orders/596690501713.json',
+//        ]);
+//        Mail::to('djtauros789@gmail.com')->send(new DraftOrderComplete($response->draft_order));
+
+
     }
 
 }
