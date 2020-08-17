@@ -633,7 +633,7 @@ class OrdersController extends Controller
         }
 
         if(in_array($order->status_id,[6])){
-            Mail::to('admin@postdelay.com')->send(new FullManualRefund($customer, $order));
+            Mail::to('djtauros789@gmail.com')->send(new FullManualRefund($customer, $order));
         }
 
         if(in_array($order->status_id,[14])){
@@ -2181,7 +2181,7 @@ class OrdersController extends Controller
         Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
         return response()->json([
             'status' => 'success',
-            'message' => 'Your order has been cancelled. Check the ‘Attention Needed for Further Processing’ section in order details',
+            'message' => 'Your order will be cancelled. Check the ‘Attention Needed for Further Processing’ section in order details',
             'response' => 7
         ]);
     }
