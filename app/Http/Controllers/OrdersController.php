@@ -2181,7 +2181,7 @@ class OrdersController extends Controller
         Mail::to($customer->email)->send(new NotificationEmail($customer, $order));
         return response()->json([
             'status' => 'success',
-            'message' => 'Your order has been cancelled. Check the ‘Attention Needed for Further Processing’ section in order details',
+            'message' => 'Your order will be cancelled. Check the ‘Attention Needed for Further Processing’ section in order details',
             'response' => 7
         ]);
     }
