@@ -37,6 +37,8 @@
             <input disabled type="text"  name="account[first_name]" id="FirstName" @if($order->has_key_dates != null) @if($order->has_key_dates->received_post_date != null) value="{{\Carbon\Carbon::parse($order->has_key_dates->received_post_date)->format('F j ,Y')}}" @endif @else value="" @endif placeholder="">
         </div>
     </div>
+   <p> Current Time: {{strtotime(now())}} </p>
+    <p> Threshold Time: {{strtotime(\Carbon\Carbon::parse($order->ship_out_date)->subDays($settings->min_threshold_for_modify_ship_out_date))}} </p>
     @if(strtotime(now()) < strtotime(\Carbon\Carbon::parse($order->ship_out_date)->subDays($settings->min_threshold_for_modify_ship_out_date)))
         <div class="custom_fields_half">
             <div class="custom_Request_fields_half ">
