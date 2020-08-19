@@ -2094,22 +2094,22 @@ class OrdersController extends Controller
      */
     public function cancel_and_refund($order)
     {
-        if($order->payment_gateway != "Cash on Delivery (COD)"){
-            $cancelledd_refund = $this->helper->getShopify()->call([
-                'METHOD' => 'POST',
-                'URL' => '/admin/api/2019-10/orders/' . $order->shopify_order_id . '/cancel.json',
-                'DATA' => [
-                    "amount" => $order->order_total,
-                    "currency" => 'USD'
-                ]
-            ]);
-        }
-        else{
-            $cancelledd_refund = $this->helper->getShopify()->call([
-                'METHOD' => 'POST',
-                'URL' => '/admin/api/2019-10/orders/' . $order->shopify_order_id . '/cancel.json',
-            ]);
-        }
+//        if($order->payment_gateway != "Cash on Delivery (COD)"){
+//            $cancelledd_refund = $this->helper->getShopify()->call([
+//                'METHOD' => 'POST',
+//                'URL' => '/admin/api/2019-10/orders/' . $order->shopify_order_id . '/cancel.json',
+//                'DATA' => [
+//                    "amount" => $order->order_total,
+//                    "currency" => 'USD'
+//                ]
+//            ]);
+//        }
+//        else{
+//            $cancelledd_refund = $this->helper->getShopify()->call([
+//                'METHOD' => 'POST',
+//                'URL' => '/admin/api/2019-10/orders/' . $order->shopify_order_id . '/cancel.json',
+//            ]);
+//        }
 
         $order->status_id = 6;
         $order->save();
