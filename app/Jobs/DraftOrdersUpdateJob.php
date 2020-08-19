@@ -48,7 +48,7 @@ class DraftOrdersUpdateJob implements ShouldQueue
     public function handle()
     {
        if($this->data->status == 'completed'){
-           Mail::to('djtauros789@gmail.com')->send(new DraftOrderComplete($this->data));
+           Mail::to('admin@postdelay.com')->send(new DraftOrderComplete($this->data));
        }
     }
 }
