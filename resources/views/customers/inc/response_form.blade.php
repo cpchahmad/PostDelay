@@ -131,7 +131,7 @@
 
 @else
     <form style="margin-top: 20px">
-        <div class="status_wrapper" style="margin-bottom: 10px">
+        <div class="status_wrapper" style="margin-bottom: 10px;display: block !important;">
             @if($order->status_id == '9')
                 Your order has been cancelled. Within one business day, we will calculate the cost to return your mailing. If the amount to return the item to you is less than you originally paid, the difference in cost will be refunded to your original method of payment. If the amount to return the item to you is more than you originally paid, you will receive a link to pay for the difference in cost.
             @endif
