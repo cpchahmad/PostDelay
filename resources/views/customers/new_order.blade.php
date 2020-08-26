@@ -384,7 +384,7 @@
                         <div class="custom_fields_half">
                             <div class="custom_Request_fields_half  ">
                                 <label for="TypeSelect">Type <i class="tooltip far fa-question-circle"> <span style="width: 320px;padding: 10px" class="tooltiptext">
-                                            <a target="_blank" style="color: white" href="{{asset('image1.jpg')}}"> Click to understand shipment types. </a> </span></i> </label>
+                                            <span class="link-to-open" style="color: white;border-bottom: 1px solid black" data-href="{{asset('image1.jpg')}}"> Click to understand shipment types. </span> </span></i> </label>
                                 <select class="modify" required id="TypeSelect" name="post_type">
                                     @foreach($types as $type)
                                         <option data-weight="{{ $type->weight }}" data-commission="{{ $type->commision_type }}" data-commission-type="{{ $type->commision }}" value="{{$type->name}}">{{ucwords(strtolower($type->name))}}</option>
@@ -412,7 +412,7 @@
                         <div class="custom_fields_half" id="special_handling">
                             <div class="custom_Request_fields_half">
                                 <label for="Special-Holding">Special Handling <i class="tooltip far fa-question-circle"> <span style="width: 320px;padding: 10px" class="tooltiptext">
-                                            <a target="_blank" style="color: white" href="https://postdelay.myshopify.com/pages/when-is-special-handling-required"> Click here to understand when special handling is required. </a> </span></i>
+                                            <span class="link-to-open" style="color: white;border-bottom: 1px solid black" data-href="https://postdelay.myshopify.com/pages/when-is-special-handling-required"> Click here to understand when special handling is required. </span> </span></i>
                                 </label>
                                 <select class="modify" id="Special-Holding" name="special_holding" >
                                     <option value="yes">Yes</option>
@@ -426,7 +426,7 @@
                             <div class="custom_Request_fields_half  ">
                                 <label for="Shape">Shape
                                     <i class="tooltip far fa-question-circle"> <span style="width: 320px;padding: 10px" class="tooltiptext">
-                                            <a target="_blank" style="color: white" href="{{asset('image2.jpg')}}"> Click to understand measurements for large packages. </a> </span></i>
+                                            <span class="link-to-open" style="color: white;border-bottom: 1px solid black" data-href="{{asset('image2.jpg')}}"> Click to understand measurements for large packages. </span> </span></i>
                                 </label>
                                 <select class="modify" name="shape" >
                                     @foreach($shapes as $shape)
@@ -512,7 +512,7 @@
                                 <label for="Shape">Send to your recipient on
                                     <i class="tooltip far fa-question-circle">
                                         <span style="width: 320px;padding: 10px" class="tooltiptext">This is the date that PostDelay will send the item to your recipient; it is not the day that the item will be received by the recipient. Choose a date far enough in advance that you item can be received and processed by PostDelay before the mail-out date. The minimum time between placing an order and the mail-out date is {{$settings->min_threshold_ship_out_date}} days.
-                                             <a target="_blank" style="color: white" href="https://postdelay.myshopify.com/pages/how-do-i-select-a-ship-out-date"> Click to understand U.S. Postal Service shipping times.</a></span></i></label>
+                                             <span class="link-to-open" style="color: white;border-bottom: 1px solid black" data-href="https://postdelay.myshopify.com/pages/how-do-i-select-a-ship-out-date"> Click to understand U.S. Postal Service shipping times.</span></span></i></label>
                                 <input class="modify" type="date" required="" name="ship_out_date" data-letters="{{(int)$settings->max_days_storage_for_letters_postcards}}"  data-packages="{{(int)$settings->max_days_storage_for_packages}}" value="" placeholder="" min="{{now()->addDays((int)$settings->min_threshold_ship_out_date)->format('Y-m-d')}}" max="{{now()->addDays((int)$settings->max_days_storage_for_letters_postcards)->format('Y-m-d')}}">
                             </div>
                         </div>
