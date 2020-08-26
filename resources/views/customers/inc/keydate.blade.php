@@ -37,8 +37,8 @@
             <input disabled type="text"  name="account[first_name]" id="FirstName" @if($order->has_key_dates != null) @if($order->has_key_dates->received_post_date != null) value="{{\Carbon\Carbon::parse($order->has_key_dates->received_post_date)->format('F j ,Y')}}" @endif @else value="" @endif placeholder="">
         </div>
     </div>
-{{--   <p> Current Time: {{strtotime(now())}} </p>--}}
-{{--    <p> Threshold Time: {{strtotime(\Carbon\Carbon::parse($order->ship_out_date)->subDays($settings->min_threshold_for_modify_ship_out_date))}} </p>--}}
+    {{--   <p> Current Time: {{strtotime(now())}} </p>--}}
+    {{--    <p> Threshold Time: {{strtotime(\Carbon\Carbon::parse($order->ship_out_date)->subDays($settings->min_threshold_for_modify_ship_out_date))}} </p>--}}
     @if(strtotime(now()) <= strtotime(\Carbon\Carbon::parse($order->ship_out_date)->subDays($settings->min_threshold_for_modify_ship_out_date)))
         <form style="margin-top: 10px;margin-bottom: 10px" id="modify_ship_out_date_form" action="" method="get">
             <input type="hidden" name="order_id" value="{{$order->id}}">
@@ -76,7 +76,11 @@
 </div>
 
 @if(strtotime(now()) < strtotime(Carbon\Carbon::parse($order->ship_out_date)->subDays($settings->min_threshold_in_cancellation)))
-    <div id="cancellation" data-show="1"></div>
+    @if(in_array($order->status_id,[6,7,8,9,10,11,12,13,14]))
+        <div id="cancellation" data-show="0"></div>
+    @else
+        <div id="cancellation" data-show="1"></div>
+    @endif
 @else
     <div id="cancellation" data-show="0"></div>
 @endif

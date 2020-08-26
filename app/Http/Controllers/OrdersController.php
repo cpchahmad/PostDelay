@@ -550,7 +550,11 @@ class OrdersController extends Controller
                 if (in_array($order->status_id, [7, 10, 15, 19])) {
                     $response_form_status = 'yes';
                     $response_form = view('customers.inc.response_form', ['order' => $order,'settings'=>$settings])->render();
-                } else {
+                } elseif(in_array($order->status_id, [8, 9])) {
+                    $response_form_status = 'yes';
+                    $response_form = view('customers.inc.response_form', ['order' => $order,'settings'=>$settings])->render();
+                }
+                else{
                     $response_form_status = 'no';
                     $response_form = null;
                 }

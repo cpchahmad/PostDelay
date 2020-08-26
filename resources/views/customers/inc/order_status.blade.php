@@ -2,17 +2,17 @@
 @if(in_array($order->status_id,[10]))
         <i class="tooltip far fa-question-circle">
             <span style="width: 320px;padding: 10px" class="tooltiptext">
-                <a target="_blank" style="color: white" href="https://postdelay.myshopify.com/pages/cancellation-policy"> Click here to understand your options.</a>
+                <span class="link-to-open"  style="color: white;border-bottom: 1px solid black" data-href="https://postdelay.myshopify.com/pages/cancellation-policy"> Click here to understand your options.</span>
             </span></i>
     @elseif(in_array($order->status_id,[15]))
         <i class="tooltip far fa-question-circle">
             <span style="width: 320px;padding: 10px" class="tooltiptext">
-                <a target="_blank" style="color: white" href="https://postdelay.myshopify.com/pages/what-happens-if-the-price-of-my-mailing-has-changed"> Click here to understand your options.</a>
+                <span class="link-to-open"  style="color: white;border-bottom: 1px solid black" data-href="https://postdelay.myshopify.com/pages/what-happens-if-the-price-of-my-mailing-has-changed"> Click here to understand your options.</span>
             </span></i>
     @elseif(in_array($order->status_id,[19]))
         <i class="tooltip far fa-question-circle">
             <span style="width: 320px;padding: 10px" class="tooltiptext">
-                <a target="_blank" style="color: white" href="https://postdelay.myshopify.com/pages/what-happens-if-my-mailing-is-undeliverable"> Click here to understand your options.</a>
+                <span class="link-to-open" style="color: white;border-bottom: 1px solid black" data-="https://postdelay.myshopify.com/pages/what-happens-if-my-mailing-is-undeliverable"> Click here to understand your options.</>
             </span></i>
     @endif
 </h1>
