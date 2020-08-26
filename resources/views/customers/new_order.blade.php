@@ -231,7 +231,7 @@
                                     <p class="invoice-text ">Shipment Cost</p>
                                 </div>
                                 <div class="order-invoice-price">
-                                    <input type="hidden" name="new_shipping_price" class="caclulated_amount">
+                                    <input type="hidden" name="new_shipping_price" class="">
                                     <p class="invoice-Money dropdown-rates">Select from Dropdown</p>
                                 </div>
                             </div>
@@ -242,7 +242,7 @@
                                 </div>
                                 <div class="order-invoice-price">
                                     <input type="hidden" class="caclulated_amount" data-price="{{$fee->price}}" name="new_postdelay_fee" value="{{ number_format($fee->price,2) }}">
-                                    <p class="invoice-Money ">${{ number_format($fee->price,2) }}</p>
+                                    <p class="invoice-Money ">Calculated when you select shippping method</p>
                                 </div>
                             </div>
 
