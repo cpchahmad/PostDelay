@@ -231,7 +231,7 @@
                                     <p class="invoice-text ">Shipment Cost</p>
                                 </div>
                                 <div class="order-invoice-price">
-                                    <input type="hidden" name="new_shipping_price" class="">
+                                    <input type="hidden" name="new_shipping_price" class="caclulated_amount">
                                     <p class="invoice-Money dropdown-rates">Select from Dropdown</p>
                                 </div>
                             </div>

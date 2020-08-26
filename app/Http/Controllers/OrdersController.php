@@ -86,6 +86,29 @@ class OrdersController extends Controller
 //        dd($request);
         $line_items = [];
         $default = PostDelayFee::where('default', 1)->where('type', 'primary')->first();
+        $new_price = 0;
+        $post_type = PostType::where('name',$request->input('post_type'))->first();
+        if($post_type != null){
+            $new_price = $default->price;
+            if($post_type->commision_type == 'fixed'){
+                $new_price = $new_price + $post_type->commision;
+            }
+            else{
+                $new_price = $new_price + ($request->input('new_shipping_price') * $post_type->commision / 100);
+            }
+
+           $this->helper->getShopify()->call([
+                'METHOD' => 'PUT',
+                'URL' => '/admin/api/2019-10/variants/'.$request->input('product_id').'.json',
+                'DATA' => [
+                    "variant" => [
+                        "price" =>$new_price,
+                    ],
+                ]
+            ]);
+
+        }
+
         $weight = $request->input('weight');
 
 //        array_push($line_items, [
