@@ -97,7 +97,7 @@ class OrdersController extends Controller
             }
 
            $this->helper->getShopify()->call([
-                'METHOD' => 'POST',
+                'METHOD' => 'PUT',
                 'URL' => '/admin/api/2019-10/variants/'.$request->input('product_id').'.json',
                 'DATA' => [
                     "variant" => [
