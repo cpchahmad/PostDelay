@@ -89,6 +89,7 @@ class OrdersController extends Controller
         $new_price = 0;
         $post_type = PostType::where('name',$request->input('post_type'))->first();
         if($post_type != null){
+            $new_price = $default->price;
             if($post_type->commision_type == 'fixed'){
                 $new_price = $new_price + $post_type->commision;
             }
