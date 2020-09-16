@@ -39,7 +39,7 @@
                             </tr>
                             <tr>
                                 <td>Google Address AutoComplete Credentials</td>
-                                <td><input readonly id="google-address-api"  type="text" class="form-control" value="AIzaSyBud0hPyQoyiMqQZWdO8EA9fyGMWdlKENc"></td>
+                                <td><input readonly id="google-address-api"  type="text" class="form-control" value="{{ $settings->google_api }}"></td>
                                 <td><button class="btn btn-sm btn-primary copy-credentials">Copy</button></td>
                             </tr>
 
